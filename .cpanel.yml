@@ -1,0 +1,9 @@
+---
+deployment:
+  tasks:
+    - export PATH=/home/vandalis/nodevenv/repositories/vandalist/18/bin:$PATH
+    - export DEPLOYPATH=/home/vandalis/repositories/vandalist/
+    - cd $DEPLOYPATH
+    - npm install
+    - npm run build
+    - /bin/cp -R dist/* /home/vandalis/public_html/

@@ -12,10 +12,21 @@ const icons: Record<Props["icon"], string> = {
   wrench: '<path d="M14.7 6.3a4 4 0 0 0-5.6 5.6l-6.4 6.4a2 2 0 0 0 2.8 2.8l6.4-6.4a4 4 0 0 0 5.6-5.6l-2.8 2.8-2-2z"/>',
   unlock: '<rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/>',
 };
+
+// Each icon gets its own distinct vivid gradient, not one repeated color -
+// matches the varied colorful badge treatment from the reference mockup.
+const gradients: Record<Props["icon"], string> = {
+  message: "linear-gradient(135deg, #e8467c 0%, #f2946e 100%)",
+  layout: "linear-gradient(135deg, #6a5ce8 0%, #46a3e8 100%)",
+  megaphone: "linear-gradient(135deg, #2fb8a6 0%, #46e89a 100%)",
+  settings: "linear-gradient(135deg, #e84690 0%, #8a46e8 100%)",
+  wrench: "linear-gradient(135deg, #e8a746 0%, #e8467c 100%)",
+  unlock: "linear-gradient(135deg, #46c2e8 0%, #6a5ce8 100%)",
+};
 ---
 <span
   class="inline-flex items-center justify-center w-12 h-12 rounded-2xl text-white shrink-0"
-  style="background: linear-gradient(135deg, var(--color-ink) 0%, var(--color-accent) 130%);"
+  style={`background: ${gradients[icon]};`}
 >
   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={icons[icon]} />
 </span>

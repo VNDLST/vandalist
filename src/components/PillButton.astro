@@ -6,9 +6,9 @@ interface Props {
 }
 const { href, variant = "primary", class: className = "" } = Astro.props;
 
-const base = "inline-flex items-center justify-center rounded-[var(--radius-pill)] px-6 py-3 text-sm font-medium transition-colors";
+const base = "inline-flex items-center justify-center rounded-[var(--radius-pill)] px-7 py-3.5 text-sm font-semibold transition-colors";
 const styles = variant === "primary"
-  ? "bg-[var(--color-ink)] text-[var(--color-paper)] hover:bg-[var(--color-accent)]"
+  ? "bg-[var(--color-accent)] text-white hover:bg-[var(--color-ink)]"
   : "border border-[var(--color-line)] text-[var(--color-ink)] hover:border-[var(--color-ink)]";
 ---
 <a href={href} class={`${base} ${styles} ${className}`}>

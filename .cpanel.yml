@@ -6,4 +6,5 @@ deployment:
     - cd $DEPLOYPATH
     - npm install
     - npm run build
-    - /bin/cp -R dist/* /home/vandalis/public_html/
+    - /bin/mkdir -p /home/vandalis/public_html/vandalist-2.0
+    - /bin/cp -R dist/* /home/vandalis/public_html/vandalist-2.0/

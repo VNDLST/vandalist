@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+@theme {
+  /* Base palette — charcoal/off-white/grey do the heavy lifting */
+  --color-ink: #1c1b1a;          /* charcoal — primary text, primary buttons */
+  --color-paper: #faf9f7;        /* off-white — page background */
+  --color-paper-dim: #f2f0ed;    /* slightly deeper off-white — section alternation */
+  --color-line: #e4e1dc;         /* hairline borders, dividers */
+  --color-slate: #6b6862;        /* muted grey — secondary text */
+  --color-slate-light: #9a968e;  /* tertiary text, captions */
+
+  /* Accent — used sparingly, per brand rule */
+  --color-accent: #e8467c;       /* Vandalist pink */
+  --color-accent-soft: #fbe9ef;  /* pink tint, for badge backgrounds only */
+
+  /* Signal colours for compare/check patterns, kept muted not saturated */
+  --color-good: #2f6b4f;
+  --color-good-soft: #e7f0ea;
+  --color-bad: #8a5a52;
+  --color-bad-soft: #f3e9e6;
+
+  /* Type */
+  --font-display: "General Sans", "Inter", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+
+  /* Radii — rounded-card language from the reference mockup */
+  --radius-card: 1.25rem;
+  --radius-pill: 999px;
+}
+
+html {
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}

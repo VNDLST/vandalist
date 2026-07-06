@@ -1,0 +1,23 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "Marketing strategy, execution, and support." } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="description" content={description} />
+    <title>{title} · Vandalist</title>
+  </head>
+  <body class="bg-[var(--color-paper)] text-[var(--color-ink)] antialiased">
+    <slot />
+  </body>
+</html>

@@ -21,6 +21,10 @@
     --color-good-soft: #e7f0ea;
     --color-bad: #8a5a52;
     --color-bad-soft: #f3e9e6;
+
+    /* Radii */
+    --radius-card: 1.25rem;
+    --radius-pill: 999px;
   }
 
   html {

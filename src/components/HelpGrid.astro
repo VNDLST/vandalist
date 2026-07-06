@@ -1,7 +1,7 @@
 ---
-import GradientIcon from "./GradientIcon.astro";
+import PlainIcon from "./PlainIcon.astro";
 
-const items: { icon: Parameters<typeof GradientIcon>[0]["icon"]; text: string }[] = [
+const items: { icon: Parameters<typeof PlainIcon>[0]["icon"]; text: string }[] = [
   { icon: "message", text: "Refining messaging, positioning, and campaign direction." },
   { icon: "layout", text: "Producing and improving websites, marketing assets, and content." },
   { icon: "megaphone", text: "Supporting campaigns, launches, and ongoing marketing activity." },
@@ -19,10 +19,10 @@ const items: { icon: Parameters<typeof GradientIcon>[0]["icon"]; text: string }[
     </p>
   </div>
 
-  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
     {items.map((item) => (
-      <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-[var(--color-paper-dim)] p-6 flex flex-col gap-4">
-        <GradientIcon icon={item.icon} />
+      <div class="flex flex-col gap-3">
+        <PlainIcon icon={item.icon} />
         <p class="text-[var(--color-ink)] text-sm leading-relaxed">{item.text}</p>
       </div>
     ))}

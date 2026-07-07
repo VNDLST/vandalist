@@ -1,13 +1,13 @@
 ---
-import PlainIcon from "./PlainIcon.astro";
+import HelpCardIllustration from "./HelpCardIllustration.astro";
 
-const items: { icon: Parameters<typeof PlainIcon>[0]["icon"]; text: string }[] = [
-  { icon: "message", text: "Refining messaging, positioning, and campaign direction." },
-  { icon: "layout", text: "Producing and improving websites, marketing assets, and content." },
-  { icon: "megaphone", text: "Supporting campaigns, launches, and ongoing marketing activity." },
-  { icon: "settings", text: "Implementing marketing systems, reporting, and automation." },
-  { icon: "wrench", text: "Solving practical marketing problems as they arise." },
-  { icon: "unlock", text: "Providing access to the skills needed when internal capacity is limited." },
+const items: { kind: Parameters<typeof HelpCardIllustration>[0]["kind"]; title: string; text: string }[] = [
+  { kind: "strategy", title: "Commerce Strategy", text: "Align on what matters, who it's for, and how we'll win." },
+  { kind: "content", title: "Position & Contentcraft", text: "Sharpen your message and create content that earns attention." },
+  { kind: "campaigns", title: "Campaigns & Systems", text: "Launch with purpose, then build systems that compound results." },
+  { kind: "insight", title: "Insight & Analytics", text: "Turn data and customer insights into clearer direction." },
+  { kind: "automation", title: "Marketing Operations & Automation", text: "Streamline workflows and automate the right things." },
+  { kind: "support", title: "Ongoing Strategy & Support", text: "Stay agile with ongoing strategy and hands-on support." },
 ];
 ---
 <section class="max-w-5xl mx-auto px-6 md:px-10 py-16 md:py-24">
@@ -15,20 +15,19 @@ const items: { icon: Parameters<typeof PlainIcon>[0]["icon"]; text: string }[] =
     <p class="text-sm uppercase tracking-wide text-[var(--color-accent)] font-medium mb-3">How We Help in Practice</p>
     <h2 class="text-2xl md:text-3xl font-semibold mb-4">Marketing rarely arrives as a neat, isolated project.</h2>
     <p class="text-[var(--color-slate)]">
-      Most of the time it's a mix of planning, building, improving, and responding to opportunities as they appear.
+      It's a mix of planning, building, improving, and responding to opportunities as they arise.
     </p>
   </div>
 
   <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-    {items.map((item) => (
-      <div class="flex flex-col gap-3">
-        <PlainIcon icon={item.icon} />
-        <p class="text-[var(--color-ink)] text-sm leading-relaxed">{item.text}</p>
+    {items.map((item, i) => (
+      <div class="flex flex-col gap-4">
+        <HelpCardIllustration kind={item.kind} />
+        <div>
+          <p class="font-semibold text-[var(--color-ink)] text-sm mb-1">{i + 1}. {item.title}</p>
+          <p class="text-[var(--color-slate)] text-sm leading-relaxed">{item.text}</p>
+        </div>
       </div>
     ))}
   </div>
-
-  <p class="mt-10 text-[var(--color-slate)] text-sm max-w-xl">
-    Some work is planned, some appears unexpectedly — the important thing is having the capability to keep it moving.
-  </p>
 </section>

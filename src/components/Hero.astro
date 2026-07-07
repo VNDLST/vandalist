@@ -1,12 +1,17 @@
 ---
-import PillButton from "./PillButton.astro";
 ---
-<section class="max-w-4xl mx-auto px-6 md:px-10 pt-16 pb-20 md:pt-24 md:pb-28 text-center">
-  <h1 class="text-4xl md:text-6xl font-bold leading-[1.05] mb-6">
-    Marketing strategy, execution, and support
+<div class="max-w-4xl mx-auto px-6 md:px-10 pt-10 pb-16 md:pt-12 md:pb-20 text-center">
+  <h1 class="text-3xl md:text-4xl font-semibold leading-[1.15] mb-4">
+    Strategy, execution, and support
   </h1>
-  <p class="text-lg md:text-xl text-[var(--color-slate)] max-w-xl mx-auto mb-10">
-    The brains to plan. The skills to deliver. The structure to support.
+  <p class="text-base text-[var(--color-slate)] max-w-lg mx-auto mb-8">
+    A marketing agency with the experience to plan, the skills to deliver and the structure to support.
   </p>
-  <PillButton href="/contact">Let's discuss your strategy</PillButton>
-</section>
+  <a
+    href="/contact"
+    class="inline-flex items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-paper)] border border-[var(--color-line)] px-5 py-2.5 text-sm text-[var(--color-ink)] hover:border-[var(--color-slate)] transition-colors"
+  >
+    <span class="w-3 h-3 rounded-full bg-[var(--color-accent)] shrink-0"></span>
+    What brings you here?
+  </a>
+</div>

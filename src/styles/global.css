@@ -1,3 +1,9 @@
+@import "@fontsource/manrope/400.css";
+@import "@fontsource/manrope/500.css";
+@import "@fontsource/manrope/600.css";
+@import "@fontsource/manrope/700.css";
+@import "@fontsource/manrope/800.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -30,10 +36,11 @@
   html {
     background: var(--color-paper);
     color: var(--color-ink);
+    font-family: "Manrope", system-ui, sans-serif;
   }
 
   h1, h2, h3, h4 {
-    font-family: "General Sans", "Inter", system-ui, sans-serif;
+    font-family: "Manrope", system-ui, sans-serif;
     letter-spacing: -0.02em;
   }
 }

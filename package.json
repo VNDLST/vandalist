@@ -12,6 +12,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@fontsource/manrope": "^5.2.8",
     "astro": "^5.18.2",
     "autoprefixer": "^10.5.2",
     "postcss": "^8.5.16",

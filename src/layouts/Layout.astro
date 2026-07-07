@@ -13,11 +13,13 @@ const { title, description = "Marketing strategy, execution, and support." } = A
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
     <meta name="description" content={description} />
     <title>{title} · Vandalist</title>
   </head>
-  <body class="bg-[var(--color-paper)] text-[var(--color-ink)] antialiased">
-    <slot />
+  <body class="bg-white text-[var(--color-ink)] antialiased">
+    <div class="pt-3 pl-3 pr-3 md:pt-4 md:pl-4 md:pr-4">
+      <slot />
+    </div>
   </body>
 </html>

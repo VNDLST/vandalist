@@ -3,6 +3,9 @@
 @import "@fontsource/manrope/600.css";
 @import "@fontsource/manrope/700.css";
 @import "@fontsource/manrope/800.css";
+@import "@fontsource/noto-serif/500.css";
+@import "@fontsource/noto-serif/600.css";
+@import "@fontsource/noto-serif/700.css";
 
 @tailwind base;
 @tailwind components;
@@ -40,7 +43,7 @@
   }
 
   h1, h2, h3, h4 {
-    font-family: "Manrope", system-ui, sans-serif;
-    letter-spacing: -0.02em;
+    font-family: "Noto Serif", Georgia, serif;
+    letter-spacing: -0.01em;
   }
 }

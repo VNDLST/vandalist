@@ -1,0 +1,56 @@
+---
+interface Props {
+  kind: "meeting" | "website" | "product" | "dashboard";
+}
+const { kind } = Astro.props as Props;
+---
+<div class="w-full aspect-[4/3] rounded-lg overflow-hidden bg-[var(--color-paper-dim)] border border-[var(--color-line)] flex items-center justify-center">
+  {kind === "meeting" && (
+    <svg width="100%" height="100%" viewBox="0 0 200 150" preserveAspectRatio="xMidYMid slice">
+      <rect width="200" height="150" fill="#e9e4df" />
+      <circle cx="60" cy="60" r="18" fill="#c9beb2" />
+      <circle cx="110" cy="55" r="18" fill="#d8b8c2" />
+      <circle cx="150" cy="65" r="16" fill="#c9beb2" />
+      <rect x="30" y="95" width="140" height="10" rx="5" fill="#b8ada1" />
+      <rect x="45" y="112" width="110" height="8" rx="4" fill="#c9beb2" opacity="0.7" />
+    </svg>
+  )}
+  {kind === "website" && (
+    <svg width="100%" height="100%" viewBox="0 0 200 150" preserveAspectRatio="xMidYMid slice">
+      <rect width="200" height="150" fill="#f2f0ed" />
+      <rect x="0" y="0" width="200" height="18" fill="#1c1b1a" />
+      <circle cx="10" cy="9" r="3" fill="#e8467c" />
+      <circle cx="20" cy="9" r="3" fill="#9a968e" />
+      <circle cx="30" cy="9" r="3" fill="#9a968e" />
+      <rect x="16" y="34" width="70" height="70" rx="3" fill="#d8b8c2" />
+      <rect x="96" y="34" width="88" height="8" rx="2" fill="#6b6862" />
+      <rect x="96" y="48" width="88" height="8" rx="2" fill="#9a968e" />
+      <rect x="96" y="62" width="60" height="8" rx="2" fill="#9a968e" />
+      <rect x="16" y="116" width="168" height="6" rx="3" fill="#c9c5bf" />
+    </svg>
+  )}
+  {kind === "product" && (
+    <svg width="100%" height="100%" viewBox="0 0 200 150" preserveAspectRatio="xMidYMid slice">
+      <rect width="200" height="150" fill="#fbe3ea" />
+      <rect x="55" y="45" width="26" height="70" rx="8" fill="#f3a6bd" />
+      <rect x="87" y="35" width="26" height="80" rx="8" fill="#eb7e9f" />
+      <rect x="119" y="50" width="26" height="65" rx="8" fill="#f3a6bd" />
+      <rect x="60" y="40" width="16" height="10" rx="2" fill="#fff" opacity="0.7" />
+      <rect x="92" y="30" width="16" height="10" rx="2" fill="#fff" opacity="0.7" />
+      <rect x="124" y="45" width="16" height="10" rx="2" fill="#fff" opacity="0.7" />
+    </svg>
+  )}
+  {kind === "dashboard" && (
+    <svg width="100%" height="100%" viewBox="0 0 200 150" preserveAspectRatio="xMidYMid slice">
+      <rect width="200" height="150" fill="#f2f0ed" />
+      <rect x="0" y="0" width="200" height="16" fill="#ffffff" />
+      <circle cx="10" cy="8" r="2.5" fill="#e8467c" />
+      <rect x="16" y="30" width="60" height="10" rx="2" fill="#6b6862" />
+      <polyline points="16,95 45,70 70,85 100,50 130,65 160,40 184,55" fill="none" stroke="#e8467c" stroke-width="3" />
+      <rect x="16" y="110" width="30" height="20" fill="#d8b8c2" />
+      <rect x="52" y="100" width="30" height="30" fill="#c9beb2" />
+      <rect x="88" y="90" width="30" height="40" fill="#eb7e9f" />
+      <rect x="124" y="105" width="30" height="25" fill="#d8b8c2" />
+    </svg>
+  )}
+</div>

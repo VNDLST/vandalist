@@ -4,7 +4,13 @@ import Header from "../components/Header.astro";
 import Hero from "../components/Hero.astro";
 import CompareCard from "../components/CompareCard.astro";
 import HelpGrid from "../components/HelpGrid.astro";
+import CoverageTable from "../components/CoverageTable.astro";
+import ProofGrid from "../components/ProofGrid.astro";
+import HowWeWork from "../components/HowWeWork.astro";
 import WhoThisIsFor from "../components/WhoThisIsFor.astro";
+import LogoStrip from "../components/LogoStrip.astro";
+import CtaBand from "../components/CtaBand.astro";
+import Footer from "../components/Footer.astro";
 ---
 <Layout title="Marketing Strategy, Execution & Support">
   <div class="bg-[var(--color-paper-dim)] min-h-[50vh] flex flex-col">
@@ -12,6 +18,12 @@ import WhoThisIsFor from "../components/WhoThisIsFor.astro";
     <Hero />
   </div>
   <HelpGrid />
+  <CoverageTable />
+  <ProofGrid />
   <CompareCard />
+  <HowWeWork />
   <WhoThisIsFor />
+  <LogoStrip />
+  <CtaBand />
+  <Footer />
 </Layout>

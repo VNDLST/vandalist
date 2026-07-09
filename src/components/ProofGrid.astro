@@ -15,9 +15,9 @@ const items: { kind: Parameters<typeof ProofCardImage>[0]["kind"]; name: string;
   <p class="text-sm uppercase tracking-wide font-semibold text-[var(--color-ink)] mb-6">Proof in Practice</p>
   <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
     {items.map((item) => (
-      <div class="flex flex-col">
+      <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white overflow-hidden flex flex-col">
         <ProofCardImage kind={item.kind} />
-        <div class="pt-4">
+        <div class="p-5">
           <p class="font-semibold text-[var(--color-ink)] text-sm mb-1">{item.name}</p>
           <p class="text-[var(--color-slate)] text-sm leading-relaxed mb-3">{item.text}</p>
           <a href="#" class="text-[var(--color-accent)] text-sm font-medium inline-flex items-center gap-1">

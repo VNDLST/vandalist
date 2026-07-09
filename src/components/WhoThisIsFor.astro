@@ -18,7 +18,7 @@ const items: { icon: Parameters<typeof GradientIcon>[0]["icon"]; text: string }[
 
   <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
     {items.map((item) => (
-      <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-[var(--color-paper-dim)] p-6 flex flex-col gap-4">
+      <div class="aspect-square rounded-[var(--radius-card)] bg-white shadow-[0_12px_32px_-12px_rgba(28,27,26,0.12)] p-6 flex flex-col items-center justify-center text-center gap-4">
         <GradientIcon icon={item.icon} />
         <p class="text-[var(--color-ink)] text-sm leading-relaxed">{item.text}</p>
       </div>

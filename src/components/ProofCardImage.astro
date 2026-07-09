@@ -4,7 +4,7 @@ interface Props {
 }
 const { kind } = Astro.props as Props;
 ---
-<div class="w-full aspect-[4/3] rounded-lg overflow-hidden bg-[var(--color-paper-dim)] border border-[var(--color-line)] flex items-center justify-center">
+<div class="w-full aspect-[16/9] rounded-t-[var(--radius-card)] overflow-hidden bg-[var(--color-paper-dim)] flex items-center justify-center">
   {kind === "meeting" && (
     <svg width="100%" height="100%" viewBox="0 0 200 150" preserveAspectRatio="xMidYMid slice">
       <rect width="200" height="150" fill="#e9e4df" />

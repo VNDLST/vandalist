@@ -7,7 +7,7 @@ interface Props {
 }
 const { kind } = Astro.props as Props;
 ---
-<div class="w-full aspect-[4/3] rounded-xl bg-[var(--color-paper-dim)] border border-[var(--color-line)] flex items-center justify-center overflow-hidden">
+<div class="w-full aspect-[4/3] bg-[var(--color-paper-dim)] flex items-center justify-center overflow-hidden">
   {kind === "strategy" && (
     <svg width="88" height="88" viewBox="0 0 88 88" fill="none">
       <circle cx="40" cy="46" r="20" fill="var(--color-paper)" stroke="var(--color-slate-light)" stroke-width="1.5" />

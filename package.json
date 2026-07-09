@@ -12,8 +12,8 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@fontsource/elms-sans": "^5.2.2",
     "@fontsource/manrope": "^5.2.8",
-    "@fontsource/noto-serif": "^5.2.9",
     "astro": "^5.18.2",
     "autoprefixer": "^10.5.2",
     "postcss": "^8.5.16",

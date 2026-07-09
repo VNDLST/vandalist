@@ -1,0 +1,21 @@
+---
+// Shared eyebrow + heading + optional subtext pattern, used by every content
+// section so label styling, spacing, and hierarchy stay consistent site-wide.
+// If a section doesn't have real subtext copy yet, pass placeholder Lorem
+// Ipsum rather than omitting it — keeps rhythm consistent until real copy
+// lands, and makes it obvious at a glance which sections still need copy.
+interface Props {
+  eyebrow: string;
+  heading: string;
+  subtext?: string;
+  align?: "left" | "center";
+  maxWidth?: string;
+}
+const { eyebrow, heading, subtext, align = "left", maxWidth = "max-w-2xl" } = Astro.props as Props;
+const alignClass = align === "center" ? "text-center mx-auto" : "";
+---
+<div class={`mb-12 ${maxWidth} ${alignClass}`}>
+  <p class="text-sm tracking-wide text-[var(--color-accent)] font-medium mb-3">{eyebrow}</p>
+  <h2 class="text-2xl md:text-3xl font-semibold mb-4">{heading}</h2>
+  {subtext && <p class="text-[var(--color-slate)]">{subtext}</p>}
+</div>

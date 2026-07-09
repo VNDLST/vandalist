@@ -11,23 +11,25 @@ const items: { kind: Parameters<typeof HelpCardIllustration>[0]["kind"]; title: 
   { kind: "support", title: "Ongoing Strategy & Support", text: "Stay agile with ongoing strategy and hands-on support." },
 ];
 ---
-<section class="max-w-5xl mx-auto px-6 md:px-10 pt-16 md:pt-24 pb-4 md:pb-6">
-  <SectionHeading
-    eyebrow="How We Help in Practice"
-    heading="Marketing rarely arrives as a neat, isolated project."
-    subtext="It's a mix of planning, building, improving, and responding to opportunities as they arise."
-    maxWidth="max-w-3xl"
-  />
+<section class="bg-white">
+  <div class="max-w-5xl mx-auto px-6 md:px-10 pt-16 md:pt-24 pb-16 md:pb-24">
+    <SectionHeading
+      eyebrow="How we help in practice"
+      heading="Marketing rarely arrives as a neat, isolated project."
+      subtext="It's a mix of planning, building, improving, and responding to opportunities as they arise."
+      maxWidth="max-w-3xl"
+    />
 
-  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    {items.map((item, i) => (
-      <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white overflow-hidden">
-        <HelpCardIllustration kind={item.kind} />
-        <div class="p-5">
-          <p class="font-semibold text-[var(--color-ink)] text-sm mb-1">{i + 1}. {item.title}</p>
-          <p class="text-[var(--color-slate)] text-sm leading-relaxed">{item.text}</p>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {items.map((item, i) => (
+        <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white overflow-hidden">
+          <HelpCardIllustration kind={item.kind} />
+          <div class="p-5">
+            <p class="font-semibold text-[var(--color-ink)] text-sm mb-1">{i + 1}. {item.title}</p>
+            <p class="text-[var(--color-slate)] text-sm leading-relaxed">{item.text}</p>
+          </div>
         </div>
-      </div>
-    ))}
+      ))}
+    </div>
   </div>
 </section>

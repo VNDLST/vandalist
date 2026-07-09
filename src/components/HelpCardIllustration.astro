@@ -9,7 +9,7 @@ const { kind } = Astro.props as Props;
 ---
 <div class="w-full aspect-[4/3] bg-white flex items-center justify-center overflow-hidden">
   {kind === "strategy" && (
-    <svg width="176" height="176" viewBox="0 0 88 88" fill="none">
+    <svg width="85%" height="85%" viewBox="0 0 88 88" fill="none">
       <circle cx="40" cy="46" r="20" fill="var(--color-paper)" stroke="var(--color-slate-light)" stroke-width="1.5" />
       <circle cx="40" cy="46" r="12" fill="none" stroke="var(--color-slate-light)" stroke-width="1.5" />
       <circle cx="40" cy="46" r="4" fill="var(--color-accent)" />
@@ -20,7 +20,7 @@ const { kind } = Astro.props as Props;
     </svg>
   )}
   {kind === "content" && (
-    <svg width="180" height="180" viewBox="0 0 92 92" fill="none">
+    <svg width="85%" height="85%" viewBox="0 0 92 92" fill="none">
       <rect x="16" y="18" width="60" height="40" rx="3" fill="var(--color-paper)" stroke="var(--color-slate-light)" stroke-width="1.5" />
       <rect x="21" y="23" width="20" height="14" rx="2" fill="var(--color-accent-soft)" />
       <circle cx="27" cy="29" r="3" fill="var(--color-accent)" />
@@ -31,7 +31,7 @@ const { kind } = Astro.props as Props;
     </svg>
   )}
   {kind === "campaigns" && (
-    <svg width="180" height="180" viewBox="0 0 92 92" fill="none">
+    <svg width="85%" height="85%" viewBox="0 0 92 92" fill="none">
       <rect x="16" y="38" width="26" height="26" rx="2" fill="var(--color-accent-soft)" stroke="var(--color-accent)" stroke-width="1.5" />
       <path d="M16 46 h26" stroke="var(--color-accent)" stroke-width="1.5" />
       <path d="M29 38 v-5 l4.5 4.5 l-4.5 4.5 l-4.5 -4.5 z" fill="var(--color-accent)" stroke="var(--color-accent)" stroke-linejoin="round" />
@@ -41,14 +41,14 @@ const { kind } = Astro.props as Props;
     </svg>
   )}
   {kind === "insight" && (
-    <svg width="176" height="176" viewBox="0 0 88 88" fill="none">
+    <svg width="85%" height="85%" viewBox="0 0 88 88" fill="none">
       <path d="M32 58 v-12 M42 58 v-20 M52 58 v-8 M62 58 v-16" stroke="var(--color-accent)" stroke-width="4" stroke-linecap="round" />
       <circle cx="38" cy="36" r="17" fill="none" stroke="var(--color-ink)" stroke-width="1.5" />
       <path d="M50 48 L62 60" stroke="var(--color-ink)" stroke-width="1.5" stroke-linecap="round" />
     </svg>
   )}
   {kind === "automation" && (
-    <svg width="176" height="176" viewBox="0 0 88 88" fill="none">
+    <svg width="85%" height="85%" viewBox="0 0 88 88" fill="none">
       <circle cx="34" cy="36" r="17" fill="none" stroke="var(--color-slate-light)" stroke-width="1.5" />
       <path d="M34 19 A17 17 0 0 1 51 36 L34 36 Z" fill="var(--color-accent)" opacity="0.85" />
       <path d="M34 36 L34 19" stroke="var(--color-paper)" stroke-width="1" />
@@ -57,7 +57,7 @@ const { kind } = Astro.props as Props;
     </svg>
   )}
   {kind === "support" && (
-    <svg width="180" height="180" viewBox="0 0 92 92" fill="none">
+    <svg width="85%" height="85%" viewBox="0 0 92 92" fill="none">
       <path d="M18 26 h38 a5 5 0 0 1 5 5 v16 a5 5 0 0 1 -5 5 h-19 l-9 9 v-9 h-10 a5 5 0 0 1 -5 -5 v-16 a5 5 0 0 1 5 -5 z"
         fill="var(--color-accent-soft)" stroke="var(--color-accent)" stroke-width="1.5" stroke-linejoin="round" />
       <path d="M27 38 h22 M27 45 h14" stroke="var(--color-accent)" stroke-width="1.5" stroke-linecap="round" />

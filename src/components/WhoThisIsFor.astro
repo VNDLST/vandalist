@@ -1,13 +1,13 @@
 ---
 import GradientIcon from "./GradientIcon.astro";
 
-const items: { icon: Parameters<typeof GradientIcon>[0]["icon"]; text: string }[] = [
-  { icon: "message", text: "Need consistent, reliable marketing capability" },
-  { icon: "layout", text: "Have marketing work to execute but limited internal capacity" },
-  { icon: "megaphone", text: "Want practical strategy alongside execution" },
-  { icon: "settings", text: "Can make decisions without excessive delay" },
-  { icon: "wrench", text: "Have marketing priorities that change throughout the year" },
-  { icon: "unlock", text: "Need support that can scale up or down as required" },
+const items: { icon: Parameters<typeof GradientIcon>[0]["icon"]; title: string; text: string }[] = [
+  { icon: "circle", title: "Consistent capability", text: "Need consistent, reliable marketing capability" },
+  { icon: "triangle", title: "Limited capacity", text: "Have marketing work to execute but limited internal capacity" },
+  { icon: "square", title: "Strategy plus execution", text: "Want practical strategy alongside execution" },
+  { icon: "star", title: "Fast decision-making", text: "Can make decisions without excessive delay" },
+  { icon: "hexagon", title: "Shifting priorities", text: "Have marketing priorities that change throughout the year" },
+  { icon: "pentagon", title: "Scalable support", text: "Need support that can scale up or down as required" },
 ];
 ---
 <section class="max-w-5xl mx-auto px-6 md:px-10 py-16 md:py-24">
@@ -20,7 +20,10 @@ const items: { icon: Parameters<typeof GradientIcon>[0]["icon"]; text: string }[
     {items.map((item) => (
       <div class="aspect-square rounded-[var(--radius-card)] bg-white shadow-[0_12px_32px_-12px_rgba(28,27,26,0.12)] p-6 flex flex-col items-center justify-center text-center gap-4">
         <GradientIcon icon={item.icon} />
-        <p class="text-[var(--color-ink)] text-sm leading-relaxed">{item.text}</p>
+        <div>
+          <h3 class="text-[var(--color-ink)] font-semibold mb-1">{item.title}</h3>
+          <p class="text-[var(--color-slate)] text-sm leading-relaxed">{item.text}</p>
+        </div>
       </div>
     ))}
   </div>

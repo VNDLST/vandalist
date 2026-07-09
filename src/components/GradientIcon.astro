@@ -1,32 +1,38 @@
 ---
 interface Props {
-  icon: "message" | "layout" | "megaphone" | "settings" | "wrench" | "unlock";
+  icon: "circle" | "triangle" | "square" | "star" | "hexagon" | "pentagon";
 }
 const { icon } = Astro.props;
 
-const icons: Record<Props["icon"], string> = {
-  message: '<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>',
-  layout: '<rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/>',
-  megaphone: '<path d="M3 11l18-5v12L3 13v-2z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/>',
-  settings: '<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>',
-  wrench: '<path d="M14.7 6.3a4 4 0 0 0-5.6 5.6l-6.4 6.4a2 2 0 0 0 2.8 2.8l6.4-6.4a4 4 0 0 0 5.6-5.6l-2.8 2.8-2-2z"/>',
-  unlock: '<rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/>',
+// Each shape gets its own distinct vivid gradient, matching the reference
+// mockup's plain solid-gradient geometric shapes (no badge container, no
+// inner glyph).
+const gradients: Record<Props["icon"], [string, string]> = {
+  circle: ["#8a6ce8", "#6a9ce8"],
+  triangle: ["#e83f3f", "#e8467c"],
+  square: ["#6ee8c2", "#4696e8"],
+  star: ["#4696e8", "#e8d646"],
+  hexagon: ["#e8467c", "#8a46c2"],
+  pentagon: ["#8ac2e8", "#e8a7e0"],
 };
 
-// Each icon gets its own distinct vivid gradient, not one repeated color -
-// matches the varied colorful badge treatment from the reference mockup.
-const gradients: Record<Props["icon"], string> = {
-  message: "linear-gradient(135deg, #e8467c 0%, #f2946e 100%)",
-  layout: "linear-gradient(135deg, #6a5ce8 0%, #46a3e8 100%)",
-  megaphone: "linear-gradient(135deg, #2fb8a6 0%, #46e89a 100%)",
-  settings: "linear-gradient(135deg, #e84690 0%, #8a46e8 100%)",
-  wrench: "linear-gradient(135deg, #e8a746 0%, #e8467c 100%)",
-  unlock: "linear-gradient(135deg, #46c2e8 0%, #6a5ce8 100%)",
+const shapes: Record<Props["icon"], string> = {
+  circle: '<circle cx="32" cy="32" r="30" fill="url(#g)"/>',
+  triangle: '<polygon points="32,60 3,4 61,4" fill="url(#g)"/>',
+  square: '<rect x="4" y="4" width="56" height="56" rx="4" fill="url(#g)"/>',
+  star: '<polygon points="32,2 41,23 64,23 45,37 52,60 32,47 12,60 19,37 0,23 23,23" fill="url(#g)"/>',
+  hexagon: '<polygon points="32,2 59,17 59,47 32,62 5,47 5,17" fill="url(#g)"/>',
+  pentagon: '<polygon points="32,2 61,24 50,58 14,58 3,24" fill="url(#g)"/>',
 };
+
+const [from, to] = gradients[icon];
 ---
-<span
-  class="inline-flex items-center justify-center w-12 h-12 rounded-2xl text-white shrink-0"
-  style={`background: ${gradients[icon]};`}
->
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={icons[icon]} />
-</span>
+<svg width="64" height="64" viewBox="0 0 64 64" class="shrink-0">
+  <defs>
+    <linearGradient id={`g-${icon}`} x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color={from} />
+      <stop offset="100%" stop-color={to} />
+    </linearGradient>
+  </defs>
+  <Fragment set:html={shapes[icon].replace('url(#g)', `url(#g-${icon})`)} />
+</svg>

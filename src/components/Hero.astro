@@ -1,20 +1,32 @@
 ---
 ---
-<div class="flex-1 flex flex-col items-center justify-center text-center max-w-5xl mx-auto px-6 md:px-10 py-10">
-  <h1 class="text-3xl md:text-4xl lg:text-5xl font-semibold leading-[1.15] mb-6 md:whitespace-nowrap">
-    Strategy, execution, and support
-  </h1>
-  <p class="text-lg md:text-xl text-[var(--color-slate)] max-w-2xl mx-auto mb-10">
-    A marketing agency with the experience to plan, the skills to deliver and the structure to support.
-  </p>
-  <a
-    href="/contact"
-    class="inline-flex items-center gap-4 rounded-2xl bg-[var(--color-paper)] border border-[var(--color-line)] px-8 py-5 text-lg text-[var(--color-ink)] hover:border-[var(--color-slate)] transition-colors"
-  >
-    <span
-      class="w-9 h-9 rounded-full shrink-0 ring-2 ring-white"
-      style="background: radial-gradient(circle at 35% 30%, #f2789a 0%, var(--color-accent) 60%, #c72f5e 100%); box-shadow: 0 0 14px 3px rgba(232, 70, 124, 0.5);"
-    ></span>
-    What brings you here?
-  </a>
+<div class="max-w-6xl mx-auto px-6 md:px-10 py-14 md:py-20 grid md:grid-cols-2 gap-10 items-center">
+  <div>
+    <p class="text-xs font-semibold tracking-widest text-[var(--color-accent)] mb-4">
+      Strategy. Execution. Support.
+    </p>
+    <h1 class="text-3xl md:text-4xl lg:text-5xl font-semibold leading-[1.15] mb-6">
+      Marketing strategy, execution, and support
+    </h1>
+    <p class="text-lg text-[var(--color-slate)] max-w-md mb-10">
+      We partner with ambitious organizations to plan with clarity, execute with precision, and grow with confidence.
+    </p>
+    <a
+      href="/contact"
+      class="inline-flex items-center gap-4 rounded-2xl bg-[var(--color-paper)] border border-[var(--color-line)] px-8 py-5 text-lg text-[var(--color-ink)] hover:border-[var(--color-slate)] transition-colors"
+    >
+      <span
+        class="w-9 h-9 rounded-full shrink-0 ring-2 ring-white"
+        style="background: radial-gradient(circle at 35% 30%, #f2789a 0%, var(--color-accent) 60%, #c72f5e 100%); box-shadow: 0 0 14px 3px rgba(232, 70, 124, 0.5);"
+      ></span>
+      How can we help?
+    </a>
+  </div>
+  <div class="hidden md:block">
+    <img
+      src={`${import.meta.env.BASE_URL}/vandalist-hero.png`}
+      alt="Abstract still life of strategy pieces: a pink X, an engraved play-diagram panel, an arch, a sphere, and a bowl with a pink sphere"
+      class="w-full h-auto"
+    />
+  </div>
 </div>

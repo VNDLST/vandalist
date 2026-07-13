@@ -1,29 +1,33 @@
 ---
-import GradientIcon from "./GradientIcon.astro";
 import SectionHeading from "./SectionHeading.astro";
 
-const items: { icon: Parameters<typeof GradientIcon>[0]["icon"]; title: string; text: string }[] = [
-  { icon: "circle", title: "Consistent capability", text: "Need consistent, reliable marketing capability" },
-  { icon: "triangle", title: "Limited capacity", text: "Have marketing work to execute but limited internal capacity" },
-  { icon: "square", title: "Strategy plus execution", text: "Want practical strategy alongside execution" },
-  { icon: "star", title: "Fast decision-making", text: "Can make decisions without excessive delay" },
-  { icon: "hexagon", title: "Shifting priorities", text: "Have marketing priorities that change throughout the year" },
-  { icon: "pentagon", title: "Scalable support", text: "Need support that can scale up or down as required" },
+// PLACEHOLDER THUMBNAILS — mockup7 uses real photos/screenshots here (pie
+// chart, laptop, abstract render, pencils, bar chart, interior). Swap the
+// flat color swatch for real imagery once available; keep the fixed
+// w-20 h-20 size so all six cards stay the same size regardless of what
+// image lands in each slot.
+const items = [
+  { color: "#e8c9d6", title: "Growth-stage companies", text: "Scaling fast and needing marketing that keeps up." },
+  { color: "#2b2a28", title: "In-house lean marketing teams", text: "Need extra hands, expertise, or fresh perspective." },
+  { color: "#cfc9c2", title: "Strategic refresh moment", text: "Repositioning, refining messaging, or entering new markets." },
+  { color: "#d9cfc0", title: "Post-transaction or new brand", text: "Need to align, integrate, and move forward fast." },
+  { color: "#eee9e2", title: "Performance improvement", text: "Looking to drive stronger results from marketing." },
+  { color: "#c7ab8f", title: "In-house teams needing support", text: "Specialized expertise without the overhead of full-time hires." },
 ];
 ---
 <section class="max-w-5xl mx-auto px-6 md:px-10 py-16 md:py-24">
   <SectionHeading
     eyebrow="Who this is best for"
-    heading="For organisations that:"
-    subtext="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    heading="The right amount of Vandalist"
+    subtext="For organisations that need marketing capability without the weight of an internal team."
   />
 
   <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
     {items.map((item) => (
-      <div class="aspect-square rounded-[var(--radius-card)] bg-white shadow-[0_12px_32px_-12px_rgba(28,27,26,0.12)] p-6 flex flex-col items-center justify-center text-center gap-4">
-        <GradientIcon icon={item.icon} />
+      <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-5 flex items-center gap-4 h-full">
+        <div class="w-20 h-20 rounded-[calc(var(--radius-card)-6px)] shrink-0" style={`background:${item.color}`}></div>
         <div>
-          <h3 class="text-[var(--color-ink)] font-semibold mb-1">{item.title}</h3>
+          <h3 class="text-[var(--color-ink)] font-semibold mb-1 text-sm">{item.title}</h3>
           <p class="text-[var(--color-slate)] text-sm leading-relaxed">{item.text}</p>
         </div>
       </div>

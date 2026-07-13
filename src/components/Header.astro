@@ -1,36 +1,28 @@
 ---
-const leftLinks = [
+const links = [
   { label: "Services", href: "/services" },
   { label: "Work", href: "/work" },
   { label: "Case Studies", href: "/case-studies" },
-];
-const rightLinks = [
   { label: "How We Work", href: "/how-we-work" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
 ---
 <header class="w-full py-8 md:py-10 px-6 md:px-10">
-  <nav class="max-w-6xl mx-auto flex items-center justify-center gap-8 md:gap-16">
-    <ul class="hidden md:flex items-center gap-6 text-sm text-[var(--color-slate)]">
-      {leftLinks.map((link) => (
-        <li><a href={link.href} class="hover:text-[var(--color-ink)] transition-colors">{link.label}</a></li>
-      ))}
-    </ul>
-
+  <nav class="max-w-6xl mx-auto flex items-center justify-between">
     <a href="/" class="shrink-0">
-      <img src={`${import.meta.env.BASE_URL}/vandalist-logo.png`} alt="Vandalist" class="h-16 md:h-20 w-auto" />
+      <img src={`${import.meta.env.BASE_URL}/vandalist-logo.png`} alt="Vandalist" class="h-10 md:h-12 w-auto" />
     </a>
 
-    <ul class="hidden md:flex items-center gap-6 text-sm text-[var(--color-slate)]">
-      {rightLinks.map((link) => (
+    <ul class="hidden md:flex items-center gap-8 text-sm text-[var(--color-slate)]">
+      {links.map((link) => (
         <li><a href={link.href} class="hover:text-[var(--color-ink)] transition-colors">{link.label}</a></li>
       ))}
     </ul>
 
     <!-- mobile: simple stacked link row, no hamburger complexity for v1 -->
     <ul class="flex md:hidden items-center gap-3 text-xs text-[var(--color-slate)] overflow-x-auto">
-      {[...leftLinks, ...rightLinks].map((link) => (
+      {links.map((link) => (
         <li class="shrink-0"><a href={link.href}>{link.label}</a></li>
       ))}
     </ul>

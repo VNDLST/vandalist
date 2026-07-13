@@ -27,16 +27,15 @@ const weArent = [
 const SLICE = 1.6;
 const CYCLE = SLICE * (steps.length - 1);
 ---
-<section class="max-w-5xl mx-auto px-6 md:px-10 py-16 md:py-24">
-  <SectionHeading
-    eyebrow="How we work"
-    heading="Thoughtful, practical, and responsive"
-    subtext="We align with your priorities, deadlines, and the way you like to work."
-    align="center"
-    maxWidth="max-w-2xl"
-  />
-
+<section class="max-w-6xl mx-auto px-6 md:px-10 py-16 md:py-24">
   <div class="rounded-[var(--radius-card)] bg-[var(--color-paper-dim)] p-6 md:p-10">
+    <SectionHeading
+      eyebrow="How we work"
+      heading="Thoughtful, practical, and responsive"
+      subtext="We align with your priorities, deadlines, and the way you like to work."
+      maxWidth="max-w-2xl"
+    />
+
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-y-10 gap-x-6 mb-12">
       {steps.map((step, i) => (
         <div class="flex flex-col items-center text-center relative">
@@ -80,14 +79,14 @@ const CYCLE = SLICE * (steps.length - 1);
     </div>
 
     <div class="grid md:grid-cols-2 gap-6">
-      <div class="relative overflow-hidden rounded-[var(--radius-card)] bg-white shadow-[0_12px_32px_-12px_rgba(28,27,26,0.1)] p-8">
+      <div class="relative overflow-hidden rounded-[var(--radius-card)] bg-white shadow-[0_18px_40px_-10px_rgba(28,27,26,0.22)] p-6">
         <svg class="absolute right-0 bottom-0 w-2/3 h-full opacity-[0.06]" viewBox="0 0 200 160" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
           <rect x="90" y="40" width="60" height="60" fill="var(--color-ink)" />
           <circle cx="150" cy="110" r="30" fill="var(--color-ink)" />
           <rect x="60" y="90" width="40" height="70" fill="var(--color-ink)" />
         </svg>
-        <p class="relative text-xs font-semibold tracking-wide text-[#4e9b5e] mb-5">What we are</p>
-        <ul class="relative space-y-3">
+        <p class="relative text-xs font-semibold tracking-wide text-[#4e9b5e] mb-4">What we are</p>
+        <ul class="relative space-y-2.5">
           {weAre.map((item) => (
             <li class="flex items-center gap-3">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4e9b5e" stroke-width="2.5" class="shrink-0">
@@ -98,7 +97,7 @@ const CYCLE = SLICE * (steps.length - 1);
           ))}
         </ul>
       </div>
-      <div class="relative overflow-hidden rounded-[var(--radius-card)] bg-[var(--color-accent-soft)] shadow-[0_12px_32px_-12px_rgba(28,27,26,0.1)] p-8">
+      <div class="relative overflow-hidden rounded-[var(--radius-card)] bg-[var(--color-accent-soft)] p-8">
         <svg class="absolute right-0 bottom-0 w-2/3 h-full opacity-[0.08]" viewBox="0 0 200 160" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
           <polygon points="200,160 120,160 175,60" fill="var(--color-accent)" />
           <polygon points="130,160 90,160 115,100" fill="var(--color-accent)" />

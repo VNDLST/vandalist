@@ -1,34 +1,103 @@
 ---
 const logos = [
-  { file: "Kestral.jpg", name: "Kestral" },
-  { file: "Archie-Hardware.jpg", name: "Archie Hardware" },
-  { file: "Matilda-Veneer.jpg", name: "Matilda Veneer" },
-  { file: "Berlitz.jpg", name: "Berlitz" },
-  { file: "chrc.jpg", name: "CHRC" },
-  { file: "busy.jpg", name: "The BUSY Group" },
-  { file: "Ready-Fund-Grow.jpg", name: "Ready Fund Grow" },
-  { file: "Zzzopa.jpg", name: "Zzzopa" },
-  { file: "sonic.jpg", name: "Sonic" },
-  { file: "littlewishes.jpg", name: "Little Wishes" },
-  { file: "ACADS-BSG-1.jpg", name: "ACADS-BSG" },
-  { file: "ME.jpg", name: "ME" },
-  { file: "Aryon.jpg", name: "Aryon" },
-  { file: "Rethink-Group.jpg", name: "Rethink Group" },
-  { file: "Tandm.jpg", name: "Tandm" },
+  { file: "kestral.jpg", name: "Kestral" },
+  { file: "archie.jpg", name: "Archie" },
+  { file: "berlitz.jpg", name: "Berlitz" },
+  { file: "central-highlands.jpg", name: "Central Highlands Regional Council" },
+  { file: "matilda.jpg", name: "Matilda Veneer" },
+  { file: "martin-engineering.jpg", name: "Martin Engineering" },
+  { file: "paragon.jpg", name: "Paragon Insurance Broking" },
+  { file: "solo.jpg", name: "Solo Resource Recovery" },
+  { file: "sonic.jpg", name: "Sonic Equipment" },
+  { file: "tandm.jpg", name: "Tandm" },
+  { file: "busy-group.jpg", name: "The BUSY Group" },
+  { file: "waterups.jpg", name: "Water Ups" },
+  { file: "zzzopa.jpg", name: "Zzzopa" },
+  { file: "acads-bsg.jpg", name: "ACADS-BSG" },
 ];
+
+const row1 = logos.slice(0, 7);
+const row2 = logos.slice(7, 14);
 ---
 <section class="max-w-5xl mx-auto px-6 md:px-10 py-12 md:py-16">
-  <div class="flex flex-col gap-8">
-    {[logos.slice(0, 8), logos.slice(8)].map((row) => (
-      <div class="flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
-        {row.map((logo) => (
-          <img
-            src={`${import.meta.env.BASE_URL}/client-logos/${logo.file}`}
-            alt={logo.name}
-            class="h-7 md:h-8 w-auto object-contain grayscale opacity-50 hover:opacity-80 transition-opacity"
-          />
+  <p class="text-sm tracking-wide text-[var(--color-accent)] font-medium mb-8">Trusted by ambitious teams</p>
+
+  <div class="flex flex-col gap-6">
+    <div class="marquee-mask">
+      <div class="marquee-track marquee-left">
+        {[...row1, ...row1].map((logo) => (
+          <div class="logo-slot">
+            <img
+              src={`${import.meta.env.BASE_URL}/client-logos/${logo.file}`}
+              alt={logo.name}
+              class="h-10 md:h-12 w-auto object-contain"
+            />
+          </div>
         ))}
       </div>
-    ))}
+    </div>
+    <div class="marquee-mask">
+      <div class="marquee-track marquee-right">
+        {[...row2, ...row2].map((logo) => (
+          <div class="logo-slot">
+            <img
+              src={`${import.meta.env.BASE_URL}/client-logos/${logo.file}`}
+              alt={logo.name}
+              class="h-10 md:h-12 w-auto object-contain"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
   </div>
 </section>
+
+<style>
+  .marquee-mask {
+    overflow: hidden;
+    width: 100%;
+    mask-image: linear-gradient(to right, transparent, black 4%, black 96%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 4%, black 96%, transparent);
+  }
+  .marquee-track {
+    display: flex;
+    align-items: center;
+  }
+  .logo-slot {
+    flex: 0 0 auto;
+    width: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1rem;
+  }
+  @media (min-width: 768px) {
+    .logo-slot {
+      width: 157px;
+    }
+  }
+  .marquee-left, .marquee-right {
+    animation-duration: 32s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+  .marquee-left {
+    animation-name: marquee-scroll-left;
+  }
+  .marquee-right {
+    animation-name: marquee-scroll-right;
+  }
+  @keyframes marquee-scroll-left {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes marquee-scroll-right {
+    from { transform: translateX(-50%); }
+    to { transform: translateX(0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-left, .marquee-right {
+      animation: none;
+    }
+  }
+</style>

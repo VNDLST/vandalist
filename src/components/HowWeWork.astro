@@ -28,7 +28,7 @@ const SLICE = 1.6;
 const CYCLE = SLICE * (steps.length - 1);
 ---
 <section class="max-w-6xl mx-auto px-6 md:px-10 py-16 md:py-24">
-  <div class="rounded-[var(--radius-card)] bg-[var(--color-paper-dim)] p-6 md:p-10">
+  <div class="rounded-[var(--radius-card)] bg-[var(--color-paper-dim)] p-6 md:py-10 md:px-16">
     <SectionHeading
       eyebrow="How we work"
       heading="Thoughtful, practical, and responsive"
@@ -80,7 +80,7 @@ const CYCLE = SLICE * (steps.length - 1);
 
     <div class="grid md:grid-cols-2 gap-6">
       <div class="relative overflow-hidden rounded-[var(--radius-card)] bg-white shadow-[0_18px_40px_-10px_rgba(28,27,26,0.22)] p-6">
-        <p class="relative text-sm font-semibold tracking-wide text-[#4e9b5e] mb-4">What we are</p>
+        <p class="relative text-lg font-semibold tracking-wide text-[#4e9b5e] mb-4">What we are</p>
         <ul class="relative space-y-2.5">
           {weAre.map((item) => (
             <li class="flex items-center gap-3">
@@ -93,7 +93,7 @@ const CYCLE = SLICE * (steps.length - 1);
         </ul>
       </div>
       <div class="relative overflow-hidden rounded-[var(--radius-card)] bg-[var(--color-accent-soft)] p-8">
-        <p class="relative text-sm font-semibold tracking-wide text-[var(--color-accent)] mb-5">What we aren't</p>
+        <p class="relative text-lg font-semibold tracking-wide text-[var(--color-accent)] mb-5">What we aren't</p>
         <ul class="relative space-y-3">
           {weArent.map((item) => (
             <li class="flex items-center gap-3">

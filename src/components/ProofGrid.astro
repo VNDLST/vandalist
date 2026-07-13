@@ -17,6 +17,8 @@ const items: { kind: Parameters<typeof ProofCardImage>[0]["kind"]; name: string;
     eyebrow="Past and present projects"
     heading="Real-world work with different kinds of businesses"
     subtext="Delivered through planning, collaboration, troubleshooting, and implementation."
+    maxWidth="max-w-3xl"
+    headingNoWrap
   />
   <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
     {items.map((item) => (

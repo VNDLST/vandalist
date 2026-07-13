@@ -30,7 +30,7 @@ const row2 = logos.slice(7, 14);
             <img
               src={`${import.meta.env.BASE_URL}/client-logos/${logo.file}`}
               alt={logo.name}
-              class="h-10 md:h-12 w-auto object-contain"
+              class="h-16 md:h-20 w-auto object-contain"
             />
           </div>
         ))}
@@ -43,7 +43,7 @@ const row2 = logos.slice(7, 14);
             <img
               src={`${import.meta.env.BASE_URL}/client-logos/${logo.file}`}
               alt={logo.name}
-              class="h-10 md:h-12 w-auto object-contain"
+              class="h-16 md:h-20 w-auto object-contain"
             />
           </div>
         ))}
@@ -65,15 +65,15 @@ const row2 = logos.slice(7, 14);
   }
   .logo-slot {
     flex: 0 0 auto;
-    width: 140px;
+    width: 130px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 1rem;
+    padding: 0 0.5rem;
   }
   @media (min-width: 768px) {
     .logo-slot {
-      width: 157px;
+      width: 145px;
     }
   }
   .marquee-left, .marquee-right {

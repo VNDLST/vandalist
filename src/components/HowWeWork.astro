@@ -70,7 +70,7 @@ const CYCLE = SLICE * (steps.length - 1);
           {i < steps.length - 1 && (
             <div class="arrow-track hidden lg:block absolute top-8 left-[calc(50%+40px)] w-[calc(100%-80px)] h-[2px]" aria-hidden="true">
               <div class="h-full w-full arrow-base"></div>
-              <div class="shimmer" style={`animation-delay:${-(i * SLICE)}s`}></div>
+              <div class="shimmer" style={`animation-delay:${i * SLICE}s`}></div>
               <span class="arrowhead"></span>
             </div>
           )}
@@ -80,12 +80,7 @@ const CYCLE = SLICE * (steps.length - 1);
 
     <div class="grid md:grid-cols-2 gap-6">
       <div class="relative overflow-hidden rounded-[var(--radius-card)] bg-white shadow-[0_18px_40px_-10px_rgba(28,27,26,0.22)] p-6">
-        <svg class="absolute right-0 bottom-0 w-2/3 h-full opacity-[0.06]" viewBox="0 0 200 160" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
-          <rect x="90" y="40" width="60" height="60" fill="var(--color-ink)" />
-          <circle cx="150" cy="110" r="30" fill="var(--color-ink)" />
-          <rect x="60" y="90" width="40" height="70" fill="var(--color-ink)" />
-        </svg>
-        <p class="relative text-xs font-semibold tracking-wide text-[#4e9b5e] mb-4">What we are</p>
+        <p class="relative text-sm font-semibold tracking-wide text-[#4e9b5e] mb-4">What we are</p>
         <ul class="relative space-y-2.5">
           {weAre.map((item) => (
             <li class="flex items-center gap-3">
@@ -98,11 +93,7 @@ const CYCLE = SLICE * (steps.length - 1);
         </ul>
       </div>
       <div class="relative overflow-hidden rounded-[var(--radius-card)] bg-[var(--color-accent-soft)] p-8">
-        <svg class="absolute right-0 bottom-0 w-2/3 h-full opacity-[0.08]" viewBox="0 0 200 160" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
-          <polygon points="200,160 120,160 175,60" fill="var(--color-accent)" />
-          <polygon points="130,160 90,160 115,100" fill="var(--color-accent)" />
-        </svg>
-        <p class="relative text-xs font-semibold tracking-wide text-[var(--color-accent)] mb-5">What we aren't</p>
+        <p class="relative text-sm font-semibold tracking-wide text-[var(--color-accent)] mb-5">What we aren't</p>
         <ul class="relative space-y-3">
           {weArent.map((item) => (
             <li class="flex items-center gap-3">
@@ -149,8 +140,8 @@ const CYCLE = SLICE * (steps.length - 1);
   }
   @keyframes shimmer-sweep {
     0% { transform: translateX(-120%); opacity: 0; }
-    2% { opacity: 1; }
-    30% { opacity: 1; transform: translateX(400%); }
-    32%, 100% { opacity: 0; transform: translateX(400%); }
+    1% { opacity: 1; }
+    10% { opacity: 1; transform: translateX(400%); }
+    11%, 100% { opacity: 0; transform: translateX(400%); }
   }
 </style>

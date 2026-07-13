@@ -3,9 +3,9 @@
 @import "@fontsource/manrope/600.css";
 @import "@fontsource/manrope/700.css";
 @import "@fontsource/manrope/800.css";
-@import "@fontsource/elms-sans/500.css";
-@import "@fontsource/elms-sans/600.css";
-@import "@fontsource/elms-sans/700.css";
+@import "@fontsource/plus-jakarta-sans/500.css";
+@import "@fontsource/plus-jakarta-sans/600.css";
+@import "@fontsource/plus-jakarta-sans/700.css";
 
 @tailwind base;
 @tailwind components;
@@ -43,7 +43,7 @@
   }
 
   h1, h2, h3, h4 {
-    font-family: "Elms Sans", system-ui, sans-serif;
+    font-family: "Plus Jakarta Sans", system-ui, sans-serif;
     letter-spacing: -0.01em;
   }
 }

@@ -1,13 +1,13 @@
 ---
-// Real client-supplied icons, replacing earlier placeholder SVGs.
+// Real client-supplied icons, numbered to match card position (icon-1.webp -> card 1, etc).
 interface Props {
-  kind: "strategy" | "content" | "campaigns" | "insight" | "automation" | "support";
+  kind: "1" | "2" | "3" | "4" | "5" | "6";
 }
 const { kind } = Astro.props as Props;
 ---
 <div class="w-20 h-20 flex items-center justify-center shrink-0">
   <img
-    src={`${import.meta.env.BASE_URL}/help-icons/${kind}.webp`}
+    src={`${import.meta.env.BASE_URL}/help-icons/icon-${kind}.webp`}
     alt=""
     class="w-full h-full object-contain"
   />

@@ -1,42 +1,125 @@
 ---
-const rows = [
-  { inhouse: "Full-time salary + benefits", vandalist: "Fractional team with senior expertise" },
-  { inhouse: "Rare, generalist expertise", vandalist: "Flexible, cross-functional support" },
-  { inhouse: "Months to onboard & ramp", vandalist: "Plug in quickly, scale as needed" },
-  { inhouse: "Tooling, software, and training", vandalist: "Right tools, right team, right now" },
-  { inhouse: "Vacancy risk and turnover", vandalist: "Predictable pricing, fewer overheads" },
-  { inhouse: "Siloed focus and org complexity", vandalist: "Outcome-focused, aligned to results" },
-];
----
-<section class="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-16 py-10">
-  <div class="rounded-[var(--radius-card)] bg-[var(--color-paper-dim)] p-6 md:py-10 md:px-16">
-    <div class="max-w-7xl mx-auto grid md:grid-cols-[1fr_2fr] gap-8 items-start">
-      <div>
-        <p class="text-sm tracking-wide text-[var(--color-accent)] font-medium mb-3">Coverage without hiring</p>
-        <h2 class="text-2xl md:text-3xl font-semibold mb-4">Capabilities without the headcount</h2>
-        <p class="text-[var(--color-slate)] mb-4">Everything you need&mdash;without the overhead, hiring risk, or ramp time.</p>
-        <a href="#" class="text-[var(--color-accent)] text-sm font-medium inline-flex items-center gap-1">
-          Explore how it works <span aria-hidden="true">&rarr;</span>
-        </a>
-      </div>
+import SectionHeading from "./SectionHeading.astro";
 
-      <div class="bg-white border border-[var(--color-paper-dim)] rounded-[var(--radius-card)] overflow-hidden shadow-[0_20px_45px_-15px_rgba(28,27,26,0.15)]">
-        <div class="grid grid-cols-2 divide-x divide-[var(--color-line)] items-center px-6 md:px-8 py-4 border-b border-[var(--color-line)]">
-          <p class="font-semibold text-sm text-center">Hiring In-House</p>
-          <p class="font-semibold text-sm text-[var(--color-accent)] text-center whitespace-nowrap">Working with Vandalist</p>
-        </div>
-        {rows.map((row, i) => (
-          <div
-            class:list={[
-              "grid grid-cols-2 divide-x divide-[var(--color-line)] items-center px-6 md:px-8 py-4",
-              i < rows.length - 1 ? "border-b border-[var(--color-line)]" : "",
-            ]}
-          >
-            <p class="text-sm text-[var(--color-slate)] text-center pr-4">{row.inhouse}</p>
-            <p class="text-sm text-[var(--color-ink)] text-center pl-4">{row.vandalist}</p>
-          </div>
-        ))}
+const rows = [
+  {
+    icon: "flexibility",
+    label: "Flexibility",
+    internal: "Limited by available roles and internal capacity",
+    vandalist: "Flexible hours, used how you need",
+  },
+  {
+    icon: "capability",
+    label: "Capability",
+    internal: "Dependent on the skills of a small number of people",
+    vandalist: "Broad skill set across marketing channels",
+  },
+  {
+    icon: "commitment",
+    label: "Commitment",
+    internal: "Ongoing salaries, leave and employment overheads",
+    vandalist: "No lock-in. Scale support up or down",
+  },
+  {
+    icon: "support",
+    label: "Support",
+    internal: "Work can stall when people are unavailable",
+    vandalist: "Ongoing, responsive support",
+  },
+  {
+    icon: "visibility",
+    label: "Visibility",
+    internal: "Reporting depends on internal systems and discipline",
+    vandalist: "Clear reporting and regular updates",
+  },
+  {
+    icon: "value",
+    label: "Value",
+    internal: "You carry the full cost of building and maintaining the team",
+    vandalist: "You pay for the capability you actually use",
+  },
+];
+
+const icons: Record<string, string> = {
+  flexibility: `<path d="M4 7h10l-2.5-2.5M14 7l-2.5 2.5M20 17H10l2.5 2.5M10 17l2.5-2.5" stroke-linecap="round" stroke-linejoin="round"/>`,
+  capability: `<circle cx="9" cy="8" r="3"/><path d="M4 20c0-3 2.2-5.2 5-5.2s5 2.2 5 5.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="17.5" cy="9" r="2.3"/><path d="M15.3 20c0-2.3 1-4.1 2.9-4.7" stroke-linecap="round" stroke-linejoin="round"/>`,
+  commitment: `<rect x="5.5" y="11" width="13" height="9" rx="2"/><path d="M9 11V8a3 3 0 0 1 6 0v3" stroke-linecap="round" stroke-linejoin="round"/>`,
+  support: `<path d="M4.5 13.5a7.5 7.5 0 0 1 15 0" stroke-linecap="round"/><rect x="3.5" y="13.5" width="4" height="6" rx="1.5"/><rect x="16.5" y="13.5" width="4" height="6" rx="1.5"/>`,
+  visibility: `<path d="M4.5 20V10M11.5 20V4M18.5 20v-7" stroke-linecap="round"/>`,
+  value: `<circle cx="12" cy="12" r="8.5"/><path d="M12 6.8v10.4M9.3 9.5c0-1.2 1.2-2.1 2.7-2.1s2.7.8 2.7 2-1.1 1.9-2.7 2.1-2.7 1-2.7 2.1 1.2 2 2.7 2 2.7-.9 2.7-2" stroke-linecap="round" stroke-linejoin="round"/>`,
+};
+---
+<section class="max-w-7xl mx-auto px-6 md:px-10 py-10">
+  <SectionHeading
+    eyebrow="Coverage without hiring"
+    heading="Capabilities without the headcount"
+    subtext="Everything you need&mdash;without the overhead, hiring risk, or ramp time."
+  />
+  <a href="#" class="-mt-8 mb-8 inline-flex items-center gap-1 text-[var(--color-accent)] text-sm font-medium">
+    Explore how it works <span aria-hidden="true">&rarr;</span>
+  </a>
+
+  <!-- Desktop / tablet table -->
+  <div class="hidden md:block rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white overflow-hidden">
+    <div class="grid grid-cols-[1fr_1.5fr_1.5fr]">
+      <div class="px-6 lg:px-8 py-6 flex items-end">
+        <p class="font-semibold text-[var(--color-ink)]">What matters</p>
+      </div>
+      <div class="px-6 lg:px-8 py-6 border-l border-[var(--color-line)]/70 flex items-end">
+        <p class="font-semibold text-[var(--color-slate)]">Internal team</p>
+      </div>
+      <div class="relative px-6 lg:px-8 py-6 border-l border-[var(--color-line)]/70 bg-[var(--color-accent-soft)] flex items-end">
+        <span class="absolute top-0 left-0 right-0 h-[2px]" style="background:#ff3d6b"></span>
+        <p class="font-semibold text-[var(--color-ink)]">Vandalist approach</p>
       </div>
     </div>
+
+    {rows.map((row, i) => (
+      <div class:list={["grid grid-cols-[1fr_1.5fr_1.5fr]", i > 0 && "border-t border-[var(--color-line)]/70"]}>
+        <div class="px-6 lg:px-8 py-7 flex items-center gap-3">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff3d6b" stroke-width="1.75" set:html={icons[row.icon]} />
+          <p class="font-semibold text-[var(--color-ink)]">{row.label}</p>
+        </div>
+        <div class="px-6 lg:px-8 py-7 border-l border-[var(--color-line)]/70 flex items-center">
+          <p class="text-[var(--color-slate)]">{row.internal}</p>
+        </div>
+        <div class="relative px-6 lg:px-8 py-7 border-l border-[var(--color-line)]/70 bg-[var(--color-accent-soft)] flex items-center gap-3">
+          <span class="w-5 h-5 rounded-full flex items-center justify-center shrink-0" style="background:#ff3d6b">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+              <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </span>
+          <p class="font-medium text-[var(--color-ink)]">{row.vandalist}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <!-- Mobile stacked cards -->
+  <div class="md:hidden space-y-4">
+    {rows.map((row) => (
+      <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white overflow-hidden">
+        <div class="flex items-center gap-3 px-5 py-4 border-b border-[var(--color-line)]/70">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff3d6b" stroke-width="1.75" set:html={icons[row.icon]} />
+          <p class="font-semibold text-[var(--color-ink)]">{row.label}</p>
+        </div>
+        <div class="px-5 py-4 border-b border-[var(--color-line)]/70">
+          <p class="text-xs font-medium text-[var(--color-slate)] uppercase tracking-wide mb-1">Internal team</p>
+          <p class="text-[var(--color-slate)]">{row.internal}</p>
+        </div>
+        <div class="relative px-5 py-4 bg-[var(--color-accent-soft)]">
+          <span class="absolute top-0 left-0 right-0 h-[2px]" style="background:#ff3d6b"></span>
+          <p class="text-xs font-medium text-[var(--color-ink)] uppercase tracking-wide mb-1">Vandalist approach</p>
+          <div class="flex items-start gap-2">
+            <span class="w-5 h-5 rounded-full flex items-center justify-center shrink-0 mt-0.5" style="background:#ff3d6b">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+                <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+            <p class="font-medium text-[var(--color-ink)]">{row.vandalist}</p>
+          </div>
+        </div>
+      </div>
+    ))}
   </div>
 </section>

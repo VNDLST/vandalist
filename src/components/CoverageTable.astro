@@ -52,7 +52,7 @@ const icons: Record<string, string> = {
     <div class="max-w-7xl mx-auto grid lg:grid-cols-[1fr_2fr] gap-8 items-start">
       <div>
         <p class="text-sm tracking-wide text-[var(--color-accent)] font-medium mb-3">Coverage without hiring</p>
-        <h2 class="text-2xl md:text-3xl font-semibold mb-4">Capabilities without the headcount</h2>
+        <h2 class="text-2xl md:text-3xl font-semibold mb-4">Marketing capabilities without the headcount</h2>
         <p class="text-[var(--color-slate)] mb-4">Everything you need&mdash;without the overhead, hiring risk, or ramp time.</p>
         <a href="#" class="text-[var(--color-accent)] text-sm font-medium inline-flex items-center gap-1">
           Explore how it works <span aria-hidden="true">&rarr;</span>
@@ -62,14 +62,14 @@ const icons: Record<string, string> = {
       <div>
         <!-- Desktop / large tablet table -->
         <div class="hidden lg:block rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white overflow-hidden">
-          <div class="grid grid-cols-[1fr_1.3fr_1.3fr]">
-            <div class="px-5 xl:px-6 py-5 flex items-end">
+          <div class="grid grid-cols-[1fr_1.3fr_1.3fr] border-b border-[var(--color-line)]">
+            <div class="px-5 xl:px-6 py-2 flex items-center bg-[var(--color-paper-dim)]">
               <p class="font-semibold text-sm text-[var(--color-ink)]">What matters</p>
             </div>
-            <div class="px-5 xl:px-6 py-5 border-l border-[var(--color-line)]/70 flex items-end">
+            <div class="px-5 xl:px-6 py-2 border-l border-[var(--color-line)]/70 flex items-center bg-[var(--color-paper-dim)]">
               <p class="font-semibold text-sm text-[var(--color-slate)]">Internal team</p>
             </div>
-            <div class="relative px-5 xl:px-6 py-5 border-l border-[var(--color-line)]/70 bg-[var(--color-accent-soft)] flex items-end">
+            <div class="relative px-5 xl:px-6 py-2 border-l border-[var(--color-line)]/70 bg-[#f8d6e0] flex items-center">
               <span class="absolute top-0 left-0 right-0 h-[2px]" style="background:#ff3d6b"></span>
               <p class="font-semibold text-sm text-[var(--color-ink)]">Vandalist approach</p>
             </div>
@@ -77,14 +77,14 @@ const icons: Record<string, string> = {
 
           {rows.map((row, i) => (
             <div class:list={["grid grid-cols-[1fr_1.3fr_1.3fr]", i > 0 && "border-t border-[var(--color-line)]/70"]}>
-              <div class="px-5 xl:px-6 py-6 flex items-center gap-2.5">
+              <div class:list={["px-5 xl:px-6 flex items-center gap-2.5", i === rows.length - 1 ? "py-2" : "py-6"]}>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff3d6b" stroke-width="1.75" set:html={icons[row.icon]} />
                 <p class="font-semibold text-sm text-[var(--color-ink)]">{row.label}</p>
               </div>
-              <div class="px-5 xl:px-6 py-6 border-l border-[var(--color-line)]/70 flex items-center">
+              <div class:list={["px-5 xl:px-6 border-l border-[var(--color-line)]/70 flex items-center", i === rows.length - 1 ? "py-2" : "py-6"]}>
                 <p class="text-sm text-[var(--color-slate)]">{row.internal}</p>
               </div>
-              <div class="relative px-5 xl:px-6 py-6 border-l border-[var(--color-line)]/70 bg-[var(--color-accent-soft)] flex items-center gap-2.5">
+              <div class:list={["relative px-5 xl:px-6 border-l border-[var(--color-line)]/70 bg-[var(--color-accent-soft)] flex items-center gap-2.5", i === rows.length - 1 ? "py-2" : "py-6"]}>
                 <span class="w-4.5 h-4.5 rounded-full flex items-center justify-center shrink-0" style="background:#ff3d6b">
                   <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
                     <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" />

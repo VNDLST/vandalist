@@ -13,10 +13,10 @@ const projectStages = ["Urgent", "Assessing options", "Future planning", "Not su
       <div class="md:max-w-[50%]">
         <p class="text-sm tracking-wide text-[var(--color-accent)] font-medium mb-3">Contact</p>
         <h1 class="text-4xl md:text-5xl font-semibold leading-[1.05] tracking-[-0.02em] mb-4">
-          Tell us what you need help with
+          We will definitely reply to your message
         </h1>
         <p class="text-[var(--color-slate)] max-w-md mb-12">
-          Send through the details, even if the brief is still taking shape.
+          Send through the details of your project or your query, and we will get back to you within the day.
         </p>
       </div>
     </div>
@@ -27,52 +27,52 @@ const projectStages = ["Urgent", "Assessing options", "Future planning", "Not su
         <form class="rounded-[var(--radius-card)] bg-white p-6 md:p-8 shadow-[0_20px_45px_-15px_rgba(28,27,26,0.15)]">
           <div class="grid sm:grid-cols-2 gap-5 mb-5">
             <div>
-              <label for="name" class="block text-sm font-semibold text-[var(--color-ink)] mb-2">Name</label>
+              <label for="name" class="block font-semibold text-[var(--color-ink)] mb-2">Name</label>
               <input
                 id="name"
                 type="text"
                 placeholder="Your name"
-                class="w-full rounded-lg border border-[var(--color-line)] px-4 py-3 text-sm text-[var(--color-ink)] placeholder:text-[var(--color-slate-light)] focus:outline-none focus:border-[var(--color-slate)]"
+                class="w-full rounded-lg border border-[var(--color-line)] px-4 py-4 text-sm text-[var(--color-ink)] placeholder:text-[var(--color-slate-light)] focus:outline-none focus:border-[var(--color-slate)]"
               />
             </div>
             <div>
-              <label for="email" class="block text-sm font-semibold text-[var(--color-ink)] mb-2">Email</label>
+              <label for="email" class="block font-semibold text-[var(--color-ink)] mb-2">Email</label>
               <input
                 id="email"
                 type="email"
                 placeholder="you@example.com"
-                class="w-full rounded-lg border border-[var(--color-line)] px-4 py-3 text-sm text-[var(--color-ink)] placeholder:text-[var(--color-slate-light)] focus:outline-none focus:border-[var(--color-slate)]"
+                class="w-full rounded-lg border border-[var(--color-line)] px-4 py-4 text-sm text-[var(--color-ink)] placeholder:text-[var(--color-slate-light)] focus:outline-none focus:border-[var(--color-slate)]"
               />
             </div>
           </div>
 
           <div class="grid sm:grid-cols-2 gap-5 mb-5">
             <div>
-              <label for="phone" class="block text-sm font-semibold text-[var(--color-ink)] mb-2">Phone</label>
+              <label for="phone" class="block font-semibold text-[var(--color-ink)] mb-2">Phone</label>
               <input
                 id="phone"
                 type="tel"
                 placeholder="e.g. 0412 345 678"
-                class="w-full rounded-lg border border-[var(--color-line)] px-4 py-3 text-sm text-[var(--color-ink)] placeholder:text-[var(--color-slate-light)] focus:outline-none focus:border-[var(--color-slate)]"
+                class="w-full rounded-lg border border-[var(--color-line)] px-4 py-4 text-sm text-[var(--color-ink)] placeholder:text-[var(--color-slate-light)] focus:outline-none focus:border-[var(--color-slate)]"
               />
             </div>
             <div>
-              <label for="business" class="block text-sm font-semibold text-[var(--color-ink)] mb-2">Business name</label>
+              <label for="business" class="block font-semibold text-[var(--color-ink)] mb-2">Business name</label>
               <input
                 id="business"
                 type="text"
                 placeholder="Your business name"
-                class="w-full rounded-lg border border-[var(--color-line)] px-4 py-3 text-sm text-[var(--color-ink)] placeholder:text-[var(--color-slate-light)] focus:outline-none focus:border-[var(--color-slate)]"
+                class="w-full rounded-lg border border-[var(--color-line)] px-4 py-4 text-sm text-[var(--color-ink)] placeholder:text-[var(--color-slate-light)] focus:outline-none focus:border-[var(--color-slate)]"
               />
             </div>
           </div>
 
           <div class="mb-5">
-            <label for="stage" class="block text-sm font-semibold text-[var(--color-ink)] mb-2">Project stage</label>
+            <label for="stage" class="block font-semibold text-[var(--color-ink)] mb-2">Project stage</label>
             <div class="relative">
               <select
                 id="stage"
-                class="w-full appearance-none rounded-lg border border-[var(--color-line)] px-4 py-3 text-sm text-[var(--color-ink)] focus:outline-none focus:border-[var(--color-slate)] bg-white"
+                class="w-full appearance-none rounded-lg border border-[var(--color-line)] px-4 py-4 text-sm text-[var(--color-ink)] focus:outline-none focus:border-[var(--color-slate)] bg-white"
               >
                 <option value="" selected disabled>Select an option</option>
                 {projectStages.map((stage) => <option value={stage}>{stage}</option>)}
@@ -87,12 +87,12 @@ const projectStages = ["Urgent", "Assessing options", "Future planning", "Not su
           </div>
 
           <div class="mb-6">
-            <label for="details" class="block text-sm font-semibold text-[var(--color-ink)] mb-2">What do you need help with?</label>
+            <label for="details" class="block font-semibold text-[var(--color-ink)] mb-2">What do you need help with?</label>
             <textarea
               id="details"
               rows="4"
               placeholder="Share a few details about your project, goals, challenges or any questions you have."
-              class="w-full rounded-lg border border-[var(--color-line)] px-4 py-3 text-sm text-[var(--color-ink)] placeholder:text-[var(--color-slate-light)] focus:outline-none focus:border-[var(--color-slate)] resize-y"
+              class="w-full rounded-lg border border-[var(--color-line)] px-4 py-4 text-sm text-[var(--color-ink)] placeholder:text-[var(--color-slate-light)] focus:outline-none focus:border-[var(--color-slate)] resize-y"
             ></textarea>
           </div>
 

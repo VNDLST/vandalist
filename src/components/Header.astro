@@ -1,4 +1,8 @@
 ---
+interface Props {
+  currentPage?: string;
+}
+const { currentPage = "" } = Astro.props as Props;
 const links = [
   { label: "Services", path: "/services" },
   { label: "Work", path: "/work" },
@@ -7,7 +11,6 @@ const links = [
   { label: "About", path: "/about" },
   { label: "Contact", path: "/contact" },
 ];
-const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
 const base = import.meta.env.BASE_URL;
 ---
 <header class="w-full py-8 md:py-10">
@@ -18,16 +21,19 @@ const base = import.meta.env.BASE_URL;
 
     <ul class="hidden md:flex items-center gap-8 text-sm text-[var(--color-slate)]">
       {links.map((link) => (
-        <li>
+        <li class="relative">
           <a
             href={`${base}${link.path}`}
             class:list={[
               "transition-colors",
-              currentPath === link.path ? "text-[var(--color-accent)] font-medium" : "hover:text-[var(--color-ink)]",
+              currentPage === link.path ? "text-[var(--color-accent)] font-medium" : "hover:text-[var(--color-ink)]",
             ]}
           >
             {link.label}
           </a>
+          {currentPage === link.path && (
+            <span class="absolute left-1/2 -translate-x-1/2 -bottom-2 w-4 h-[2px] rounded-full bg-[var(--color-accent)]"></span>
+          )}
         </li>
       ))}
     </ul>
@@ -35,13 +41,16 @@ const base = import.meta.env.BASE_URL;
     <!-- mobile: simple stacked link row, no hamburger complexity for v1 -->
     <ul class="flex md:hidden items-center gap-3 text-xs text-[var(--color-slate)] overflow-x-auto">
       {links.map((link) => (
-        <li class="shrink-0">
+        <li class="relative shrink-0">
           <a
             href={`${base}${link.path}`}
-            class:list={currentPath === link.path ? "text-[var(--color-accent)] font-medium" : ""}
+            class:list={currentPage === link.path ? "text-[var(--color-accent)] font-medium" : ""}
           >
             {link.label}
           </a>
+          {currentPage === link.path && (
+            <span class="absolute left-1/2 -translate-x-1/2 -bottom-1.5 w-3 h-[2px] rounded-full bg-[var(--color-accent)]"></span>
+          )}
         </li>
       ))}
     </ul>

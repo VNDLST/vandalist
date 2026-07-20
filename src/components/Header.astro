@@ -1,28 +1,29 @@
 ---
 const links = [
-  { label: "Services", href: "/services" },
-  { label: "Work", href: "/work" },
-  { label: "Case Studies", href: "/case-studies" },
-  { label: "How We Work", href: "/how-we-work" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
+  { label: "Services", path: "/services" },
+  { label: "Work", path: "/work" },
+  { label: "Case Studies", path: "/case-studies" },
+  { label: "How We Work", path: "/how-we-work" },
+  { label: "About", path: "/about" },
+  { label: "Contact", path: "/contact" },
 ];
 const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
+const base = import.meta.env.BASE_URL;
 ---
 <header class="w-full py-8 md:py-10">
   <nav class="max-w-7xl mx-auto px-6 md:px-10 flex items-center justify-between">
-    <a href="/" class="shrink-0">
-      <img src={`${import.meta.env.BASE_URL}/vandalist-logo.png`} alt="Vandalist" class="h-10 md:h-12 w-auto" />
+    <a href={base || "/"} class="shrink-0">
+      <img src={`${base}/vandalist-logo.png`} alt="Vandalist" class="h-10 md:h-12 w-auto" />
     </a>
 
     <ul class="hidden md:flex items-center gap-8 text-sm text-[var(--color-slate)]">
       {links.map((link) => (
         <li>
           <a
-            href={link.href}
+            href={`${base}${link.path}`}
             class:list={[
               "transition-colors",
-              currentPath === link.href ? "text-[var(--color-accent)] font-medium" : "hover:text-[var(--color-ink)]",
+              currentPath === link.path ? "text-[var(--color-accent)] font-medium" : "hover:text-[var(--color-ink)]",
             ]}
           >
             {link.label}
@@ -36,8 +37,8 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
       {links.map((link) => (
         <li class="shrink-0">
           <a
-            href={link.href}
-            class:list={currentPath === link.href ? "text-[var(--color-accent)] font-medium" : ""}
+            href={`${base}${link.path}`}
+            class:list={currentPath === link.path ? "text-[var(--color-accent)] font-medium" : ""}
           >
             {link.label}
           </a>

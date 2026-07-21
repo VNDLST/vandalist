@@ -1,0 +1,226 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import CtaBand from "../components/CtaBand.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+
+const base = import.meta.env.BASE_URL;
+
+const coreValues = [
+  { icon: "knowledge", label: "Never know enough" },
+  { icon: "fearless", label: "Pitch fearlessness" },
+  { icon: "shipit", label: "Ship it right" },
+  { icon: "excited", label: "Start excited, stay excited" },
+  { icon: "different", label: "We aren't everyone" },
+];
+
+// Radial "system" nodes, positioned around the center circle.
+// Percent-based coordinates within a square relative container.
+const systemNodes = [
+  { label: "Strategy", icon: "strategy", top: "0%", left: "50%" },
+  { label: "Project Management", icon: "project", top: "18%", left: "88%" },
+  { label: "Design", icon: "design", top: "62%", left: "94%" },
+  { label: "Websites", icon: "websites", top: "94%", left: "70%" },
+  { label: "Content", icon: "content", top: "94%", left: "26%" },
+  { label: "SEO & Ads", icon: "seo", top: "62%", left: "2%" },
+  { label: "Systems / AI", icon: "systems", top: "18%", left: "8%" },
+];
+
+const systemIcons: Record<string, string> = {
+  strategy: `<circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="3"/>`,
+  project: `<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 3.5h6M9 9h6M9 13h6M9 17h3" stroke-linecap="round"/>`,
+  design: `<path d="M4 20l1-4.5L16.5 4a1.5 1.5 0 0 1 2.1 0l1.4 1.4a1.5 1.5 0 0 1 0 2.1L8.5 19 4 20z" stroke-linejoin="round"/>`,
+  websites: `<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 9h18" stroke-linecap="round"/><circle cx="6" cy="7" r="0.6" fill="currentColor" stroke="none"/>`,
+  content: `<path d="M6 4h9l3 3v13H6z" stroke-linejoin="round"/><path d="M9 11h6M9 14.5h6M9 17.5h3.5" stroke-linecap="round"/>`,
+  seo: `<path d="M4 20V13M11 20V7M18 20v-5" stroke-linecap="round"/>`,
+  systems: `<rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/>`,
+};
+
+const partners = [
+  {
+    logo: "queensland-government",
+    title: "Queensland Government Mentors",
+    text: "Proud to give back and support Queensland businesses.",
+  },
+  {
+    logo: "university-of-queensland",
+    title: "University of Queensland Partnership",
+    text: "Supporting UQ students through real-world marketing collaboration.",
+  },
+  {
+    logo: "qut",
+    title: "QUT Partnership",
+    text: "Working with QUT on practical, industry-connected projects.",
+  },
+  {
+    logo: "local-buy",
+    title: "Local Buy Approved Supplier",
+    text: "Streamlined procurement for Australian organisations.",
+  },
+  {
+    logo: "carbon-neutral",
+    title: "Carbon Neutral Plant-a-Tree Program",
+    text: "We're committed to a more sustainable future.",
+  },
+];
+---
+<Layout title="About">
+  <div class="bg-[var(--color-paper)]">
+    <Header currentPage="/about" />
+
+    <!-- Intro -->
+    <div class="max-w-3xl mx-auto px-6 md:px-10 pb-12 md:pb-16 text-center">
+      <h1 class="text-3xl md:text-4xl font-semibold leading-[1.15] tracking-[-0.01em] mb-5">
+        A marketing agency built around practicality and sustainability.
+      </h1>
+      <p class="text-[var(--color-slate)]">
+        We partner with established businesses, marketing managers, and lean internal teams to get more capability without the bloat.
+      </p>
+    </div>
+
+    <!-- Intro video -->
+    <div class="max-w-7xl mx-auto px-6 md:px-10 pb-20 md:pb-28">
+      <div class="rounded-[var(--radius-card)] bg-[var(--color-paper-dim)] p-6 md:p-10 grid md:grid-cols-2 gap-8 items-center">
+        <div>
+          <p class="text-sm tracking-wide text-[var(--color-accent)] font-medium mb-3">Intro video</p>
+          <h2 class="text-2xl md:text-3xl font-semibold mb-6">A quick hello from Andrew.</h2>
+          <a
+            href="#"
+            class="inline-flex items-center gap-3 rounded-2xl bg-white border border-[var(--color-line)] px-6 py-3.5 text-sm font-medium text-[var(--color-ink)] hover:border-[var(--color-slate)] transition-colors"
+          >
+            <span class="w-7 h-7 rounded-full bg-[var(--color-accent-soft)] flex items-center justify-center shrink-0">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="var(--color-accent)"><path d="M6 4l14 8-14 8V4z" /></svg>
+            </span>
+            Play intro video
+          </a>
+        </div>
+
+        <div class="relative rounded-[var(--radius-card)] overflow-hidden aspect-[4/3]">
+          <img
+            src={`${base}/vandalist-hero.png`}
+            alt="Vandalist team still life"
+            class="w-full h-full object-cover"
+          />
+          <div class="absolute inset-0 flex items-center justify-center">
+            <span class="w-16 h-16 rounded-full bg-white/90 shadow-[0_10px_30px_-6px_rgba(28,27,26,0.35)] flex items-center justify-center">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--color-accent)"><path d="M6 4l14 8-14 8V4z" /></svg>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mission statement -->
+    <div class="max-w-2xl mx-auto px-6 md:px-10 pb-20 md:pb-28 text-center space-y-6">
+      <p class="text-[var(--color-ink)] text-lg leading-relaxed">
+        We believe marketing should create momentum, not noise. That means strategic forethought, practical execution, and systems that make it easier to keep going.
+      </p>
+      <p class="text-[var(--color-ink)] text-lg leading-relaxed">
+        Vandalist exists to help established businesses get more marketing capability on tap &mdash; so you can move faster, stay focused, and build something that lasts.
+      </p>
+    </div>
+
+    <!-- Core values -->
+    <div class="max-w-5xl mx-auto px-6 md:px-10 pb-20 md:pb-28">
+      <p class="text-sm tracking-wide text-[var(--color-accent)] font-medium text-center mb-8">Our core values</p>
+      <div class="flex flex-wrap justify-center gap-4">
+        {coreValues.map((value) => (
+          <div class="flex items-center gap-3 rounded-2xl border border-[var(--color-line)] bg-white px-5 py-4 w-full sm:w-[calc(50%-0.5rem)] lg:w-[calc(33.333%-0.75rem)]">
+            <span class="w-11 h-11 rounded-full bg-[var(--color-accent)] flex items-center justify-center shrink-0 p-2.5">
+              <img src={`${base}/values-icons/${value.icon}.svg`} alt="" class="w-full h-full object-contain" />
+            </span>
+            <p class="font-semibold text-[var(--color-ink)] text-sm leading-snug">{value.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- How we work: system diagram -->
+    <div class="max-w-7xl mx-auto px-6 md:px-10 pb-6 md:pb-8">
+      <div class="rounded-[var(--radius-card)] bg-[var(--color-paper-dim)] p-6 md:p-12 grid md:grid-cols-2 gap-10 items-center">
+        <div>
+          <p class="text-sm tracking-wide text-[var(--color-accent)] font-medium mb-3">How we work</p>
+          <h2 class="text-2xl md:text-3xl font-semibold mb-4">A small team. A complete system.</h2>
+          <p class="text-[var(--color-slate)] mb-6">
+            We bring the right capabilities around the table &mdash; and connect them in a way that creates clarity, alignment, and results.
+          </p>
+          <a href={`${base}/how-we-work`} class="text-[var(--color-accent)] text-sm font-medium inline-flex items-center gap-1">
+            See how we work <span aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
+
+        <!-- Desktop radial diagram -->
+        <div class="hidden md:block relative mx-auto" style="width: 420px; height: 420px;">
+          <svg class="absolute inset-0 w-full h-full" viewBox="0 0 420 420" aria-hidden="true">
+            {systemNodes.map((node) => (
+              <line
+                x1="210" y1="210"
+                x2={`${(parseFloat(node.left) / 100) * 420}`}
+                y2={`${(parseFloat(node.top) / 100) * 420}`}
+                stroke="var(--color-line)"
+                stroke-width="1.5"
+                stroke-dasharray="4 4"
+              />
+            ))}
+          </svg>
+
+          <div class="absolute rounded-full bg-white shadow-[0_20px_45px_-15px_rgba(28,27,26,0.2)] flex flex-col items-center justify-center text-center px-4"
+               style="width: 150px; height: 150px; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.75" class="mb-1.5">
+              <circle cx="9" cy="8" r="2.6" /><path d="M4.5 19c0-2.6 2-4.6 4.5-4.6s4.5 2 4.5 4.6" stroke-linecap="round" />
+              <circle cx="16" cy="8.5" r="2" /><path d="M14.3 19c0-2 1-3.6 2.7-4.1" stroke-linecap="round" />
+            </svg>
+            <p class="text-xs font-semibold text-[var(--color-ink)] leading-snug">Expert people<br />in expert roles</p>
+          </div>
+
+          {systemNodes.map((node) => (
+            <div
+              class="absolute flex items-center gap-2 rounded-full bg-white border border-[var(--color-line)] px-3.5 py-2 shadow-[0_8px_20px_-8px_rgba(28,27,26,0.15)] whitespace-nowrap"
+              style={`top: ${node.top}; left: ${node.left}; transform: translate(-50%, -50%);`}
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.75" set:html={systemIcons[node.icon]} />
+              <p class="text-xs font-medium text-[var(--color-ink)]">{node.label}</p>
+            </div>
+          ))}
+        </div>
+
+        <!-- Mobile fallback: simple list -->
+        <div class="md:hidden grid grid-cols-2 gap-3">
+          {systemNodes.map((node) => (
+            <div class="flex items-center gap-2 rounded-full bg-white border border-[var(--color-line)] px-3.5 py-2.5">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.75" set:html={systemIcons[node.icon]} />
+              <p class="text-xs font-medium text-[var(--color-ink)]">{node.label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <p class="text-center text-[var(--color-slate)] text-sm max-w-7xl mx-auto px-6 md:px-10 pb-20 md:pb-28 pt-6">
+      Focused, connected, and built to deliver.
+    </p>
+
+    <!-- Partnerships & trust -->
+    <div class="max-w-7xl mx-auto px-6 md:px-10 pb-20 md:pb-28">
+      <SectionHeading
+        eyebrow="Partnerships & trust"
+        heading="We're proud to work alongside organisations that share our values."
+      />
+      <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        {partners.map((partner) => (
+          <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-5 flex flex-col">
+            <div class="h-9 mb-4 flex items-center">
+              <img src={`${base}/partner-logos/${partner.logo}.svg`} alt="" class="h-full w-auto max-w-[80%] object-contain object-left" />
+            </div>
+            <p class="font-semibold text-[var(--color-ink)] text-sm mb-1.5">{partner.title}</p>
+            <p class="text-[var(--color-slate)] text-sm leading-relaxed">{partner.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <CtaBand />
+  <Footer />
+</Layout>

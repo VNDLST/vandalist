@@ -122,17 +122,32 @@ const partners = [
     </div>
 
     <!-- Core values -->
-    <div class="relative max-w-4xl mx-auto px-6 md:px-10 pb-20 md:pb-28">
+    <div class="relative max-w-4xl mx-auto px-6 md:px-10 pt-10 md:pt-16 pb-20 md:pb-28">
       <p class="text-sm tracking-wide text-[var(--color-accent)] font-medium text-center mb-10">Our core values</p>
 
-      <!-- decorative flourish arrows (editorial touch, hidden on small screens) -->
-      <svg class="hidden md:block absolute left-0 top-16 w-10 h-10 text-[var(--color-accent)] opacity-70" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-        <path d="M32 6c2 10-2 18-12 20" stroke-linecap="round" stroke-dasharray="1 5" />
-        <path d="M14 22l6 4-2 7" stroke-linecap="round" stroke-linejoin="round" />
+      <!-- decorative hand-drawn accent marks (editorial touch, hidden on small screens) -->
+      <svg class="hidden md:block absolute left-2 -top-10 w-8 h-16 text-[var(--color-accent)] opacity-40" viewBox="0 0 32 64" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+        <path d="M8 4c2 20 4 34 10 52" stroke-linecap="round" />
+        <path d="M12 46l6 10 6-6" stroke-linecap="round" stroke-linejoin="round" />
       </svg>
-      <svg class="hidden md:block absolute right-2 bottom-10 w-9 h-9 text-[var(--color-slate-light)] opacity-70" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-        <path d="M8 10c0 12 8 18 18 16" stroke-linecap="round" stroke-dasharray="1 5" />
-        <path d="M20 32l6-2 3 6" stroke-linecap="round" stroke-linejoin="round" />
+      <svg class="hidden md:block absolute right-6 -top-8 w-8 h-14 text-[var(--color-accent)] opacity-40" viewBox="0 0 32 56" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+        <path d="M22 4c-3 16-4 28-8 44" stroke-linecap="round" />
+        <path d="M10 40l4 9 7-4" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+
+      <!-- small spark ticks, near top-right of cluster -->
+      <svg class="hidden md:block absolute right-16 top-8 w-5 h-5 text-[var(--color-slate-light)] opacity-60" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+        <path d="M3 3l4 4M15 2l-2 5" stroke-linecap="round" />
+      </svg>
+
+      <!-- loose hook scribble, left side -->
+      <svg class="hidden md:block absolute left-4 top-40 w-7 h-7 text-[var(--color-accent-soft)] opacity-90" viewBox="0 0 28 28" fill="none" stroke="var(--color-accent)" stroke-width="1.5" aria-hidden="true">
+        <path d="M22 6c2 8-2 14-16 14" stroke-linecap="round" stroke-dasharray="1 4.5" />
+      </svg>
+
+      <!-- gentle bracket doodle, bottom-right -->
+      <svg class="hidden md:block absolute right-8 bottom-4 w-7 h-7 text-[var(--color-slate-light)] opacity-60" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+        <path d="M6 4c-4 6-4 14 0 20" stroke-linecap="round" />
       </svg>
 
       <div class="flex flex-wrap justify-center items-start gap-x-5 gap-y-7">
@@ -150,7 +165,7 @@ const partners = [
               style={`transform: ${tilt};`}
             >
               <span
-                class="w-8 h-8 shrink-0"
+                class="w-12 h-12 shrink-0"
                 style={`background-color: var(--color-accent); -webkit-mask-image:url(${base}/values-icons/${value.icon}.svg); mask-image:url(${base}/values-icons/${value.icon}.svg); -webkit-mask-size:contain; mask-size:contain; -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat; -webkit-mask-position:center; mask-position:center;`}
               ></span>
               <p class="text-[var(--color-ink)] leading-snug sm:whitespace-nowrap" style="font-size: 1.125rem; font-weight: 600;">{value.label}</p>

@@ -122,40 +122,41 @@ const partners = [
     </div>
 
     <!-- Core values -->
-    <div class="relative max-w-6xl mx-auto px-6 md:px-10 pt-10 md:pt-16 pb-20 md:pb-28">
-      <p class="text-sm tracking-wide text-[var(--color-accent)] font-medium text-center mb-10">Our core values</p>
+    <div class="max-w-6xl mx-auto px-6 md:px-10 pt-4 md:pt-6 pb-12 md:pb-16">
+      <p class="text-sm tracking-wide text-[var(--color-accent)] font-medium text-center mb-8">Our core values</p>
 
-      <!-- decorative accent background: hidden on mobile (cards stack), reduced/lower-opacity on tablet, full on desktop -->
-      <img
-        src={`${base}/values-icons/values-bg.svg`}
-        alt=""
-        aria-hidden="true"
-        class="hidden sm:block absolute left-1/2 top-1/2 w-[105%] md:w-[115%] max-w-none h-auto opacity-60 md:opacity-100 pointer-events-none z-0"
-        style="transform: translate(-50%, -50%);"
-      />
+      <div class="relative mx-auto w-fit">
+        <!-- decorative accent background, sized to the card cluster itself (not the outer section) -->
+        <img
+          src={`${base}/values-icons/values-bg.svg`}
+          alt=""
+          aria-hidden="true"
+          class="hidden md:block absolute left-1/2 top-1/2 w-[120%] max-w-none -translate-x-1/2 -translate-y-1/2 pointer-events-none z-0"
+        />
 
-      <div class="relative z-10 flex flex-wrap justify-center items-start gap-x-5 gap-y-7">
-        {coreValues.map((value, i) => {
-          const tilt = [
-            "rotate(-1.5deg) translateY(-3px)",
-            "rotate(1deg) translateY(7px)",
-            "rotate(-1deg) translateY(-5px)",
-            "rotate(1.5deg) translateY(4px)",
-            "rotate(-2deg) translateY(-2px)",
-          ][i % 5];
-          return (
-            <div
-              class="inline-flex items-center gap-4 rounded-2xl border border-[var(--color-line)] bg-white px-7 py-6 shadow-[0_16px_32px_-14px_rgba(28,27,26,0.28)]"
-              style={`transform: ${tilt};`}
-            >
-              <span
-                class="w-12 h-12 shrink-0"
-                style={`background-color: var(--color-accent); -webkit-mask-image:url(${base}/values-icons/${value.icon}.svg); mask-image:url(${base}/values-icons/${value.icon}.svg); -webkit-mask-size:contain; mask-size:contain; -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat; -webkit-mask-position:center; mask-position:center;`}
-              ></span>
-              <p class="text-[var(--color-ink)] leading-snug sm:whitespace-nowrap" style="font-size: 1.125rem; font-weight: 600;">{value.label}</p>
-            </div>
-          );
-        })}
+        <div class="relative z-10 flex flex-wrap justify-center items-start gap-x-5 gap-y-7">
+          {coreValues.map((value, i) => {
+            const tilt = [
+              "rotate(-1.5deg) translateY(-3px)",
+              "rotate(1deg) translateY(7px)",
+              "rotate(-1deg) translateY(-5px)",
+              "rotate(1.5deg) translateY(4px)",
+              "rotate(-2deg) translateY(-2px)",
+            ][i % 5];
+            return (
+              <div
+                class="inline-flex items-center gap-4 rounded-2xl border border-[var(--color-line)] bg-white px-7 py-6 shadow-[0_16px_32px_-14px_rgba(28,27,26,0.28)]"
+                style={`transform: ${tilt};`}
+              >
+                <span
+                  class="w-12 h-12 shrink-0"
+                  style={`background-color: var(--color-accent); -webkit-mask-image:url(${base}/values-icons/${value.icon}.svg); mask-image:url(${base}/values-icons/${value.icon}.svg); -webkit-mask-size:contain; mask-size:contain; -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat; -webkit-mask-position:center; mask-position:center;`}
+                ></span>
+                <p class="text-[var(--color-ink)] leading-snug sm:whitespace-nowrap" style="font-size: 1.125rem; font-weight: 600;">{value.label}</p>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
 

@@ -125,32 +125,16 @@ const partners = [
     <div class="relative max-w-6xl mx-auto px-6 md:px-10 pt-10 md:pt-16 pb-20 md:pb-28">
       <p class="text-sm tracking-wide text-[var(--color-accent)] font-medium text-center mb-10">Our core values</p>
 
-      <!-- decorative hand-drawn accent marks (editorial touch, hidden on small screens) -->
-      <svg class="hidden md:block absolute left-2 -top-10 w-8 h-16 text-[var(--color-accent)] opacity-40" viewBox="0 0 32 64" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-        <path d="M8 4c2 20 4 34 10 52" stroke-linecap="round" />
-        <path d="M12 46l6 10 6-6" stroke-linecap="round" stroke-linejoin="round" />
-      </svg>
-      <svg class="hidden md:block absolute right-6 -top-8 w-8 h-14 text-[var(--color-accent)] opacity-40" viewBox="0 0 32 56" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-        <path d="M22 4c-3 16-4 28-8 44" stroke-linecap="round" />
-        <path d="M10 40l4 9 7-4" stroke-linecap="round" stroke-linejoin="round" />
-      </svg>
+      <!-- decorative accent background: hidden on mobile (cards stack), reduced/lower-opacity on tablet, full on desktop -->
+      <img
+        src={`${base}/values-icons/values-bg.svg`}
+        alt=""
+        aria-hidden="true"
+        class="hidden sm:block absolute left-1/2 top-1/2 w-[105%] md:w-[115%] max-w-none h-auto opacity-60 md:opacity-100 pointer-events-none z-0"
+        style="transform: translate(-50%, -50%);"
+      />
 
-      <!-- small spark ticks, near top-right of cluster -->
-      <svg class="hidden md:block absolute right-16 top-8 w-5 h-5 text-[var(--color-slate-light)] opacity-60" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-        <path d="M3 3l4 4M15 2l-2 5" stroke-linecap="round" />
-      </svg>
-
-      <!-- loose hook scribble, left side -->
-      <svg class="hidden md:block absolute left-4 top-40 w-7 h-7 text-[var(--color-accent-soft)] opacity-90" viewBox="0 0 28 28" fill="none" stroke="var(--color-accent)" stroke-width="1.5" aria-hidden="true">
-        <path d="M22 6c2 8-2 14-16 14" stroke-linecap="round" stroke-dasharray="1 4.5" />
-      </svg>
-
-      <!-- gentle bracket doodle, bottom-right -->
-      <svg class="hidden md:block absolute right-8 bottom-4 w-7 h-7 text-[var(--color-slate-light)] opacity-60" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-        <path d="M6 4c-4 6-4 14 0 20" stroke-linecap="round" />
-      </svg>
-
-      <div class="flex flex-wrap justify-center items-start gap-x-5 gap-y-7">
+      <div class="relative z-10 flex flex-wrap justify-center items-start gap-x-5 gap-y-7">
         {coreValues.map((value, i) => {
           const tilt = [
             "rotate(-1.5deg) translateY(-3px)",

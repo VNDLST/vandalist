@@ -70,42 +70,44 @@ const partners = [
     <Header currentPage="/about" />
 
     <!-- Intro -->
-    <div class="max-w-3xl mx-auto px-6 md:px-10 pb-12 md:pb-16 text-center">
-      <h1 class="text-3xl md:text-4xl font-semibold leading-[1.15] tracking-[-0.01em] mb-5">
+    <div class="max-w-4xl mx-auto px-6 md:px-10 pb-12 md:pb-16 text-center">
+      <h1 class="text-[4.25rem] font-semibold leading-[1.02] tracking-[-0.04em] mb-6">
         A marketing agency built around practicality and sustainability.
       </h1>
-      <p class="text-[var(--color-slate)]">
+      <p class="text-lg text-[var(--color-slate)]">
         We partner with established businesses, marketing managers, and lean internal teams to get more capability without the bloat.
       </p>
     </div>
 
     <!-- Intro video -->
-    <div class="max-w-7xl mx-auto px-6 md:px-10 pb-20 md:pb-28">
-      <div class="rounded-[var(--radius-card)] bg-[var(--color-paper-dim)] p-6 md:p-10 grid md:grid-cols-2 gap-8 items-center">
-        <div>
-          <p class="text-sm tracking-wide text-[var(--color-accent)] font-medium mb-3">Intro video</p>
-          <h2 class="text-2xl md:text-3xl font-semibold mb-6">A quick hello from Andrew.</h2>
-          <a
-            href="#"
-            class="inline-flex items-center gap-3 rounded-2xl bg-white border border-[var(--color-line)] px-6 py-3.5 text-sm font-medium text-[var(--color-ink)] hover:border-[var(--color-slate)] transition-colors"
-          >
-            <span class="w-7 h-7 rounded-full bg-[var(--color-accent-soft)] flex items-center justify-center shrink-0">
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="var(--color-accent)"><path d="M6 4l14 8-14 8V4z" /></svg>
-            </span>
-            Play intro video
-          </a>
-        </div>
+    <div class="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-16 pb-20 md:pb-28">
+      <div class="rounded-[var(--radius-card)] bg-[var(--color-paper-dim)] p-6 md:p-10">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-8 items-center">
+          <div>
+            <p class="text-sm tracking-wide text-[var(--color-accent)] font-medium mb-3">Intro video</p>
+            <h2 class="text-2xl md:text-3xl font-semibold mb-6">A quick hello from Andrew.</h2>
+            <a
+              href="#"
+              class="inline-flex items-center gap-3 rounded-2xl bg-white border border-[var(--color-line)] px-6 py-3.5 text-sm font-medium text-[var(--color-ink)] hover:border-[var(--color-slate)] transition-colors"
+            >
+              <span class="w-7 h-7 rounded-full bg-[var(--color-accent-soft)] flex items-center justify-center shrink-0">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="var(--color-accent)"><path d="M6 4l14 8-14 8V4z" /></svg>
+              </span>
+              Play intro video
+            </a>
+          </div>
 
-        <div class="relative rounded-[var(--radius-card)] overflow-hidden aspect-[4/3]">
-          <img
-            src={`${base}/vandalist-hero.png`}
-            alt="Vandalist team still life"
-            class="w-full h-full object-cover"
-          />
-          <div class="absolute inset-0 flex items-center justify-center">
-            <span class="w-16 h-16 rounded-full bg-white/90 shadow-[0_10px_30px_-6px_rgba(28,27,26,0.35)] flex items-center justify-center">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--color-accent)"><path d="M6 4l14 8-14 8V4z" /></svg>
-            </span>
+          <div class="relative rounded-[var(--radius-card)] overflow-hidden aspect-[4/3]">
+            <img
+              src={`${base}/vandalist-hero.png`}
+              alt="Vandalist team still life"
+              class="w-full h-full object-cover"
+            />
+            <div class="absolute inset-0 flex items-center justify-center">
+              <span class="w-16 h-16 rounded-full bg-white/90 shadow-[0_10px_30px_-6px_rgba(28,27,26,0.35)] flex items-center justify-center">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--color-accent)"><path d="M6 4l14 8-14 8V4z" /></svg>
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -122,7 +124,7 @@ const partners = [
     </div>
 
     <!-- Core values -->
-    <div class="max-w-6xl mx-auto px-6 md:px-10 pt-4 md:pt-6 pb-12 md:pb-16">
+    <div class="max-w-7xl mx-auto px-6 md:px-10 pt-4 md:pt-6 pb-12 md:pb-16">
       <p class="text-sm tracking-wide text-[var(--color-accent)] font-medium text-center mb-8">Our core values</p>
 
       <div class="relative mx-auto w-fit">
@@ -161,62 +163,64 @@ const partners = [
     </div>
 
     <!-- How we work: system diagram -->
-    <div class="max-w-7xl mx-auto px-6 md:px-10 pb-6 md:pb-8">
-      <div class="rounded-[var(--radius-card)] bg-[var(--color-paper-dim)] p-6 md:p-12 grid md:grid-cols-2 gap-10 items-center">
-        <div>
-          <p class="text-sm tracking-wide text-[var(--color-accent)] font-medium mb-3">How we work</p>
-          <h2 class="text-2xl md:text-3xl font-semibold mb-4">A small team. A complete system.</h2>
-          <p class="text-[var(--color-slate)] mb-6">
-            We bring the right capabilities around the table &mdash; and connect them in a way that creates clarity, alignment, and results.
-          </p>
-          <a href={`${base}/how-we-work`} class="text-[var(--color-accent)] text-sm font-medium inline-flex items-center gap-1">
-            See how we work <span aria-hidden="true">&rarr;</span>
-          </a>
-        </div>
-
-        <!-- Desktop radial diagram -->
-        <div class="hidden md:block relative mx-auto" style="width: 420px; height: 420px;">
-          <svg class="absolute inset-0 w-full h-full" viewBox="0 0 420 420" aria-hidden="true">
-            {systemNodes.map((node) => (
-              <line
-                x1="210" y1="210"
-                x2={`${(parseFloat(node.left) / 100) * 420}`}
-                y2={`${(parseFloat(node.top) / 100) * 420}`}
-                stroke="var(--color-line)"
-                stroke-width="1.5"
-                stroke-dasharray="4 4"
-              />
-            ))}
-          </svg>
-
-          <div class="absolute rounded-full bg-white shadow-[0_20px_45px_-15px_rgba(28,27,26,0.2)] flex flex-col items-center justify-center text-center px-4"
-               style="width: 150px; height: 150px; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.75" class="mb-1.5">
-              <circle cx="9" cy="8" r="2.6" /><path d="M4.5 19c0-2.6 2-4.6 4.5-4.6s4.5 2 4.5 4.6" stroke-linecap="round" />
-              <circle cx="16" cy="8.5" r="2" /><path d="M14.3 19c0-2 1-3.6 2.7-4.1" stroke-linecap="round" />
-            </svg>
-            <p class="text-xs font-semibold text-[var(--color-ink)] leading-snug">Expert people<br />in expert roles</p>
+    <div class="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-16 pb-6 md:pb-8">
+      <div class="rounded-[var(--radius-card)] bg-[var(--color-paper-dim)] p-6 md:p-12">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-10 items-center">
+          <div>
+            <p class="text-sm tracking-wide text-[var(--color-accent)] font-medium mb-3">How we work</p>
+            <h2 class="text-2xl md:text-3xl font-semibold mb-4">A small team. A complete system.</h2>
+            <p class="text-[var(--color-slate)] mb-6">
+              We bring the right capabilities around the table &mdash; and connect them in a way that creates clarity, alignment, and results.
+            </p>
+            <a href={`${base}/how-we-work`} class="text-[var(--color-accent)] text-sm font-medium inline-flex items-center gap-1">
+              See how we work <span aria-hidden="true">&rarr;</span>
+            </a>
           </div>
 
-          {systemNodes.map((node) => (
-            <div
-              class="absolute flex items-center gap-2 rounded-full bg-white border border-[var(--color-line)] px-3.5 py-2 shadow-[0_8px_20px_-8px_rgba(28,27,26,0.15)] whitespace-nowrap"
-              style={`top: ${node.top}; left: ${node.left}; transform: translate(-50%, -50%);`}
-            >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.75" set:html={systemIcons[node.icon]} />
-              <p class="text-xs font-medium text-[var(--color-ink)]">{node.label}</p>
-            </div>
-          ))}
-        </div>
+          <!-- Desktop radial diagram -->
+          <div class="hidden md:block relative mx-auto" style="width: 420px; height: 420px;">
+            <svg class="absolute inset-0 w-full h-full" viewBox="0 0 420 420" aria-hidden="true">
+              {systemNodes.map((node) => (
+                <line
+                  x1="210" y1="210"
+                  x2={`${(parseFloat(node.left) / 100) * 420}`}
+                  y2={`${(parseFloat(node.top) / 100) * 420}`}
+                  stroke="var(--color-line)"
+                  stroke-width="1.5"
+                  stroke-dasharray="4 4"
+                />
+              ))}
+            </svg>
 
-        <!-- Mobile fallback: simple list -->
-        <div class="md:hidden grid grid-cols-2 gap-3">
-          {systemNodes.map((node) => (
-            <div class="flex items-center gap-2 rounded-full bg-white border border-[var(--color-line)] px-3.5 py-2.5">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.75" set:html={systemIcons[node.icon]} />
-              <p class="text-xs font-medium text-[var(--color-ink)]">{node.label}</p>
+            <div class="absolute rounded-full bg-white shadow-[0_20px_45px_-15px_rgba(28,27,26,0.2)] flex flex-col items-center justify-center text-center px-4"
+                 style="width: 150px; height: 150px; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.75" class="mb-1.5">
+                <circle cx="9" cy="8" r="2.6" /><path d="M4.5 19c0-2.6 2-4.6 4.5-4.6s4.5 2 4.5 4.6" stroke-linecap="round" />
+                <circle cx="16" cy="8.5" r="2" /><path d="M14.3 19c0-2 1-3.6 2.7-4.1" stroke-linecap="round" />
+              </svg>
+              <p class="text-xs font-semibold text-[var(--color-ink)] leading-snug">Expert people<br />in expert roles</p>
             </div>
-          ))}
+
+            {systemNodes.map((node) => (
+              <div
+                class="absolute flex items-center gap-2 rounded-full bg-white border border-[var(--color-line)] px-3.5 py-2 shadow-[0_8px_20px_-8px_rgba(28,27,26,0.15)] whitespace-nowrap"
+                style={`top: ${node.top}; left: ${node.left}; transform: translate(-50%, -50%);`}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.75" set:html={systemIcons[node.icon]} />
+                <p class="text-xs font-medium text-[var(--color-ink)]">{node.label}</p>
+              </div>
+            ))}
+          </div>
+
+          <!-- Mobile fallback: simple list -->
+          <div class="md:hidden grid grid-cols-2 gap-3">
+            {systemNodes.map((node) => (
+              <div class="flex items-center gap-2 rounded-full bg-white border border-[var(--color-line)] px-3.5 py-2.5">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.75" set:html={systemIcons[node.icon]} />
+                <p class="text-xs font-medium text-[var(--color-ink)]">{node.label}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

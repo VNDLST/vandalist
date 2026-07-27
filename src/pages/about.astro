@@ -18,14 +18,14 @@ const coreValues = [
 // Radial "system" nodes, positioned evenly around the center circle (8 nodes, 45deg apart).
 // top/left are percentages within a square relative container; computed from angle+radius.
 const systemNodes = [
-  { label: "Strategy", sub: "Direction and planning", icon: "strategy", top: "9%", left: "50%" },
-  { label: "Project Management", sub: "Planning, tracking and delivery", icon: "project-management", top: "21.9%", left: "79.1%" },
-  { label: "Design", sub: "Visuals that communicate", icon: "design", top: "50%", left: "91%" },
-  { label: "Websites", sub: "Build, optimise and maintain", icon: "websites", top: "78.1%", left: "79.1%" },
-  { label: "Content", sub: "Words that inform and convert", icon: "content", top: "91%", left: "50%" },
-  { label: "SEO & Ads", sub: "Visibility that drives growth", icon: "seo-ads", top: "78.1%", left: "20.9%" },
-  { label: "Community", sub: "Social and email engagement", icon: "community", top: "50%", left: "9%" },
-  { label: "Systems / AI", sub: "Automation and efficiency", icon: "systems-ai", top: "21.9%", left: "20.9%" },
+  { label: "Strategy", sub: "Direction and planning", icon: "strategy", top: "4%", left: "50%" },
+  { label: "Project Management", sub: "Planning, tracking and delivery", icon: "project-management", top: "17.5%", left: "82.5%" },
+  { label: "Design", sub: "Visuals that communicate", icon: "design", top: "50%", left: "96%" },
+  { label: "Websites", sub: "Build, optimise and maintain", icon: "websites", top: "82.5%", left: "82.5%" },
+  { label: "Content", sub: "Words that inform and convert", icon: "content", top: "96%", left: "50%" },
+  { label: "SEO & Ads", sub: "Visibility that drives growth", icon: "seo-ads", top: "82.5%", left: "17.5%" },
+  { label: "Community", sub: "Social and email engagement", icon: "community", top: "50%", left: "4%" },
+  { label: "Systems / AI", sub: "Automation and efficiency", icon: "systems-ai", top: "17.5%", left: "17.5%" },
 ];
 
 const partners = [
@@ -154,13 +154,13 @@ const partners = [
           </div>
 
           <!-- Desktop radial diagram -->
-          <div class="hidden md:block relative mx-auto" style="width: 620px; height: 620px;">
-            <svg class="absolute inset-0 w-full h-full" viewBox="0 0 620 620" aria-hidden="true">
+          <div class="hidden md:block relative mx-auto" style="width: 680px; height: 680px;">
+            <svg class="absolute inset-0 w-full h-full" viewBox="0 0 680 680" aria-hidden="true">
               {systemNodes.map((node) => (
                 <line
-                  x1="310" y1="310"
-                  x2={`${(parseFloat(node.left) / 100) * 620}`}
-                  y2={`${(parseFloat(node.top) / 100) * 620}`}
+                  x1="340" y1="340"
+                  x2={`${(parseFloat(node.left) / 100) * 680}`}
+                  y2={`${(parseFloat(node.top) / 100) * 680}`}
                   stroke="var(--color-accent)"
                   stroke-width="1.5"
                   stroke-dasharray="2 5"
@@ -181,9 +181,9 @@ const partners = [
                 style={`top: ${node.top}; left: ${node.left}; transform: translate(-50%, -50%);`}
               >
                 <img src={`${base}/system-icons/${node.icon}.svg`} alt="" class="w-14 h-14 shrink-0" />
-                <span class="w-16">
-                  <p class="text-base font-semibold text-[var(--color-ink)] leading-tight">{node.label}</p>
-                  <p class="text-base text-[var(--color-slate)] leading-tight">{node.sub}</p>
+                <span class="w-32">
+                  <p class="text-sm font-semibold text-[var(--color-ink)] leading-snug">{node.label}</p>
+                  <p class="text-sm text-[var(--color-slate)] leading-snug">{node.sub}</p>
                 </span>
               </div>
             ))}
@@ -195,8 +195,8 @@ const partners = [
               <div class="flex items-center gap-2 rounded-xl bg-white p-4 shadow-[0_10px_24px_-10px_rgba(28,27,26,0.2)]">
                 <img src={`${base}/system-icons/${node.icon}.svg`} alt="" class="w-14 h-14 shrink-0" />
                 <span>
-                  <p class="text-base font-semibold text-[var(--color-ink)] leading-tight">{node.label}</p>
-                  <p class="text-base text-[var(--color-slate)] leading-tight">{node.sub}</p>
+                  <p class="text-sm font-semibold text-[var(--color-ink)] leading-snug">{node.label}</p>
+                  <p class="text-sm text-[var(--color-slate)] leading-snug">{node.sub}</p>
                 </span>
               </div>
             ))}

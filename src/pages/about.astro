@@ -154,13 +154,13 @@ const partners = [
           </div>
 
           <!-- Desktop radial diagram -->
-          <div class="hidden md:block relative mx-auto" style="width: 560px; height: 560px;">
-            <svg class="absolute inset-0 w-full h-full" viewBox="0 0 560 560" aria-hidden="true">
+          <div class="hidden md:block relative mx-auto" style="width: 740px; height: 740px;">
+            <svg class="absolute inset-0 w-full h-full" viewBox="0 0 740 740" aria-hidden="true">
               {systemNodes.map((node) => (
                 <line
-                  x1="280" y1="280"
-                  x2={`${(parseFloat(node.left) / 100) * 560}`}
-                  y2={`${(parseFloat(node.top) / 100) * 560}`}
+                  x1="370" y1="370"
+                  x2={`${(parseFloat(node.left) / 100) * 740}`}
+                  y2={`${(parseFloat(node.top) / 100) * 740}`}
                   stroke="var(--color-accent)"
                   stroke-width="1.5"
                   stroke-dasharray="2 5"
@@ -177,15 +177,13 @@ const partners = [
 
             {systemNodes.map((node) => (
               <div
-                class="absolute flex items-center gap-2.5 rounded-xl bg-white px-3.5 py-2.5 shadow-[0_10px_24px_-10px_rgba(28,27,26,0.25)] whitespace-nowrap"
+                class="absolute flex items-center gap-4 rounded-xl bg-white p-6 shadow-[0_10px_24px_-10px_rgba(28,27,26,0.25)]"
                 style={`top: ${node.top}; left: ${node.left}; transform: translate(-50%, -50%);`}
               >
-                <span class="w-8 h-8 rounded-lg bg-[var(--color-accent-soft)] flex items-center justify-center shrink-0">
-                  <img src={`${base}/system-icons/${node.icon}.svg`} alt="" class="w-4.5 h-4.5" />
-                </span>
-                <span>
-                  <p class="text-xs font-semibold text-[var(--color-ink)] leading-tight">{node.label}</p>
-                  <p class="text-[11px] text-[var(--color-slate)] leading-tight">{node.sub}</p>
+                <img src={`${base}/system-icons/${node.icon}.svg`} alt="" class="w-9 h-9 shrink-0" />
+                <span class="w-28">
+                  <p class="text-base font-semibold text-[var(--color-ink)] leading-tight">{node.label}</p>
+                  <p class="text-base text-[var(--color-slate)] leading-tight">{node.sub}</p>
                 </span>
               </div>
             ))}
@@ -194,13 +192,11 @@ const partners = [
           <!-- Mobile fallback: simple list -->
           <div class="md:hidden grid grid-cols-2 gap-3">
             {systemNodes.map((node) => (
-              <div class="flex items-center gap-2.5 rounded-xl bg-white px-3.5 py-2.5 shadow-[0_10px_24px_-10px_rgba(28,27,26,0.2)]">
-                <span class="w-8 h-8 rounded-lg bg-[var(--color-accent-soft)] flex items-center justify-center shrink-0">
-                  <img src={`${base}/system-icons/${node.icon}.svg`} alt="" class="w-4.5 h-4.5" />
-                </span>
+              <div class="flex items-center gap-4 rounded-xl bg-white p-6 shadow-[0_10px_24px_-10px_rgba(28,27,26,0.2)]">
+                <img src={`${base}/system-icons/${node.icon}.svg`} alt="" class="w-9 h-9 shrink-0" />
                 <span>
-                  <p class="text-xs font-semibold text-[var(--color-ink)] leading-tight">{node.label}</p>
-                  <p class="text-[11px] text-[var(--color-slate)] leading-tight">{node.sub}</p>
+                  <p class="text-base font-semibold text-[var(--color-ink)] leading-tight">{node.label}</p>
+                  <p class="text-base text-[var(--color-slate)] leading-tight">{node.sub}</p>
                 </span>
               </div>
             ))}

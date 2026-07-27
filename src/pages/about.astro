@@ -15,27 +15,18 @@ const coreValues = [
   { icon: "different", label: "We aren't everyone" },
 ];
 
-// Radial "system" nodes, positioned around the center circle.
-// Percent-based coordinates within a square relative container.
+// Radial "system" nodes, positioned evenly around the center circle (8 nodes, 45deg apart).
+// top/left are percentages within a square relative container; computed from angle+radius.
 const systemNodes = [
-  { label: "Strategy", icon: "strategy", top: "0%", left: "50%" },
-  { label: "Project Management", icon: "project", top: "18%", left: "88%" },
-  { label: "Design", icon: "design", top: "62%", left: "94%" },
-  { label: "Websites", icon: "websites", top: "94%", left: "70%" },
-  { label: "Content", icon: "content", top: "94%", left: "26%" },
-  { label: "SEO & Ads", icon: "seo", top: "62%", left: "2%" },
-  { label: "Systems / AI", icon: "systems", top: "18%", left: "8%" },
+  { label: "Strategy", sub: "Direction and planning", icon: "strategy", top: "8%", left: "50%" },
+  { label: "Project Management", sub: "Planning, tracking and delivery", icon: "project-management", top: "20.3%", left: "79.7%" },
+  { label: "Design", sub: "Visuals that communicate", icon: "design", top: "50%", left: "92%" },
+  { label: "Websites", sub: "Build, optimise and maintain", icon: "websites", top: "79.7%", left: "79.7%" },
+  { label: "Content", sub: "Words that inform and convert", icon: "content", top: "92%", left: "50%" },
+  { label: "SEO & Ads", sub: "Visibility that drives growth", icon: "seo-ads", top: "79.7%", left: "20.3%" },
+  { label: "Community", sub: "Social and email engagement", icon: "community", top: "50%", left: "8%" },
+  { label: "Systems / AI", sub: "Automation and efficiency", icon: "systems-ai", top: "20.3%", left: "20.3%" },
 ];
-
-const systemIcons: Record<string, string> = {
-  strategy: `<circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="3"/>`,
-  project: `<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 3.5h6M9 9h6M9 13h6M9 17h3" stroke-linecap="round"/>`,
-  design: `<path d="M4 20l1-4.5L16.5 4a1.5 1.5 0 0 1 2.1 0l1.4 1.4a1.5 1.5 0 0 1 0 2.1L8.5 19 4 20z" stroke-linejoin="round"/>`,
-  websites: `<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 9h18" stroke-linecap="round"/><circle cx="6" cy="7" r="0.6" fill="currentColor" stroke="none"/>`,
-  content: `<path d="M6 4h9l3 3v13H6z" stroke-linejoin="round"/><path d="M9 11h6M9 14.5h6M9 17.5h3.5" stroke-linecap="round"/>`,
-  seo: `<path d="M4 20V13M11 20V7M18 20v-5" stroke-linecap="round"/>`,
-  systems: `<rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/>`,
-};
 
 const partners = [
   {
@@ -150,10 +141,10 @@ const partners = [
     <!-- How we work: system diagram -->
     <div class="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-16 pb-6 md:pb-8">
       <div class="rounded-[var(--radius-card)] bg-[var(--color-paper-dim)] p-6 md:p-12">
-        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-10 items-center">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-[1fr_2fr] gap-10 items-center">
           <div>
             <p class="text-sm tracking-wide text-[var(--color-accent)] font-medium mb-3">How we work</p>
-            <h2 class="text-2xl md:text-3xl font-semibold mb-4">A small team. A complete system.</h2>
+            <h2 class="text-2xl md:text-3xl font-semibold mb-4">A small team. A complete ecosystem.</h2>
             <p class="text-[var(--color-slate)] mb-6">
               We bring the right capabilities around the table &mdash; and connect them in a way that creates clarity, alignment, and results.
             </p>
@@ -163,36 +154,39 @@ const partners = [
           </div>
 
           <!-- Desktop radial diagram -->
-          <div class="hidden md:block relative mx-auto" style="width: 420px; height: 420px;">
-            <svg class="absolute inset-0 w-full h-full" viewBox="0 0 420 420" aria-hidden="true">
+          <div class="hidden md:block relative mx-auto" style="width: 560px; height: 560px;">
+            <svg class="absolute inset-0 w-full h-full" viewBox="0 0 560 560" aria-hidden="true">
               {systemNodes.map((node) => (
                 <line
-                  x1="210" y1="210"
-                  x2={`${(parseFloat(node.left) / 100) * 420}`}
-                  y2={`${(parseFloat(node.top) / 100) * 420}`}
-                  stroke="var(--color-line)"
+                  x1="280" y1="280"
+                  x2={`${(parseFloat(node.left) / 100) * 560}`}
+                  y2={`${(parseFloat(node.top) / 100) * 560}`}
+                  stroke="var(--color-accent)"
                   stroke-width="1.5"
-                  stroke-dasharray="4 4"
+                  stroke-dasharray="2 5"
+                  opacity="0.5"
                 />
               ))}
             </svg>
 
-            <div class="absolute rounded-full bg-white shadow-[0_20px_45px_-15px_rgba(28,27,26,0.2)] flex flex-col items-center justify-center text-center px-4"
-                 style="width: 150px; height: 150px; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.75" class="mb-1.5">
-                <circle cx="9" cy="8" r="2.6" /><path d="M4.5 19c0-2.6 2-4.6 4.5-4.6s4.5 2 4.5 4.6" stroke-linecap="round" />
-                <circle cx="16" cy="8.5" r="2" /><path d="M14.3 19c0-2 1-3.6 2.7-4.1" stroke-linecap="round" />
-              </svg>
+            <div class="absolute rounded-full bg-white shadow-[0_20px_45px_-15px_rgba(28,27,26,0.25)] flex flex-col items-center justify-center text-center px-4"
+                 style="width: 148px; height: 148px; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+              <img src={`${base}/system-icons/expert-people.svg`} alt="" class="w-8 h-8 mb-1.5" />
               <p class="text-xs font-semibold text-[var(--color-ink)] leading-snug">Expert people<br />in expert roles</p>
             </div>
 
             {systemNodes.map((node) => (
               <div
-                class="absolute flex items-center gap-2 rounded-full bg-white border border-[var(--color-line)] px-3.5 py-2 shadow-[0_8px_20px_-8px_rgba(28,27,26,0.15)] whitespace-nowrap"
+                class="absolute flex items-center gap-2.5 rounded-xl bg-white px-3.5 py-2.5 shadow-[0_10px_24px_-10px_rgba(28,27,26,0.25)] whitespace-nowrap"
                 style={`top: ${node.top}; left: ${node.left}; transform: translate(-50%, -50%);`}
               >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.75" set:html={systemIcons[node.icon]} />
-                <p class="text-xs font-medium text-[var(--color-ink)]">{node.label}</p>
+                <span class="w-8 h-8 rounded-lg bg-[var(--color-accent-soft)] flex items-center justify-center shrink-0">
+                  <img src={`${base}/system-icons/${node.icon}.svg`} alt="" class="w-4.5 h-4.5" />
+                </span>
+                <span>
+                  <p class="text-xs font-semibold text-[var(--color-ink)] leading-tight">{node.label}</p>
+                  <p class="text-[11px] text-[var(--color-slate)] leading-tight">{node.sub}</p>
+                </span>
               </div>
             ))}
           </div>
@@ -200,9 +194,14 @@ const partners = [
           <!-- Mobile fallback: simple list -->
           <div class="md:hidden grid grid-cols-2 gap-3">
             {systemNodes.map((node) => (
-              <div class="flex items-center gap-2 rounded-full bg-white border border-[var(--color-line)] px-3.5 py-2.5">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.75" set:html={systemIcons[node.icon]} />
-                <p class="text-xs font-medium text-[var(--color-ink)]">{node.label}</p>
+              <div class="flex items-center gap-2.5 rounded-xl bg-white px-3.5 py-2.5 shadow-[0_10px_24px_-10px_rgba(28,27,26,0.2)]">
+                <span class="w-8 h-8 rounded-lg bg-[var(--color-accent-soft)] flex items-center justify-center shrink-0">
+                  <img src={`${base}/system-icons/${node.icon}.svg`} alt="" class="w-4.5 h-4.5" />
+                </span>
+                <span>
+                  <p class="text-xs font-semibold text-[var(--color-ink)] leading-tight">{node.label}</p>
+                  <p class="text-[11px] text-[var(--color-slate)] leading-tight">{node.sub}</p>
+                </span>
               </div>
             ))}
           </div>

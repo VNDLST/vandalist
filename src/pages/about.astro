@@ -162,10 +162,10 @@ const partners = [
           <!-- Desktop / tablet: stable 3-column grid, no absolute positioning, no connector lines -->
           <div class="hidden sm:grid grid-cols-3 gap-4 md:gap-6">
             <!-- Left column -->
-            <div class="flex flex-col gap-6 md:gap-8">
+            <div class="flex flex-col justify-center gap-6 md:gap-8">
               {leftColumn.map((card) => (
-                <div class={`flex items-center gap-3 rounded-xl bg-white p-4 shadow-[0_10px_24px_-10px_rgba(28,27,26,0.2)] w-[85%] sm:w-[80%] md:w-[75%] min-h-[104px] ${alignClass[card.align]}`}>
-                  <img src={`${base}/system-icons/${card.icon}.svg`} alt="" class="w-10 h-10 shrink-0" />
+                <div class={`flex items-center gap-3 rounded-xl bg-white p-4 shadow-[0_10px_24px_-10px_rgba(28,27,26,0.2)] w-[80%] min-h-[104px] ${alignClass[card.align]}`}>
+                  <img src={`${base}/system-icons/placeholder.png`} alt="" class="w-10 h-10 shrink-0 rounded-lg" />
                   <span>
                     <p class="text-sm font-semibold text-[var(--color-ink)] leading-snug">{card.label}</p>
                     <p class="text-sm text-[var(--color-slate)] leading-snug">{card.sub}</p>
@@ -176,8 +176,8 @@ const partners = [
 
             <!-- Middle column -->
             <div class="flex flex-col items-center gap-8 md:gap-10">
-              <div class="flex items-center gap-3 rounded-xl bg-white p-4 shadow-[0_10px_24px_-10px_rgba(28,27,26,0.2)] w-[85%] sm:w-[80%] md:w-[75%] min-h-[104px]">
-                <img src={`${base}/system-icons/${strategyCard.icon}.svg`} alt="" class="w-10 h-10 shrink-0" />
+              <div class="flex items-center gap-3 rounded-xl bg-white p-4 shadow-[0_10px_24px_-10px_rgba(28,27,26,0.2)] w-[80%] min-h-[104px]">
+                <img src={`${base}/system-icons/placeholder.png`} alt="" class="w-10 h-10 shrink-0 rounded-lg" />
                 <span>
                   <p class="text-sm font-semibold text-[var(--color-ink)] leading-snug">{strategyCard.label}</p>
                   <p class="text-sm text-[var(--color-slate)] leading-snug">{strategyCard.sub}</p>
@@ -190,8 +190,8 @@ const partners = [
                 <p class="text-xs font-semibold text-[var(--color-ink)] leading-snug">Expert people<br />in expert roles</p>
               </div>
 
-              <div class="flex items-center gap-3 rounded-xl bg-white p-4 shadow-[0_10px_24px_-10px_rgba(28,27,26,0.2)] w-[85%] sm:w-[80%] md:w-[75%] min-h-[104px]">
-                <img src={`${base}/system-icons/${contentCard.icon}.svg`} alt="" class="w-10 h-10 shrink-0" />
+              <div class="flex items-center gap-3 rounded-xl bg-white p-4 shadow-[0_10px_24px_-10px_rgba(28,27,26,0.2)] w-[80%] min-h-[104px]">
+                <img src={`${base}/system-icons/placeholder.png`} alt="" class="w-10 h-10 shrink-0 rounded-lg" />
                 <span>
                   <p class="text-sm font-semibold text-[var(--color-ink)] leading-snug">{contentCard.label}</p>
                   <p class="text-sm text-[var(--color-slate)] leading-snug">{contentCard.sub}</p>
@@ -200,10 +200,10 @@ const partners = [
             </div>
 
             <!-- Right column -->
-            <div class="flex flex-col gap-6 md:gap-8">
+            <div class="flex flex-col justify-center gap-6 md:gap-8">
               {rightColumn.map((card) => (
-                <div class={`flex items-center gap-3 rounded-xl bg-white p-4 shadow-[0_10px_24px_-10px_rgba(28,27,26,0.2)] w-[85%] sm:w-[80%] md:w-[75%] min-h-[104px] ${alignClass[card.align]}`}>
-                  <img src={`${base}/system-icons/${card.icon}.svg`} alt="" class="w-10 h-10 shrink-0" />
+                <div class={`flex items-center gap-3 rounded-xl bg-white p-4 shadow-[0_10px_24px_-10px_rgba(28,27,26,0.2)] w-[80%] min-h-[104px] ${alignClass[card.align]}`}>
+                  <img src={`${base}/system-icons/placeholder.png`} alt="" class="w-10 h-10 shrink-0 rounded-lg" />
                   <span>
                     <p class="text-sm font-semibold text-[var(--color-ink)] leading-snug">{card.label}</p>
                     <p class="text-sm text-[var(--color-slate)] leading-snug">{card.sub}</p>
@@ -223,7 +223,7 @@ const partners = [
             <div class="grid grid-cols-2 gap-3 w-full">
               {[strategyCard, ...leftColumn, ...rightColumn, contentCard].map((card) => (
                 <div class="flex items-center gap-2.5 rounded-xl bg-white p-4 shadow-[0_10px_24px_-10px_rgba(28,27,26,0.2)] min-h-[104px]">
-                  <img src={`${base}/system-icons/${card.icon}.svg`} alt="" class="w-9 h-9 shrink-0" />
+                  <img src={`${base}/system-icons/placeholder.png`} alt="" class="w-9 h-9 shrink-0 rounded-lg" />
                   <span>
                     <p class="text-sm font-semibold text-[var(--color-ink)] leading-snug">{card.label}</p>
                     <p class="text-sm text-[var(--color-slate)] leading-snug">{card.sub}</p>

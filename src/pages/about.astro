@@ -20,17 +20,17 @@ const coreValues = [
 // Three-column arrangement (no radial positioning): each column lists its
 // cards top-to-bottom with an explicit alignment, per column.
 const leftColumn = [
-  { label: "Systems / AI", sub: "Automation and efficiency", icon: "systems-ai", align: "end" },
-  { label: "Community", sub: "Social and email engagement", icon: "community", align: "start" },
-  { label: "SEO & Ads", sub: "Visibility that drives growth", icon: "seo-ads", align: "end" },
+  { label: "Systems / AI", sub: "Integrations, AI & automated workflows", icon: "systems-ai", align: "end" },
+  { label: "Community", sub: "E-marketing & social media engagement", icon: "community", align: "start" },
+  { label: "SEO & Ads", sub: "SEO, GEO, Google & social Advertising", icon: "seo-ads", align: "end" },
 ];
 const rightColumn = [
-  { label: "Project Management", sub: "Planning, tracking and delivery", icon: "project-management", align: "start" },
-  { label: "Design", sub: "Visuals that communicate", icon: "design", align: "end" },
-  { label: "Websites", sub: "Build, optimise and maintain", icon: "websites", align: "start" },
+  { label: "Project Management", sub: "Project plans, management & delivery", icon: "project-management", align: "start" },
+  { label: "Design", sub: "Style guides, templates & graphic design", icon: "design", align: "end" },
+  { label: "Websites", sub: "Stylish, secure & user-friendly websites", icon: "websites", align: "start" },
 ];
-const strategyCard = { label: "Strategy", sub: "Direction and planning", icon: "strategy" };
-const contentCard = { label: "Content", sub: "Words that inform and convert", icon: "content" };
+const strategyCard = { label: "Strategy", sub: "Strategy, advice, execution & support", icon: "strategy" };
+const contentCard = { label: "Content", sub: "Articles, blogs, & content for internal assets", icon: "content" };
 
 const alignClass: Record<string, string> = { start: "self-start", center: "self-center", end: "self-end" };
 
@@ -165,8 +165,8 @@ const partners = [
             <div class="flex flex-col justify-center gap-6 md:gap-8">
               {leftColumn.map((card) => (
                 <div class={`flex items-center gap-3 rounded-xl bg-white p-4 shadow-[0_10px_24px_-10px_rgba(28,27,26,0.2)] w-[80%] min-h-[104px] ${alignClass[card.align]}`}>
-                  <img src={`${base}/system-icons/placeholder.png`} alt="" class="w-10 h-10 shrink-0 rounded-lg" />
-                  <span>
+                  <img src={`${base}/system-icons/placeholder.png`} alt="" class="w-8 h-8 shrink-0 rounded-lg" />
+                  <span class="w-[106px]">
                     <p class="text-sm font-semibold text-[var(--color-ink)] leading-snug">{card.label}</p>
                     <p class="text-sm text-[var(--color-slate)] leading-snug">{card.sub}</p>
                   </span>
@@ -177,22 +177,22 @@ const partners = [
             <!-- Middle column -->
             <div class="flex flex-col items-center gap-8 md:gap-10">
               <div class="flex items-center gap-3 rounded-xl bg-white p-4 shadow-[0_10px_24px_-10px_rgba(28,27,26,0.2)] w-[80%] min-h-[104px]">
-                <img src={`${base}/system-icons/placeholder.png`} alt="" class="w-10 h-10 shrink-0 rounded-lg" />
-                <span>
+                <img src={`${base}/system-icons/placeholder.png`} alt="" class="w-8 h-8 shrink-0 rounded-lg" />
+                <span class="w-[106px]">
                   <p class="text-sm font-semibold text-[var(--color-ink)] leading-snug">{strategyCard.label}</p>
                   <p class="text-sm text-[var(--color-slate)] leading-snug">{strategyCard.sub}</p>
                 </span>
               </div>
 
               <div class="rounded-full bg-white shadow-[0_20px_45px_-15px_rgba(28,27,26,0.25)] flex flex-col items-center justify-center text-center px-4"
-                   style="width: 190px; height: 190px;">
-                <img src={`${base}/system-icons/expert-people.svg`} alt="" class="w-10 h-10 mb-2" />
-                <p class="text-xs font-semibold text-[var(--color-ink)] leading-snug">Expert people<br />in expert roles</p>
+                   style="width: 190px; height: 190px; border: 10px solid var(--color-paper-dim);">
+                <img src={`${base}/system-icons/placeholder.png`} alt="" class="w-12 h-12 mb-2 rounded-lg" />
+                <p class="text-xs font-semibold text-[var(--color-ink)] leading-snug">The right people working on the right projects</p>
               </div>
 
               <div class="flex items-center gap-3 rounded-xl bg-white p-4 shadow-[0_10px_24px_-10px_rgba(28,27,26,0.2)] w-[80%] min-h-[104px]">
-                <img src={`${base}/system-icons/placeholder.png`} alt="" class="w-10 h-10 shrink-0 rounded-lg" />
-                <span>
+                <img src={`${base}/system-icons/placeholder.png`} alt="" class="w-8 h-8 shrink-0 rounded-lg" />
+                <span class="w-[106px]">
                   <p class="text-sm font-semibold text-[var(--color-ink)] leading-snug">{contentCard.label}</p>
                   <p class="text-sm text-[var(--color-slate)] leading-snug">{contentCard.sub}</p>
                 </span>
@@ -203,8 +203,8 @@ const partners = [
             <div class="flex flex-col justify-center gap-6 md:gap-8">
               {rightColumn.map((card) => (
                 <div class={`flex items-center gap-3 rounded-xl bg-white p-4 shadow-[0_10px_24px_-10px_rgba(28,27,26,0.2)] w-[80%] min-h-[104px] ${alignClass[card.align]}`}>
-                  <img src={`${base}/system-icons/placeholder.png`} alt="" class="w-10 h-10 shrink-0 rounded-lg" />
-                  <span>
+                  <img src={`${base}/system-icons/placeholder.png`} alt="" class="w-8 h-8 shrink-0 rounded-lg" />
+                  <span class="w-[106px]">
                     <p class="text-sm font-semibold text-[var(--color-ink)] leading-snug">{card.label}</p>
                     <p class="text-sm text-[var(--color-slate)] leading-snug">{card.sub}</p>
                   </span>
@@ -216,9 +216,9 @@ const partners = [
           <!-- Mobile: hub first, then a simple 2-column card grid -->
           <div class="sm:hidden flex flex-col items-center gap-6">
             <div class="rounded-full bg-white shadow-[0_20px_45px_-15px_rgba(28,27,26,0.25)] flex flex-col items-center justify-center text-center px-4"
-                 style="width: 170px; height: 170px;">
-              <img src={`${base}/system-icons/expert-people.svg`} alt="" class="w-9 h-9 mb-1.5" />
-              <p class="text-xs font-semibold text-[var(--color-ink)] leading-snug">Expert people<br />in expert roles</p>
+                 style="width: 170px; height: 170px; border: 10px solid var(--color-paper-dim);">
+              <img src={`${base}/system-icons/placeholder.png`} alt="" class="w-12 h-12 mb-1.5 rounded-lg" />
+              <p class="text-xs font-semibold text-[var(--color-ink)] leading-snug">The right people working on the right projects</p>
             </div>
             <div class="grid grid-cols-2 gap-3 w-full">
               {[strategyCard, ...leftColumn, ...rightColumn, contentCard].map((card) => (

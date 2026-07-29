@@ -56,6 +56,7 @@ const mentoringEducation = [
 const environmentalCommitment = [
   {
     logo: "carbon-neutral",
+    logoWhite: "carbon-neutral-white",
     title: "Carbon Neutral Plant-a-Tree Program",
     text: "We're committed to a more sustainable future.",
   },
@@ -253,7 +254,7 @@ const environmentalCommitment = [
           <div class="grid sm:grid-cols-[1fr_3fr] gap-8 pb-8 border-b border-[var(--color-line)]">
             <div>
               <p class="text-xs tracking-wide text-[var(--color-accent)] font-semibold mb-5">Approved supplier</p>
-              <div class="grid grid-cols-1 gap-8">
+              <div class="grid grid-cols-2 gap-8">
                 {approvedSupplier.map((item) => (
                   <div>
                     <div class="h-8 mb-4 flex items-center">
@@ -286,13 +287,13 @@ const environmentalCommitment = [
           <div class="pt-8">
             <p class="text-xs tracking-wide text-[var(--color-accent)] font-semibold mb-5">Environmental commitment</p>
             {environmentalCommitment.map((item) => (
-              <div class="flex items-center gap-5">
-                <div class="h-10 shrink-0 flex items-center">
-                  <img src={`${base}/partner-logos/${item.logo}.svg`} alt="" class="h-full w-auto max-w-[140px] object-contain object-left" />
+              <div class="rounded-[var(--radius-card)] bg-[#1f7a4d] p-6 md:p-8 flex items-center gap-6">
+                <div class="w-1/2 shrink-0 flex items-center">
+                  <img src={`${base}/partner-logos/${item.logoWhite}.svg`} alt="" class="w-full h-auto object-contain object-left" />
                 </div>
                 <div>
-                  <p class="font-semibold text-[var(--color-ink)] text-sm mb-1">{item.title}</p>
-                  <p class="text-[var(--color-slate)] text-sm leading-relaxed">{item.text}</p>
+                  <p class="font-semibold text-white text-sm mb-1">{item.title}</p>
+                  <p class="text-white/80 text-sm leading-relaxed">{item.text}</p>
                 </div>
               </div>
             ))}

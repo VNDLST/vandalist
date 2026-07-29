@@ -55,11 +55,6 @@ const partners = [
     title: "Local Buy Approved Supplier",
     text: "Streamlined procurement for Australian organisations.",
   },
-  {
-    logo: "carbon-neutral",
-    title: "Carbon Neutral Plant-a-Tree Program",
-    text: "We're committed to a more sustainable future.",
-  },
 ];
 ---
 <Layout title="About">
@@ -241,7 +236,7 @@ const partners = [
         eyebrow="Partnerships & trust"
         heading="We're proud to work alongside organisations that share our values."
       />
-      <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
         {partners.map((partner) => (
           <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-5 flex flex-col">
             <div class="h-9 mb-4 flex items-center">
@@ -251,6 +246,16 @@ const partners = [
             <p class="text-[var(--color-slate)] text-sm leading-relaxed">{partner.text}</p>
           </div>
         ))}
+      </div>
+
+      <div class="rounded-[var(--radius-card)] bg-[#1f7a4d] p-6 md:p-8 flex items-center gap-6">
+        <div class="h-12 shrink-0 flex items-center">
+          <img src={`${base}/partner-logos/carbon-neutral-white.svg`} alt="Carbon Neutral" class="h-full w-auto object-contain" />
+        </div>
+        <div>
+          <p class="font-semibold text-white text-sm mb-1">Carbon Neutral Plant-a-Tree Program</p>
+          <p class="text-white/80 text-sm leading-relaxed">We're committed to a more sustainable future.</p>
+        </div>
       </div>
     </div>
   </div>

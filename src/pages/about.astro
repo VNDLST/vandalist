@@ -35,13 +35,13 @@ const alignClass: Record<string, string> = { start: "self-start", center: "self-
 
 const approvedSupplier = [
   { logo: "local-buy", title: "Local Buy", text: "Approved Supplier" },
-];
-const mentoringEducation = [
   {
     logo: "queensland-government",
     title: "Queensland Government Mentors",
     text: "Proud to give back and support Queensland businesses.",
   },
+];
+const mentoringEducation = [
   {
     logo: "university-of-queensland",
     title: "UQ Partnership",
@@ -252,7 +252,7 @@ const environmentalCommitment = [
           <!-- Row 1: Approved Supplier + Mentoring & Education -->
           <div class="grid sm:grid-cols-[1fr_3fr] gap-8 pb-8 border-b border-[var(--color-line)]">
             <div>
-              <p class="text-xs tracking-wide text-[var(--color-accent)] font-semibold uppercase mb-5">Approved supplier</p>
+              <p class="text-xs tracking-wide text-[var(--color-accent)] font-semibold mb-5">Approved supplier</p>
               <div class="grid grid-cols-1 gap-8">
                 {approvedSupplier.map((item) => (
                   <div>
@@ -267,8 +267,8 @@ const environmentalCommitment = [
             </div>
 
             <div class="sm:border-l sm:border-[var(--color-line)] sm:pl-8">
-              <p class="text-xs tracking-wide text-[var(--color-accent)] font-semibold uppercase mb-5">Mentoring &amp; education</p>
-              <div class="grid sm:grid-cols-3 gap-8">
+              <p class="text-xs tracking-wide text-[var(--color-accent)] font-semibold mb-5">Mentoring &amp; education</p>
+              <div class="grid sm:grid-cols-2 gap-8">
                 {mentoringEducation.map((item) => (
                   <div>
                     <div class="h-8 mb-4 flex items-center">
@@ -284,18 +284,18 @@ const environmentalCommitment = [
 
           <!-- Row 2: Environmental Commitment -->
           <div class="pt-8">
-            <p class="text-xs tracking-wide text-[var(--color-accent)] font-semibold uppercase mb-5">Environmental commitment</p>
-            <div class="grid sm:grid-cols-3 gap-8">
-              {environmentalCommitment.map((item) => (
+            <p class="text-xs tracking-wide text-[var(--color-accent)] font-semibold mb-5">Environmental commitment</p>
+            {environmentalCommitment.map((item) => (
+              <div class="flex items-center gap-5">
+                <div class="h-10 shrink-0 flex items-center">
+                  <img src={`${base}/partner-logos/${item.logo}.svg`} alt="" class="h-full w-auto max-w-[140px] object-contain object-left" />
+                </div>
                 <div>
-                  <div class="h-8 mb-4 flex items-center">
-                    <img src={`${base}/partner-logos/${item.logo}.svg`} alt="" class="h-full w-auto max-w-[140px] object-contain object-left" />
-                  </div>
                   <p class="font-semibold text-[var(--color-ink)] text-sm mb-1">{item.title}</p>
                   <p class="text-[var(--color-slate)] text-sm leading-relaxed">{item.text}</p>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

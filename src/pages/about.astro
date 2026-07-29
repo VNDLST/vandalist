@@ -251,7 +251,7 @@ const environmentalCommitment = [
         <!-- Right: grouped categories -->
         <div>
           <!-- Row 1: Approved Supplier + Mentoring & Education -->
-          <div class="grid sm:grid-cols-[1fr_3fr] gap-8 pb-8 border-b border-[var(--color-line)]">
+          <div class="grid sm:grid-cols-2 gap-8 pb-8 border-b border-[var(--color-line)]">
             <div>
               <p class="text-xs tracking-wide text-[var(--color-accent)] font-semibold mb-5">Approved supplier</p>
               <div class="grid grid-cols-2 gap-8">
@@ -288,8 +288,8 @@ const environmentalCommitment = [
             <p class="text-xs tracking-wide text-[var(--color-accent)] font-semibold mb-5">Environmental commitment</p>
             {environmentalCommitment.map((item) => (
               <div class="rounded-[var(--radius-card)] bg-[#1f7a4d] p-6 md:p-8 flex items-center gap-6">
-                <div class="w-1/2 shrink-0 flex items-center">
-                  <img src={`${base}/partner-logos/${item.logoWhite}.svg`} alt="" class="w-full h-auto object-contain object-left" />
+                <div class="h-14 shrink-0 flex items-center">
+                  <img src={`${base}/partner-logos/${item.logoWhite}.svg`} alt="" class="h-full w-auto object-contain object-left" />
                 </div>
                 <div>
                   <p class="font-semibold text-white text-sm mb-1">{item.title}</p>

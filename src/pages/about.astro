@@ -3,7 +3,6 @@ import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import CtaBand from "../components/CtaBand.astro";
-import SectionHeading from "../components/SectionHeading.astro";
 
 const base = import.meta.env.BASE_URL;
 
@@ -34,7 +33,10 @@ const contentCard = { label: "Content", sub: "Articles, blogs, & content for int
 
 const alignClass: Record<string, string> = { start: "self-start", center: "self-center", end: "self-end" };
 
-const partners = [
+const approvedSupplier = [
+  { logo: "local-buy", title: "Local Buy", text: "Approved Supplier" },
+];
+const mentoringEducation = [
   {
     logo: "queensland-government",
     title: "Queensland Government Mentors",
@@ -42,18 +44,20 @@ const partners = [
   },
   {
     logo: "university-of-queensland",
-    title: "University of Queensland Partnership",
-    text: "Supporting UQ students through real-world marketing collaboration.",
+    title: "UQ Partnership",
+    text: "Through real-world marketing collaboration.",
   },
   {
     logo: "qut",
-    title: "QUT Partnership",
+    title: "Queensland University of Technology",
     text: "Working with QUT on practical, industry-connected projects.",
   },
+];
+const environmentalCommitment = [
   {
-    logo: "local-buy",
-    title: "Local Buy Approved Supplier",
-    text: "Streamlined procurement for Australian organisations.",
+    logo: "carbon-neutral",
+    title: "Carbon Neutral Plant-a-Tree Program",
+    text: "We're committed to a more sustainable future.",
   },
 ];
 ---
@@ -232,29 +236,67 @@ const partners = [
 
     <!-- Partnerships & trust -->
     <div class="max-w-7xl mx-auto px-6 md:px-10 pb-20 md:pb-28">
-      <SectionHeading
-        eyebrow="Partnerships & trust"
-        heading="We're proud to work alongside organisations that share our values."
-      />
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-        {partners.map((partner) => (
-          <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-5 flex flex-col">
-            <div class="h-9 mb-4 flex items-center">
-              <img src={`${base}/partner-logos/${partner.logo}.svg`} alt="" class="h-full w-auto max-w-[80%] object-contain object-left" />
-            </div>
-            <p class="font-semibold text-[var(--color-ink)] text-sm mb-1.5">{partner.title}</p>
-            <p class="text-[var(--color-slate)] text-sm leading-relaxed">{partner.text}</p>
-          </div>
-        ))}
-      </div>
-
-      <div class="rounded-[var(--radius-card)] bg-[#1f7a4d] p-6 md:p-8 flex items-center gap-6">
-        <div class="h-12 shrink-0 flex items-center">
-          <img src={`${base}/partner-logos/carbon-neutral-white.svg`} alt="Carbon Neutral" class="h-full w-auto object-contain" />
-        </div>
+      <div class="grid lg:grid-cols-[1fr_3fr] gap-10 lg:gap-16 items-start">
+        <!-- Left: intro text -->
         <div>
-          <p class="font-semibold text-white text-sm mb-1">Carbon Neutral Plant-a-Tree Program</p>
-          <p class="text-white/80 text-sm leading-relaxed">We're committed to a more sustainable future.</p>
+          <p class="text-sm tracking-wide text-[var(--color-accent)] font-medium mb-3">Partnerships & trust</p>
+          <h2 class="text-2xl md:text-3xl font-semibold mb-4">We're proud to work alongside organisations that share our values.</h2>
+          <div class="w-10 h-[3px] bg-[var(--color-accent)] rounded-full mb-4"></div>
+          <p class="text-[var(--color-slate)] text-sm leading-relaxed">
+            Great relationships make better outcomes &mdash; for our clients, our team, and the community.
+          </p>
+        </div>
+
+        <!-- Right: grouped categories -->
+        <div>
+          <!-- Row 1: Approved Supplier + Mentoring & Education -->
+          <div class="grid sm:grid-cols-[1fr_3fr] gap-8 pb-8 border-b border-[var(--color-line)]">
+            <div>
+              <p class="text-xs tracking-wide text-[var(--color-accent)] font-semibold uppercase mb-5">Approved supplier</p>
+              <div class="grid grid-cols-1 gap-8">
+                {approvedSupplier.map((item) => (
+                  <div>
+                    <div class="h-8 mb-4 flex items-center">
+                      <img src={`${base}/partner-logos/${item.logo}.svg`} alt="" class="h-full w-auto max-w-[140px] object-contain object-left" />
+                    </div>
+                    <p class="font-semibold text-[var(--color-ink)] text-sm mb-1">{item.title}</p>
+                    <p class="text-[var(--color-slate)] text-sm leading-relaxed">{item.text}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div class="sm:border-l sm:border-[var(--color-line)] sm:pl-8">
+              <p class="text-xs tracking-wide text-[var(--color-accent)] font-semibold uppercase mb-5">Mentoring &amp; education</p>
+              <div class="grid sm:grid-cols-3 gap-8">
+                {mentoringEducation.map((item) => (
+                  <div>
+                    <div class="h-8 mb-4 flex items-center">
+                      <img src={`${base}/partner-logos/${item.logo}.svg`} alt="" class="h-full w-auto max-w-[140px] object-contain object-left" />
+                    </div>
+                    <p class="font-semibold text-[var(--color-ink)] text-sm mb-1">{item.title}</p>
+                    <p class="text-[var(--color-slate)] text-sm leading-relaxed">{item.text}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 2: Environmental Commitment -->
+          <div class="pt-8">
+            <p class="text-xs tracking-wide text-[var(--color-accent)] font-semibold uppercase mb-5">Environmental commitment</p>
+            <div class="grid sm:grid-cols-3 gap-8">
+              {environmentalCommitment.map((item) => (
+                <div>
+                  <div class="h-8 mb-4 flex items-center">
+                    <img src={`${base}/partner-logos/${item.logo}.svg`} alt="" class="h-full w-auto max-w-[140px] object-contain object-left" />
+                  </div>
+                  <p class="font-semibold text-[var(--color-ink)] text-sm mb-1">{item.title}</p>
+                  <p class="text-[var(--color-slate)] text-sm leading-relaxed">{item.text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -243,7 +243,7 @@ const environmentalCommitment = [
           <p class="text-sm tracking-wide text-[var(--color-accent)] font-medium mb-3">Partnerships & trust</p>
           <h2 class="text-2xl md:text-3xl font-semibold mb-4">We're proud to work alongside organisations that share our values.</h2>
           <div class="w-10 h-[3px] bg-[var(--color-accent)] rounded-full mb-4"></div>
-          <p class="text-[var(--color-slate)] text-sm leading-relaxed">
+          <p class="text-[var(--color-slate)]">
             Great relationships make better outcomes &mdash; for our clients, our team, and the community.
           </p>
         </div>
@@ -253,7 +253,7 @@ const environmentalCommitment = [
           <!-- Row 1: Approved Supplier + Mentoring & Education -->
           <div class="grid sm:grid-cols-2 gap-8 pb-8 border-b border-[var(--color-line)]">
             <div>
-              <p class="text-xs tracking-wide text-[var(--color-accent)] font-semibold mb-5">Approved supplier</p>
+              <p class="text-sm tracking-wide text-[var(--color-accent)] font-medium mb-5">Approved supplier</p>
               <div class="grid grid-cols-2 gap-8">
                 {approvedSupplier.map((item) => (
                   <div>
@@ -261,14 +261,14 @@ const environmentalCommitment = [
                       <img src={`${base}/partner-logos/${item.logo}.svg`} alt="" class="w-[110px] h-auto object-contain object-left" />
                     </div>
                     <p class="font-semibold text-[var(--color-ink)] text-sm mb-1">{item.title}</p>
-                    <p class="text-[var(--color-slate)] text-sm leading-relaxed">{item.text}</p>
+                    <p class="text-[var(--color-slate)] text-sm">{item.text}</p>
                   </div>
                 ))}
               </div>
             </div>
 
             <div class="sm:border-l sm:border-[var(--color-line)] sm:pl-8">
-              <p class="text-xs tracking-wide text-[var(--color-accent)] font-semibold mb-5">Mentoring &amp; education</p>
+              <p class="text-sm tracking-wide text-[var(--color-accent)] font-medium mb-5">Mentoring &amp; education</p>
               <div class="grid sm:grid-cols-2 gap-8">
                 {mentoringEducation.map((item) => (
                   <div>
@@ -276,7 +276,7 @@ const environmentalCommitment = [
                       <img src={`${base}/partner-logos/${item.logo}.svg`} alt="" class="w-[110px] h-auto object-contain object-left" />
                     </div>
                     <p class="font-semibold text-[var(--color-ink)] text-sm mb-1">{item.title}</p>
-                    <p class="text-[var(--color-slate)] text-sm leading-relaxed">{item.text}</p>
+                    <p class="text-[var(--color-slate)] text-sm">{item.text}</p>
                   </div>
                 ))}
               </div>
@@ -285,7 +285,7 @@ const environmentalCommitment = [
 
           <!-- Row 2: Environmental Commitment -->
           <div class="pt-8">
-            <p class="text-xs tracking-wide text-[var(--color-accent)] font-semibold mb-5">Environmental commitment</p>
+            <p class="text-sm tracking-wide text-[var(--color-accent)] font-medium mb-5">Environmental commitment</p>
             {environmentalCommitment.map((item) => (
               <div class="flex items-center gap-6">
                 <div class="w-[220px] shrink-0 flex items-center">
@@ -293,7 +293,7 @@ const environmentalCommitment = [
                 </div>
                 <div>
                   <p class="font-semibold text-[var(--color-ink)] text-sm mb-1">{item.title}</p>
-                  <p class="text-[var(--color-slate)] text-sm leading-relaxed">{item.text}</p>
+                  <p class="text-[var(--color-slate)] text-sm">{item.text}</p>
                 </div>
               </div>
             ))}

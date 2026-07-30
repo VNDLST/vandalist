@@ -251,7 +251,7 @@ const partnerCells = [
         {partnerCells.map((item) => (
           <div class:list={["p-2", !item.eyebrow && "pt-11"]}>
             {item.eyebrow && <p class="text-sm tracking-wide text-[var(--color-accent)] font-medium mb-4">{item.eyebrow}</p>}
-            <div class:list={["h-20 flex items-center", item.title ? "mb-4" : ""]}>
+            <div class:list={["flex items-center", item.title ? "mb-4" : ""]}>
               <img
                 src={`${base}/partner-logos/${item.logo}.svg`}
                 alt=""

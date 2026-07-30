@@ -33,15 +33,16 @@ const contentCard = { label: "Content", sub: "Articles, blogs, & content for int
 
 const alignClass: Record<string, string> = { start: "self-start", center: "self-center", end: "self-end" };
 
-const approvedSupplier = [
+// Six equal cells: cell 1 is the intro text (rendered directly in markup below),
+// cells 2-6 are these partner entries in order.
+const partnerCells = [
   { logo: "local-buy", title: "Local Buy", text: "Approved Supplier" },
   {
     logo: "queensland-government",
     title: "Queensland Government Mentors",
     text: "Proud to give back and support Queensland businesses.",
   },
-];
-const mentoringEducation = [
+  { logo: "carbon-neutral", title: null, text: null }, // logo only, per instruction
   {
     logo: "university-of-queensland",
     title: "UQ Partnership",
@@ -51,14 +52,6 @@ const mentoringEducation = [
     logo: "qut",
     title: "Queensland University of Technology",
     text: "Working with QUT on practical, industry-connected projects.",
-  },
-];
-const environmentalCommitment = [
-  {
-    logo: "carbon-neutral",
-    logoWhite: "carbon-neutral-white",
-    title: "Carbon Neutral Plant-a-Tree Program",
-    text: "We're committed to a more sustainable future.",
   },
 ];
 ---
@@ -237,68 +230,27 @@ const environmentalCommitment = [
 
     <!-- Partnerships & trust -->
     <div class="max-w-7xl mx-auto px-6 md:px-10 pb-20 md:pb-28">
-      <div class="grid lg:grid-cols-[1fr_3fr] gap-10 lg:gap-16 items-start">
-        <!-- Left: intro text -->
-        <div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Cell 1: heading + intro -->
+        <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6 flex flex-col justify-center">
           <p class="text-sm tracking-wide text-[var(--color-accent)] font-medium mb-3">Partnerships & trust</p>
-          <h2 class="text-2xl md:text-3xl font-semibold mb-4">We're proud to work alongside organisations that share our values.</h2>
+          <h2 class="text-2xl font-semibold mb-4">We're proud to work alongside organisations that share our values.</h2>
           <div class="w-10 h-[3px] bg-[var(--color-accent)] rounded-full mb-4"></div>
           <p class="text-[var(--color-slate)]">
             Great relationships make better outcomes &mdash; for our clients, our team, and the community.
           </p>
         </div>
 
-        <!-- Right: grouped categories -->
-        <div>
-          <!-- Row 1: Approved Supplier + Mentoring & Education -->
-          <div class="grid sm:grid-cols-2 gap-8 pb-8 border-b border-[var(--color-line)]">
-            <div>
-              <p class="text-sm tracking-wide text-[var(--color-accent)] font-medium mb-5">Approved supplier</p>
-              <div class="grid grid-cols-2 gap-8">
-                {approvedSupplier.map((item) => (
-                  <div>
-                    <div class="h-12 mb-4 flex items-center">
-                      <img src={`${base}/partner-logos/${item.logo}.svg`} alt="" class="w-[110px] h-auto object-contain object-left" />
-                    </div>
-                    <p class="font-semibold text-[var(--color-ink)] text-sm mb-1">{item.title}</p>
-                    <p class="text-[var(--color-slate)] text-sm">{item.text}</p>
-                  </div>
-                ))}
-              </div>
+        <!-- Cells 2-6: partner logos -->
+        {partnerCells.map((item) => (
+          <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6 flex flex-col justify-center">
+            <div class:list={["h-12 flex items-center", item.title ? "mb-4" : ""]}>
+              <img src={`${base}/partner-logos/${item.logo}.svg`} alt="" class="max-h-full max-w-full w-auto h-auto object-contain object-left" />
             </div>
-
-            <div class="sm:border-l sm:border-[var(--color-line)] sm:pl-8">
-              <p class="text-sm tracking-wide text-[var(--color-accent)] font-medium mb-5">Mentoring &amp; education</p>
-              <div class="grid sm:grid-cols-2 gap-8">
-                {mentoringEducation.map((item) => (
-                  <div>
-                    <div class="h-12 mb-4 flex items-center">
-                      <img src={`${base}/partner-logos/${item.logo}.svg`} alt="" class="w-[110px] h-auto object-contain object-left" />
-                    </div>
-                    <p class="font-semibold text-[var(--color-ink)] text-sm mb-1">{item.title}</p>
-                    <p class="text-[var(--color-slate)] text-sm">{item.text}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
+            {item.title && <p class="font-semibold text-[var(--color-ink)] text-sm mb-1">{item.title}</p>}
+            {item.text && <p class="text-[var(--color-slate)] text-sm">{item.text}</p>}
           </div>
-
-          <!-- Row 2: Environmental Commitment -->
-          <div class="pt-8">
-            <p class="text-sm tracking-wide text-[var(--color-accent)] font-medium mb-5">Environmental commitment</p>
-            {environmentalCommitment.map((item) => (
-              <div class="flex items-center gap-6">
-                <div class="w-[220px] shrink-0 flex items-center">
-                  <img src={`${base}/partner-logos/${item.logo}.svg`} alt="" class="w-full h-auto object-contain object-left" />
-                </div>
-                <div>
-                  <p class="font-semibold text-[var(--color-ink)] text-sm mb-1">{item.title}</p>
-                  <p class="text-[var(--color-slate)] text-sm">{item.text}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   </div>

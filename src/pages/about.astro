@@ -36,25 +36,28 @@ const alignClass: Record<string, string> = { start: "self-start", center: "self-
 // Six equal cells: cell 1 is the intro text (rendered directly in markup below),
 // cells 2-6 are these partner entries in order.
 const partnerCells = [
-  { logo: "local-buy", eyebrow: "Approved supplier", title: "Local Buy", text: "Approved Supplier" },
+  { logo: "local-buy", eyebrow: "Approved supplier", title: "Local Buy", text: "Approved Supplier", logoWidth: "75%" },
   {
     logo: "queensland-government",
-    eyebrow: "Approved supplier",
+    eyebrow: null,
     title: "Queensland Government Mentors",
     text: "Proud to give back and support Queensland businesses.",
+    logoWidth: "75%",
   },
-  { logo: "carbon-neutral", eyebrow: "Environmental commitment", title: null, text: null }, // logo only, per instruction
+  { logo: "carbon-neutral", eyebrow: "Environmental commitment", title: null, text: null, logoWidth: null }, // logo only, per instruction
   {
     logo: "university-of-queensland",
     eyebrow: "Mentoring & education",
     title: "UQ Partnership",
     text: "Through real-world marketing collaboration.",
+    logoWidth: "75%",
   },
   {
     logo: "qut",
-    eyebrow: "Mentoring & education",
+    eyebrow: null,
     title: "Queensland University of Technology",
     text: "Working with QUT on practical, industry-connected projects.",
+    logoWidth: "75%",
   },
 ];
 ---
@@ -247,9 +250,14 @@ const partnerCells = [
         <!-- Cells 2-6: partner logos -->
         {partnerCells.map((item) => (
           <div class="p-2">
-            <p class="text-sm tracking-wide text-[var(--color-accent)] font-medium mb-4">{item.eyebrow}</p>
+            {item.eyebrow && <p class="text-sm tracking-wide text-[var(--color-accent)] font-medium mb-4">{item.eyebrow}</p>}
             <div class:list={["h-20 flex items-center", item.title ? "mb-4" : ""]}>
-              <img src={`${base}/partner-logos/${item.logo}.svg`} alt="" class="max-h-full max-w-full w-auto h-auto object-contain object-left" />
+              <img
+                src={`${base}/partner-logos/${item.logo}.svg`}
+                alt=""
+                class="max-h-full h-auto object-contain object-left"
+                style={item.logoWidth ? `width: ${item.logoWidth};` : "width: auto; max-width: 100%;"}
+              />
             </div>
             {item.title && <p class="font-semibold text-[var(--color-ink)] text-sm mb-1">{item.title}</p>}
             {item.text && <p class="text-[var(--color-slate)] text-sm">{item.text}</p>}

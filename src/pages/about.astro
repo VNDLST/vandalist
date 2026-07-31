@@ -36,28 +36,40 @@ const alignClass: Record<string, string> = { start: "self-start", center: "self-
 // Six equal cells: cell 1 is the intro text (rendered directly in markup below),
 // cells 2-6 are these partner entries in order.
 const partnerCells = [
-  { logo: "local-buy", eyebrow: "Approved supplier", title: "Local Buy", text: "Approved Supplier", logoWidth: "75%" },
+  {
+    logo: "local-buy",
+    eyebrow: "Approved supplier",
+    title: "Local Buy Approved Supplier",
+    text: "Part of Local Buy since 2022. We provide services to government entities and public organisations as part the Local Buy pre-qualified supplier program.",
+    logoWidth: "65%",
+  },
   {
     logo: "queensland-government",
     eyebrow: null,
-    title: "Queensland Government Mentors",
-    text: "Proud to give back and support Queensland businesses.",
-    logoWidth: "75%",
+    title: "QLD Government's Mentoring for Growth program",
+    text: "A Mentoring for Growth member since 2019. We provide business owners with sustainable and practical marketing guidance specific to their business goals.",
+    logoWidth: "65%",
   },
-  { logo: "carbon-neutral", eyebrow: "Environmental commitment", title: null, text: null, logoWidth: null }, // logo only, per instruction
+  {
+    logo: "carbon-neutral",
+    eyebrow: "Environmental commitment",
+    title: "Carbon Neutral Plant-a-Tree program",
+    text: "A Plant-a-Tree program sponsor since 2019. Our sponsorship contributes to the planting of native trees along damaged natural corridors throughout Australia to help resurrect the effects of deforestation.",
+    logoWidth: "80%",
+  },
   {
     logo: "university-of-queensland",
     eyebrow: "Mentoring & education",
-    title: "UQ Partnership",
-    text: "Through real-world marketing collaboration.",
-    logoWidth: "75%",
+    title: "UQ Industry Mentor",
+    text: "Part of UQ's Industry Mentoring program since 2020. We help students transition from their studies to careers through mentoring and industry seminars.",
+    logoWidth: "65%",
   },
   {
     logo: "qut",
     eyebrow: null,
-    title: "Queensland University of Technology",
-    text: "Working with QUT on practical, industry-connected projects.",
-    logoWidth: "75%",
+    title: "QUT Industry Mentor",
+    text: "A member of QUT's mentoring program since 2021. We work with students on career planning as well as with small teams working on assessible industry projects.",
+    logoWidth: "65%",
   },
 ];
 ---
@@ -240,10 +252,10 @@ const partnerCells = [
         <!-- Cell 1: heading + intro -->
         <div class="p-2">
           <p class="text-sm tracking-wide text-[var(--color-accent)] font-medium mb-3">Partnerships & trust</p>
-          <h2 class="text-2xl font-semibold mb-4">We're proud to work alongside organisations that share our values.</h2>
+          <h2 class="text-2xl font-semibold mb-4">We are a small agency that believes in making a big contribution.</h2>
           <div class="w-10 h-[3px] bg-[var(--color-accent)] rounded-full mb-4"></div>
           <p class="text-[var(--color-slate)]">
-            Great relationships make better outcomes &mdash; for our clients, our team, and the community.
+            Through mentoring, partnerships and local support, we are active contributors to the communities around us.
           </p>
         </div>
 

@@ -3,15 +3,26 @@ interface Props {
   currentPage?: string;
 }
 const { currentPage = "" } = Astro.props as Props;
+
+const serviceLinks = [
+  { label: "Marketing Support", path: "/services/marketing-support" },
+  { label: "Consulting & Mentoring", path: "/services/consulting-mentoring" },
+  { label: "Google & Social Media Ads", path: "/services/google-social-ads" },
+  { label: "SEO & AI Search Optimisation", path: "/services/seo-ai-search-optimisation" },
+  { label: "Websites & Optimisation", path: "/services/websites-optimisation" },
+  { label: "Integrations & AI Processes", path: "/services/integrations-ai-processes" },
+];
+
 const links = [
-  { label: "Services", path: "/services" },
-  { label: "Work", path: "/work" },
   { label: "Case Studies", path: "/case-studies" },
+  { label: "Resources", path: "/resources" },
   { label: "How We Work", path: "/how-we-work" },
-  { label: "About", path: "/about" },
+  { label: "About Us", path: "/about" },
   { label: "Contact", path: "/contact" },
 ];
+
 const base = import.meta.env.BASE_URL;
+const isServicesActive = currentPage === "/services" || serviceLinks.some((l) => l.path === currentPage);
 ---
 <header class="w-full py-8 md:py-10">
   <nav class="max-w-7xl mx-auto px-6 md:px-10 flex items-center justify-between">
@@ -20,6 +31,41 @@ const base = import.meta.env.BASE_URL;
     </a>
 
     <ul class="hidden md:flex items-center gap-8 text-sm text-[var(--color-slate)]">
+      <!-- Services: hover dropdown -->
+      <li class="relative group">
+        <a
+          href={`${base}/services`}
+          class:list={[
+            "transition-colors inline-flex items-center gap-1",
+            isServicesActive ? "text-[var(--color-accent)] font-medium" : "hover:text-[var(--color-ink)]",
+          ]}
+        >
+          Services
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="mt-px">
+            <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </a>
+        {isServicesActive && (
+          <span class="absolute left-1/2 -translate-x-1/2 -bottom-2 w-4 h-[2px] rounded-full bg-[var(--color-accent)]"></span>
+        )}
+
+        <div class="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity duration-150 absolute left-0 top-full pt-3 z-20">
+          <div class="w-64 rounded-xl border border-[var(--color-line)] bg-white shadow-[0_20px_45px_-15px_rgba(28,27,26,0.2)] py-2">
+            {serviceLinks.map((s) => (
+              <a
+                href={`${base}${s.path}`}
+                class:list={[
+                  "block px-4 py-2.5 text-sm transition-colors",
+                  currentPage === s.path ? "text-[var(--color-accent)] font-medium" : "text-[var(--color-slate)] hover:text-[var(--color-ink)] hover:bg-[var(--color-paper-dim)]",
+                ]}
+              >
+                {s.label}
+              </a>
+            ))}
+          </div>
+        </div>
+      </li>
+
       {links.map((link) => (
         <li class="relative">
           <a
@@ -38,8 +84,13 @@ const base = import.meta.env.BASE_URL;
       ))}
     </ul>
 
-    <!-- mobile: simple stacked link row, no hamburger complexity for v1 -->
+    <!-- mobile: simple stacked link row, no hamburger complexity for v1. Services links straight to its landing page (no flyout). -->
     <ul class="flex md:hidden items-center gap-3 text-xs text-[var(--color-slate)] overflow-x-auto">
+      <li class="relative shrink-0">
+        <a href={`${base}/services`} class:list={isServicesActive ? "text-[var(--color-accent)] font-medium" : ""}>
+          Services
+        </a>
+      </li>
       {links.map((link) => (
         <li class="relative shrink-0">
           <a

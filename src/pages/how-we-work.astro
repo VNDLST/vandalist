@@ -5,30 +5,32 @@ import Footer from "../components/Footer.astro";
 import CtaBand from "../components/CtaBand.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 
+const base = import.meta.env.BASE_URL;
+
 // --- Section 1: Our working style ---
 const styleCards = [
   {
-    title: "Clear over clever",
-    text: "Simple plans, honest communication.",
-    icon: '<circle cx="9" cy="8" r="3"/><path d="M3.5 19c0-3 2.5-5.2 5.5-5.2s5.5 2.2 5.5 5.2"/><circle cx="16" cy="9" r="2.4"/><path d="M14.8 13.3c2.4.3 4.2 2.2 4.2 4.7"/>',
+    title: "Responsiveness",
+    text: "Access to the right specialists when needed, including strategic planning and training.",
+    icon: "responsive",
     tilt: "rotate(-1deg) translateY(-2px)",
   },
   {
-    title: "Outcome focused",
-    text: "We care about impact, not activity.",
-    icon: '<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="0.6" fill="currentColor"/>',
+    title: "Capability",
+    text: "Experienced marketing people working in the marketing areas they specialise in.",
+    icon: "capability",
     tilt: "rotate(1deg) translateY(6px)",
   },
   {
-    title: "Built on trust",
-    text: "We listen, challenge respectfully, and follow through.",
-    icon: '<path d="M12 20c-4-2.4-7-5.7-7-9.4A4.6 4.6 0 0 1 12 7.3 4.6 4.6 0 0 1 19 10.6c0 3.7-3 7-7 9.4z"/>',
+    title: "Transparency",
+    text: "Clear work-in-progress tracking, agreed deadlines, and regular, useful updates.",
+    icon: "transparent",
     tilt: "rotate(-1.5deg) translateY(4px)",
   },
   {
-    title: "Better together",
-    text: "Your knowledge + our experience = better results.",
-    icon: '<circle cx="8.5" cy="8" r="2.6"/><path d="M3.5 19c0-2.8 2.2-4.9 5-4.9s5 2.1 5 4.9"/><circle cx="16" cy="8" r="2.2"/><path d="M14.5 12.6c2.2.3 3.9 2 3.9 4.4"/>',
+    title: "Accountability",
+    text: "Monthly action and outcomes reporting, supported by regular planning meetings.",
+    icon: "accountable",
     tilt: "rotate(1.5deg) translateY(-4px)",
   },
 ];
@@ -114,9 +116,9 @@ const matrix = [
       <div class="grid lg:grid-cols-[36%_32%_32%] gap-x-10 gap-y-12">
         <div>
           <p class="text-sm tracking-wide text-[var(--color-accent)] font-medium mb-3">How we work</p>
-          <h1 class="text-2xl md:text-3xl font-semibold mb-4">Practical by design. Collaborative by default.</h1>
+          <h1 class="text-2xl md:text-3xl font-semibold mb-4">Practical, sustainable, and easy to work with</h1>
           <p class="text-[var(--color-slate)] max-w-md">
-            We operate in a practical, low-ego way that keeps things moving and outcomes clear.
+            We adapt to requirements whether that is being part of the strategic conversations, or being utilised for specific production tasks.
           </p>
         </div>
 
@@ -126,9 +128,7 @@ const matrix = [
               class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6 shadow-[0_16px_32px_-14px_rgba(28,27,26,0.22)]"
               style={`transform: ${card.tilt};`}
             >
-              <span class="inline-flex items-center justify-center w-11 h-11 rounded-xl bg-[var(--color-accent-soft)] text-[var(--color-accent)] mb-4">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={card.icon} />
-              </span>
+              <img src={`${base}/working-style-icons/${card.icon}.svg`} alt="" class="w-9 h-9 mb-4" />
               <p class="font-semibold text-[var(--color-ink)] mb-1.5">{card.title}</p>
               <p class="text-sm text-[var(--color-slate)] leading-relaxed">{card.text}</p>
             </div>
@@ -141,9 +141,7 @@ const matrix = [
               class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6 shadow-[0_16px_32px_-14px_rgba(28,27,26,0.22)]"
               style={`transform: ${card.tilt};`}
             >
-              <span class="inline-flex items-center justify-center w-11 h-11 rounded-xl bg-[var(--color-accent-soft)] text-[var(--color-accent)] mb-4">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={card.icon} />
-              </span>
+              <img src={`${base}/working-style-icons/${card.icon}.svg`} alt="" class="w-9 h-9 mb-4" />
               <p class="font-semibold text-[var(--color-ink)] mb-1.5">{card.title}</p>
               <p class="text-sm text-[var(--color-slate)] leading-relaxed">{card.text}</p>
             </div>

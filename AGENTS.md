@@ -32,6 +32,14 @@ website build framework. Treat every fix as either "Vandalist-specific" or
 **Repo:** github.com/VNDLST/vandalist (public, branch `main`)
 **Live site:** https://vandalist.io/vandalist-2.0/ — staging/dev, not linked anywhere real yet.
 
+### Starting a session
+
+Andrew works across two machines on this project. At the start of a new
+session here — before anything else — run `git pull` (so the working copy
+reflects whatever the other machine last pushed) and read `ONBOARDING.md`
+if present (recap of recent work, known open items, two-device workflow
+notes). Do this once at session start, not on every turn.
+
 ### Git identity
 
 Commits in this repo should use `Andrew Knight <andrew@vandalist.com.au>` as

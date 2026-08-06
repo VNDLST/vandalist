@@ -78,12 +78,17 @@ what was asked for) — routine page edits should go straight through to live.
 - Fonts: Plus Jakarta Sans (headings), Manrope (body)
 - `astro.config.mjs` → `base: '/vandalist-2.0'`. Every internal href/img
   src must be prefixed with `${import.meta.env.BASE_URL}`.
-- Color tokens live in `src/styles/global.css` `:root` — always reuse
-  these vars (`--color-paper`, `--color-paper-dim`, `--color-paper-deep`,
-  `--color-accent`, etc.) rather than introducing new hex values or new
-  shadow strings. The standard card shadow is
-  `shadow-[0_16px_32px_-14px_rgba(28,27,26,0.22)]` — reuse this exact
-  value, don't invent a similar-but-different one.
+- Color/shadow tokens live in `src/styles/global.css` `:root` — always
+  reuse these vars (`--color-paper`, `--color-paper-dim`,
+  `--color-paper-deep`, `--color-accent`, `--color-good`, `--shadow-card`,
+  `--shadow-panel`, etc.) rather than introducing new hex values or new
+  shadow strings. Note the Tailwind gotcha: `shadow-[var(--x)]` silently
+  misparses the `var()` as a shadow *color* and never sets `--tw-shadow` —
+  use the raw-property syntax `[box-shadow:var(--x)]` instead.
+- Typography goes through shared components, not hand-rolled classes:
+  `Eyebrow.astro`, `Heading.astro` (in-page section heading, `as="h1"` on
+  pages with no separate hero), `PageHeading.astro` (big page-hero H1),
+  `SectionHeading.astro` (eyebrow+heading+subtext composite).
 
 ### Layout conventions
 
@@ -94,16 +99,6 @@ what was asked for) — routine page edits should go straight through to live.
   an inner `max-w-7xl mx-auto` wrapper for the actual content.
 - `Astro.url.pathname` is unreliable in this static build — pass an
   explicit `currentPage` prop to `Header.astro` instead.
-
-### Known issues
-
-- **Section 1 horizontal scroll (found 2026-08-06):** the tilted "working
-  style" cards near the top of `how-we-work.astro` (`rotate()` /
-  `translateY()` transforms on the card wrappers) push slightly past the
-  viewport edge at ~1280px width, producing a ~33px page-level horizontal
-  scrollbar. Confirmed via DOM measurement (`scrollWidth` vs `clientWidth`).
-  Not yet fixed — noted here so it isn't lost, not in scope until
-  someone picks it up specifically.
 
 ### Before making changes
 

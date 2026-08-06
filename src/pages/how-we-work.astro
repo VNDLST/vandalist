@@ -115,12 +115,26 @@ const matrix = [
     <Header currentPage="/how-we-work" />
 
     <!-- Section 1a: Hero -->
-    <div class="max-w-4xl mx-auto px-6 md:px-10 pt-8 md:pt-12 pb-12 md:pb-16 text-center">
-      <PageHeading as="h1" class="mb-6">Practical, sustainable, and easy to work with</PageHeading>
-      <p class="max-w-[700px] mx-auto text-lg text-[var(--color-slate)]">
-        We adapt to requirements whether that is being part of the strategic conversations, or being utilised for specific production tasks.
-      </p>
-    </div>
+    <section class="max-w-7xl mx-auto px-6 md:px-10 pt-8 md:pt-12 pb-12 md:pb-16">
+      <div class="grid lg:grid-cols-[2fr_3fr] gap-10 items-center">
+        <div>
+          <PageHeading as="h1" class="mb-6">Practical, sustainable, and easy to work with</PageHeading>
+          <p class="max-w-md text-lg text-[var(--color-slate)]">
+            We adapt to requirements whether that is being part of the strategic conversations, or being utilised for specific production tasks.
+          </p>
+        </div>
+
+        <!-- Placeholder decorative graphic — swap for something more considered later -->
+        <div class="hidden md:block relative h-[220px]">
+          <svg class="absolute inset-0 w-full h-full" viewBox="0 0 400 240" fill="none" aria-hidden="true">
+            <path d="M55 165 C 110 120, 140 200, 210 150 C 260 115, 300 170, 335 185" stroke="var(--color-line)" stroke-width="1.5" stroke-dasharray="4 6" stroke-linecap="round" />
+            <path d="M40 152 l16 16 M56 152 l-16 16" stroke="var(--color-accent)" stroke-width="2.5" stroke-linecap="round" />
+            <circle cx="205" cy="90" r="45" stroke="var(--color-line)" stroke-width="1.5" stroke-dasharray="3 5" />
+            <circle cx="335" cy="185" r="10" stroke="var(--color-accent)" stroke-width="2.5" />
+          </svg>
+        </div>
+      </div>
+    </section>
 
     <!-- Section 1b: Our working style, one row of four -->
     <section class="max-w-7xl mx-auto px-6 md:px-10 pb-20 md:pb-28 overflow-x-hidden">

@@ -32,6 +32,13 @@ website build framework. Treat every fix as either "Vandalist-specific" or
 **Repo:** github.com/VNDLST/vandalist (public, branch `main`)
 **Live site:** https://vandalist.io/vandalist-2.0/ — staging/dev, not linked anywhere real yet.
 
+### Git identity
+
+Commits in this repo should use `Andrew Knight <andrew@vandalist.com.au>` as
+the author identity. Set this repo-locally (`git config user.name`/
+`user.email`, no `--global`) rather than assuming it's already configured on
+whatever machine a session runs from.
+
 ### Deploy
 
 Deploy is one command, run on the VentraIP cPanel host (user `vandalis`):

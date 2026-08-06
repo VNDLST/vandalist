@@ -88,6 +88,16 @@ what was asked for) — routine page edits should go straight through to live.
 - `Astro.url.pathname` is unreliable in this static build — pass an
   explicit `currentPage` prop to `Header.astro` instead.
 
+### Known issues
+
+- **Section 1 horizontal scroll (found 2026-08-06):** the tilted "working
+  style" cards near the top of `how-we-work.astro` (`rotate()` /
+  `translateY()` transforms on the card wrappers) push slightly past the
+  viewport edge at ~1280px width, producing a ~33px page-level horizontal
+  scrollbar. Confirmed via DOM measurement (`scrollWidth` vs `clientWidth`).
+  Not yet fixed — noted here so it isn't lost, not in scope until
+  someone picks it up specifically.
+
 ### Before making changes
 
 1. Read the relevant existing page/component first and match its exact

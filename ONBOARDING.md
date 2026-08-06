@@ -32,6 +32,10 @@ machine setup).
   the general lesson.
 - Set up SSH-key based deploy (see below) so sessions can push+deploy
   without any password ever touching the repo or chat.
+- Automated the two-device continuity workflow itself: AGENTS.md now
+  instructs any session to auto-pull + read this file at session start,
+  and to auto-refresh + push this file at session end — so switching
+  between devices shouldn't require manually recapping anything anymore.
 
 ## Known open items
 
@@ -46,23 +50,22 @@ machine setup).
 
 ## Working across two devices
 
-Andrew regularly switches between two machines on this project. There's no
-sync of the actual conversation/session between separate local Claude Code
-installations — the two things that do carry over are (1) this repo via git
-and (2) whatever's written into AGENTS.md/CLAUDE.md. So:
+Andrew switches between home office and work office, both running Claude
+Code, and wants to never have to re-explain context when switching. There's
+no sync of the actual conversation/session between separate local Claude
+Code installations — but this is handled automatically now, not manually:
 
-- **Always `git push` before switching devices, always `git pull` before
-  starting.** This is the one rule that actually matters — everything else
-  is inconvenience, this is the one that can cause real problems (stale
-  state, merge conflicts) if skipped.
-- Keep pushing durable decisions/conventions/gotchas into AGENTS.md as they
-  come up (not just chat) — that's the real cross-device memory, not this
-  file.
-- Refresh this file's "recent work" / "known open items" sections when
-  switching devices mid-arc on something, or after wrapping a chunk of
-  work worth flagging — not as a strict per-session ritual. Ask whichever
-  session is active to update ONBOARDING.md and re-share; it updates the
-  same link rather than minting a new one.
+- **Start of session:** per AGENTS.md, any session opening this repo
+  automatically runs `git pull` and reads this file first — no need to ask.
+- **End of session:** per AGENTS.md, when Andrew signals he's wrapping up
+  (or a session naturally concludes), the active session automatically
+  updates this file's "recent work"/"known open items" and pushes it —
+  again, no need to ask. Still-unresolved/undecided threads should get
+  written down as the actual open question, not just "TODO."
+- The one thing that's still on Andrew, not automated: if he switches
+  devices *mid-session* without a natural wrap-up point, the in-flight
+  thread won't be captured unless he asks for a refresh first or just
+  recaps it himself on the other end.
 - Don't bother trying to sync Claude's local memory files between
   machines — treat those as disposable per-machine scratch notes; AGENTS.md
   is the actual durable record.

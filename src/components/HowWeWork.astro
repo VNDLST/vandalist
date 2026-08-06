@@ -79,23 +79,23 @@ const CYCLE = SLICE * (steps.length - 1);
     </div>
 
     <div class="grid md:grid-cols-2 gap-6">
-      <div class="rounded-[var(--radius-card)] border border-[#cfe8d4] bg-[#f3faf4] shadow-[0_20px_45px_-15px_rgba(28,27,26,0.15)] p-6 md:p-8">
-        <div class="flex items-center gap-4 pb-5 border-b border-[#dcefe0]">
-          <div class="w-12 h-12 rounded-full bg-[#e2f3e5] flex items-center justify-center shrink-0">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2f8f4e" stroke-width="1.75">
+      <div class="rounded-[var(--radius-card)] border border-[var(--color-good)]/20 bg-[var(--color-good-soft)] [box-shadow:var(--shadow-panel)] p-6 md:p-8">
+        <div class="flex items-center gap-4 pb-5 border-b border-[var(--color-good)]/20">
+          <div class="w-12 h-12 rounded-full bg-[var(--color-good)]/15 flex items-center justify-center shrink-0">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-good)" stroke-width="1.75">
               <circle cx="12" cy="8" r="3.2" />
               <path d="M5 20c0-3.3 3-5.8 7-5.8s7 2.5 7 5.8" stroke-linecap="round" />
             </svg>
           </div>
           <div>
-            <p class="text-xl font-semibold text-[#2f8f4e]">What we are</p>
+            <p class="text-xl font-semibold text-[var(--color-good)]">What we are</p>
             <p class="text-sm text-[var(--color-slate)]">How we show up</p>
           </div>
         </div>
         <ul>
           {weAre.map((item, i) => (
-            <li class:list={["flex items-center gap-3 py-4", i < weAre.length - 1 && "border-b border-[#dcefe0]"]}>
-              <span class="w-6 h-6 rounded-full bg-[#2f8f4e] flex items-center justify-center shrink-0">
+            <li class:list={["flex items-center gap-3 py-4", i < weAre.length - 1 && "border-b border-[var(--color-good)]/20"]}>
+              <span class="w-6 h-6 rounded-full bg-[var(--color-good)] flex items-center justify-center shrink-0">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
                   <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
@@ -105,9 +105,9 @@ const CYCLE = SLICE * (steps.length - 1);
           ))}
         </ul>
       </div>
-      <div class="rounded-[var(--radius-card)] border border-[#f6cddb] bg-[#fdf1f5] p-6 md:p-8">
-        <div class="flex items-center gap-4 pb-5 border-b border-[#f7dbe4]">
-          <div class="w-12 h-12 rounded-full bg-[#fbdfe8] flex items-center justify-center shrink-0">
+      <div class="rounded-[var(--radius-card)] border border-[var(--color-accent)]/20 bg-[var(--color-accent-soft)] p-6 md:p-8">
+        <div class="flex items-center gap-4 pb-5 border-b border-[var(--color-accent)]/20">
+          <div class="w-12 h-12 rounded-full bg-[var(--color-accent)]/15 flex items-center justify-center shrink-0">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.75">
               <path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z" stroke-linejoin="round" />
               <path d="M9.5 9.5l5 5M14.5 9.5l-5 5" stroke-linecap="round" />
@@ -120,8 +120,8 @@ const CYCLE = SLICE * (steps.length - 1);
         </div>
         <ul>
           {weArent.map((item, i) => (
-            <li class:list={["flex items-center gap-3 py-4", i < weArent.length - 1 && "border-b border-[#f7dbe4]"]}>
-              <span class="w-6 h-6 rounded-full flex items-center justify-center shrink-0" style="background:#ff3d6b">
+            <li class:list={["flex items-center gap-3 py-4", i < weArent.length - 1 && "border-b border-[var(--color-accent)]/20"]}>
+              <span class="w-6 h-6 rounded-full flex items-center justify-center shrink-0" style="background:var(--color-accent)">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
                   <path d="M6 6l12 12M18 6L6 18" stroke-linecap="round" />
                 </svg>

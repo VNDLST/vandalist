@@ -1,4 +1,7 @@
 ---
+import Eyebrow from "./Eyebrow.astro";
+import Heading from "./Heading.astro";
+
 const rows = [
   {
     icon: "flexibility",
@@ -51,8 +54,8 @@ const icons: Record<string, string> = {
   <div class="rounded-[var(--radius-card)] bg-[var(--color-paper-dim)] p-6 md:py-10 md:px-16">
     <div class="max-w-7xl mx-auto grid lg:grid-cols-[1fr_2fr] gap-8 items-start">
       <div>
-        <p class="text-sm tracking-wide text-[var(--color-accent)] font-medium mb-3">Coverage without hiring</p>
-        <h2 class="text-2xl md:text-3xl font-semibold mb-4">Marketing capabilities without the headcount</h2>
+        <Eyebrow class="mb-3">Coverage without hiring</Eyebrow>
+        <Heading class="mb-4">Marketing capabilities without the headcount</Heading>
         <p class="text-[var(--color-slate)] mb-4">Everything you need&mdash;without the overhead, hiring risk, or ramp time.</p>
         <a href="#" class="text-[var(--color-accent)] text-sm font-medium inline-flex items-center gap-1">
           Explore how it works <span aria-hidden="true">&rarr;</span>
@@ -61,7 +64,7 @@ const icons: Record<string, string> = {
 
       <div>
         <!-- Desktop / large tablet table -->
-        <div class="hidden lg:block rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white overflow-hidden shadow-[0_20px_45px_-15px_rgba(28,27,26,0.15)]">
+        <div class="hidden lg:block rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white overflow-hidden [box-shadow:var(--shadow-panel)]">
           <div class="grid grid-cols-[1fr_1.3fr_1.3fr] border-b border-[var(--color-line)]">
             <div class="px-5 xl:px-6 py-2 flex items-center bg-[var(--color-paper-dim)]">
               <p class="font-semibold text-sm text-[var(--color-ink)]">What matters</p>
@@ -69,8 +72,8 @@ const icons: Record<string, string> = {
             <div class="px-5 xl:px-6 py-2 border-l border-[var(--color-line)]/70 flex items-center bg-[var(--color-paper-dim)]">
               <p class="font-semibold text-sm text-[var(--color-slate)]">Internal team</p>
             </div>
-            <div class="relative px-5 xl:px-6 py-2 border-l border-[var(--color-line)]/70 bg-[#f8d6e0] flex items-center">
-              <span class="absolute top-0 left-0 right-0 h-[2px]" style="background:#ff3d6b"></span>
+            <div class="relative px-5 xl:px-6 py-2 border-l border-[var(--color-line)]/70 bg-[var(--color-accent-soft)] flex items-center">
+              <span class="absolute top-0 left-0 right-0 h-[2px]" style="background:var(--color-accent)"></span>
               <p class="font-semibold text-sm text-[var(--color-ink)]">Vandalist approach</p>
             </div>
           </div>
@@ -78,14 +81,14 @@ const icons: Record<string, string> = {
           {rows.map((row, i) => (
             <div class:list={["grid grid-cols-[1fr_1.3fr_1.3fr]", i > 0 && "border-t border-[var(--color-line)]/70"]}>
               <div class="px-5 xl:px-6 py-2 flex items-center gap-2.5">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff3d6b" stroke-width="1.75" set:html={icons[row.icon]} />
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.75" set:html={icons[row.icon]} />
                 <p class="font-semibold text-sm text-[var(--color-ink)]">{row.label}</p>
               </div>
               <div class="px-5 xl:px-6 py-2 border-l border-[var(--color-line)]/70 flex items-center">
                 <p class="text-sm text-[var(--color-slate)]">{row.internal}</p>
               </div>
               <div class="relative px-5 xl:px-6 py-2 border-l border-[var(--color-line)]/70 bg-[var(--color-accent-soft)] flex items-center gap-2.5">
-                <span class="w-4.5 h-4.5 rounded-full flex items-center justify-center shrink-0" style="background:#ff3d6b">
+                <span class="w-4.5 h-4.5 rounded-full flex items-center justify-center shrink-0" style="background:var(--color-accent)">
                   <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
                     <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" />
                   </svg>
@@ -101,7 +104,7 @@ const icons: Record<string, string> = {
           {rows.map((row) => (
             <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white overflow-hidden">
               <div class="flex items-center gap-2.5 px-5 py-4 border-b border-[var(--color-line)]/70">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff3d6b" stroke-width="1.75" set:html={icons[row.icon]} />
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.75" set:html={icons[row.icon]} />
                 <p class="font-semibold text-sm text-[var(--color-ink)]">{row.label}</p>
               </div>
               <div class="px-5 py-4 border-b border-[var(--color-line)]/70">
@@ -109,10 +112,10 @@ const icons: Record<string, string> = {
                 <p class="text-sm text-[var(--color-slate)]">{row.internal}</p>
               </div>
               <div class="relative px-5 py-4 bg-[var(--color-accent-soft)]">
-                <span class="absolute top-0 left-0 right-0 h-[2px]" style="background:#ff3d6b"></span>
+                <span class="absolute top-0 left-0 right-0 h-[2px]" style="background:var(--color-accent)"></span>
                 <p class="text-xs font-medium text-[var(--color-ink)] uppercase tracking-wide mb-1">Vandalist approach</p>
                 <div class="flex items-start gap-2">
-                  <span class="w-4.5 h-4.5 rounded-full flex items-center justify-center shrink-0 mt-0.5" style="background:#ff3d6b">
+                  <span class="w-4.5 h-4.5 rounded-full flex items-center justify-center shrink-0 mt-0.5" style="background:var(--color-accent)">
                     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
                       <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>

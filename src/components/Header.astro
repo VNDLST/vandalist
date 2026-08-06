@@ -50,7 +50,7 @@ const isServicesActive = currentPage === "/services" || serviceLinks.some((l) =>
         )}
 
         <div class="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity duration-150 absolute left-0 top-full pt-3 z-20">
-          <div class="w-64 rounded-xl border border-[var(--color-line)] bg-white shadow-[0_20px_45px_-15px_rgba(28,27,26,0.2)] py-2">
+          <div class="w-64 rounded-xl border border-[var(--color-line)] bg-white [box-shadow:var(--shadow-panel)] py-2">
             {serviceLinks.map((s) => (
               <a
                 href={`${base}${s.path}`}

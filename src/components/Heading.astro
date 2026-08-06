@@ -1,0 +1,16 @@
+---
+// The standard in-page section heading (below a page's hero, e.g. "A clear
+// rhythm that keeps things moving."). Defaults to <h2> — pass as="h1" on a
+// page that has no separate hero section and needs this to be its one
+// semantic H1 while keeping section-heading visual size (see how-we-work.astro
+// Section 1). For the big page-hero headline, use PageHeading instead.
+interface Props {
+  as?: "h1" | "h2" | "h3";
+  class?: string;
+  noWrap?: boolean;
+}
+const { as: Tag = "h2", class: className, noWrap = false } = Astro.props as Props;
+---
+<Tag class:list={["text-2xl md:text-3xl font-semibold", noWrap && "whitespace-nowrap", className]}>
+  <slot />
+</Tag>

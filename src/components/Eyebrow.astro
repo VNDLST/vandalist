@@ -1,0 +1,13 @@
+---
+// The small pink label above section headings, site-wide. Deliberately takes
+// no default margin — callers pass spacing via `class` so this stays a pure
+// typography atom (no override-collision risk between component defaults
+// and caller-supplied utility classes).
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props as Props;
+---
+<p class:list={["text-sm tracking-wide text-[var(--color-accent)] font-medium", className]}>
+  <slot />
+</p>

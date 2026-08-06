@@ -26,15 +26,31 @@
     --color-accent: #e8467c;       /* Vandalist pink */
     --color-accent-soft: #fbe9ef;  /* pink tint, for badge backgrounds only */
 
-    /* Signal colours for compare/check patterns, kept muted not saturated */
-    --color-good: #2f6b4f;
-    --color-good-soft: #e7f0ea;
+    /* Signal colours for compare/check patterns, kept muted not saturated.
+       --color-good is the site's second brand accent (positive/aligned
+       contexts) — reuse it and its /NN opacity variants instead of any
+       other green. --color-bad is reserved for a future negative/error
+       state; nothing currently uses it (what looked like a "bad" red
+       elsewhere in the site turned out to just be --color-accent). */
+    --color-good: #2f8f4e;
+    --color-good-soft: #e9f4ec;
     --color-bad: #8a5a52;
     --color-bad-soft: #f3e9e6;
 
     /* Radii */
     --radius-card: 1.25rem;
     --radius-pill: 999px;
+
+    /* Shadows — reuse these exact values, don't invent a similar-but-different
+       one. --shadow-card is the standard for content cards. --shadow-panel is
+       for larger surfaces (tables, forms, dropdowns, floating circle badges). */
+    --shadow-card: 0 16px 32px -14px rgba(28, 27, 26, 0.22);
+    --shadow-panel: 0 20px 45px -15px rgba(28, 27, 26, 0.15);
+
+    /* CTA icon orb (the small gradient sphere next to "How can we help?" /
+       "Submit enquiry" buttons) */
+    --gradient-orb: radial-gradient(circle at 35% 30%, #f2789a 0%, var(--color-accent) 60%, #c72f5e 100%);
+    --shadow-orb: 0 0 14px 3px rgba(232, 70, 124, 0.5);
   }
 
   html {

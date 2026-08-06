@@ -1,0 +1,14 @@
+---
+// The big page-hero headline (homepage, About intro, Contact intro). This
+// canonical size is responsive (scales down on mobile) — don't reintroduce a
+// fixed rem size like the old text-[4.25rem] pattern, which had no mobile
+// fallback.
+interface Props {
+  as?: "h1" | "h2";
+  class?: string;
+}
+const { as: Tag = "h1", class: className } = Astro.props as Props;
+---
+<Tag class:list={["text-4xl md:text-5xl font-semibold leading-[1.05] tracking-[-0.02em]", className]}>
+  <slot />
+</Tag>

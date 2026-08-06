@@ -32,13 +32,29 @@ website build framework. Treat every fix as either "Vandalist-specific" or
 **Repo:** github.com/VNDLST/vandalist (public, branch `main`)
 **Live site:** https://vandalist.io/vandalist-2.0/ — staging/dev, not linked anywhere real yet.
 
-### Starting a session
+### Starting and ending a session
 
-Andrew works across two machines on this project. At the start of a new
-session here — before anything else — run `git pull` (so the working copy
-reflects whatever the other machine last pushed) and read `ONBOARDING.md`
-if present (recap of recent work, known open items, two-device workflow
-notes). Do this once at session start, not on every turn.
+Andrew works across two machines (home office, work office) on this
+project, both with Claude Code installed, and wants to avoid ever having to
+re-explain context when switching devices.
+
+**At the start of a session** — before anything else — run `git pull` (so
+the working copy reflects whatever the other machine last pushed) and read
+`ONBOARDING.md` if present (recap of recent work, known open items,
+two-device workflow notes). Do this once at session start, not on every
+turn.
+
+**Before ending a session** — whenever Andrew signals he's wrapping up
+(says something like "that's it for now," "heading out," "picking this up
+later," or just asks directly), or after finishing a substantial chunk of
+work with no more planned for this session: update `ONBOARDING.md`'s
+"recent work" and "known open items" sections to reflect what actually
+happened and what's still mid-thought, then commit and push it — without
+waiting to be asked. This is what makes the next session (on either
+machine) start caught up instead of Andrew needing to recap anything
+himself. If something is genuinely unresolved/undecided rather than just
+unfinished, write down the state of the open question, not just "TODO:
+finish this."
 
 ### Git identity
 

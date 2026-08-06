@@ -99,6 +99,16 @@ what was asked for) — routine page edits should go straight through to live.
   an inner `max-w-7xl mx-auto` wrapper for the actual content.
 - `Astro.url.pathname` is unreliable in this static build — pass an
   explicit `currentPage` prop to `Header.astro` instead.
+- Percentage/fixed-value `grid-template-columns` (e.g. `36%_32%_32%`) get
+  an implicit auto minimum size in CSS Grid — a column's own content can
+  silently force it wider than its declared share, pushing later columns
+  past the container edge. Wrap each track in `minmax(0, ...)` whenever a
+  grid column's content might be tight (long text, fixed-width children).
+  Caught via `overflow-x-hidden` masking real clipped content rather than
+  fixing it — `scrollWidth === clientWidth` alone doesn't prove nothing is
+  cut off once overflow is hidden; check individual elements'
+  `getBoundingClientRect()` against the container, or actually look at a
+  screenshot.
 
 ### Before making changes
 

@@ -55,6 +55,15 @@ here):** that sandbox only allows outbound HTTP(S), so it cannot SSH out to
 run this deploy — this is exactly why this now runs from a local Claude
 Code session instead.
 
+### Deploy behavior
+
+Once a change is made and verified locally (screenshot/build check as usual),
+commit, push to main, and run the deploy script automatically — don't wait
+for a separate go-ahead. The whole point of this local setup is to remove
+the manual deploy step. Only pause and ask first if something seems
+genuinely risky or destructive (e.g. deleting content, a change well outside
+what was asked for) — routine page edits should go straight through to live.
+
 ### Tech stack
 
 - Astro v5, Tailwind v3, Node capped at 20.20.2 (host limitation, not a

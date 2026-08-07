@@ -86,11 +86,13 @@ about it, don't just pick one.
   (See the SharePoint warning above — this workflow's assumption of "git
   push/pull is the only sync mechanism" turned out not to hold.)
 - Generated a fresh SSH deploy key on the work machine
-  (`~/.ssh/id_ed25519`, no passphrase). **Deploy access is NOT yet
-  confirmed working** — connection attempts to the VentraIP host
-  (43.250.142.30) timed out on both port 22 and port 2222. Needs the
-  public key actually added via cPanel's SSH Access panel (and possibly an
-  IP allowlist check) before deploy will work from this machine.
+  (`~/.ssh/id_ed25519`, no passphrase). **Deploy access confirmed working**
+  as of 2026-08-07, after Andrew re-whitelisted this machine's IP — it had
+  timed out/been refused on port 2683 twice in one session even without
+  any config change here, so the VentraIP IP allowlist seems to need
+  re-confirming periodically, not just once per machine. If deploy ever
+  times out or gets connection-refused again, that's the first thing to
+  ask Andrew to check before assuming something's actually broken.
 - Built a "campfire toggle" concept for how-we-work.astro: a small flame
   that grows and shifts from amber toward the Vandalist pink when you flip
   an "Add a little Vandalist" switch. Adapted from "CSSspark" by Ivan
@@ -120,6 +122,21 @@ about it, don't just pick one.
   by swapping which file is canonical: `CLAUDE.md` is now the real file,
   `AGENTS.md` a plain-text pointer — see the warning section above for why
   this (rather than just restoring the symlink) actually closes the loop.
+- Redesigned "How engagements are structured" (Section 2) per a supplied
+  mockup: removed the wrapping white card entirely, grew the step icons
+  from 36px badges to 112px white circles (now with 68px icons inside,
+  doubled again per follow-up feedback), redrew 3 of the 5 icons to match
+  the mockup's concept (target+arrow, clipboard+check, magnifying glass),
+  replaced the small circular number badges with plain bold pink
+  zero-padded numerals, and added a dotted connector line with glowing
+  chevron arrows between steps. That connector needed real math, not
+  eyeballing — the icon circles are narrower than their (text-driven)
+  grid columns, so naive percentage positioning was off by 60-90px; fixed
+  with `calc()` mixing px and % and verified pixel-exact against actual
+  `getBoundingClientRect()` at three viewport widths, not just visually.
+  Tagline below it changed from "Short cycles. Honest feedback. Continuous
+  improvement." to "Genuine advice and support you can rely on.", and
+  moved to sit above the divider line rather than below it.
 
 ## Known open items
 
@@ -138,10 +155,16 @@ about it, don't just pick one.
   folder vs. staying disciplined about not running both machines' sync
   clients at once. Don't make this call unilaterally in a future session —
   ask first.
-- Deploy (SSH to VentraIP) not yet confirmed working from the work machine
-  — see above.
-- Campfire toggle concept (`campfire-demo.astro`) built but not yet shown
-  to/reviewed by Andrew in its current (v2) form.
+- ~~Deploy not yet confirmed working~~ — confirmed working, see above. The
+  IP allowlist has needed re-whitelisting more than once in one session
+  though, so don't assume a connection timeout means something's broken.
+- Campfire toggle concept (`campfire-demo.astro`) still not reviewed by
+  Andrew in its current (v2) form — **but it is now live** (deployed as a
+  side effect of an unrelated how-we-work.astro deploy, since it was
+  already committed/pushed). It's unlinked from navigation so no one will
+  stumble onto it browsing normally, but it's reachable at `/campfire-demo`
+  by anyone who knows the URL. Doesn't need urgent action, just don't
+  assume "not reviewed yet" also means "not live yet."
 
 ## Working across two devices
 

@@ -6,13 +6,14 @@ log for anything more recent.
 
 ## Start here
 
-**[CLAUDE.md](CLAUDE.md) / [AGENTS.md](AGENTS.md) is the living source of
-truth** for project conventions — deploy process, tech stack, design-system
-components/tokens, layout conventions, and known gotchas. Read that first;
-this doc only covers what AGENTS.md doesn't (recent-work recap + one-time
-machine setup).
+**[CLAUDE.md](CLAUDE.md) is the living source of truth** for project
+conventions — deploy process, tech stack, design-system components/tokens,
+layout conventions, and known gotchas. Read that first; this doc only
+covers what CLAUDE.md doesn't (recent-work recap + one-time machine setup).
+`AGENTS.md` is just a short pointer to CLAUDE.md now (see below) — don't
+treat it as a second source of truth.
 
-## ⚠️ Read this before touching git — repo folder is inside SharePoint sync
+## ⚠️ Repo folder is inside SharePoint sync — file-integrity note
 
 Discovered 2026-08-07: this repo's working directory lives inside a
 SharePoint/OneDrive-synced library (mounted as `D:\Vandalist - Documents\...`
@@ -20,38 +21,43 @@ on the work machine, `C:\...` on the home machine — same underlying cloud
 library, different drive letters). That sync client runs continuously in the
 background, independent of git, and will happily "sync" `.git/` internals and
 symlinks even though it can't represent either correctly. Symptoms actually
-seen this session: `CLAUDE.md` (a symlink to `AGENTS.md`) got flattened to an
+seen: `CLAUDE.md` (previously a symlink to `AGENTS.md`) got flattened to an
 empty file, `AGENTS.md` got mangled into a broken self-referencing symlink,
-and a conflict-copy `AGENTS-v1.md` appeared holding the real content. Trigger
-was nothing exotic — just an ordinary ~10 minute gap where both machines'
-OneDrive clients were live at once (walking from one machine to the other
-without shutting the first one down).
+and a conflict-copy `AGENTS-v1.md` appeared holding the real content.
+Trigger was nothing exotic — just an ordinary ~10 minute gap where both
+machines' OneDrive clients were live at once (walking from one machine to
+the other without shutting the first one down).
 
-**Run this quick health check at the start of any session, before assuming
-the repo is trustworthy:**
+**Fixed 2026-08-07 (the symlink specifically):** `CLAUDE.md` is now the
+real, full file — no longer a symlink — since Claude Code needs its actual
+content to auto-load reliably. `AGENTS.md` is now the thin pointer instead
+(a plain text file, not a symlink, so SharePoint can't mangle it). This
+removes the specific "CLAUDE.md flattened to 0 bytes" failure mode going
+forward — but general SharePoint conflict-copy risk on *other* files isn't
+eliminated, just this one recurring symptom.
+
+**Quick health check worth running at the start of a session if the repo
+has just synced from another machine:**
 ```
 git status --short
 ```
 - Anything named `*-v1.*`, `*-v2.*`, "filename (1)", etc. = a SharePoint
   conflict copy. Don't assume the original is fine just because it's still
-  there — compare the two before trusting either.
-- Confirm `CLAUDE.md` is still an actual symlink and not 0 bytes:
-  `Get-Item CLAUDE.md | Format-List` in PowerShell (or `ls -la CLAUDE.md` in
-  Git Bash) — should show a `SymbolicLink` reparse point / `->` target, not a
-  plain file.
-- `git fsck` — should report no errors.
-- If anything looks wrong: `git restore AGENTS.md CLAUDE.md` puts both back
-  to HEAD's known-good state; delete any stray conflict-copy file once
-  confirmed it's a duplicate.
+  there — compare the two before trusting either (they're sometimes
+  identical duplicates, safe to delete; don't assume that without checking).
+- Confirm `CLAUDE.md` is a real file with actual content, not 0 bytes —
+  `ls -la CLAUDE.md` (Git Bash) or `Get-Item CLAUDE.md | Format-List`
+  (PowerShell). If it's ever unexpectedly empty: `git restore CLAUDE.md`.
+- `git fsck --full` — should report no errors/output.
 
-**Not yet resolved:** whether to actually move the repo out of the
-SharePoint-synced folder (the real fix — makes git's own push/pull the only
-sync mechanism, as the two-device workflow below already assumes) or leave
-it in place and just stay disciplined about not having both machines' sync
-clients live at once (reduces risk, doesn't eliminate it — the symlink issue
-specifically isn't timing-dependent and will likely keep recurring
-regardless). Andrew hasn't decided yet — ask before doing anything about it,
-don't just pick one.
+**Still not resolved (broader question):** whether to actually move the
+repo out of the SharePoint-synced folder entirely (makes git's own
+push/pull the only sync mechanism, as the two-device workflow below
+already assumes) or leave it in place and stay disciplined about not
+having both machines' sync clients live at once. The symlink fix above
+removes one specific recurring symptom but doesn't resolve this bigger
+architectural question. Andrew hasn't decided — ask before doing anything
+about it, don't just pick one.
 
 ## What's been done recently
 
@@ -69,11 +75,11 @@ don't just pick one.
 - Fixed a real CSS Grid bug in that restored section: percentage grid
   columns were letting the cards' own content force them wider than their
   share, pushing the last two cards past the edge. Fixed at the root with
-  `minmax(0, ...)` on each track — see AGENTS.md's Layout Conventions for
+  `minmax(0, ...)` on each track — see CLAUDE.md's Layout Conventions for
   the general lesson.
 - Set up SSH-key based deploy (see below) so sessions can push+deploy
   without any password ever touching the repo or chat.
-- Automated the two-device continuity workflow itself: AGENTS.md now
+- Automated the two-device continuity workflow itself: CLAUDE.md now
   instructs any session to auto-pull + read this file at session start,
   and to auto-refresh + push this file at session end — so switching
   between devices shouldn't require manually recapping anything anymore.
@@ -106,6 +112,14 @@ don't just pick one.
   - **Not yet reviewed by Andrew** — v2 was just built, hasn't had
     feedback yet. Next step is showing it to him and deciding whether/how
     it goes into the real how-we-work.astro page.
+- Ran the SharePoint health check from the warning above on a fresh
+  session and confirmed the predicted symlink damage had actually
+  recurred (`CLAUDE.md` flattened to 0 bytes again, plus a fresh
+  `AGENTS-v1.md` conflict copy) — git itself was clean (`fsck` clean, HEAD
+  and both campfire files present and correct). Fixed properly this time
+  by swapping which file is canonical: `CLAUDE.md` is now the real file,
+  `AGENTS.md` a plain-text pointer — see the warning section above for why
+  this (rather than just restoring the symlink) actually closes the loop.
 
 ## Known open items
 
@@ -117,11 +131,13 @@ don't just pick one.
   how-we-work; Case Studies/Resources are expected to be blog-style listing
   pages, not hero pages — design that once there's real content to work
   against, not preemptively.
-- **SharePoint-vs-git architecture conflict (see warning above) — genuinely
-  unresolved.** Andrew is aware and understands the mechanism but hasn't
-  decided between moving the repo out of the synced folder vs. staying
-  disciplined about not running both machines' sync clients at once. Don't
-  make this call unilaterally in a future session — ask first.
+- **SharePoint-vs-git architecture conflict — the CLAUDE.md/AGENTS.md
+  symlink-flattening symptom is fixed (see warning above), but the broader
+  question is genuinely unresolved.** Andrew is aware and understands the
+  mechanism but hasn't decided between moving the repo out of the synced
+  folder vs. staying disciplined about not running both machines' sync
+  clients at once. Don't make this call unilaterally in a future session —
+  ask first.
 - Deploy (SSH to VentraIP) not yet confirmed working from the work machine
   — see above.
 - Campfire toggle concept (`campfire-demo.astro`) built but not yet shown
@@ -134,9 +150,9 @@ Code, and wants to never have to re-explain context when switching. There's
 no sync of the actual conversation/session between separate local Claude
 Code installations — but this is handled automatically now, not manually:
 
-- **Start of session:** per AGENTS.md, any session opening this repo
+- **Start of session:** per CLAUDE.md, any session opening this repo
   automatically runs `git pull` and reads this file first — no need to ask.
-- **End of session:** per AGENTS.md, when Andrew signals he's wrapping up
+- **End of session:** per CLAUDE.md, when Andrew signals he's wrapping up
   (or a session naturally concludes), the active session automatically
   updates this file's "recent work"/"known open items" and pushes it —
   again, no need to ask. Still-unresolved/undecided threads should get
@@ -146,12 +162,12 @@ Code installations — but this is handled automatically now, not manually:
   thread won't be captured unless he asks for a refresh first or just
   recaps it himself on the other end.
 - Don't bother trying to sync Claude's local memory files between
-  machines — treat those as disposable per-machine scratch notes; AGENTS.md
+  machines — treat those as disposable per-machine scratch notes; CLAUDE.md
   is the actual durable record.
 
 ## One-time setup on a new machine
 
-1. **Node**: v20.20.2 is pinned (host limitation — see AGENTS.md). If using
+1. **Node**: v20.20.2 is pinned (host limitation — see CLAUDE.md). If using
    nvm, `nvm install 20.20.2` / `nvm use 20.20.2`.
 2. **Git identity** (repo-local, not global):
    ```

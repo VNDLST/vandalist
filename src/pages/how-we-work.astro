@@ -219,7 +219,7 @@ const matrix = [
           {cadenceSteps.map((step) => (
             <div class="flex flex-col">
               <div class="w-28 h-28 mb-6 rounded-full bg-white [box-shadow:var(--shadow-card)] flex items-center justify-center shrink-0">
-                <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={step.icon} />
+                <svg width="68" height="68" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={step.icon} />
               </div>
               <p class="text-sm font-bold text-[var(--color-accent)] mb-1">{step.num}</p>
               <p class="text-lg font-semibold text-[var(--color-ink)] mb-1.5">{step.title}</p>
@@ -228,14 +228,16 @@ const matrix = [
           ))}
         </div>
 
-        <div class="flex items-center justify-center gap-2 mt-14 pt-8 border-t border-[var(--color-line)]">
+        <div class="flex items-center justify-center gap-2 mt-14">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.75">
             <path d="M12 20s-7-4.5-9.5-9A5 5 0 0 1 12 6a5 5 0 0 1 9.5 5c-2.5 4.5-9.5 9-9.5 9z" stroke-linejoin="round" />
           </svg>
           <p class="text-sm italic text-[var(--color-slate-light)]">
-            Short cycles. Honest feedback. Continuous improvement.
+            Genuine advice and support you can rely on.
           </p>
         </div>
+
+        <div class="mt-8 border-t border-[var(--color-line)]"></div>
       </div>
     </section>
 

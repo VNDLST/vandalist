@@ -137,6 +137,18 @@ about it, don't just pick one.
   Tagline below it changed from "Short cycles. Honest feedback. Continuous
   improvement." to "Genuine advice and support you can rely on.", and
   moved to sit above the divider line rather than below it.
+- Renamed that section's step 3 from "Execute & Communicate" to "Execute &
+  Inform" (fits on one line) and replaced its icon — the original
+  paper-plane path was geometrically almost centered (bbox center 11.5,11.5
+  vs true 12,12) but its asymmetric directional-dart shape still read as
+  visibly off-center to the eye. Swapped for Lucide's "send" icon, which
+  bbox-centers at exactly (12,12) — a genuine optical-centering issue, not
+  a layout bug (worth remembering if another directional/arrow-like icon
+  ever looks "off" despite the math checking out).
+- Showed Andrew the live `/campfire-demo` page (see below) — he said
+  "Looks good thanks." That's a positive signal on the toggle/flame as
+  built, but not yet an explicit decision on whether/how it gets folded
+  into the real `how-we-work.astro` page — treat that as still open.
 
 ## Known open items
 
@@ -158,13 +170,12 @@ about it, don't just pick one.
 - ~~Deploy not yet confirmed working~~ — confirmed working, see above. The
   IP allowlist has needed re-whitelisting more than once in one session
   though, so don't assume a connection timeout means something's broken.
-- Campfire toggle concept (`campfire-demo.astro`) still not reviewed by
-  Andrew in its current (v2) form — **but it is now live** (deployed as a
-  side effect of an unrelated how-we-work.astro deploy, since it was
-  already committed/pushed). It's unlinked from navigation so no one will
-  stumble onto it browsing normally, but it's reachable at `/campfire-demo`
-  by anyone who knows the URL. Doesn't need urgent action, just don't
-  assume "not reviewed yet" also means "not live yet."
+- Campfire toggle: Andrew has now seen the live `/campfire-demo` page and
+  said "Looks good thanks" — but that's not yet a decision on whether/how
+  it goes into the real `how-we-work.astro` page. Ask him directly about
+  that next, don't assume "looks good" means "ship it into the real page"
+  or "leave it as a standalone demo forever." Still unlinked from nav,
+  still live at that URL either way.
 
 ## Working across two devices
 

@@ -12,6 +12,47 @@ components/tokens, layout conventions, and known gotchas. Read that first;
 this doc only covers what AGENTS.md doesn't (recent-work recap + one-time
 machine setup).
 
+## ⚠️ Read this before touching git — repo folder is inside SharePoint sync
+
+Discovered 2026-08-07: this repo's working directory lives inside a
+SharePoint/OneDrive-synced library (mounted as `D:\Vandalist - Documents\...`
+on the work machine, `C:\...` on the home machine — same underlying cloud
+library, different drive letters). That sync client runs continuously in the
+background, independent of git, and will happily "sync" `.git/` internals and
+symlinks even though it can't represent either correctly. Symptoms actually
+seen this session: `CLAUDE.md` (a symlink to `AGENTS.md`) got flattened to an
+empty file, `AGENTS.md` got mangled into a broken self-referencing symlink,
+and a conflict-copy `AGENTS-v1.md` appeared holding the real content. Trigger
+was nothing exotic — just an ordinary ~10 minute gap where both machines'
+OneDrive clients were live at once (walking from one machine to the other
+without shutting the first one down).
+
+**Run this quick health check at the start of any session, before assuming
+the repo is trustworthy:**
+```
+git status --short
+```
+- Anything named `*-v1.*`, `*-v2.*`, "filename (1)", etc. = a SharePoint
+  conflict copy. Don't assume the original is fine just because it's still
+  there — compare the two before trusting either.
+- Confirm `CLAUDE.md` is still an actual symlink and not 0 bytes:
+  `Get-Item CLAUDE.md | Format-List` in PowerShell (or `ls -la CLAUDE.md` in
+  Git Bash) — should show a `SymbolicLink` reparse point / `->` target, not a
+  plain file.
+- `git fsck` — should report no errors.
+- If anything looks wrong: `git restore AGENTS.md CLAUDE.md` puts both back
+  to HEAD's known-good state; delete any stray conflict-copy file once
+  confirmed it's a duplicate.
+
+**Not yet resolved:** whether to actually move the repo out of the
+SharePoint-synced folder (the real fix — makes git's own push/pull the only
+sync mechanism, as the two-device workflow below already assumes) or leave
+it in place and just stay disciplined about not having both machines' sync
+clients live at once (reduces risk, doesn't eliminate it — the symlink issue
+specifically isn't timing-dependent and will likely keep recurring
+regardless). Andrew hasn't decided yet — ask before doing anything about it,
+don't just pick one.
+
 ## What's been done recently
 
 - Built a shared typography/color/shadow design system (`Eyebrow.astro`,
@@ -36,6 +77,35 @@ machine setup).
   instructs any session to auto-pull + read this file at session start,
   and to auto-refresh + push this file at session end — so switching
   between devices shouldn't require manually recapping anything anymore.
+  (See the SharePoint warning above — this workflow's assumption of "git
+  push/pull is the only sync mechanism" turned out not to hold.)
+- Generated a fresh SSH deploy key on the work machine
+  (`~/.ssh/id_ed25519`, no passphrase). **Deploy access is NOT yet
+  confirmed working** — connection attempts to the VentraIP host
+  (43.250.142.30) timed out on both port 22 and port 2222. Needs the
+  public key actually added via cPanel's SSH Access panel (and possibly an
+  IP allowlist check) before deploy will work from this machine.
+- Built a "campfire toggle" concept for how-we-work.astro: a small flame
+  that grows and shifts from amber toward the Vandalist pink when you flip
+  an "Add a little Vandalist" switch. Adapted from "CSSspark" by Ivan
+  Grozdic (CodePen, MIT licensed) — kept the toggle mechanic and general
+  idea, rebuilt the flame from scratch. Lives at
+  `src/components/CampfireToggle.astro` + a standalone unlinked preview
+  page `src/pages/campfire-demo.astro` (visit `/campfire-demo` locally).
+  Both files are new/uncommitted as of this snapshot — **check they're
+  actually present after `git pull` on the other machine**; if not, the
+  SharePoint issue above may be why.
+  - v1 had a dark night-scene panel behind the fire and a 3-blob flame —
+    Andrew's feedback: remove the dark panel (needs to be judged against
+    the real light site background) and unify the flame (three
+    independently-flickering blobs read as disjointed, not one fire).
+  - v2 (current): transparent stage (sits directly on the page background
+    now), flame rebuilt as two layered gradient teardrop shapes (outer
+    body + brighter inner core) moving together. Logs and drifting ember
+    sparks kept as-is — Andrew liked those in v1.
+  - **Not yet reviewed by Andrew** — v2 was just built, hasn't had
+    feedback yet. Next step is showing it to him and deciding whether/how
+    it goes into the real how-we-work.astro page.
 
 ## Known open items
 
@@ -47,6 +117,15 @@ machine setup).
   how-we-work; Case Studies/Resources are expected to be blog-style listing
   pages, not hero pages — design that once there's real content to work
   against, not preemptively.
+- **SharePoint-vs-git architecture conflict (see warning above) — genuinely
+  unresolved.** Andrew is aware and understands the mechanism but hasn't
+  decided between moving the repo out of the synced folder vs. staying
+  disciplined about not running both machines' sync clients at once. Don't
+  make this call unilaterally in a future session — ask first.
+- Deploy (SSH to VentraIP) not yet confirmed working from the work machine
+  — see above.
+- Campfire toggle concept (`campfire-demo.astro`) built but not yet shown
+  to/reviewed by Andrew in its current (v2) form.
 
 ## Working across two devices
 

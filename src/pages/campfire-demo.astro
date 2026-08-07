@@ -7,6 +7,7 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import Eyebrow from "../components/Eyebrow.astro";
 import Heading from "../components/Heading.astro";
+import PageHeading from "../components/PageHeading.astro";
 import CampfireToggle from "../components/CampfireToggle.astro";
 ---
 <Layout title="Campfire Concept (Internal)">
@@ -18,9 +19,11 @@ import CampfireToggle from "../components/CampfireToggle.astro";
         <Eyebrow class="mb-3">Internal concept — not a real page</Eyebrow>
         <Heading as="h1" class="mb-4">Campfire toggle, adapted for Vandalist</Heading>
         <p class="text-[var(--color-slate)]">
-          Concept for the "How We Work" page: a small campfire that grows and shifts
-          toward the Vandalist pink when you flip the switch. Animation technique
-          adapted from&nbsp;
+          Concept for the "How We Work" page: a small campfire that gets bigger and
+          wilder — extra side tongues, jaggier flicker — when you flip the switch.
+          Stays in warm amber/orange throughout; earlier v2 shifted toward brand pink
+          on boost, which read as chemical rather than fiery, so that's gone. Animation
+          technique adapted from&nbsp;
           <a
             href="https://codepen.io/ig_design/pen/NeRxzj"
             class="text-[var(--color-accent)] underline underline-offset-2"
@@ -41,6 +44,30 @@ import CampfireToggle from "../components/CampfireToggle.astro";
         Flip the switch a few times, try it at different widths, then let&rsquo;s talk about whether
         (and how) this fits on the real page.
       </p>
+    </section>
+
+    <!-- In-context mockup: roughly the real how-we-work.astro hero layout
+         (text left ~2/5, graphic right ~3/5), with the campfire standing in
+         for that section's placeholder graphic, so size/placement can be
+         judged against actual page proportions instead of in isolation. -->
+    <section class="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-16 pb-20 md:pb-28">
+      <div class="rounded-[var(--radius-card)] bg-[var(--color-paper-dim)] p-6 md:p-10">
+        <p class="text-sm font-medium text-[var(--color-slate-light)] mb-6">
+          ↓ Mockup only — not a real section, just the how-we-work.astro hero grid for scale reference
+        </p>
+        <div class="grid lg:grid-cols-[2fr_3fr] gap-10 items-center">
+          <div>
+            <PageHeading as="h2" class="mb-6">Practical, sustainable, and easy to work with</PageHeading>
+            <p class="max-w-md text-lg text-[var(--color-slate)]">
+              We adapt to requirements whether that is being part of the strategic
+              conversations, or being utilised for specific production tasks.
+            </p>
+          </div>
+          <div class="flex justify-center">
+            <CampfireToggle />
+          </div>
+        </div>
+      </div>
     </section>
   </div>
 

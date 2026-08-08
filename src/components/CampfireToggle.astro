@@ -1,33 +1,24 @@
 ---
 // Campfire toggle concept for the "How We Work" page.
 //
-// Animation technique adapted from "CSSspark" by Ivan Grozdic (MIT licensed):
-// https://codepen.io/ig_design/pen/NeRxzj
-// Recoloured to the Vandalist palette, simplified (scene chrome removed —
-// no moon/stars/trees/dark backdrop, since this needs to sit on the site's
-// light background), and rebuilt as a proper toggle switch. The flame itself
-// is a from-scratch gradient teardrop shape (v1 used three separately-
-// flickering glow blobs, which read as disjointed rather than one fire —
-// see PR feedback) with an outer body and a brighter inner core, both moving
-// together so it reads as a single flame.
+// Toggle mechanic adapted from "CSSspark" by Ivan Grozdic (MIT licensed):
+// https://codepen.io/ig_design/pen/NeRxzj — simplified (scene chrome
+// removed, since this needs to sit on the site's light background) and
+// rebuilt as a proper toggle switch.
 //
 // v3 feedback (Andrew): keep the calm/small state exactly as-is (an "egg
 // shape... under control"). On boost, don't shift toward pink — it read as
 // looking chemical, not fiery — keep it in warm amber/orange tones instead.
 //
-// v4 feedback: the v3 "side lick" divs (positioned outside the main flame,
-// left/right) read as separate flames stuck on the side — removed. Instead,
-// on boost, two extra semi-transparent "twist" layers appear that share the
-// exact same base pivot point as the main flame (transform-origin: 50% 100%,
-// like the main flame) rather than sitting beside it, using an asymmetric
-// border-radius (inspired by the layered-blob technique in "Campfire --
-// Codevember #15" by Rose Liu: https://codepen.io/Rosefae/pen/oQBRXe, which
-// builds a fire from several lopsided rounded shapes pivoting around one
-// shared corner rather than a single symmetric blob). Overlapping at a
-// shared base reads as one twisting flame, not several separate ones. The
-// main flame's own border-radius also shifts asymmetric on boost — since
-// border-radius transitions smoothly in CSS, this genuinely morphs shape
-// rather than just resizing.
+// v5 feedback: skip subtle hints entirely — on boost, cross-fade straight
+// into the actual flame structure from "Campfire -- Codevember #15" by
+// Rose Liu (https://codepen.io/Rosefae/pen/oQBRXe, MIT licensed): 3 outer
+// + 3 inner lopsided blobs (border-radius rounds two opposite corners hard,
+// leaves the other two square), each pivoting from the same bottom-right
+// corner, one rotated 30deg, one mirrored — recoloured to warm amber/red
+// (the original uses flat rgba fills that build up depth through overlap,
+// not gradients, so kept that approach here too) and rescaled to fit this
+// component's own box instead of that pen's 80rem viewport-relative stage.
 ---
 <div class="campfire-demo" data-campfire-root>
   <div class="campfire-stage">
@@ -36,11 +27,29 @@
       <span></span><span></span><span></span><span></span><span></span><span></span>
     </div>
     <div class="campfire-logs" aria-hidden="true"></div>
-    <div class="campfire-fire" aria-hidden="true">
-      <div class="flame-twist flame-twist-a"></div>
-      <div class="flame-twist flame-twist-b"></div>
+
+    <!-- Calm flame: visible at rest, fades out on boost -->
+    <div class="campfire-fire campfire-fire-calm" aria-hidden="true">
       <div class="flame-outer"></div>
       <div class="flame-inner"></div>
+    </div>
+
+    <!-- Wild flame: hidden at rest, fades in and becomes the visible one on
+         boost. Structure matches the reference pen: two nested wrapper
+         levels per tongue so the static rotation (on the wrapper) and the
+         animated wave (on the .wild-flame itself) don't fight over the
+         same transform. -->
+    <div class="campfire-fire campfire-fire-wild" aria-hidden="true">
+      <div class="wild-flames">
+        <div class="wild-one"><div class="wild-flame"></div></div>
+        <div class="wild-two"><div class="wild-flame"></div></div>
+        <div class="wild-three"><div class="wild-flame"></div></div>
+      </div>
+      <div class="wild-flames wild-flames-inner">
+        <div class="wild-one"><div class="wild-flame"></div></div>
+        <div class="wild-two"><div class="wild-flame"></div></div>
+        <div class="wild-three"><div class="wild-flame"></div></div>
+      </div>
     </div>
   </div>
 
@@ -125,11 +134,9 @@
     transform: rotate(7deg);
   }
 
-  /* Flame — body + brighter inner core, moving as a single unit (the sway
-     animation lives on the shared parent) so it reads as one flame. Two
-     "twist" layers share the exact same base pivot as the main flame and
-     only become visible on boost, giving the bigger flame a twisting,
-     multi-layered character instead of reading as separate tongues. */
+  /* Both flame states occupy the same box, cross-fading via opacity. Sizing
+     transitions on boost (shared by both), wave/flicker animation differs
+     per state (set below on each). */
   .campfire-fire {
     position: absolute;
     z-index: 3;
@@ -139,17 +146,32 @@
     height: 76px;
     margin-left: -25px;
     transform-origin: 50% 100%;
-    animation: campfire-sway 3.2s ease-in-out infinite;
     transition:
       width 900ms cubic-bezier(0.4, 0, 0.2, 1),
       height 900ms cubic-bezier(0.4, 0, 0.2, 1),
-      margin-left 900ms cubic-bezier(0.4, 0, 0.2, 1);
+      margin-left 900ms cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 500ms ease;
   }
   .is-boosted .campfire-fire {
-    width: 70px;
-    height: 106px;
-    margin-left: -35px;
+    width: 78px;
+    height: 122px;
+    margin-left: -39px;
+  }
+
+  .campfire-fire-calm {
+    opacity: 1;
+    animation: campfire-sway 3.2s ease-in-out infinite;
+  }
+  .is-boosted .campfire-fire-calm {
+    opacity: 0;
+  }
+
+  .campfire-fire-wild {
+    opacity: 0;
     animation: campfire-sway-wild 2s ease-in-out infinite;
+  }
+  .is-boosted .campfire-fire-wild {
+    opacity: 1;
   }
 
   .flame-outer {
@@ -159,12 +181,6 @@
     background: linear-gradient(180deg, #ffd23f 0%, #ff9d1f 45%, #f4560f 100%);
     filter: drop-shadow(0 10px 16px rgba(244, 86, 15, 0.32));
     animation: campfire-flicker-shape 2.4s ease-in-out infinite alternate;
-    transition: background 900ms ease, filter 900ms ease;
-  }
-  .is-boosted .flame-outer {
-    background: linear-gradient(180deg, #ffe066 0%, #ff7a1a 45%, #e2380c 100%);
-    filter: drop-shadow(0 14px 22px rgba(226, 56, 12, 0.4));
-    animation: campfire-flicker-shape-wild 1.7s ease-in-out infinite alternate;
   }
 
   .flame-inner {
@@ -177,44 +193,61 @@
     border-radius: 50% 50% 50% 50% / 62% 62% 38% 38%;
     background: linear-gradient(180deg, #fff6da 0%, #ffd23f 55%, #ff9d1f 100%);
     animation: campfire-shimmer 2.1s ease-in-out infinite;
-    transition: background 900ms ease;
-  }
-  .is-boosted .flame-inner {
-    background: linear-gradient(180deg, #fffbe6 0%, #ffcf4d 45%, #ff5a1f 100%);
   }
 
-  /* Twist layers — same footprint and pivot as the main flame, invisible
-     and shape-matched at rest (so there's no seam before boost). On boost
-     they rotate slightly from that shared base and switch to a lopsided
-     border-radius, overlapping the main flame to build a twisting
-     composite silhouette rather than separate tongues. */
-  .flame-twist {
+  /* Wild flame — same shape technique as the reference pen: each "flame" is
+     a box with two opposite corners rounded almost to a full circle and the
+     other two left square (border-radius: 0 <huge>), anchored at the
+     bottom-right so it reads as a tongue leaning up-left. Three of these
+     per layer (upright, rotated 30deg, mirrored) pivoting from the same
+     corner overlap into one silhouette instead of three separate flames.
+     Flat semi-transparent fills (not gradients) so overlaps build up their
+     own depth, same as the reference. */
+  .wild-flames {
     position: absolute;
     inset: 0;
-    border-radius: 50% 50% 50% 50% / 62% 62% 38% 38%;
-    background: linear-gradient(180deg, #ffd23f 0%, #ff9d1f 45%, #f4560f 100%);
-    opacity: 0;
-    transform-origin: 50% 100%;
-    transition:
-      opacity 700ms ease,
-      transform 900ms cubic-bezier(0.4, 0, 0.2, 1),
-      border-radius 900ms cubic-bezier(0.4, 0, 0.2, 1),
-      background 900ms ease;
   }
-  .flame-twist-b {
+  .wild-one,
+  .wild-two,
+  .wild-three {
+    position: absolute;
+    inset: 0;
+  }
+  .wild-two {
+    transform: rotate(30deg);
+  }
+  .wild-three {
     transform: scaleX(-1);
   }
-  .is-boosted .flame-twist {
-    opacity: 0.5;
-    background: linear-gradient(180deg, #ffe066 0%, #ff7a1a 45%, #e2380c 100%);
+  .wild-flame {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 92%;
+    height: 118%;
+    background: rgba(244, 86, 15, 0.55);
+    border-radius: 0 999px 0 999px / 0 999px 0 999px;
+    transform-origin: 100% 100%;
+    animation:
+      wild-wave 1s ease-in-out infinite alternate,
+      wild-flicker 0.3s ease-in-out infinite alternate,
+      wild-size 0.5s ease infinite alternate;
   }
-  .is-boosted .flame-twist-a {
-    transform: rotate(16deg) scale(1.05);
-    border-radius: 4% 72% 30% 62% / 58% 62% 38% 46%;
+  .wild-one .wild-flame {
+    animation-delay: -0.2s;
   }
-  .is-boosted .flame-twist-b {
-    transform: scaleX(-1) rotate(16deg) scale(1.05);
-    border-radius: 4% 72% 30% 62% / 58% 62% 38% 46%;
+  .wild-two .wild-flame {
+    animation-delay: -0.5s;
+  }
+  .wild-three .wild-flame {
+    animation-delay: -0.9s;
+  }
+  .wild-flames-inner .wild-flame {
+    width: 52%;
+    height: 60%;
+    background: rgba(255, 210, 63, 0.45);
+    animation-name: wild-wave, wild-flicker, wild-size-inner;
+    animation-duration: 0.8s, 0.2s, 0.3s;
   }
 
   @keyframes campfire-flicker-shape {
@@ -226,21 +259,6 @@
     50% {
       transform: scale(0.94, 1.04);
       border-radius: 48% 52% 46% 54% / 60% 65% 35% 40%;
-    }
-  }
-  /* Boosted flicker swings between two clearly asymmetric shapes (not just
-     a bigger wobble on a centred one) so the main flame itself twists as
-     it flickers, morphing toward the "traditional fire" reference rather
-     than just pulsing size. */
-  @keyframes campfire-flicker-shape-wild {
-    0%,
-    100% {
-      transform: scale(1, 1) rotate(-2deg);
-      border-radius: 10% 68% 26% 58% / 60% 56% 42% 46%;
-    }
-    50% {
-      transform: scale(0.9, 1.08) rotate(3deg);
-      border-radius: 56% 20% 62% 16% / 64% 44% 40% 60%;
     }
   }
   @keyframes campfire-shimmer {
@@ -270,6 +288,42 @@
     }
     50% {
       transform: rotate(3deg);
+    }
+  }
+  @keyframes wild-wave {
+    from {
+      transform: rotate(-5deg);
+    }
+    to {
+      transform: rotate(5deg);
+    }
+  }
+  @keyframes wild-flicker {
+    from {
+      opacity: 0.8;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes wild-size {
+    from {
+      width: 92%;
+      height: 118%;
+    }
+    to {
+      width: 80%;
+      height: 108%;
+    }
+  }
+  @keyframes wild-size-inner {
+    from {
+      width: 52%;
+      height: 60%;
+    }
+    to {
+      width: 48%;
+      height: 57%;
     }
   }
 
@@ -378,10 +432,11 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .campfire-fire,
+    .campfire-fire-calm,
+    .campfire-fire-wild,
     .flame-outer,
     .flame-inner,
-    .flame-twist,
+    .wild-flame,
     .campfire-embers span {
       animation: none;
     }

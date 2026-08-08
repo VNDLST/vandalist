@@ -20,10 +20,19 @@ import CampfireToggle from "../components/CampfireToggle.astro";
         <Heading as="h1" class="mb-4">Campfire toggle, adapted for Vandalist</Heading>
         <p class="text-[var(--color-slate)]">
           Concept for the "How We Work" page: a small campfire that gets bigger and
-          wilder — extra side tongues, jaggier flicker — when you flip the switch.
-          Stays in warm amber/orange throughout; earlier v2 shifted toward brand pink
-          on boost, which read as chemical rather than fiery, so that's gone. Animation
-          technique adapted from&nbsp;
+          wilder when you flip the switch — stays in warm amber/orange throughout
+          rather than shifting toward brand pink, which read as chemical rather than
+          fiery. The bigger flame twists via two extra layers sharing the same base
+          as the main flame (not separate tongues stuck on the side), a technique
+          borrowed from&nbsp;
+          <a
+            href="https://codepen.io/Rosefae/pen/oQBRXe"
+            class="text-[var(--color-accent)] underline underline-offset-2"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            "Campfire" by Rose Liu
+          </a>. Base toggle mechanic adapted from&nbsp;
           <a
             href="https://codepen.io/ig_design/pen/NeRxzj"
             class="text-[var(--color-accent)] underline underline-offset-2"
@@ -32,7 +41,7 @@ import CampfireToggle from "../components/CampfireToggle.astro";
           >
             "CSSspark" by Ivan Grozdic
           </a>
-          (MIT licensed) — recoloured, simplified, and rebuilt as a proper toggle switch.
+          (both MIT licensed) — recoloured and rebuilt from scratch either way.
         </p>
       </div>
 
@@ -63,8 +72,32 @@ import CampfireToggle from "../components/CampfireToggle.astro";
               conversations, or being utilised for specific production tasks.
             </p>
           </div>
-          <div class="flex justify-center">
-            <CampfireToggle />
+          <div class="relative flex justify-center">
+            <!-- Minimalist backdrop so the fire reads as part of a scene
+                 rather than floating alone — composition (receding trees +
+                 a hill it sits on) borrowed from the reference mockup, but
+                 recoloured into the site's muted paper/ink palette instead
+                 of that reference's own pink. Static, no animation. -->
+            <svg
+              class="absolute inset-0 w-full h-full pointer-events-none"
+              viewBox="0 0 500 240"
+              preserveAspectRatio="xMidYMax slice"
+              aria-hidden="true"
+            >
+              <path
+                d="M0 205 Q 110 165 250 182 T 500 195 L 500 240 L 0 240 Z"
+                fill="var(--color-paper-deep)"
+                opacity="0.7"
+              />
+              <polygon points="36,212 44,212 40,188" fill="var(--color-slate)" opacity="0.28" />
+              <polygon points="82,210 93,210 87.5,178" fill="var(--color-slate)" opacity="0.32" />
+              <polygon points="138,207 152,207 145,168" fill="var(--color-slate)" opacity="0.36" />
+              <polygon points="200,204 217,204 208.5,158" fill="var(--color-slate)" opacity="0.4" />
+              <polygon points="298,201 319,201 308.5,142" fill="var(--color-slate)" opacity="0.44" />
+            </svg>
+            <div class="relative">
+              <CampfireToggle />
+            </div>
           </div>
         </div>
       </div>

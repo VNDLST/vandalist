@@ -22,6 +22,13 @@
 // and faster, nothing more. Dropped the old simple-teardrop flame and the
 // cross-fade entirely — this is a real simplification, not just a smaller
 // version of the same complexity.
+//
+// v7: boosted size doubled again (rest stayed put) per feedback that the
+// v6 boost wasn't big enough. The stage itself now grows on boost too
+// (height 220->360px, transitioned) so the much taller flame has room —
+// children are bottom-anchored, so this just adds headroom above them
+// without moving anything. Glow scale and ember spawn height/travel
+// distance bumped to stay proportional to the bigger flame.
 ---
 <div class="campfire-demo" data-campfire-root>
   <div class="campfire-stage">
@@ -89,6 +96,14 @@
     max-width: 300px;
     height: 220px;
     margin: 0 auto;
+    transition: height 900ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  /* The boosted flame is much taller than the rest-state stage height —
+     grow the stage itself so nothing clips. Children are bottom-anchored
+     (bottom: Npx from the stage's own bottom edge), so growing the stage's
+     height adds headroom above them without shifting their position. */
+  .is-boosted .campfire-stage {
+    height: 360px;
   }
 
   /* Soft warm pool of light at the base — subtle on purpose; a hazy radial
@@ -106,7 +121,7 @@
     transition: transform 900ms cubic-bezier(0.4, 0, 0.2, 1), background 900ms ease;
   }
   .is-boosted .campfire-glow {
-    transform: translateX(-50%) scale(1.45);
+    transform: translateX(-50%) scale(1.9);
     background: radial-gradient(circle, rgba(255, 122, 26, 0.34), rgba(255, 122, 26, 0) 70%);
   }
 
@@ -157,9 +172,9 @@
       margin-left 900ms cubic-bezier(0.4, 0, 0.2, 1);
   }
   .is-boosted .campfire-fire {
-    width: 88px;
-    height: 132px;
-    margin-left: -44px;
+    width: 176px;
+    height: 264px;
+    margin-left: -88px;
     animation: campfire-sway-fast 1.4s ease-in-out infinite;
   }
 
@@ -315,26 +330,26 @@
   }
   @keyframes wild-size-outer-boost {
     from {
-      width: 80px;
+      width: 160px;
     }
     to {
-      width: 73px;
+      width: 146px;
     }
   }
   @keyframes wild-size-mid-boost {
     from {
-      width: 55px;
+      width: 110px;
     }
     to {
-      width: 50px;
+      width: 100px;
     }
   }
   @keyframes wild-size-core-boost {
     from {
-      width: 33px;
+      width: 66px;
     }
     to {
-      width: 30px;
+      width: 60px;
     }
   }
 
@@ -395,8 +410,26 @@
       opacity: 0;
     }
   }
+  /* Boost travels further and starts higher — the flame's tip is much
+     taller now, and embers spawning from a fixed low point would read as
+     coming from the middle of the flame rather than its top. */
+  @keyframes campfire-ember-boost {
+    0% {
+      transform: translateY(0) translateX(0) scale(1);
+      opacity: 0;
+    }
+    15% {
+      opacity: 0.9;
+    }
+    100% {
+      transform: translateY(-180px) translateX(var(--drift, 6px)) scale(0.4);
+      opacity: 0;
+    }
+  }
   .is-boosted .campfire-embers span {
+    bottom: 220px;
     background: #ff5a1f;
+    animation-name: campfire-ember-boost;
     animation-duration: 2s;
   }
 

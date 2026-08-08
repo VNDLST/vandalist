@@ -7,6 +7,7 @@ import SectionHeading from "../components/SectionHeading.astro";
 import Heading from "../components/Heading.astro";
 import PageHeading from "../components/PageHeading.astro";
 import Eyebrow from "../components/Eyebrow.astro";
+import CampfireToggle from "../components/CampfireToggle.astro";
 
 const base = import.meta.env.BASE_URL;
 
@@ -112,29 +113,40 @@ const matrix = [
 ---
 <Layout title="How We Work">
   <div class="bg-[var(--color-paper)]">
-    <Header currentPage="/how-we-work" />
+    <!-- Header + hero share one full-bleed background image (mountains,
+         per supplied mockup) — a different pattern from the site's usual
+         "bleed-wider band" (which caps at 1400px and keeps side padding);
+         this one runs truly edge-to-edge behind the nav too. Header.astro
+         itself has no background of its own (it only ever looked opaque
+         because it normally sits on this div's bg-[var(--color-paper)]),
+         so it drops onto the image here with no changes needed. -->
+    <div class="relative overflow-hidden">
+      <img
+        src={`${base}/how-we-work-hero-bg.svg`}
+        alt=""
+        class="absolute inset-0 w-full h-full object-cover object-bottom pointer-events-none"
+        aria-hidden="true"
+      />
+      <div class="relative z-10">
+        <Header currentPage="/how-we-work" />
 
-    <!-- Section 0: Hero (new) -->
-    <section class="max-w-7xl mx-auto px-6 md:px-10 pt-8 md:pt-12 pb-12 md:pb-16">
-      <div class="grid lg:grid-cols-[2fr_3fr] gap-10 items-center">
-        <div>
-          <PageHeading as="h1" class="mb-6">Marketing support that fits the way your business works</PageHeading>
-          <p class="max-w-md text-lg text-[var(--color-slate)]">
-            We combine clear priorities, specialist capability and practical collaboration&mdash;without adding unnecessary process or complexity.
-          </p>
-        </div>
+        <!-- Section 0: Hero -->
+        <section class="max-w-7xl mx-auto px-6 md:px-10 pt-8 md:pt-12 pb-12 md:pb-16">
+          <div class="grid lg:grid-cols-[2fr_3fr] gap-10 items-center">
+            <div>
+              <PageHeading as="h1" class="mb-6">Marketing support that fits the way your business works</PageHeading>
+              <p class="max-w-md text-lg text-[var(--color-slate)]">
+                We combine clear priorities, specialist capability and practical collaboration&mdash;without adding unnecessary process or complexity.
+              </p>
+            </div>
 
-        <!-- Placeholder decorative graphic — swap for something more considered later -->
-        <div class="hidden md:block relative h-[220px]">
-          <svg class="absolute inset-0 w-full h-full" viewBox="0 0 400 240" fill="none" aria-hidden="true">
-            <path d="M55 165 C 110 120, 140 200, 210 150 C 260 115, 300 170, 335 185" stroke="var(--color-line)" stroke-width="1.5" stroke-dasharray="4 6" stroke-linecap="round" />
-            <path d="M40 152 l16 16 M56 152 l-16 16" stroke="var(--color-accent)" stroke-width="2.5" stroke-linecap="round" />
-            <circle cx="205" cy="90" r="45" stroke="var(--color-line)" stroke-width="1.5" stroke-dasharray="3 5" />
-            <circle cx="335" cy="185" r="10" stroke="var(--color-accent)" stroke-width="2.5" />
-          </svg>
-        </div>
+            <div class="hidden md:flex items-center justify-center">
+              <CampfireToggle />
+            </div>
+          </div>
+        </section>
       </div>
-    </section>
+    </div>
 
     <!-- Section 1: Our working style (restored to its original layout) -->
     <section class="max-w-7xl mx-auto px-6 md:px-10 pt-8 md:pt-12 pb-20 md:pb-28">

@@ -6,45 +6,22 @@
 // removed, since this needs to sit on the site's light background) and
 // rebuilt as a proper toggle switch.
 //
-// v3 feedback (Andrew): keep the calm/small state exactly as-is (an "egg
-// shape... under control"). On boost, don't shift toward pink — it read as
-// looking chemical, not fiery — keep it in warm amber/orange tones instead.
+// v5/v5.1/v5.2: replaced the original simple gradient-teardrop flame with a
+// petal-fan structure on boost only, cross-fading between the two — see git
+// history for the iteration on getting that petal shape right (adapted
+// from "Campfire -- Codevember #15" by Rose Liu,
+// https://codepen.io/Rosefae/pen/oQBRXe, MIT licensed: a square box with
+// border-radius 0 50% 0 50% points along its own diagonal; rotating it
+// 45deg brings a sharp corner to point straight up from the opposite
+// corner, now the shared pivot — three of these fanned per tier, three
+// tiers nesting smaller/brighter for colour depth).
 //
-// v5 feedback: skip subtle hints entirely — on boost, cross-fade straight
-// into the actual flame structure from "Campfire -- Codevember #15" by
-// Rose Liu (https://codepen.io/Rosefae/pen/oQBRXe, MIT licensed): 3 outer
-// + 3 inner lopsided blobs (border-radius rounds two opposite corners hard,
-// leaves the other two square), each pivoting from the same bottom-right
-// corner, one rotated 30deg, one mirrored — recoloured to warm amber/red
-// (the original uses flat rgba fills that build up depth through overlap,
-// not gradients, so kept that approach here too) and rescaled to fit this
-// component's own box instead of that pen's 80rem viewport-relative stage.
-//
-// v5.1: the direct port "goes a bit spaz" (Andrew) — the reference's hard
-// 0%/huge-radius corner pair plus its fast, wide-swinging wave/flicker/size
-// keyframes read as sharp and twitchy at this small scale, rather than a
-// calm flicker. Softened the corners (18%/82% instead of 0/huge), reduced
-// the boosted size and the wave/size oscillation ranges, slowed every wild-
-// flame animation duration, and pulled the rotated copy in from 30deg to
-// 16deg so the three layers overlap more than they splay apart. Still
-// looked wrong (see v5.2 below) — the softened-lopsided-blob shape itself
-// was the actual problem, not just its motion.
-//
-// v5.2: Andrew supplied a reference image of the intended look — a clean
-// "lotus" of symmetric pointed petals, not a lopsided blob at all. Rebuilt
-// the petal shape properly: a SQUARE box with border-radius 0 50% 0 50%
-// (two opposite corners fully round, two sharp) naturally points along its
-// own diagonal; the missing piece was rotating it 45deg so a sharp corner
-// swings to point straight up from the opposite corner (now the shared
-// pivot). Three petals fan out per tier via rotate(-27/0/27deg) on the
-// wrapper (not scaleX mirroring, which doesn't make sense for a shape
-// that's now symmetric); the 45deg reorientation plus wobble is baked into
-// the wild-wave keyframe's centre-point on the petal itself, since an
-// animated transform replaces rather than composes with a static one on
-// the same element. Added a third, smallest/palest tier (core) to match
-// the reference's colour depth (outer muted burnt-orange -> mid bright
-// orange -> core pale yellow), on top of the existing outer/mid two-tier
-// structure.
+// v6 feedback (Andrew): the petal-fan flame (v5.2) is the better fire in
+// general — use it as the ONE flame, always, rather than cross-fading
+// between two different shapes. Toggle just makes that same flame bigger
+// and faster, nothing more. Dropped the old simple-teardrop flame and the
+// cross-fade entirely — this is a real simplification, not just a smaller
+// version of the same complexity.
 ---
 <div class="campfire-demo" data-campfire-root>
   <div class="campfire-stage">
@@ -54,18 +31,13 @@
     </div>
     <div class="campfire-logs" aria-hidden="true"></div>
 
-    <!-- Calm flame: visible at rest, fades out on boost -->
-    <div class="campfire-fire campfire-fire-calm" aria-hidden="true">
-      <div class="flame-outer"></div>
-      <div class="flame-inner"></div>
-    </div>
-
-    <!-- Wild flame: hidden at rest, fades in and becomes the visible one on
-         boost. Three tiers (outer/mid/core), each three petals fanned from
-         a shared base point — two nested wrapper levels per petal so the
-         static fan angle (on the wrapper) and the animated wave (on the
-         .wild-flame itself) don't fight over the same transform. -->
-    <div class="campfire-fire campfire-fire-wild" aria-hidden="true">
+    <!-- The one flame, always. Three tiers (outer/mid/core), each three
+         petals fanned from a shared base point — two nested wrapper levels
+         per petal so the static fan angle (on the wrapper) and the
+         animated wave (on the .wild-flame itself) don't fight over the
+         same transform. Toggle only changes size + speed (see below), not
+         structure. -->
+    <div class="campfire-fire" aria-hidden="true">
       <div class="wild-flames wild-flames-outer">
         <div class="wild-one"><div class="wild-flame"></div></div>
         <div class="wild-two"><div class="wild-flame"></div></div>
@@ -134,8 +106,8 @@
     transition: transform 900ms cubic-bezier(0.4, 0, 0.2, 1), background 900ms ease;
   }
   .is-boosted .campfire-glow {
-    transform: translateX(-50%) scale(1.35);
-    background: radial-gradient(circle, rgba(255, 122, 26, 0.32), rgba(255, 122, 26, 0) 70%);
+    transform: translateX(-50%) scale(1.45);
+    background: radial-gradient(circle, rgba(255, 122, 26, 0.34), rgba(255, 122, 26, 0) 70%);
   }
 
   /* Simple crossed logs, no external image asset */
@@ -165,69 +137,33 @@
     transform: rotate(7deg);
   }
 
-  /* Both flame states occupy the same box, cross-fading via opacity. Sizing
-     transitions on boost (shared by both), wave/flicker animation differs
-     per state (set below on each). */
+  /* The flame's own gentle sway. Boost swaps to a faster, slightly wider
+     sway (campfire-sway-fast) — same mechanism as the tier animations
+     below: swap keyframe name + duration under .is-boosted rather than
+     trying to transition an actively-animated property. */
   .campfire-fire {
     position: absolute;
     z-index: 3;
     left: 50%;
     bottom: 63px;
-    width: 50px;
-    height: 76px;
-    margin-left: -25px;
-    transform-origin: 50% 100%;
-    transition:
-      width 900ms cubic-bezier(0.4, 0, 0.2, 1),
-      height 900ms cubic-bezier(0.4, 0, 0.2, 1),
-      margin-left 900ms cubic-bezier(0.4, 0, 0.2, 1),
-      opacity 500ms ease;
-  }
-  .is-boosted .campfire-fire {
     width: 64px;
     height: 96px;
     margin-left: -32px;
+    transform-origin: 50% 100%;
+    animation: campfire-sway 2.4s ease-in-out infinite;
+    transition:
+      width 900ms cubic-bezier(0.4, 0, 0.2, 1),
+      height 900ms cubic-bezier(0.4, 0, 0.2, 1),
+      margin-left 900ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .is-boosted .campfire-fire {
+    width: 88px;
+    height: 132px;
+    margin-left: -44px;
+    animation: campfire-sway-fast 1.4s ease-in-out infinite;
   }
 
-  .campfire-fire-calm {
-    opacity: 1;
-    animation: campfire-sway 3.2s ease-in-out infinite;
-  }
-  .is-boosted .campfire-fire-calm {
-    opacity: 0;
-  }
-
-  .campfire-fire-wild {
-    opacity: 0;
-    animation: campfire-sway-wild 2s ease-in-out infinite;
-  }
-  .is-boosted .campfire-fire-wild {
-    opacity: 1;
-  }
-
-  .flame-outer {
-    position: absolute;
-    inset: 0;
-    border-radius: 50% 50% 50% 50% / 62% 62% 38% 38%;
-    background: linear-gradient(180deg, #ffd23f 0%, #ff9d1f 45%, #f4560f 100%);
-    filter: drop-shadow(0 10px 16px rgba(244, 86, 15, 0.32));
-    animation: campfire-flicker-shape 2.4s ease-in-out infinite alternate;
-  }
-
-  .flame-inner {
-    position: absolute;
-    left: 50%;
-    bottom: 4%;
-    width: 56%;
-    height: 62%;
-    margin-left: -28%;
-    border-radius: 50% 50% 50% 50% / 62% 62% 38% 38%;
-    background: linear-gradient(180deg, #fff6da 0%, #ffd23f 55%, #ff9d1f 100%);
-    animation: campfire-shimmer 2.1s ease-in-out infinite;
-  }
-
-  /* Wild flame — a genuine petal shape this time, not a lopsided blob: each
-     "flame" is a SQUARE box with two opposite corners rounded into a full
+  /* Petal shape: a SQUARE box with two opposite corners rounded into a full
      circle and the other two left sharp (border-radius: 0 50% 0 50%), which
      on its own points diagonally — rotating that square 45deg brings one
      sharp corner to point straight up from the opposite corner (now the
@@ -237,9 +173,12 @@
      .wild-flame itself (baked into the wild-wave keyframe's centre, not a
      separate static transform, since animated transforms replace rather
      than combine with static ones on the same property). Three tiers
-     (outer/mid/core) nest smaller and brighter inward, echoing the
-     reference's colour depth. Flat semi-transparent fills, not gradients,
-     so overlaps build up their own depth. */
+     (outer/mid/core) nest smaller and brighter inward for colour depth.
+     Flat semi-transparent fills, not gradients, so overlaps build up their
+     own depth. Size keyframes swap to larger *-boost variants under
+     .is-boosted (can't just transition width — it's already animated by
+     the same keyframe at rest, and a running animation always wins over a
+     plain transition on the same property). */
   .wild-flames {
     position: absolute;
     inset: 0;
@@ -272,7 +211,7 @@
     animation:
       wild-wave 1.8s ease-in-out infinite alternate,
       wild-flicker 0.6s ease-in-out infinite alternate,
-      wild-size 0.9s ease infinite alternate;
+      wild-size-outer 0.9s ease infinite alternate;
   }
   .wild-one .wild-flame {
     animation-delay: -0.2s;
@@ -296,49 +235,44 @@
     animation-duration: 1.1s, 0.35s, 0.45s;
   }
 
-  @keyframes campfire-flicker-shape {
-    0%,
-    100% {
-      transform: scale(1, 1);
-      border-radius: 50% 50% 50% 50% / 62% 62% 38% 38%;
-    }
-    50% {
-      transform: scale(0.94, 1.04);
-      border-radius: 48% 52% 46% 54% / 60% 65% 35% 40%;
-    }
+  /* Boost: same wave/flicker keyframes (faster only), but size needs its
+     own larger keyframe per tier since the animated width can't just
+     transition to a bigger static value. */
+  .is-boosted .wild-flames-outer .wild-flame {
+    animation-name: wild-wave, wild-flicker, wild-size-outer-boost;
+    animation-duration: 1s, 0.35s, 0.5s;
   }
-  @keyframes campfire-shimmer {
-    0%,
-    100% {
-      opacity: 0.92;
-      transform: scaleY(1);
-    }
-    50% {
-      opacity: 1;
-      transform: scaleY(1.05);
-    }
+  .is-boosted .wild-flames-mid .wild-flame {
+    animation-name: wild-wave, wild-flicker, wild-size-mid-boost;
+    animation-duration: 0.8s, 0.28s, 0.35s;
   }
+  .is-boosted .wild-flames-core .wild-flame {
+    animation-name: wild-wave, wild-flicker, wild-size-core-boost;
+    animation-duration: 0.6s, 0.22s, 0.28s;
+  }
+
   @keyframes campfire-sway {
     0%,
     100% {
-      transform: rotate(-1.5deg);
+      transform: rotate(-2deg);
     }
     50% {
-      transform: rotate(1.5deg);
+      transform: rotate(2deg);
     }
   }
-  @keyframes campfire-sway-wild {
+  @keyframes campfire-sway-fast {
     0%,
     100% {
-      transform: rotate(-3deg);
+      transform: rotate(-3.5deg);
     }
     50% {
-      transform: rotate(3deg);
+      transform: rotate(3.5deg);
     }
   }
   /* Centred on 45deg, not 0 — that's the reorientation that turns the
      lopsided square into an upright petal (see .wild-flame comment above).
-     The ±2.5deg wobble rides on top of that base angle. */
+     The ±2.5deg wobble rides on top of that base angle. Same at rest and
+     boosted — only the duration differs (set per tier above). */
   @keyframes wild-wave {
     from {
       transform: rotate(42.5deg);
@@ -355,7 +289,7 @@
       opacity: 1;
     }
   }
-  @keyframes wild-size {
+  @keyframes wild-size-outer {
     from {
       width: 58px;
     }
@@ -377,6 +311,30 @@
     }
     to {
       width: 22px;
+    }
+  }
+  @keyframes wild-size-outer-boost {
+    from {
+      width: 80px;
+    }
+    to {
+      width: 73px;
+    }
+  }
+  @keyframes wild-size-mid-boost {
+    from {
+      width: 55px;
+    }
+    to {
+      width: 50px;
+    }
+  }
+  @keyframes wild-size-core-boost {
+    from {
+      width: 33px;
+    }
+    to {
+      width: 30px;
     }
   }
 
@@ -485,10 +443,7 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .campfire-fire-calm,
-    .campfire-fire-wild,
-    .flame-outer,
-    .flame-inner,
+    .campfire-fire,
     .wild-flame,
     .campfire-embers span {
       animation: none;

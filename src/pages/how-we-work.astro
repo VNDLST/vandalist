@@ -119,8 +119,15 @@ const matrix = [
          this one runs truly edge-to-edge behind the nav too. Header.astro
          itself has no background of its own (it only ever looked opaque
          because it normally sits on this div's bg-[var(--color-paper)]),
-         so it drops onto the image here with no changes needed. -->
-    <div class="relative overflow-hidden">
+         so it drops onto the image here with no changes needed.
+
+         No overflow-hidden here on purpose: the boosted campfire flame is
+         taller than its own stage and is meant to visually rise past it —
+         clipping it here would just cut the flame off, and (when this div
+         still resized on boost) was also forcing the background image's
+         object-cover crop to recompute every frame of the transition,
+         which read as the image glitching. -->
+    <div class="relative">
       <img
         src={`${base}/how-we-work-hero-bg.svg`}
         alt=""

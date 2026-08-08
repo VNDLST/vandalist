@@ -5,3 +5,6 @@ dist/
 app.js
 tmp/
 stderr.log
+
+# Machine-specific local tooling config (hardcoded local paths)
+.claude/launch.json

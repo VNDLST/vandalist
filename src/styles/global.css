@@ -6,6 +6,10 @@
 @import "@fontsource/plus-jakarta-sans/500.css";
 @import "@fontsource/plus-jakarta-sans/600.css";
 @import "@fontsource/plus-jakarta-sans/700.css";
+/* Handwritten accent font — used sparingly (currently just the campfire
+   toggle's "Add a little Vandalist" label) for a playful, less-formal
+   touch. Not part of the main type system (Jakarta/Manrope) on purpose. */
+@import "@fontsource/caveat/600.css";
 
 @tailwind base;
 @tailwind components;

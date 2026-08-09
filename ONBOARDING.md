@@ -1,6 +1,6 @@
 # Vandalist site — onboarding / continuity guide
 
-Snapshot generated 2026-08-07. This is a "where we left off" briefing, not a
+Snapshot generated 2026-08-09. This is a "where we left off" briefing, not a
 live sync — if you're reading this a while after it was written, check git
 log for anything more recent.
 
@@ -67,11 +67,11 @@ about it, don't just pick one.
   tokens in `global.css`) and applied it across every page, replacing
   drifted one-off hex values and shadow strings.
 - Reworked `how-we-work.astro`'s top section: added a new two-column hero
-  (text left, placeholder decorative graphic right — **still a
-  placeholder, meant to be replaced with something more considered**),
-  with the original "Our working style" section restored beneath it
-  unchanged (own eyebrow/heading/four cards), fixed to be the page's `<h2>`
-  now that the new hero holds the `<h1>`.
+  (text left, decorative graphic right — originally a placeholder, later
+  replaced by the campfire toggle, see below), with the original "Our
+  working style" section restored beneath it unchanged (own eyebrow/
+  heading/four cards), fixed to be the page's `<h2>` now that the new
+  hero holds the `<h1>`.
 - Fixed a real CSS Grid bug in that restored section: percentage grid
   columns were letting the cards' own content force them wider than their
   share, pushing the last two cards past the edge. Fixed at the root with
@@ -93,35 +93,6 @@ about it, don't just pick one.
   re-confirming periodically, not just once per machine. If deploy ever
   times out or gets connection-refused again, that's the first thing to
   ask Andrew to check before assuming something's actually broken.
-- Built a "campfire toggle" concept for how-we-work.astro: a small flame
-  that grows and shifts from amber toward the Vandalist pink when you flip
-  an "Add a little Vandalist" switch. Adapted from "CSSspark" by Ivan
-  Grozdic (CodePen, MIT licensed) — kept the toggle mechanic and general
-  idea, rebuilt the flame from scratch. Lives at
-  `src/components/CampfireToggle.astro` + a standalone unlinked preview
-  page `src/pages/campfire-demo.astro` (visit `/campfire-demo` locally).
-  Both files are new/uncommitted as of this snapshot — **check they're
-  actually present after `git pull` on the other machine**; if not, the
-  SharePoint issue above may be why.
-  - v1 had a dark night-scene panel behind the fire and a 3-blob flame —
-    Andrew's feedback: remove the dark panel (needs to be judged against
-    the real light site background) and unify the flame (three
-    independently-flickering blobs read as disjointed, not one fire).
-  - v2 (current): transparent stage (sits directly on the page background
-    now), flame rebuilt as two layered gradient teardrop shapes (outer
-    body + brighter inner core) moving together. Logs and drifting ember
-    sparks kept as-is — Andrew liked those in v1.
-  - **Not yet reviewed by Andrew** — v2 was just built, hasn't had
-    feedback yet. Next step is showing it to him and deciding whether/how
-    it goes into the real how-we-work.astro page.
-- Ran the SharePoint health check from the warning above on a fresh
-  session and confirmed the predicted symlink damage had actually
-  recurred (`CLAUDE.md` flattened to 0 bytes again, plus a fresh
-  `AGENTS-v1.md` conflict copy) — git itself was clean (`fsck` clean, HEAD
-  and both campfire files present and correct). Fixed properly this time
-  by swapping which file is canonical: `CLAUDE.md` is now the real file,
-  `AGENTS.md` a plain-text pointer — see the warning section above for why
-  this (rather than just restoring the symlink) actually closes the loop.
 - Redesigned "How engagements are structured" (Section 2) per a supplied
   mockup: removed the wrapping white card entirely, grew the step icons
   from 36px badges to 112px white circles (now with 68px icons inside,
@@ -145,16 +116,81 @@ about it, don't just pick one.
   bbox-centers at exactly (12,12) — a genuine optical-centering issue, not
   a layout bug (worth remembering if another directional/arrow-like icon
   ever looks "off" despite the math checking out).
-- Showed Andrew the live `/campfire-demo` page (see below) — he said
-  "Looks good thanks." That's a positive signal on the toggle/flame as
-  built, but not yet an explicit decision on whether/how it gets folded
-  into the real `how-we-work.astro` page — treat that as still open.
+- **Campfire toggle ("Add a little Vandalist") — built, iterated through
+  ~8 versions, and shipped into the real `how-we-work.astro` hero.** No
+  longer a placeholder/concept — it's live in production now, sitting next
+  to the H1 in a real two-column hero with a mountain-vista SVG background
+  behind the whole header+hero. Lives at
+  `src/components/CampfireToggle.astro`; `src/pages/campfire-demo.astro`
+  is the old standalone preview page — **now redundant since the real
+  integration shipped, ask Andrew if it should just be deleted.**
+  - Went through a full petal-fan flame redesign (adapted the geometry
+    from a CodePen reference, "Campfire — Codevember #15" by Rose Liu),
+    then a deliberate simplification (Andrew: one flame that gets
+    bigger/faster on toggle, not two flames cross-fading), then a size
+    bump, then a real-page integration with the supplied background SVG.
+  - **Fixed a 3-part regression** that showed up once it was live: the
+    boost transition snapped instead of animating smoothly (root cause:
+    size was driven by swapping between two different `@keyframes`
+    instead of transitioning a plain value — a running keyframe
+    animation always wins over a transition on the same property); the
+    whole hero row grew taller when boosted (root cause: the flame's
+    stage container was growing its own height on boost, unnecessarily —
+    absolutely-positioned children don't need that); and the background
+    image visibly glitched during the toggle (same stage-height change
+    was forcing the bg image's `object-fit: cover` crop to recompute
+    every frame). All three fixed — stage height is now constant, flame
+    width is a plain transitionable value per tier.
+  - **Fixed the hero background image's crop.** The supplied SVG had
+    ~105px of blank/transparent margin baked into its own canvas above
+    *and* below the actual drawn scene. `object-position: bottom` was
+    anchoring to that blank margin, not the artwork, so the image looked
+    like it "stopped" partway up with flat/blank space below. Trimmed
+    the SVG's own `viewBox` to the drawn content's real bounds (paths
+    untouched) so `object-position: bottom` now means the actual bottom
+    of the scene. On wide/short viewports this crops more of the
+    sky/mountains — accepted tradeoff, per Andrew ("if the height is cut
+    off, so be it").
+  - Current hero polish: 50/50 heading/graphic columns (was 40/60), the
+    flame+toggle bottom-aligned and nudged ~20px toward the text column
+    (was floating centered alone in a wide column), and the toggle's
+    "Add a little Vandalist" label recoloured to `--color-slate` (was
+    full ink-black) and set in Caveat (a handwritten accent font, added
+    via `@fontsource/caveat` — deliberately kept separate from the site's
+    Manrope/Jakarta system, used only on this one label).
+- **Scrapped the sitewide edge-padding idea.** `Layout.astro` briefly had
+  a `pt-1.5/pl-1.5/pr-1.5` wrapper div around every page's `<slot />` —
+  a "slight padding border around the whole site." Andrew decided against
+  it ("it was a bad idea") — removed entirely, pages run flush to the
+  viewport edge again.
+- Ran the SharePoint health check from the warning above on a fresh
+  session and confirmed the predicted symlink damage had actually
+  recurred (`CLAUDE.md` flattened to 0 bytes again, plus a fresh
+  `AGENTS-v1.md` conflict copy) — git itself was clean (`fsck` clean, HEAD
+  and both campfire files present and correct). Fixed properly this time
+  by swapping which file is canonical: `CLAUDE.md` is now the real file,
+  `AGENTS.md` a plain-text pointer — see the warning section above for why
+  this (rather than just restoring the symlink) actually closes the loop.
+- **Standing tool limitation, not a project issue:** the Claude Code
+  Browser pane in this environment can't composite/screenshot ("page is
+  not compositing frames") — every visual check above was verified via
+  DOM measurement (`getBoundingClientRect`, computed styles, grid track
+  sizes) or, for the SVG background specifically, by rendering the exact
+  crop through `sharp` (already in `node_modules`) and viewing the
+  resulting PNG directly. Worth trying a real screenshot again at the
+  start of a future session in case this has been fixed upstream — if it
+  works now, the DOM-measurement workaround is no longer necessary.
 
 ## Known open items
 
-- The how-we-work hero's right-side graphic is a deliberate placeholder
-  (dashed circle + small shapes) — revisit when there's a real design for
-  it.
+- ~~The how-we-work hero's right-side graphic is a placeholder~~ —
+  resolved. It's the campfire toggle + mountain-vista background now,
+  live in production, iterated through Andrew's feedback across several
+  rounds. See "What's been done recently" above.
+- `src/pages/campfire-demo.astro` (the old standalone preview page) is
+  now redundant since the real integration shipped into
+  `how-we-work.astro` — **ask Andrew if it should be deleted**, don't
+  delete it unilaterally.
 - Services, Case Studies, and Resources pages don't exist yet. When they
   do: Services should get the same "secondary hero" treatment as
   how-we-work; Case Studies/Resources are expected to be blog-style listing
@@ -170,12 +206,12 @@ about it, don't just pick one.
 - ~~Deploy not yet confirmed working~~ — confirmed working, see above. The
   IP allowlist has needed re-whitelisting more than once in one session
   though, so don't assume a connection timeout means something's broken.
-- Campfire toggle: Andrew has now seen the live `/campfire-demo` page and
-  said "Looks good thanks" — but that's not yet a decision on whether/how
-  it goes into the real `how-we-work.astro` page. Ask him directly about
-  that next, don't assume "looks good" means "ship it into the real page"
-  or "leave it as a standalone demo forever." Still unlinked from nav,
-  still live at that URL either way.
+- The Browser pane's screenshot/compositing is currently broken in this
+  environment (see the tool-limitation note above) — every visual check
+  on the campfire/hero work this session was done via DOM measurement or
+  an independent `sharp` render instead of an actual screenshot. Not a
+  project issue, but worth flagging to Andrew if a future session hits
+  the same wall, and worth re-testing since it may get fixed upstream.
 
 ## Working across two devices
 

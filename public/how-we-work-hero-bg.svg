@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1366 887">
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 105 1366 675">
   <!-- Generator: Adobe Illustrator 30.7.0, SVG Export Plug-In . SVG Version: 2.1.4 Build 114)  -->
+  <!-- viewBox trimmed from the original "0 0 1366 887" to "0 105 1366 675":
+       the exported artwork had ~105px of blank/transparent margin above
+       AND below the actual drawn scene. With object-position: bottom on
+       the how-we-work.astro hero, that meant the bottom margin (not real
+       artwork) sat flush against the hero's bottom edge, showing a hard
+       cutoff instead of the scene itself. Trimming the viewBox to the
+       drawn content's real bounds means "bottom" now means the actual
+       bottom of the scene, not a blank buffer. Paths are untouched. -->
   <defs>
     <style>
       .st0 {

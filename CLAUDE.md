@@ -81,6 +81,24 @@ without a stored secret ever touching version control. GitHub pushes work
 the same way: use your own locally-configured git credentials/SSH key
 rather than a pasted personal access token.
 
+**SSH port is 2683, not the default 22** (confirmed by Andrew several
+times as of 2026-08-10) — e.g.
+`ssh -p 2683 vandalis@43.250.142.30 "bash deploy.sh"`.
+
+**Still not confirmed working from a Claude Code session as of
+2026-08-10.** Every attempt from this environment (ports 22, 2222, and
+2683) times out rather than being refused. A quick comparison ruled out a
+general network problem: HTTPS to that same IP (43.250.142.30) connects
+fine, and vandalist.io itself responds normally — so outbound networking
+works and the host is reachable, but specifically the SSH port is being
+silently dropped for whatever source IP this environment's traffic comes
+from. Timing out (vs. "connection refused") is the signature of a firewall
+DROP rule, not a closed/unlistening port — most likely VentraIP's SSH
+service is restricted to an IP allowlist that doesn't include this
+session's outbound IP, even though the port number (2683) itself is
+correct. If a future session hits the same timeout, don't re-litigate the
+port — check the allowlist / source IP instead.
+
 **Sandbox note (only relevant in Anthropic's own web/chat sandbox, not
 here):** that sandbox only allows outbound HTTP(S), so it cannot SSH out to
 run this deploy — this is exactly why this now runs from a local Claude

@@ -40,36 +40,40 @@ const styleCards = [
 ];
 
 // --- Section 2: How engagements are structured ---
+// Icons are external files (public/how-we-work-icons/), not inline paths like
+// the other icon sets on this page \u2014 these are filled multi-colour
+// illustrations Andrew supplied, not simple currentColor line-icons, so they
+// follow the working-style-icons pattern (img + object-contain) instead.
 const cadenceSteps = [
   {
     num: "01",
     title: "Discover & Align",
     text: "We get across your goals, context, and constraints and agree on success.",
-    icon: '<circle cx="10" cy="14" r="7"/><circle cx="10" cy="14" r="3.2"/><circle cx="10" cy="14" r="0.9" fill="currentColor" stroke="none"/><path d="M15 9l5-5M20 4h-4M20 4v4" stroke-linecap="round" stroke-linejoin="round"/>',
+    icon: "align",
   },
   {
     num: "02",
     title: "Plan & Prioritise",
     text: "We build a focused plan with clear priorities and measurable outcomes.",
-    icon: '<rect x="6" y="4" width="12" height="16" rx="2"/><path d="M9 4h6v2a1 1 0 0 1-1 1H10a1 1 0 0 1-1-1V4z"/><path d="M9 13l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/>',
+    icon: "priority",
   },
   {
     num: "03",
     title: "Execute & Inform",
     text: "We get to work, keep you in the loop, and share progress regularly.",
-    icon: '<path d="M22 2L11 13" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 2L15 22L11 13L2 9L22 2z" stroke-linejoin="round"/>',
+    icon: "execute",
   },
   {
     num: "04",
     title: "Review & Learn",
     text: "We review results together, learn what worked (and what didn\u2019t).",
-    icon: '<circle cx="10" cy="10" r="6.5"/><path d="M19 19l-4.5-4.5" stroke-linecap="round"/>',
+    icon: "learn",
   },
   {
     num: "05",
     title: "Adjust & Grow",
     text: "We refine the plan and continue to improve momentum.",
-    icon: '<path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round"/><circle cx="9" cy="7" r="1.6" fill="var(--color-paper)"/><circle cx="15" cy="12" r="1.6" fill="var(--color-paper)"/><circle cx="10" cy="17" r="1.6" fill="var(--color-paper)"/>',
+    icon: "grow",
   },
 ];
 
@@ -161,7 +165,7 @@ const matrix = [
                  per breakpoint against the actual rendered section height so
                  the flame's centre lands at ~66% down the real hero area. -->
             <div class="hidden md:block relative self-stretch">
-              <div class="absolute left-1/2 md:top-[76%] lg:top-[79%] -translate-y-[110px] translate-x-[calc(-50%-20px)]">
+              <div class="absolute left-1/2 md:top-[76%] lg:top-[79%] -translate-y-[110px] md:translate-x-[calc(-50%-70px)] lg:translate-x-[calc(-50%-130px)]">
                 <CampfireToggle />
               </div>
             </div>
@@ -253,7 +257,7 @@ const matrix = [
           {cadenceSteps.map((step) => (
             <div class="flex flex-col">
               <div class="w-28 h-28 mb-6 rounded-full bg-white [box-shadow:var(--shadow-card)] flex items-center justify-center shrink-0">
-                <svg width="68" height="68" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={step.icon} />
+                <img src={`${base}/how-we-work-icons/${step.icon}.svg`} alt="" class="w-16 h-16 object-contain" />
               </div>
               <p class="text-sm font-bold text-[var(--color-accent)] mb-1">{step.num}</p>
               <p class="text-lg font-semibold text-[var(--color-ink)] mb-1.5">{step.title}</p>
@@ -327,12 +331,10 @@ const matrix = [
                   class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white flex flex-col items-center justify-center text-center px-6 [box-shadow:var(--shadow-card)]"
                   style="width: 72%; height: 72%; border: 8px solid var(--color-paper-dim);"
                 >
-                  <span class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-[var(--color-paper-dim)] text-[var(--color-ink)] mb-2">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-                      <circle cx="8.5" cy="8" r="2.6"/><path d="M3.5 19c0-2.8 2.2-4.9 5-4.9s5 2.1 5 4.9"/><circle cx="16" cy="8" r="2.2"/><path d="M14.5 12.6c2.2.3 3.9 2 3.9 4.4"/>
-                    </svg>
+                  <span class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-[var(--color-paper-dim)] mb-2">
+                    <img src={`${base}/how-we-work-icons/interact.svg`} alt="" class="w-5 h-5 object-contain" />
                   </span>
-                  <p class="text-sm font-semibold text-[var(--color-ink)] leading-snug">An aligned, collaborative, and practical shared working experience</p>
+                  <p class="text-sm font-semibold text-[var(--color-ink)] leading-snug">An aligned, collaborative, and practical shared working experience.</p>
                 </div>
               </div>
             </div>

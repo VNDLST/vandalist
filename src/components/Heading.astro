@@ -11,6 +11,11 @@ interface Props {
 }
 const { as: Tag = "h2", class: className, noWrap = false } = Astro.props as Props;
 ---
-<Tag class:list={["text-2xl md:text-3xl font-semibold", noWrap && "whitespace-nowrap", className]}>
+{/* noWrap uses sm:whitespace-nowrap, not a bare whitespace-nowrap — it exists to
+   stop an awkward mid-phrase break at desktop widths, not to force one long line
+   at mobile widths where there isn't room for it (that forced a page-wide
+   horizontal-scroll bug: the heading's un-wrappable text pushed scrollWidth past
+   the viewport with nothing downstream to clip it). */}
+<Tag class:list={["text-2xl md:text-3xl font-semibold", noWrap && "sm:whitespace-nowrap", className]}>
   <slot />
 </Tag>

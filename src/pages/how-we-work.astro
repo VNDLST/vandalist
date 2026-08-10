@@ -137,9 +137,12 @@ const matrix = [
       <div class="relative z-10">
         <Header currentPage="/how-we-work" />
 
-        <!-- Section 0: Hero -->
-        <section class="max-w-7xl mx-auto px-6 md:px-10 pt-8 md:pt-12 pb-12 md:pb-16">
-          <div class="grid md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-10 items-center min-h-[300px] md:min-h-[434px] lg:min-h-[466px]">
+        <!-- Section 0: Hero — padding matches Home hero's exact recipe
+             (Hero.astro's inner div: py-20 md:py-28 lg:py-32) rather than a
+             one-off value, per Andrew's pointer to that class, so the two
+             stay in sync if that recipe is ever retuned. -->
+        <section class="max-w-7xl mx-auto px-6 md:px-10 py-20 md:py-28 lg:py-32">
+          <div class="grid md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-10 items-center min-h-[339px] lg:min-h-[322px]">
             <div>
               <PageHeading as="h1" class="mb-6">Marketing support that fits the way your business works</PageHeading>
               <p class="max-w-md text-lg text-[var(--color-slate)]">
@@ -147,8 +150,20 @@ const matrix = [
               </p>
             </div>
 
-            <div class="hidden md:flex items-center justify-center self-end -translate-x-5">
-              <CampfireToggle />
+            <!-- self-stretch (overriding the row's items-center default just
+                 for this column) so it fills the row's full height, giving
+                 the 66%-from-top position below something real to measure
+                 against instead of just centering in whatever space the
+                 flame itself needs. -->
+            <!-- top-% is measured against this column's own box (= the grid
+                 row height only, not the section's padding), so it isn't
+                 the same number as "66% of the visible hero block" — tuned
+                 per breakpoint against the actual rendered section height so
+                 the flame's centre lands at ~66% down the real hero area. -->
+            <div class="hidden md:block relative self-stretch">
+              <div class="absolute left-1/2 md:top-[76%] lg:top-[79%] -translate-y-[110px] translate-x-[calc(-50%-20px)]">
+                <CampfireToggle />
+              </div>
             </div>
           </div>
         </section>
@@ -255,8 +270,6 @@ const matrix = [
             Genuine advice and support you can rely on.
           </p>
         </div>
-
-        <div class="mt-8 border-t border-[var(--color-line)]"></div>
       </div>
     </section>
 
@@ -306,10 +319,10 @@ const matrix = [
               </div>
 
               <div class="relative w-full max-w-[300px] lg:max-w-[420px] aspect-square mx-auto">
-                <span class="absolute top-1 left-1/2 -translate-x-1/2 text-xs font-bold text-[var(--color-ink)] whitespace-nowrap">Collaborative</span>
-                <span class="absolute bottom-1 left-1/2 -translate-x-1/2 text-xs font-bold text-[var(--color-ink)] whitespace-nowrap">Practical</span>
-                <span class="absolute left-1 text-xs font-bold text-[var(--color-ink)]" style="top: calc(50% - 20px);">Aligned</span>
-                <span class="absolute right-1 text-xs font-bold text-[var(--color-ink)]" style="top: calc(50% - 20px);">Open</span>
+                <span class="absolute top-1 left-1/2 -translate-x-1/2 bg-[var(--color-paper-dim)] px-2 text-xs font-bold text-[var(--color-ink)] whitespace-nowrap">Collaborative</span>
+                <span class="absolute bottom-1 left-1/2 -translate-x-1/2 bg-[var(--color-paper-dim)] px-2 text-xs font-bold text-[var(--color-ink)] whitespace-nowrap">Practical</span>
+                <span class="absolute left-1 bg-[var(--color-paper-dim)] px-2 text-xs font-bold text-[var(--color-ink)]" style="top: calc(50% - 20px);">Aligned</span>
+                <span class="absolute right-1 bg-[var(--color-paper-dim)] px-2 text-xs font-bold text-[var(--color-ink)]" style="top: calc(50% - 20px);">Open</span>
 
                 <svg class="absolute inset-0 w-full h-full" viewBox="0 0 280 280" fill="none" aria-hidden="true">
                   <circle cx="140" cy="140" r="120" stroke="var(--color-slate-light)" stroke-width="2" stroke-dasharray="4 6" />
@@ -317,7 +330,7 @@ const matrix = [
 
                 <div
                   class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white flex flex-col items-center justify-center text-center px-5 [box-shadow:var(--shadow-card)]"
-                  style="width: 52.9%; height: 52.9%; border: 8px solid var(--color-paper-dim);"
+                  style="width: 72%; height: 72%; border: 8px solid var(--color-paper-dim);"
                 >
                   <span class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-[var(--color-paper-dim)] text-[var(--color-ink)] mb-2">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
@@ -361,8 +374,10 @@ const matrix = [
 
         <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white overflow-hidden">
           <div class="grid grid-cols-[auto_1fr_1fr]">
-            <!-- header row -->
-            <div class="border-b border-[var(--color-line)]"></div>
+            <!-- header row — corner cell deliberately shows the page bg, not
+                 the table's white, so it reads as an empty notch rather than
+                 a cell with content missing -->
+            <div class="border-b border-[var(--color-line)] bg-[var(--color-paper)]"></div>
             <div class="border-b border-l border-[var(--color-line)] px-5 py-4">
               <p class="text-sm font-semibold text-[var(--color-ink)]">Vandalist leads</p>
               <p class="text-xs text-[var(--color-slate)]">We decide and own</p>
@@ -391,11 +406,15 @@ const matrix = [
               <p class="text-sm text-[var(--color-slate)] leading-snug">{matrix[1].text}</p>
             </div>
 
-            <!-- row: tactical -->
-            <div class="border-b border-[var(--color-line)] px-4 py-5 flex items-start">
+            <!-- row: tactical — no border-b on this row's cells (matching
+                 "Your ownership" below): the footer row's own border-t
+                 already draws this divider, so adding border-b here too
+                 just doubled up into a visibly thicker line than the one
+                 under "Your ownership". -->
+            <div class="px-4 py-5 flex items-start">
               <p class="text-sm font-semibold text-[var(--color-ink)] leading-snug">Tactical<br /><span class="font-normal text-[var(--color-slate)]">(the how &amp; when)</span></p>
             </div>
-            <div class="border-b border-l border-[var(--color-line)] px-5 py-5">
+            <div class="border-l border-[var(--color-line)] px-5 py-5">
               <span class="inline-flex items-center justify-center w-9 h-9 rounded-lg bg-[var(--color-accent-soft)] text-[var(--color-accent)] mb-3">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={matrix[2].icon} />
               </span>

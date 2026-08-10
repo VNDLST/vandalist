@@ -113,6 +113,14 @@ the manual deploy step. Only pause and ask first if something seems
 genuinely risky or destructive (e.g. deleting content, a change well outside
 what was asked for) — routine page edits should go straight through to live.
 
+**The dev server is for your own pre-deploy verification only — Andrew's
+feedback loop runs against the live site, not localhost.** (Confirmed
+2026-08-10, after he noticed a live/dev discrepancy and couldn't tell which
+one he was actually reacting to.) Use the dev server freely to check your
+own work before deploying, but don't ask him to look at `localhost:4321` —
+deploy first, then point him at the real `vandalist.io/vandalist-2.0/...`
+URL.
+
 ### Tech stack
 
 - Astro v5, Tailwind v3, Node capped at 20.20.2 (host limitation, not a

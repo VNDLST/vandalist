@@ -1,6 +1,6 @@
 # Vandalist site — onboarding / continuity guide
 
-Snapshot generated 2026-08-09. This is a "where we left off" briefing, not a
+Snapshot generated 2026-08-10. This is a "where we left off" briefing, not a
 live sync — if you're reading this a while after it was written, check git
 log for anything more recent.
 
@@ -180,6 +180,63 @@ about it, don't just pick one.
   resulting PNG directly. Worth trying a real screenshot again at the
   start of a future session in case this has been fixed upstream — if it
   works now, the DOM-measurement workaround is no longer necessary.
+- **Fixed a real mobile bug on the Home page:** `Heading.astro`'s `noWrap`
+  prop applied a bare `whitespace-nowrap` at every breakpoint, not just
+  desktop. Its only consumer — ProofGrid's "Real-world work with different
+  kinds of businesses" heading — had no room to fit on one line at mobile
+  widths, so the browser widened the whole page (`scrollWidth` ~594px in a
+  390px viewport) rather than wrap it, causing sitewide horizontal
+  scrolling on phones. Now `sm:whitespace-nowrap` — keeps the desktop-only
+  reason it was added, drops the mobile side-effect. Verified clean
+  (`scrollWidth === clientWidth`) at 320/390px.
+- **How-we-work hero, another pass, now live:**
+  - Swapped in a new squared-corner background SVG Andrew supplied
+    (replaces the earlier rounded-corner one — supersedes the "trimmed
+    viewBox" fix noted above, which was against the old asset).
+  - Hero height now matches Home's exactly: switched from an ad-hoc
+    padding value to Home hero's own `py-20 md:py-28 lg:py-32` recipe,
+    plus a small measured `min-height` top-up where content alone still
+    fell short. Verified pixel-close at 390/768/1280/1536px.
+  - Campfire moved from bottom-aligned to ~66% down the hero. Centering
+    had to target the flame's own fixed-height stage specifically, not
+    the whole widget (stage + toggle control below it) — the control
+    row's height isn't fixed and was throwing off the math differently at
+    every breakpoint until the transform was pinned to half the stage's
+    constant 220px height instead of 50% of the whole widget.
+  - Removed the separator line under "How engagements are structured".
+  - "How we fit in": **the four corner labels (Collaborative/Practical/
+    Aligned/Open) were removed entirely** in a follow-up round — an
+    earlier fix that gave them a background so they wouldn't get lost
+    against the dashed circle is now moot, they're just gone. "Shared
+    workspace" in the center circle became a full sentence instead:
+    "An aligned, collaborative, and practical shared working experience".
+    The circle itself is enlarged (52.9% → 72% of its container, closer to
+    the dashed boundary) — that part's unchanged from before.
+  - Decision-making table: the page-background treatment (previously just
+    the empty corner cell) now extends to the *entire* header row
+    (Vandalist leads / You lead) and the *entire* label column (Strategic/
+    Tactical) — only the four content cells (Our advice/Your decisions/
+    Our execution/Your ownership) still read as "in" the white card. Also
+    fixed a doubled bottom border under Tactical/Our execution (they had
+    their own `border-b` stacking on top of the footer row's full-width
+    `border-t`).
+  - All verified via DOM measurement + a local dev-server check before
+    deploying (see the new workflow note below), then re-verified by
+    curling the actual live HTML/SVG after each deploy — not just trusting
+    the deploy script's success message.
+- **SSH deploy actually exercised for the first time this session (twice),
+  both successful.** Same allowlist situation as before — Andrew's IP is
+  dynamic, so this needed re-whitelisting again (`1.146.126.98` this time)
+  before it connected. Once allowlisted, deploy worked cleanly both times.
+  Live-verified via `curl` after each one, not just the script's own
+  "DEPLOY SUCCESS" output.
+- **New standing workflow rule (added to CLAUDE.md's Deploy behavior
+  section):** Andrew's feedback loop runs against the live site, not the
+  dev server. He'd noticed a discrepancy between the two and couldn't tell
+  which one he was actually looking at. The dev server is still fine (and
+  expected) for a session's *own* pre-deploy verification — just deploy
+  before asking Andrew to look at anything, and point him at the real
+  `vandalist.io/vandalist-2.0/...` URL, never `localhost`.
 
 ## Known open items
 
@@ -203,9 +260,12 @@ about it, don't just pick one.
   folder vs. staying disciplined about not running both machines' sync
   clients at once. Don't make this call unilaterally in a future session —
   ask first.
-- ~~Deploy not yet confirmed working~~ — confirmed working, see above. The
-  IP allowlist has needed re-whitelisting more than once in one session
-  though, so don't assume a connection timeout means something's broken.
+- ~~Deploy not yet confirmed working~~ — confirmed working, exercised twice
+  more this session, both successful and live-verified. The IP allowlist
+  has needed re-whitelisting multiple times across sessions now (Andrew's
+  IP is dynamic) — a timeout means "ask Andrew to re-check the allowlist",
+  not "something's broken." Get the current outbound IP with
+  `curl https://api.ipify.org` when this comes up.
 - The Browser pane's screenshot/compositing is currently broken in this
   environment (see the tool-limitation note above) — every visual check
   on the campfire/hero work this session was done via DOM measurement or

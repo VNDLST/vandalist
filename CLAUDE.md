@@ -85,19 +85,19 @@ rather than a pasted personal access token.
 times as of 2026-08-10) — e.g.
 `ssh -p 2683 vandalis@43.250.142.30 "bash deploy.sh"`.
 
-**Still not confirmed working from a Claude Code session as of
-2026-08-10.** Every attempt from this environment (ports 22, 2222, and
-2683) times out rather than being refused. A quick comparison ruled out a
-general network problem: HTTPS to that same IP (43.250.142.30) connects
-fine, and vandalist.io itself responds normally — so outbound networking
-works and the host is reachable, but specifically the SSH port is being
-silently dropped for whatever source IP this environment's traffic comes
-from. Timing out (vs. "connection refused") is the signature of a firewall
-DROP rule, not a closed/unlistening port — most likely VentraIP's SSH
-service is restricted to an IP allowlist that doesn't include this
-session's outbound IP, even though the port number (2683) itself is
-correct. If a future session hits the same timeout, don't re-litigate the
-port — check the allowlist / source IP instead.
+**Confirmed working from a Claude Code session as of 2026-08-10**, after
+diagnosing a run of timeouts on ports 22, 2222, and 2683 that turned out to
+be an IP allowlist, not a wrong port (HTTPS to the same IP worked the whole
+time, ruling out a general network problem — the SSH port specifically was
+being silently dropped, which is the signature of a firewall DROP rule
+against an unlisted source IP, not a closed/unlistening port). Andrew added
+this session's outbound IP to the allowlist and it connected immediately.
+
+**Andrew's home/office IP is dynamic, so this will very likely recur.** If
+a future session hits the same timeout pattern (SSH times out, HTTPS to the
+same IP works fine): don't re-litigate the port (2683 is correct) — get
+this session's current outbound IP (`curl https://api.ipify.org`) and ask
+Andrew to add it to the allowlist again.
 
 **Sandbox note (only relevant in Anthropic's own web/chat sandbox, not
 here):** that sandbox only allows outbound HTTP(S), so it cannot SSH out to

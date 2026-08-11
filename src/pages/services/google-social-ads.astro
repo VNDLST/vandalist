@@ -1,0 +1,300 @@
+---
+// First of 4-5 service pages, built from Andrew's supplied mockup. Sections
+// he marked with blue scribbles in the mockup aren't custom-built here —
+// those are meant to just be the site's shared template chrome (CtaBand,
+// Footer) rather than a bespoke design. The "how it works" section was
+// wholesale replaced by a second, more specific mockup he supplied for
+// that section only.
+//
+// Content is Google Ads only (no social media ads content) even though
+// this lives at /services/google-social-ads per Header.astro's existing
+// nav — worth flagging back to Andrew rather than silently deciding
+// either way (rename the nav label, or fold social ads content in later).
+//
+// Hero has no decorative graphic yet — deliberate per Andrew ("thinking
+// about what we can use there that is meaningful rather than just a dumb
+// placeholder"), not an oversight. Single column until that's decided.
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import SectionHeading from "../../components/SectionHeading.astro";
+import PageHeading from "../../components/PageHeading.astro";
+import Eyebrow from "../../components/Eyebrow.astro";
+import IconBadge from "../../components/IconBadge.astro";
+import CadenceSteps from "../../components/CadenceSteps.astro";
+
+const base = import.meta.env.BASE_URL;
+
+// --- Section 1: Service cards ---
+const services = [
+  {
+    title: "Search campaigns",
+    text: "Target high-intent searches and capture demand when it matters most.",
+    icon: '<circle cx="10" cy="10" r="6.5"/><path d="M19 19l-4.5-4.5" stroke-linecap="round"/>',
+  },
+  {
+    title: "Shopping & Performance Max",
+    text: "Show your products across Google's network and drive more qualified sales.",
+    icon: '<circle cx="9" cy="20" r="1.4" fill="currentColor" stroke="none"/><circle cx="17" cy="20" r="1.4" fill="currentColor" stroke="none"/><path d="M3 4h2l2.2 11.5a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.6L21 8H6" stroke-linecap="round" stroke-linejoin="round"/>',
+  },
+  {
+    title: "Conversion tracking",
+    text: "Accurate tracking so you know what's working and what to improve.",
+    icon: '<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="0.9" fill="currentColor" stroke="none"/>',
+  },
+  {
+    title: "Reporting & optimisation",
+    text: "Clear reporting and ongoing optimisation to improve performance over time.",
+    icon: '<path d="M4 18V6M4 18h16" stroke-linecap="round"/><path d="M7 14l4-4 3 3 5-6" stroke-linecap="round" stroke-linejoin="round"/>',
+  },
+];
+
+// --- Section 2: Our approach ---
+const approachPoints = [
+  "Strategic planning aligned to your goals",
+  "Hands-on management from a certified expert",
+  "Transparent reporting and open communication",
+  "Focused on qualified leads and real outcomes",
+];
+const included = [
+  "Account audit & strategy",
+  "Keyword research & intent mapping",
+  "Campaign structure & ad groups",
+  "Compelling ad copy & extensions",
+  "Landing page alignment",
+  "Conversion tracking setup",
+  "Bid management & optimisation",
+  "Ongoing testing & improvements",
+  "Regular reporting & insights",
+];
+
+// --- Section 3: How this typically works (supplied as its own mockup,
+// wholesale replacing whatever the full-page mockup originally sketched
+// for a process section) ---
+const processSteps = [
+  {
+    num: "01",
+    title: "Targeting & planning",
+    text: "We define goals, audiences and search intent to focus on the right opportunities.",
+    icon: '<circle cx="10" cy="14" r="7"/><circle cx="10" cy="14" r="3.2"/><circle cx="10" cy="14" r="0.9" fill="currentColor" stroke="none"/><path d="M15 9l5-5M20 4h-4M20 4v4" stroke-linecap="round" stroke-linejoin="round"/>',
+  },
+  {
+    num: "02",
+    title: "Campaign setup",
+    text: "We build campaigns with clean structure, relevant keywords and smart settings.",
+    icon: '<path d="M4 6h9M17 6h3M4 12h3M11 12h9M4 18h13M21 18h0" stroke-linecap="round"/><circle cx="13" cy="6" r="2" fill="var(--color-paper)"/><circle cx="7" cy="12" r="2" fill="var(--color-paper)"/><circle cx="17" cy="18" r="2" fill="var(--color-paper)"/>',
+  },
+  {
+    num: "03",
+    title: "Ad creation",
+    text: "We write compelling ads and test variations to find what resonates.",
+    icon: '<path d="M4 20l1-4.5L15.5 5l3.5 3.5L8.5 19 4 20z" stroke-linejoin="round"/><path d="M13.5 6.5l3.5 3.5" stroke-linecap="round"/>',
+  },
+  {
+    num: "04",
+    title: "Tracking & launch",
+    text: "We implement tracking, QA everything, and launch with confidence.",
+    icon: '<path d="M3 11l17-8-6 17-3.5-7L3 11z" stroke-linejoin="round"/>',
+  },
+  {
+    num: "05",
+    title: "Ongoing optimisation",
+    text: "We refine targeting, bids and creatives to improve results and efficiency.",
+    icon: '<rect x="4" y="13" width="3" height="7" rx="1"/><rect x="10" y="9" width="3" height="11" rx="1"/><rect x="16" y="5" width="3" height="15" rx="1"/>',
+  },
+  {
+    num: "06",
+    title: "Reporting & recommendations",
+    text: "We report on what matters and recommend clear next steps for growth.",
+    icon: '<rect x="5" y="3" width="14" height="18" rx="2"/><circle cx="9.5" cy="9" r="1.5" fill="currentColor" stroke="none"/><path d="M6 16l3.5-3.5 2.5 2.5 3-3.5L18 15" stroke-linecap="round" stroke-linejoin="round"/>',
+  },
+];
+
+// --- Section 4: Who it's for ---
+const audiences = [
+  {
+    title: "Lead generation businesses",
+    text: "Capture more qualified leads and reduce cost per enquiry with targeted search ads.",
+    icon: '<circle cx="8.5" cy="8" r="2.6"/><path d="M3.5 19c0-2.8 2.2-4.9 5-4.9s5 2.1 5 4.9"/>',
+  },
+  {
+    title: "Ecommerce & product brands",
+    text: "Drive more sales and revenue with Shopping and Performance Max campaigns.",
+    icon: '<path d="M6 8h12l1 12H5L6 8z" stroke-linejoin="round"/><path d="M9 8V6a3 3 0 0 1 6 0v2" stroke-linecap="round"/>',
+  },
+  {
+    title: "Service organisations",
+    text: "Generate more opportunities from people actively searching for your services.",
+    icon: '<rect x="5" y="3" width="14" height="18" rx="1"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2" stroke-linecap="round"/>',
+  },
+];
+
+// --- Section 5: Results that matter (static illustrative reporting card —
+// numbers/labels are placeholder content matching the mockup, not live
+// data; see the "reporting mockup" decision above) ---
+const stats = [
+  { label: "Clicks", value: "4,238", change: "16%", up: true },
+  { label: "Conversions", value: "276", change: "22%", up: true },
+  { label: "Cost/conv.", value: "$42.17", change: "14%", up: false },
+  { label: "Conv. value", value: "$26,840", change: "31%", up: true },
+];
+---
+<Layout title="Google Ads Management" description="Google Ads management that turns search intent into qualified leads.">
+  <div class="bg-[var(--color-paper)]">
+    <Header currentPage="/services/google-social-ads" />
+
+    <!-- Section 0: Hero -->
+    <section class="max-w-7xl mx-auto px-6 md:px-10 pt-8 md:pt-12 pb-16 md:pb-20">
+      <div class="max-w-xl">
+        <Eyebrow class="mb-3">Google Ads</Eyebrow>
+        <PageHeading as="h1" class="mb-6">Google Ads management that turns search intent into qualified leads</PageHeading>
+        <p class="text-lg text-[var(--color-slate)] mb-8">
+          We plan, build, and optimise Google Ads that connect you with people who are already looking for what you offer&mdash;so you get more enquiries at a better cost.
+        </p>
+        <a
+          href={`${base}/contact`}
+          class="inline-flex items-center gap-3 rounded-[var(--radius-pill)] bg-[var(--color-accent)] text-white px-7 py-3.5 text-sm font-semibold transition-colors hover:bg-[var(--color-ink)]"
+        >
+          <span class="w-6 h-6 rounded-full shrink-0 ring-2 ring-white/50" style="background: var(--gradient-orb);"></span>
+          Book a strategy call
+        </a>
+      </div>
+    </section>
+
+    <!-- Section 1: Service cards -->
+    <section class="max-w-7xl mx-auto px-6 md:px-10 pb-16 md:pb-20">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        {services.map((service) => (
+          <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="mb-4" set:html={service.icon} />
+            <p class="font-semibold text-[var(--color-ink)] mb-1.5">{service.title}</p>
+            <p class="text-sm text-[var(--color-slate)] leading-relaxed">{service.text}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Section 2: Our approach — bleed-wider band -->
+    <div class="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-16 pb-16 md:pb-20">
+      <div class="rounded-[var(--radius-card)] bg-[var(--color-paper-dim)] p-6 md:p-10">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-10 items-start">
+          <div>
+            <Eyebrow class="mb-3">Our approach</Eyebrow>
+            <h2 class="text-2xl md:text-3xl font-semibold text-[var(--color-ink)] mb-4">How we help with Google Ads</h2>
+            <p class="text-[var(--color-slate)] mb-6 max-w-md">
+              Great results come from the right strategy, clean execution, and constant optimisation. We handle everything so you can focus on running your business.
+            </p>
+            <ul class="space-y-3">
+              {approachPoints.map((point) => (
+                <li class="flex items-center gap-3">
+                  <IconBadge variant="good" />
+                  <span class="text-sm text-[var(--color-ink)]">{point}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="rounded-[var(--radius-card)] bg-white border border-[var(--color-line)] p-6 md:p-7 [box-shadow:var(--shadow-card)]">
+            <p class="text-sm font-semibold text-[var(--color-accent)] mb-5">What's included</p>
+            <ul class="space-y-4">
+              {included.map((item) => (
+                <li class="flex items-center gap-3">
+                  <IconBadge variant="good" />
+                  <span class="text-sm text-[var(--color-ink)]">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 3: How this typically works -->
+    <section class="max-w-7xl mx-auto px-6 md:px-10 pb-16 md:pb-20">
+      <SectionHeading
+        eyebrow="How this typically works"
+        heading="A simple rhythm for running paid search well"
+      />
+      <CadenceSteps steps={processSteps} gridClass="sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6" connectorBreakpoint="xl" />
+    </section>
+
+    <!-- Section 4: Who it's for -->
+    <section class="max-w-7xl mx-auto px-6 md:px-10 pb-16 md:pb-20">
+      <SectionHeading
+        eyebrow="Who it's for"
+        heading="Built for businesses that want more qualified enquiries and sales"
+      />
+      <div class="grid sm:grid-cols-3 gap-5">
+        {audiences.map((item) => (
+          <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6">
+            <span class="inline-flex items-center justify-center w-11 h-11 rounded-lg bg-[var(--color-accent-soft)] text-[var(--color-accent)] mb-4">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={item.icon} />
+            </span>
+            <p class="font-semibold text-[var(--color-ink)] mb-1.5">{item.title}</p>
+            <p class="text-sm text-[var(--color-slate)] leading-relaxed">{item.text}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Section 5: Results that matter -->
+    <section class="max-w-7xl mx-auto px-6 md:px-10 pb-20 md:pb-28">
+      <div class="grid lg:grid-cols-[1fr_1.3fr] gap-10 items-center">
+        <div>
+          <Eyebrow class="mb-3">Results that matter</Eyebrow>
+          <h2 class="text-2xl md:text-3xl font-semibold text-[var(--color-ink)] mb-4">Transparent reporting. Better decisions. Stronger results.</h2>
+          <p class="text-[var(--color-slate)] mb-6 max-w-md">
+            We give you clear visibility of what's working, what's improving, and where the opportunities are.
+          </p>
+          <a href={`${base}/contact`} class="text-[var(--color-accent)] text-sm font-medium inline-flex items-center gap-1">
+            See reporting example <span aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
+
+        <!-- Static illustrative card — numbers/labels are placeholder
+             content matching the mockup, not a live/functional dashboard.
+             Dropdowns are styled chrome only, not interactive. -->
+        <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-5 md:p-6 [box-shadow:var(--shadow-panel)]" aria-hidden="true">
+          <div class="flex items-center gap-3 mb-5">
+            <span class="inline-flex items-center gap-1.5 rounded-[var(--radius-pill)] border border-[var(--color-line)] px-3 py-1.5 text-xs text-[var(--color-slate)]">
+              Last 30 days
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="inline-flex items-center gap-1.5 rounded-[var(--radius-pill)] border border-[var(--color-line)] px-3 py-1.5 text-xs text-[var(--color-slate)]">
+              All campaigns
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+            {stats.map((stat) => (
+              <div class="rounded-lg bg-[var(--color-paper-dim)] p-3">
+                <p class="text-xs text-[var(--color-slate)] mb-1">{stat.label}</p>
+                <p class="text-lg font-semibold text-[var(--color-ink)] mb-0.5">{stat.value}</p>
+                <p class:list={["text-xs font-medium", stat.up ? "text-[var(--color-good)]" : "text-[var(--color-accent)]"]}>
+                  {stat.up ? "↑" : "↓"} {stat.change}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <div class="flex items-center gap-4 mb-3 text-xs text-[var(--color-slate)]">
+            <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[var(--color-slate-light)]"></span>Clicks</span>
+            <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[var(--color-accent)]"></span>Conversions</span>
+          </div>
+          <svg viewBox="0 0 300 90" class="w-full h-20" preserveAspectRatio="none">
+            <polyline points="0,55 30,40 60,60 90,35 120,50 150,25 180,45 210,30 240,48 270,20 300,38" fill="none" stroke="var(--color-slate-light)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <polyline points="0,75 30,68 60,72 90,58 120,65 150,45 180,55 210,38 240,50 270,30 300,42" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <div class="flex justify-between mt-2 text-[10px] text-[var(--color-slate-light)]">
+            <span>May 6</span><span>May 13</span><span>May 20</span><span>May 27</span><span>Jun 3</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <CtaBand />
+  <Footer />
+</Layout>

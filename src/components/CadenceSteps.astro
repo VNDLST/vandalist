@@ -1,0 +1,100 @@
+---
+// Shared "numbered step, dotted connector, chevron arrows" pattern.
+// Originally built one-off for how-we-work.astro's "How engagements are
+// structured" (5 steps); extracted here once a second page needed the same
+// pattern with a different step count, since the connector math depends on
+// how many columns there are.
+//
+// `gridClass` must be a literal Tailwind class string written directly in
+// the CALLING page (not computed from steps.length here) — Tailwind's
+// static scanner only picks up class names it can see as literal text in
+// source files, so a class built from a runtime array length would never
+// get generated. Pass the exact `lg:grid-cols-N` matching your step count.
+//
+// `connectorBreakpoint` must match whichever breakpoint prefix in
+// `gridClass` actually makes the grid a single full row of `n` columns —
+// the dotted connector + chevrons are absolutely positioned assuming
+// exactly that layout, so showing them at a breakpoint where the grid is
+// still wrapped into multiple rows (e.g. gridClass goes full-row at `xl`
+// but the connector defaults to `lg`) misaligns them against the actual
+// circle positions. Keep this in sync with gridClass's LAST breakpoint,
+// not just copy the default.
+//
+// `iconMode="image"` (how-we-work.astro's usage) expects step.icon to be a
+// filename (no extension) under `iconBase`. `iconMode="inline"` (default,
+// for pages without supplied icon assets) expects step.icon to be inline
+// stroke-path/shape markup, same convention as every other inline icon set
+// on the site (currentColor via the wrapping svg's stroke).
+interface Step {
+  num: string;
+  title: string;
+  text: string;
+  icon: string;
+}
+interface Props {
+  steps: Step[];
+  gridClass?: string;
+  connectorBreakpoint?: "md" | "lg" | "xl";
+  iconMode?: "inline" | "image";
+  iconBase?: string;
+}
+const {
+  steps,
+  gridClass = "sm:grid-cols-2 lg:grid-cols-5",
+  connectorBreakpoint = "lg",
+  iconMode = "inline",
+  iconBase = "",
+} = Astro.props as Props;
+const n = steps.length;
+// All three written as literal strings so Tailwind's static scanner finds
+// whichever one this lookup resolves to at render time — see gridClass's
+// comment above for why a computed/interpolated class string wouldn't work.
+const connectorVisibility = { md: "hidden md:block", lg: "hidden lg:block", xl: "hidden xl:block" }[connectorBreakpoint];
+
+// Circle radius 56px (w-28), gap-x-10 (40px gap). Column pitch in mixed
+// units = (100% + gap)/n. Last circle's centre = (n-1) pitches + radius —
+// expressed as a %+px pair so it tracks the container's actual width
+// responsively rather than assuming a fixed pixel container.
+const rightInsetPct = 100 / n;
+const rightInsetPx = ((n - 1) / n) * 40 + 56;
+---
+<div class="mt-16 relative">
+  <!-- Connector line spans the full row behind the circles — the opaque
+       white circles occlude it, so it reads as "connecting" each icon
+       without needing pixel-exact math against the column widths. -->
+  <div
+    class:list={[connectorVisibility, "absolute border-t-2 border-dotted border-[var(--color-accent)]/40 z-0"]}
+    style={`top: 56px; left: 56px; right: calc(${rightInsetPct}% - ${rightInsetPx}px);`}
+    aria-hidden="true"
+  ></div>
+  {Array.from({ length: n - 1 }, (_, i) => i).map((i) => {
+    const coeff = (i + 0.5) / n;
+    const px = 56 + coeff * 40;
+    const pct = coeff * 100;
+    return (
+      <div class:list={[connectorVisibility, "absolute z-0"]} style={`left: calc(${pct}% + ${px}px); top: 56px; transform: translate(-50%, -50%);`} aria-hidden="true">
+        <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-[var(--color-accent)]/25 blur-md"></div>
+        <svg class="relative" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="3">
+          <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </div>
+    );
+  })}
+
+  <div class:list={["relative z-10 grid gap-y-14 gap-x-10", gridClass]}>
+    {steps.map((step) => (
+      <div class="flex flex-col">
+        <div class="w-28 h-28 mb-6 rounded-full bg-white [box-shadow:var(--shadow-card)] flex items-center justify-center shrink-0">
+          {iconMode === "image" ? (
+            <img src={`${iconBase}/${step.icon}.svg`} alt="" class="w-16 h-16 object-contain" />
+          ) : (
+            <svg width="68" height="68" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={step.icon} />
+          )}
+        </div>
+        <p class="text-sm font-bold text-[var(--color-accent)] mb-1">{step.num}</p>
+        <p class="text-lg font-semibold text-[var(--color-ink)] mb-1.5">{step.title}</p>
+        <p class="text-sm text-[var(--color-slate)] leading-relaxed">{step.text}</p>
+      </div>
+    ))}
+  </div>
+</div>

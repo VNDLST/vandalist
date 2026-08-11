@@ -8,6 +8,7 @@ import Heading from "../components/Heading.astro";
 import PageHeading from "../components/PageHeading.astro";
 import Eyebrow from "../components/Eyebrow.astro";
 import CampfireToggle from "../components/CampfireToggle.astro";
+import CadenceSteps from "../components/CadenceSteps.astro";
 
 const base = import.meta.env.BASE_URL;
 
@@ -229,51 +230,20 @@ const matrix = [
         subtext="We follow a simple cadence to keep priorities clear, feedback flowing, and strategies adapting as we learn."
       />
 
-      <div class="mt-16 relative">
-        <!-- Connector line spans the full row behind the circles — the opaque
-             white circles occlude it, so it reads as "connecting" each icon
-             without needing pixel-exact math against the column widths. -->
-        <div class="hidden lg:block absolute border-t-2 border-dotted border-[var(--color-accent)]/40 z-0" style="top: 56px; left: 56px; right: calc(20% - 88px);" aria-hidden="true"></div>
-        {[0, 1, 2, 3].map((i) => {
-          // 5 equal-fr columns (gap-x-10 = 40px), circle is w-28 (112px, radius
-          // 56px) left-aligned in its column. Column pitch = (100% + 40px)/5,
-          // so the midpoint between circle i and i+1 sits at a fixed px offset
-          // plus a percentage of the row width — not a plain round percentage,
-          // since the circles are narrower than their (text-driven) columns.
-          const coeff = (i + 0.5) / 5;
-          const px = 56 + coeff * 40;
-          const pct = coeff * 100;
-          return (
-            <div class="hidden lg:block absolute z-0" style={`left: calc(${pct}% + ${px}px); top: 56px; transform: translate(-50%, -50%);`} aria-hidden="true">
-              <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-[var(--color-accent)]/25 blur-md"></div>
-              <svg class="relative" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="3">
-                <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-            </div>
-          );
-        })}
+      <CadenceSteps
+        steps={cadenceSteps}
+        gridClass="sm:grid-cols-2 lg:grid-cols-5"
+        iconMode="image"
+        iconBase={`${base}/how-we-work-icons`}
+      />
 
-        <div class="relative z-10 grid sm:grid-cols-2 lg:grid-cols-5 gap-y-14 gap-x-10">
-          {cadenceSteps.map((step) => (
-            <div class="flex flex-col">
-              <div class="w-28 h-28 mb-6 rounded-full bg-white [box-shadow:var(--shadow-card)] flex items-center justify-center shrink-0">
-                <img src={`${base}/how-we-work-icons/${step.icon}.svg`} alt="" class="w-16 h-16 object-contain" />
-              </div>
-              <p class="text-sm font-bold text-[var(--color-accent)] mb-1">{step.num}</p>
-              <p class="text-lg font-semibold text-[var(--color-ink)] mb-1.5">{step.title}</p>
-              <p class="text-sm text-[var(--color-slate)] leading-relaxed">{step.text}</p>
-            </div>
-          ))}
-        </div>
-
-        <div class="flex items-center justify-center gap-2 mt-14">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.75">
-            <path d="M12 20s-7-4.5-9.5-9A5 5 0 0 1 12 6a5 5 0 0 1 9.5 5c-2.5 4.5-9.5 9-9.5 9z" stroke-linejoin="round" />
-          </svg>
-          <p class="text-sm italic text-[var(--color-slate-light)]">
-            Genuine advice and support you can rely on.
-          </p>
-        </div>
+      <div class="flex items-center justify-center gap-2 mt-14">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.75">
+          <path d="M12 20s-7-4.5-9.5-9A5 5 0 0 1 12 6a5 5 0 0 1 9.5 5c-2.5 4.5-9.5 9-9.5 9z" stroke-linejoin="round" />
+        </svg>
+        <p class="text-sm italic text-[var(--color-slate-light)]">
+          Genuine advice and support you can rely on.
+        </p>
       </div>
     </section>
 

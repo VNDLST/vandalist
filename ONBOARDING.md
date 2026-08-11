@@ -1,6 +1,6 @@
 # Vandalist site — onboarding / continuity guide
 
-Snapshot generated 2026-08-10. This is a "where we left off" briefing, not a
+Snapshot generated 2026-08-11. This is a "where we left off" briefing, not a
 live sync — if you're reading this a while after it was written, check git
 log for anything more recent.
 
@@ -64,195 +64,94 @@ about it, don't just pick one.
 - Built a shared typography/color/shadow design system (`Eyebrow.astro`,
   `Heading.astro`, `PageHeading.astro`, `SectionHeading.astro` components;
   `--color-good`, `--shadow-card`, `--shadow-panel`, `--gradient-orb`
-  tokens in `global.css`) and applied it across every page, replacing
-  drifted one-off hex values and shadow strings.
-- Reworked `how-we-work.astro`'s top section: added a new two-column hero
-  (text left, decorative graphic right — originally a placeholder, later
-  replaced by the campfire toggle, see below), with the original "Our
-  working style" section restored beneath it unchanged (own eyebrow/
-  heading/four cards), fixed to be the page's `<h2>` now that the new
-  hero holds the `<h1>`.
-- Fixed a real CSS Grid bug in that restored section: percentage grid
-  columns were letting the cards' own content force them wider than their
-  share, pushing the last two cards past the edge. Fixed at the root with
-  `minmax(0, ...)` on each track — see CLAUDE.md's Layout Conventions for
-  the general lesson.
+  tokens in `global.css`) and applied it across every page.
 - Set up SSH-key based deploy (see below) so sessions can push+deploy
-  without any password ever touching the repo or chat.
-- Automated the two-device continuity workflow itself: CLAUDE.md now
-  instructs any session to auto-pull + read this file at session start,
-  and to auto-refresh + push this file at session end — so switching
-  between devices shouldn't require manually recapping anything anymore.
-  (See the SharePoint warning above — this workflow's assumption of "git
-  push/pull is the only sync mechanism" turned out not to hold.)
-- Generated a fresh SSH deploy key on the work machine
-  (`~/.ssh/id_ed25519`, no passphrase). **Deploy access confirmed working**
-  as of 2026-08-07, after Andrew re-whitelisted this machine's IP — it had
-  timed out/been refused on port 2683 twice in one session even without
-  any config change here, so the VentraIP IP allowlist seems to need
-  re-confirming periodically, not just once per machine. If deploy ever
-  times out or gets connection-refused again, that's the first thing to
-  ask Andrew to check before assuming something's actually broken.
-- Redesigned "How engagements are structured" (Section 2) per a supplied
-  mockup: removed the wrapping white card entirely, grew the step icons
-  from 36px badges to 112px white circles (now with 68px icons inside,
-  doubled again per follow-up feedback), redrew 3 of the 5 icons to match
-  the mockup's concept (target+arrow, clipboard+check, magnifying glass),
-  replaced the small circular number badges with plain bold pink
-  zero-padded numerals, and added a dotted connector line with glowing
-  chevron arrows between steps. That connector needed real math, not
-  eyeballing — the icon circles are narrower than their (text-driven)
-  grid columns, so naive percentage positioning was off by 60-90px; fixed
-  with `calc()` mixing px and % and verified pixel-exact against actual
-  `getBoundingClientRect()` at three viewport widths, not just visually.
-  Tagline below it changed from "Short cycles. Honest feedback. Continuous
-  improvement." to "Genuine advice and support you can rely on.", and
-  moved to sit above the divider line rather than below it.
-- Renamed that section's step 3 from "Execute & Communicate" to "Execute &
-  Inform" (fits on one line) and replaced its icon — the original
-  paper-plane path was geometrically almost centered (bbox center 11.5,11.5
-  vs true 12,12) but its asymmetric directional-dart shape still read as
-  visibly off-center to the eye. Swapped for Lucide's "send" icon, which
-  bbox-centers at exactly (12,12) — a genuine optical-centering issue, not
-  a layout bug (worth remembering if another directional/arrow-like icon
-  ever looks "off" despite the math checking out).
-- **Campfire toggle ("Add a little Vandalist") — built, iterated through
-  ~8 versions, and shipped into the real `how-we-work.astro` hero.** No
-  longer a placeholder/concept — it's live in production now, sitting next
-  to the H1 in a real two-column hero with a mountain-vista SVG background
-  behind the whole header+hero. Lives at
-  `src/components/CampfireToggle.astro`; `src/pages/campfire-demo.astro`
-  is the old standalone preview page — **now redundant since the real
-  integration shipped, ask Andrew if it should just be deleted.**
-  - Went through a full petal-fan flame redesign (adapted the geometry
-    from a CodePen reference, "Campfire — Codevember #15" by Rose Liu),
-    then a deliberate simplification (Andrew: one flame that gets
-    bigger/faster on toggle, not two flames cross-fading), then a size
-    bump, then a real-page integration with the supplied background SVG.
-  - **Fixed a 3-part regression** that showed up once it was live: the
-    boost transition snapped instead of animating smoothly (root cause:
-    size was driven by swapping between two different `@keyframes`
-    instead of transitioning a plain value — a running keyframe
-    animation always wins over a transition on the same property); the
-    whole hero row grew taller when boosted (root cause: the flame's
-    stage container was growing its own height on boost, unnecessarily —
-    absolutely-positioned children don't need that); and the background
-    image visibly glitched during the toggle (same stage-height change
-    was forcing the bg image's `object-fit: cover` crop to recompute
-    every frame). All three fixed — stage height is now constant, flame
-    width is a plain transitionable value per tier.
-  - **Fixed the hero background image's crop.** The supplied SVG had
-    ~105px of blank/transparent margin baked into its own canvas above
-    *and* below the actual drawn scene. `object-position: bottom` was
-    anchoring to that blank margin, not the artwork, so the image looked
-    like it "stopped" partway up with flat/blank space below. Trimmed
-    the SVG's own `viewBox` to the drawn content's real bounds (paths
-    untouched) so `object-position: bottom` now means the actual bottom
-    of the scene. On wide/short viewports this crops more of the
-    sky/mountains — accepted tradeoff, per Andrew ("if the height is cut
-    off, so be it").
-  - Current hero polish: 50/50 heading/graphic columns (was 40/60), the
-    flame+toggle bottom-aligned and nudged ~20px toward the text column
-    (was floating centered alone in a wide column), and the toggle's
-    "Add a little Vandalist" label recoloured to `--color-slate` (was
-    full ink-black) and set in Caveat (a handwritten accent font, added
-    via `@fontsource/caveat` — deliberately kept separate from the site's
-    Manrope/Jakarta system, used only on this one label).
-- **Scrapped the sitewide edge-padding idea.** `Layout.astro` briefly had
-  a `pt-1.5/pl-1.5/pr-1.5` wrapper div around every page's `<slot />` —
-  a "slight padding border around the whole site." Andrew decided against
-  it ("it was a bad idea") — removed entirely, pages run flush to the
-  viewport edge again.
-- Ran the SharePoint health check from the warning above on a fresh
-  session and confirmed the predicted symlink damage had actually
-  recurred (`CLAUDE.md` flattened to 0 bytes again, plus a fresh
-  `AGENTS-v1.md` conflict copy) — git itself was clean (`fsck` clean, HEAD
-  and both campfire files present and correct). Fixed properly this time
-  by swapping which file is canonical: `CLAUDE.md` is now the real file,
-  `AGENTS.md` a plain-text pointer — see the warning section above for why
-  this (rather than just restoring the symlink) actually closes the loop.
-- **Standing tool limitation, not a project issue:** the Claude Code
-  Browser pane in this environment can't composite/screenshot ("page is
-  not compositing frames") — every visual check above was verified via
-  DOM measurement (`getBoundingClientRect`, computed styles, grid track
-  sizes) or, for the SVG background specifically, by rendering the exact
-  crop through `sharp` (already in `node_modules`) and viewing the
-  resulting PNG directly. Worth trying a real screenshot again at the
-  start of a future session in case this has been fixed upstream — if it
-  works now, the DOM-measurement workaround is no longer necessary.
-- **Fixed a real mobile bug on the Home page:** `Heading.astro`'s `noWrap`
-  prop applied a bare `whitespace-nowrap` at every breakpoint, not just
-  desktop. Its only consumer — ProofGrid's "Real-world work with different
-  kinds of businesses" heading — had no room to fit on one line at mobile
-  widths, so the browser widened the whole page (`scrollWidth` ~594px in a
-  390px viewport) rather than wrap it, causing sitewide horizontal
-  scrolling on phones. Now `sm:whitespace-nowrap` — keeps the desktop-only
-  reason it was added, drops the mobile side-effect. Verified clean
-  (`scrollWidth === clientWidth`) at 320/390px.
-- **How-we-work hero, another pass, now live:**
-  - Swapped in a new squared-corner background SVG Andrew supplied
-    (replaces the earlier rounded-corner one — supersedes the "trimmed
-    viewBox" fix noted above, which was against the old asset).
-  - Hero height now matches Home's exactly: switched from an ad-hoc
-    padding value to Home hero's own `py-20 md:py-28 lg:py-32` recipe,
-    plus a small measured `min-height` top-up where content alone still
-    fell short. Verified pixel-close at 390/768/1280/1536px.
-  - Campfire moved from bottom-aligned to ~66% down the hero. Centering
-    had to target the flame's own fixed-height stage specifically, not
-    the whole widget (stage + toggle control below it) — the control
-    row's height isn't fixed and was throwing off the math differently at
-    every breakpoint until the transform was pinned to half the stage's
-    constant 220px height instead of 50% of the whole widget.
-  - Removed the separator line under "How engagements are structured".
-  - "How we fit in": **the four corner labels (Collaborative/Practical/
-    Aligned/Open) were removed entirely** in a follow-up round — an
-    earlier fix that gave them a background so they wouldn't get lost
-    against the dashed circle is now moot, they're just gone. "Shared
-    workspace" in the center circle became a full sentence instead:
-    "An aligned, collaborative, and practical shared working experience".
-    The circle itself is enlarged (52.9% → 72% of its container, closer to
-    the dashed boundary) — that part's unchanged from before.
-  - Decision-making table: the page-background treatment (previously just
-    the empty corner cell) now extends to the *entire* header row
-    (Vandalist leads / You lead) and the *entire* label column (Strategic/
-    Tactical) — only the four content cells (Our advice/Your decisions/
-    Our execution/Your ownership) still read as "in" the white card. Also
-    fixed a doubled bottom border under Tactical/Our execution (they had
-    their own `border-b` stacking on top of the footer row's full-width
-    `border-t`).
-  - All verified via DOM measurement + a local dev-server check before
-    deploying (see the new workflow note below), then re-verified by
-    curling the actual live HTML/SVG after each deploy — not just trusting
-    the deploy script's success message.
-- **SSH deploy actually exercised for the first time this session (twice),
-  both successful.** Same allowlist situation as before — Andrew's IP is
-  dynamic, so this needed re-whitelisting again (`1.146.126.98` this time)
-  before it connected. Once allowlisted, deploy worked cleanly both times.
-  Live-verified via `curl` after each one, not just the script's own
-  "DEPLOY SUCCESS" output.
-- **New standing workflow rule (added to CLAUDE.md's Deploy behavior
-  section):** Andrew's feedback loop runs against the live site, not the
-  dev server. He'd noticed a discrepancy between the two and couldn't tell
-  which one he was actually looking at. The dev server is still fine (and
-  expected) for a session's *own* pre-deploy verification — just deploy
-  before asking Andrew to look at anything, and point him at the real
-  `vandalist.io/vandalist-2.0/...` URL, never `localhost`.
+  without any password ever touching the repo or chat. **Confirmed
+  working**, exercised for real multiple times now — see "Known open
+  items" for the one recurring gotcha (dynamic IP, needs periodic
+  re-whitelisting, not a sign anything's broken).
+- **`how-we-work.astro` is now considered complete** (Andrew: "this page
+  is now completed enough that we can move on"). Long iteration history
+  condensed — see git log (`git log --oneline -- src/pages/how-we-work.astro`)
+  for the full blow-by-blow if archaeology is ever needed:
+  - The "Add a little Vandalist" campfire toggle went from concept →
+    ~8 design iterations → shipped into the real hero, replacing the
+    original placeholder graphic. Lives at
+    `src/components/CampfireToggle.astro`.
+  - "How engagements are structured" got a full icon/connector-line
+    redesign per a supplied mockup, then that same connector pattern was
+    extracted into a shared `CadenceSteps.astro` component (see below —
+    a second page needed it at a different step count).
+  - "How we fit in" simplified: dropped four corner labels entirely,
+    replaced with one sentence in the center circle; enlarged that
+    circle; cleaned up the decision-making table's background/border
+    treatment.
+  - Fixed a real mobile bug found along the way: `Heading.astro`'s
+    `noWrap` prop forced `whitespace-nowrap` at every breakpoint
+    (including mobile, where its only consumer — ProofGrid's heading —
+    had no room for it), causing sitewide horizontal scroll on phones.
+    Now `sm:whitespace-nowrap`. Unrelated to how-we-work itself, just
+    surfaced while working on it.
+  - Explored a "grunge/distressed" texture treatment for the new cadence
+    icons (CSS filter + SVG feTurbulence) per Andrew's request, then a
+    two-tone recolour approach after the filter version didn't land —
+    **Andrew ultimately decided not to pursue either** ("spending two
+    hours on that when the increase in value is so minimal"). Both demo
+    pages (`icon-texture-demo.astro`, plus the `-2tone` icon assets) are
+    now dead experiments, same situation as `campfire-demo.astro` below —
+    **ask Andrew before deleting**, don't assume.
+- **Started the services pages — 4-5 planned, first one shipped:**
+  `src/pages/services/google-social-ads.astro` (Google Ads management),
+  built from a supplied full-page mockup plus a second mockup that
+  specifically replaced the process section. Sections Andrew blue-
+  scribbled out in the mockup use the site's shared template chrome
+  (`CtaBand`, `Footer`) rather than custom markup — that's the intended
+  pattern for the remaining service pages too, not scope that got cut.
+  - Extracted `CadenceSteps.astro` from how-we-work.astro's process
+    section since this page needed the same "numbered circle + dotted
+    connector" pattern at 6 steps instead of 5. Connector math is now
+    derived from `steps.length` generically; `gridClass` and
+    `connectorBreakpoint` are passed explicitly by the calling page
+    (Tailwind's static scanner can't see classes built from a runtime
+    array length, and the connector's visibility breakpoint has to match
+    whichever breakpoint the grid actually becomes a single row — mixing
+    those up was a real bug caught during verification, not theoretical).
+  - Hero has **no decorative graphic yet, deliberately** — Andrew wants
+    something more meaningful than a placeholder and is still thinking
+    about what. Don't add a placeholder graphic without asking.
+  - Hero now matches Home's exact button style (paper bg, border, orb +
+    shadow-orb) and dropped its eyebrow, per follow-up feedback that it
+    should read closer to Home's hero rather than introduce a new style.
+  - "Results that matter"'s reporting section is a deliberately static
+    illustrative card (hardcoded numbers, non-functional dropdowns) — not
+    a real interactive dashboard, confirmed with Andrew before building.
+    Its "See reporting example" link was upgraded from plain text to a
+    proper pill button (icon badge + shadow + hover lift) per feedback
+    that the plain link undersold it.
+  - **Open question for Andrew, not yet resolved:** Header.astro's nav
+    already links here as "Google & Social Media Ads", but the actual
+    page content is Google Ads only — no social ads content anywhere.
+    Worth asking whether that nav label should become "Google Ads", or
+    social content is meant to land on this same page later.
+  - Andrew said more feedback/discussion on this page is coming next
+    session — nothing specific flagged yet, just expect it.
 
 ## Known open items
 
-- ~~The how-we-work hero's right-side graphic is a placeholder~~ —
-  resolved. It's the campfire toggle + mountain-vista background now,
-  live in production, iterated through Andrew's feedback across several
-  rounds. See "What's been done recently" above.
-- `src/pages/campfire-demo.astro` (the old standalone preview page) is
-  now redundant since the real integration shipped into
-  `how-we-work.astro` — **ask Andrew if it should be deleted**, don't
-  delete it unilaterally.
-- Services, Case Studies, and Resources pages don't exist yet. When they
-  do: Services should get the same "secondary hero" treatment as
-  how-we-work; Case Studies/Resources are expected to be blog-style listing
-  pages, not hero pages — design that once there's real content to work
-  against, not preemptively.
+- `src/pages/campfire-demo.astro` (old standalone preview) and
+  `src/pages/icon-texture-demo.astro` (+ the `how-we-work-icons-2tone`
+  assets) are all dead experiments now that how-we-work.astro is done —
+  **ask Andrew before deleting any of them**, don't delete unilaterally.
+- Nav label mismatch: "Google & Social Media Ads" vs. the actual (Google-
+  only) page content — see above, ask Andrew rather than deciding.
+- Google Ads hero still has no decorative graphic — deliberate, Andrew's
+  still deciding, don't fill it with a placeholder.
+- 3-4 more service pages still to build, following the pattern
+  established by google-social-ads.astro (shared template chrome for
+  scribbled-out sections, CadenceSteps for any process/step sections).
+- Case Studies and Resources pages don't exist yet — expected to be
+  blog-style listing pages, not hero pages; design once there's real
+  content to work against, not preemptively.
 - **SharePoint-vs-git architecture conflict — the CLAUDE.md/AGENTS.md
   symlink-flattening symptom is fixed (see warning above), but the broader
   question is genuinely unresolved.** Andrew is aware and understands the
@@ -260,18 +159,16 @@ about it, don't just pick one.
   folder vs. staying disciplined about not running both machines' sync
   clients at once. Don't make this call unilaterally in a future session —
   ask first.
-- ~~Deploy not yet confirmed working~~ — confirmed working, exercised twice
-  more this session, both successful and live-verified. The IP allowlist
-  has needed re-whitelisting multiple times across sessions now (Andrew's
-  IP is dynamic) — a timeout means "ask Andrew to re-check the allowlist",
-  not "something's broken." Get the current outbound IP with
-  `curl https://api.ipify.org` when this comes up.
-- The Browser pane's screenshot/compositing is currently broken in this
-  environment (see the tool-limitation note above) — every visual check
-  on the campfire/hero work this session was done via DOM measurement or
-  an independent `sharp` render instead of an actual screenshot. Not a
-  project issue, but worth flagging to Andrew if a future session hits
-  the same wall, and worth re-testing since it may get fixed upstream.
+- Deploy's IP allowlist has needed re-whitelisting multiple times across
+  sessions now (Andrew's IP is dynamic) — a timeout means "ask Andrew to
+  re-check the allowlist", not "something's broken." Get the current
+  outbound IP with `curl https://api.ipify.org` when this comes up.
+- The Browser pane's screenshot/compositing has been broken in this
+  environment for a while now ("page is not compositing frames") — every
+  visual check across recent sessions has used DOM measurement
+  (`getBoundingClientRect`, computed styles) instead of an actual
+  screenshot. Not a project issue, but worth re-testing occasionally in
+  case it's fixed upstream.
 
 ## Working across two devices
 

@@ -1,0 +1,285 @@
+---
+// "Question pile" concept for the Google Ads page's currently-empty hero
+// graphic slot: a rapid burst of scrawled, anxious questions piles up
+// (deliberately overwhelming), then clears to a single calm resolution
+// line. Mechanic adapted from the *idea* of mattdesl's "codevember" day 9
+// sketch (github.com/mattdesl/codevember — rapid staggered reveal of many
+// small items scattered across a bounded area, click to restart) — but
+// not its code or icon assets. That piece renders vector icon silhouettes
+// with a jittery hand-sketched multi-stroke outline, which only works
+// because a wobbly re-traced icon still reads as "that icon" — the same
+// wobble applied to sentence text just reads as illegible scribble. So
+// this rebuilds the MECHANIC (scattered burst placement, staggered rapid
+// reveal, restart) from scratch as plain DOM+CSS chips instead of
+// canvas+SVG-contour rendering, trading the sketch-wobble for real,
+// readable (if hastily-scrawled-looking) text.
+//
+// Deliberately in the site's handwritten accent font (Caveat, already
+// introduced for the campfire toggle's label) for the chaotic questions —
+// then the resolution line switches to the site's normal calm sans-serif,
+// so the type change itself carries "mess -> clarity" without extra copy.
+export interface Props {
+  questions?: string[];
+  resolutionHeading?: string;
+  resolutionText?: string;
+}
+
+const {
+  questions = [
+    "What's my budget?",
+    'Why is my CPC so high?',
+    'Manual or automatic bidding?',
+    "What's Quality Score?",
+    "Why aren't my ads showing?",
+    'Is this even working?',
+    "What's a good CTR?",
+    'Negative keywords?',
+    'Am I targeting the right people?',
+    'Why did conversions drop?',
+    "What's ROAS mean?",
+    'Should I pause this?',
+    'Is my landing page the problem?',
+    "Who's managing this daily?",
+    "Why is my competitor above me?",
+    'Search vs Display campaign?',
+    'Is tracking even set up right?',
+    "How much is 'too much' to spend?",
+    "What's Smart Bidding?",
+    'Why did my Quality Score drop?',
+    'Should I worry about invalid clicks?',
+    'What even is an ad group?',
+    'Is this actually bringing in leads?',
+    'Why does this dashboard make no sense?',
+  ],
+  resolutionHeading = 'We handle all of this for you.',
+  resolutionText = 'Plain-English updates. None of the jargon headache.',
+} = Astro.props;
+---
+
+<div class="qpile" data-qpile-root>
+  <div class="qpile-stage" data-qpile-stage aria-hidden="true"></div>
+
+  <div class="qpile-resolution" data-qpile-resolution>
+    <span class="qpile-resolution-dot" aria-hidden="true"></span>
+    <p class="qpile-resolution-heading">{resolutionHeading}</p>
+    <p class="qpile-resolution-text">{resolutionText}</p>
+  </div>
+
+  <button type="button" class="qpile-replay" data-qpile-replay aria-label="Replay animation">
+    ↻ Replay
+  </button>
+</div>
+
+<style>
+  .qpile {
+    position: relative;
+    width: 100%;
+    border-radius: var(--radius-card);
+    background: var(--color-paper-dim);
+    overflow: hidden;
+  }
+
+  .qpile-stage {
+    position: relative;
+    width: 100%;
+    height: 320px;
+  }
+  @media (min-width: 768px) {
+    .qpile-stage {
+      height: 420px;
+    }
+  }
+
+  /* Each question chip: absolutely positioned by inline top/left percent,
+     rotated + sized by inline custom properties (set per-chip in JS so
+     every burst looks different). `scale` is used as its own standalone
+     CSS property (not transform: scale(...)) specifically so it can
+     transition independently of the rotate() that lives in `transform` —
+     both apply at once with no conflict. */
+  .qchip {
+    position: absolute;
+    transform: translate(-50%, -50%) rotate(var(--r, 0deg));
+    scale: 0.35;
+    max-width: 160px;
+    padding: 0.4rem 0.7rem;
+    border-radius: 0.75rem;
+    background: white;
+    border: 1px solid var(--color-line);
+    box-shadow: var(--shadow-card);
+    font-family: 'Caveat', cursive;
+    font-size: var(--fs, 1.1rem);
+    line-height: 1.15;
+    color: var(--color-ink);
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: scale 420ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 260ms ease;
+  }
+  .qchip.is-in {
+    scale: var(--s, 1);
+    opacity: 1;
+  }
+  /* Clearing: reuses the same transition already declared above — just
+     retargets scale/opacity, so no separate transition rule needed. */
+  .qpile-stage.is-clearing .qchip {
+    scale: calc(var(--s, 1) * 0.7);
+    opacity: 0;
+    transition: scale 320ms ease, opacity 320ms ease;
+  }
+
+  .qpile-resolution {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 2rem;
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+    transition: opacity 500ms ease, transform 500ms ease;
+  }
+  .qpile-resolution.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .qpile-resolution-dot {
+    display: block;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+    background: var(--gradient-orb);
+    box-shadow: var(--shadow-orb);
+  }
+  .qpile-resolution-heading {
+    font-size: 1.375rem;
+    font-weight: 600;
+    color: var(--color-ink);
+    margin-bottom: 0.5rem;
+    max-width: 22rem;
+  }
+  @media (min-width: 768px) {
+    .qpile-resolution-heading {
+      font-size: 1.625rem;
+    }
+  }
+  .qpile-resolution-text {
+    font-size: 0.9375rem;
+    color: var(--color-slate);
+  }
+
+  .qpile-replay {
+    position: absolute;
+    bottom: 0.85rem;
+    right: 0.85rem;
+    z-index: 5;
+    padding: 0.4rem 0.85rem;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--color-line);
+    background: var(--color-paper);
+    color: var(--color-slate);
+    font-size: 0.8125rem;
+    cursor: pointer;
+    transition: border-color 200ms ease, color 200ms ease;
+  }
+  .qpile-replay:hover {
+    border-color: var(--color-slate);
+    color: var(--color-ink);
+  }
+</style>
+
+<script define:vars={{ questions }}>
+  function shuffle(input) {
+    const arr = input.slice();
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  document.querySelectorAll('[data-qpile-root]').forEach((root) => {
+    const stage = root.querySelector('[data-qpile-stage]');
+    const resolution = root.querySelector('[data-qpile-resolution]');
+    const replayBtn = root.querySelector('[data-qpile-replay]');
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const CHIP_COUNT = reduceMotion ? 10 : 42;
+    const SPAWN_DELAY_MIN = reduceMotion ? 0 : 40;
+    const SPAWN_DELAY_MAX = reduceMotion ? 0 : 95;
+
+    let spawnTimer = null;
+    let clearTimer = null;
+    let runToken = 0;
+
+    function buildPool() {
+      const pool = [];
+      let src = shuffle(questions);
+      while (pool.length < CHIP_COUNT) {
+        if (!src.length) src = shuffle(questions);
+        pool.push(src.pop());
+      }
+      return pool;
+    }
+
+    function spawnChip(text) {
+      const chip = document.createElement('div');
+      chip.className = 'qchip';
+      chip.textContent = text;
+      const rotate = (Math.random() * 34 - 17).toFixed(1);
+      const size = (0.92 + Math.random() * 0.34).toFixed(2);
+      const fontSize = (0.95 + Math.random() * 0.4).toFixed(2);
+      const top = 8 + Math.random() * 76;
+      const left = 6 + Math.random() * 80;
+      chip.style.setProperty('--r', `${rotate}deg`);
+      chip.style.setProperty('--s', size);
+      chip.style.setProperty('--fs', `${fontSize}rem`);
+      chip.style.top = `${top}%`;
+      chip.style.left = `${left}%`;
+      stage.appendChild(chip);
+      // Double rAF so the browser commits the initial (scale: .35, opacity: 0)
+      // state to a frame before the .is-in class flips the transition target —
+      // a same-tick class add wouldn't animate, it'd just jump to the end state.
+      requestAnimationFrame(() => requestAnimationFrame(() => chip.classList.add('is-in')));
+    }
+
+    function run() {
+      const token = ++runToken;
+      clearTimeout(spawnTimer);
+      clearTimeout(clearTimer);
+      stage.classList.remove('is-clearing');
+      resolution.classList.remove('is-visible');
+      stage.innerHTML = '';
+
+      const pool = buildPool();
+      let i = 0;
+
+      function spawnNext() {
+        if (token !== runToken) return; // superseded by a newer run() call
+        if (i >= pool.length) {
+          clearTimer = setTimeout(() => {
+            if (token !== runToken) return;
+            stage.classList.add('is-clearing');
+            setTimeout(() => {
+              if (token !== runToken) return;
+              resolution.classList.add('is-visible');
+            }, 380);
+          }, 500);
+          return;
+        }
+        spawnChip(pool[i]);
+        i++;
+        const delay = SPAWN_DELAY_MIN + Math.random() * (SPAWN_DELAY_MAX - SPAWN_DELAY_MIN);
+        spawnTimer = setTimeout(spawnNext, delay);
+      }
+      spawnNext();
+    }
+
+    replayBtn.addEventListener('click', run);
+    run();
+  });
+</script>

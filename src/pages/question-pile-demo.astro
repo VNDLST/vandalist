@@ -1,0 +1,46 @@
+---
+// Internal concept preview — not a real site page, not linked from
+// navigation. Delete once the "question pile" idea has been decided on
+// / integrated into google-social-ads.astro (or discarded). Same pattern
+// as the earlier campfire-demo.astro.
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import Eyebrow from "../components/Eyebrow.astro";
+import Heading from "../components/Heading.astro";
+import QuestionPile from "../components/QuestionPile.astro";
+---
+<Layout title="Question Pile Concept (Internal)">
+  <div class="bg-[var(--color-paper)]">
+    <Header currentPage="/question-pile-demo" />
+
+    <section class="max-w-7xl mx-auto px-6 md:px-10 pt-12 md:pt-16 pb-20 md:pb-28">
+      <div class="max-w-2xl mx-auto text-center mb-10">
+        <Eyebrow class="mb-3">Internal concept — not a real page</Eyebrow>
+        <Heading as="h1" class="mb-4">Question pile, for the Google Ads hero</Heading>
+        <p class="text-[var(--color-slate)]">
+          Concept for the empty hero graphic slot on the Google Ads page: a burst of
+          anxious, scrawled questions piles up fast&mdash;deliberately overwhelming&mdash;then
+          clears to one calm line. Mechanic (scattered rapid-reveal burst, click to
+          restart) is adapted from the idea behind mattdesl's "codevember" day 9 sketch;
+          rebuilt from scratch as plain chips instead of his canvas+vector-sketch
+          rendering, since that technique only stays legible for icon silhouettes, not
+          sentences. Questions are Caveat (the same handwritten accent font as the
+          campfire toggle's label); the resolution line switches to the site's normal
+          type, so the font change itself carries the "mess &rarr; clarity" idea.
+        </p>
+      </div>
+
+      <div class="max-w-3xl mx-auto">
+        <QuestionPile />
+      </div>
+
+      <p class="text-center text-sm text-[var(--color-slate-light)] mt-6">
+        Runs automatically on load, or hit Replay. Try it a few times&mdash;each burst
+        shuffles a different mix of the question set.
+      </p>
+    </section>
+  </div>
+
+  <Footer />
+</Layout>

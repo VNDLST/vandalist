@@ -21,10 +21,13 @@
 // not just copy the default.
 //
 // `iconMode="image"` (how-we-work.astro's usage) expects step.icon to be a
-// filename (no extension) under `iconBase`. `iconMode="inline"` (default,
-// for pages without supplied icon assets) expects step.icon to be inline
-// stroke-path/shape markup, same convention as every other inline icon set
-// on the site (currentColor via the wrapping svg's stroke).
+// filename (no extension) under `iconBase`, with extension `iconExt`
+// (defaults "svg" — the google-social-ads.astro process-step icons are
+// raster PNGs, hence this being configurable rather than hardcoded).
+// `iconMode="inline"` (default, for pages without supplied icon assets)
+// expects step.icon to be inline stroke-path/shape markup, same convention
+// as every other inline icon set on the site (currentColor via the
+// wrapping svg's stroke).
 interface Step {
   num: string;
   title: string;
@@ -37,6 +40,7 @@ interface Props {
   connectorBreakpoint?: "md" | "lg" | "xl";
   iconMode?: "inline" | "image";
   iconBase?: string;
+  iconExt?: string;
 }
 const {
   steps,
@@ -44,6 +48,7 @@ const {
   connectorBreakpoint = "lg",
   iconMode = "inline",
   iconBase = "",
+  iconExt = "svg",
 } = Astro.props as Props;
 const n = steps.length;
 // All three written as literal strings so Tailwind's static scanner finds
@@ -86,7 +91,7 @@ const rightInsetPx = ((n - 1) / n) * 40 + 56;
       <div class="flex flex-col">
         <div class="w-28 h-28 mb-6 rounded-full bg-white [box-shadow:var(--shadow-card)] flex items-center justify-center shrink-0">
           {iconMode === "image" ? (
-            <img src={`${iconBase}/${step.icon}.svg`} alt="" class="w-16 h-16 object-contain" />
+            <img src={`${iconBase}/${step.icon}.${iconExt}`} alt="" class="w-16 h-16 object-contain" />
           ) : (
             <svg width="68" height="68" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={step.icon} />
           )}

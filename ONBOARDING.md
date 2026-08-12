@@ -1,6 +1,6 @@
 # Vandalist site — onboarding / continuity guide
 
-Snapshot generated 2026-08-11. This is a "where we left off" briefing, not a
+Snapshot generated 2026-08-12. This is a "where we left off" briefing, not a
 live sync — if you're reading this a while after it was written, check git
 log for anything more recent.
 
@@ -133,8 +133,43 @@ about it, don't just pick one.
     page content is Google Ads only — no social ads content anywhere.
     Worth asking whether that nav label should become "Google Ads", or
     social content is meant to land on this same page later.
-  - Andrew said more feedback/discussion on this page is coming next
-    session — nothing specific flagged yet, just expect it.
+- **Google Ads page, round two — real icons + layout rework, all live:**
+  - Service cards, "How this typically works" steps, and "Who it's for"
+    all got their real supplied icon assets (public/google-ads-icons/) in
+    place of the placeholder inline icons — mix of SVG (flat, brand pink
+    `#ff3d6a`) and PNG (the 6 process-step icons are glossy 3D renders, a
+    deliberate style departure from every other icon on the site — Andrew
+    supplied them knowing that, flagged not fixed).
+  - Two of those 6 process-step icons arrived as images pasted directly
+    into chat rather than file attachments (no path to read) — turned out
+    Andrew had already saved them to `Assets/Google Ads/` as
+    `Targeting.png`/`Setup.png`/`Creating.png`/`Launch.png`/
+    `Optimisation.png`/`Reporting.png`; found them by searching common
+    folders rather than asking him to re-attach. Worth remembering:
+    "I pasted a picture in chat" and "I attached a file" aren't the same
+    thing here — only the latter leaves something on disk to read.
+  - "Our approach" rebuilt from a flat 9-item checklist into three
+    grouped phases (Plan/Build/Improve), each with its own icon+blurb and
+    a 3-card row of that phase's deliverables — per a supplied layout
+    mockup. Needed two follow-up passes to get the spacing right: first
+    attempt capped the card row's width, which fixed the cramped-card
+    symptom but created dead space at the panel's true right edge instead
+    (wrong-directioned fix — narrower isn't the same as "positioned
+    correctly"). Second pass widened the label column and trimmed
+    icon/padding overhead instead, verified with real measurement (line-
+    wrap count per item, gap-to-panel-edge) rather than eyeballing either
+    time — first fix logically also created less card space, but the
+    measurement-vs-eyeball lesson generalises regardless of which fix.
+  - "How this typically works": dropped the white circle behind each icon
+    (looked wrong once populated with the 3D-render icons specifically)
+    in favour of the bare icon + a soft drop-shadow. Added as a
+    `CadenceSteps` prop (`iconContainer="bare"`, defaults `"circle"`) —
+    verified how-we-work.astro's own cadence section is unaffected.
+  - "Who it's for": retitled/reordered to Trade services / Professional
+    services / Ecommerce and retail (descriptions deliberately left
+    mismatched for now, Andrew's rewriting those separately later), and
+    enlarged the icons ~3.3x with their badge squares removed — same
+    treatment as how-we-work's "how we fit in" icon.
 
 ## Known open items
 
@@ -146,9 +181,13 @@ about it, don't just pick one.
   only) page content — see above, ask Andrew rather than deciding.
 - Google Ads hero still has no decorative graphic — deliberate, Andrew's
   still deciding, don't fill it with a placeholder.
+- Google Ads "Who it's for" description text doesn't semantically match
+  its (retitled) cards yet — deliberate, Andrew's rewriting it separately.
 - 3-4 more service pages still to build, following the pattern
   established by google-social-ads.astro (shared template chrome for
-  scribbled-out sections, CadenceSteps for any process/step sections).
+  scribbled-out sections, CadenceSteps for any process/step sections,
+  `iconContainer`/`iconMode`/`iconExt` props if a future page needs bare
+  icons or a mixed SVG/PNG icon set like this one ended up with).
 - Case Studies and Resources pages don't exist yet — expected to be
   blog-style listing pages, not hero pages; design once there's real
   content to work against, not preemptively.

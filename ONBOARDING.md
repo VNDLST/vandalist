@@ -170,13 +170,73 @@ about it, don't just pick one.
     mismatched for now, Andrew's rewriting those separately later), and
     enlarged the icons ~3.3x with their badge squares removed — same
     treatment as how-we-work's "how we fit in" icon.
+- **Google Ads page, round three — fixed the "Our approach" grid overflow
+  properly this time, and widened the circled label column Andrew asked
+  for.** Root cause: `grid-cols-[34%_66%]` had no `minmax(0,...)`
+  protection — the exact CSS Grid gotcha already documented in CLAUDE.md,
+  a second occurrence of it. The 66% column's own content was forcing it
+  wider than its declared share, a measured 40px overflow past the
+  panel's own padding — that's why the cards read as crammed against the
+  dark panel's right edge in Andrew's screenshot. Fixed with
+  `minmax(0,34%)/minmax(0,66%)`. While widening the Plan/Build/Improve
+  label column (120px → 170px) found a *second*, smaller instance one
+  level down (the 3-card mini-grid per phase row was plain `grid-cols-3`,
+  no `minmax(0,...)` either) — fixed that too. All verified by
+  `getBoundingClientRect()`/`scrollWidth` measurement at 390/1024/1774px,
+  not eyeballing.
+  - **Not fully resolved, flagged rather than fixed:** at exactly 1024px
+    (the tightest point — right where the two-column split first kicks
+    in on `lg:`), a couple of the longer phase-item phrases still overflow
+    their card by up to ~25px, regardless of label width chosen. Rough
+    math says this predates this session's changes (already present at
+    the original 120px label). Invisible at the widths Andrew's actually
+    looking at, didn't block the ask, not chased further — but don't be
+    surprised if it comes up later.
+- **New concept, not yet integrated — "question pile" for the Google Ads
+  hero's still-empty graphic slot.** Andrew supplied a CodePen-style code
+  bundle (mattdesl's "codevember" day 9) as reference and asked whether
+  its "heap of random items" effect could work with predesigned questions
+  instead. Turned out the supplied bundle was minified/unreadable
+  (browserify build) — fetched the real unminified source from GitHub to
+  actually understand the mechanic before building anything, rather than
+  guessing from minified code. Real mechanic: renders vector icon
+  *silhouettes* with a jittery hand-sketched multi-stroke outline — that
+  wobble only stays legible on simple icon shapes, not sentences, so
+  rebuilt the underlying *idea* (scattered rapid-reveal burst across a
+  bounded area, click to restart) from scratch as plain DOM+CSS chips
+  instead of canvas+SVG-contour rendering, keeping the questions readable.
+  Built as `src/components/QuestionPile.astro` (reusable) +
+  `src/pages/question-pile-demo.astro` (standalone internal preview, same
+  unlinked-from-nav pattern as `campfire-demo.astro` — live at
+  `/question-pile-demo`). Questions render in Caveat (the handwritten
+  accent font already used for the campfire toggle's label) for a
+  scrawled/anxious feel; the resolution line ("We handle all of this for
+  you.") switches to the site's normal type, so the font change itself
+  carries "mess → clarity". **Andrew's only seen it once so far —
+  reaction was "looks like a good start" before wrapping for the night,
+  not yet a decision on count/timing/wording/integration.** Pick this up
+  first next session; don't assume "good start" means it's ready to fold
+  into the real page yet — ask what specifically he wants adjusted before
+  changing it blind.
 
 ## Known open items
 
+- **Top of the list for next session:** the question-pile concept at
+  `/question-pile-demo` (see above) — Andrew said "looks like a good
+  start" and wrapped for the night. Open with "what would you like
+  adjusted?" (count/density, timing, wording, the resolution message)
+  before touching the code, then integrate into
+  `google-social-ads.astro`'s empty hero slot once he's happy, following
+  the same demo→feedback→integrate flow the campfire toggle went through.
+- The 1024px-pinch-point text-overflow on Google Ads' "Our approach"
+  cards (see above) — not fixed, low priority, only revisit if Andrew
+  actually spots it or asks for a pass on tablet widths specifically.
 - `src/pages/campfire-demo.astro` (old standalone preview) and
   `src/pages/icon-texture-demo.astro` (+ the `how-we-work-icons-2tone`
   assets) are all dead experiments now that how-we-work.astro is done —
   **ask Andrew before deleting any of them**, don't delete unilaterally.
+  `question-pile-demo.astro` will join this list too once its concept is
+  either integrated or discarded.
 - Nav label mismatch: "Google & Social Media Ads" vs. the actual (Google-
   only) page content — see above, ask Andrew rather than deciding.
 - Google Ads hero still has no decorative graphic — deliberate, Andrew's

@@ -262,7 +262,7 @@ const stats = [
                     <p class="font-semibold text-[var(--color-ink)] text-sm">{phase.phase}</p>
                     <p class="text-xs text-[var(--color-slate)]">{phase.text}</p>
                   </div>
-                  <div class="grid sm:grid-cols-3 gap-3">
+                  <div class="grid sm:grid-cols-3 gap-3 sm:max-w-[480px]">
                     {phase.items.map((item) => (
                       <div class="rounded-xl border border-[var(--color-line)] bg-white p-3 flex items-center gap-2.5">
                         <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-[var(--color-accent-soft)] text-[var(--color-accent)] shrink-0">
@@ -293,6 +293,7 @@ const stats = [
         iconMode="image"
         iconBase={`${base}/google-ads-icons`}
         iconExt="png"
+        iconContainer="bare"
       />
     </section>
 
@@ -305,9 +306,7 @@ const stats = [
       <div class="grid sm:grid-cols-3 gap-5">
         {audiences.map((item) => (
           <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6">
-            <span class="inline-flex items-center justify-center w-11 h-11 rounded-lg bg-[var(--color-accent-soft)] mb-4">
-              <img src={`${base}/google-ads-icons/${item.image}.svg`} alt="" class="w-6 h-6 object-contain" />
-            </span>
+            <img src={`${base}/google-ads-icons/${item.image}.svg`} alt="" class="w-20 h-20 object-contain mb-4" />
             <p class="font-semibold text-[var(--color-ink)] mb-1.5">{item.title}</p>
             <p class="text-sm text-[var(--color-slate)] leading-relaxed">{item.text}</p>
           </div>

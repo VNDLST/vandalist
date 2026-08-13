@@ -11,9 +11,14 @@
 // nav — worth flagging back to Andrew rather than silently deciding
 // either way (rename the nav label, or fold social ads content in later).
 //
-// Hero has no decorative graphic yet — deliberate per Andrew ("thinking
-// about what we can use there that is meaningful rather than just a dumb
-// placeholder"), not an oversight. Single column until that's decided.
+// Hero: was single-column with no decorative graphic (deliberate — Andrew
+// was "thinking about what we can use there that is meaningful"), now
+// two-column with the QuestionPile concept in the right slot (see
+// src/components/QuestionPile.astro) and a darker bg-paper-dim background
+// matching Home's Hero.astro treatment, per Andrew's request to integrate
+// it into the real page ("we'd need to get it set to the right size and
+// speed on the page to really see how it works") rather than judge it in
+// isolation on the standalone demo page.
 import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
@@ -22,6 +27,7 @@ import SectionHeading from "../../components/SectionHeading.astro";
 import PageHeading from "../../components/PageHeading.astro";
 import Eyebrow from "../../components/Eyebrow.astro";
 import CadenceSteps from "../../components/CadenceSteps.astro";
+import QuestionPile from "../../components/QuestionPile.astro";
 
 const base = import.meta.env.BASE_URL;
 
@@ -191,29 +197,39 @@ const stats = [
 ];
 ---
 <Layout title="Google Ads Management" description="Google Ads management that turns search intent into qualified leads.">
-  <div class="bg-[var(--color-paper)]">
+  <div class="bg-[var(--color-paper-dim)]">
     <Header currentPage="/services/google-social-ads" />
 
-    <!-- Section 0: Hero -->
+    <!-- Section 0: Hero — darker bg-paper-dim band matching Home's
+         Hero.astro, now two columns so the QuestionPile concept has
+         somewhere to live (was single-column with no graphic). -->
     <section class="max-w-7xl mx-auto px-6 md:px-10 pt-8 md:pt-12 pb-16 md:pb-20">
-      <div class="max-w-xl">
-        <PageHeading as="h1" class="mb-6">Google Ads management that turns search intent into qualified leads</PageHeading>
-        <p class="text-lg text-[var(--color-slate)] mb-10">
-          We plan, build, and optimise Google Ads that connect you with people who are already looking for what you offer&mdash;so you get more enquiries at a better cost.
-        </p>
-        <a
-          href={`${base}/contact`}
-          class="inline-flex items-center gap-4 rounded-2xl bg-[var(--color-paper)] border border-[var(--color-line)] px-8 py-5 text-lg text-[var(--color-ink)] hover:border-[var(--color-slate)] transition-colors"
-        >
-          <span
-            class="w-9 h-9 rounded-full shrink-0 ring-2 ring-white"
-            style="background: var(--gradient-orb); box-shadow: var(--shadow-orb);"
-          ></span>
-          Book a strategy call
-        </a>
+      <div class="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-10 items-center">
+        <div>
+          <PageHeading as="h1" class="mb-6">Google Ads management that turns search intent into qualified leads</PageHeading>
+          <p class="text-lg text-[var(--color-slate)] mb-10">
+            We plan, build, and optimise Google Ads that connect you with people who are already looking for what you offer&mdash;so you get more enquiries at a better cost.
+          </p>
+          <a
+            href={`${base}/contact`}
+            class="inline-flex items-center gap-4 rounded-2xl bg-[var(--color-paper)] border border-[var(--color-line)] px-8 py-5 text-lg text-[var(--color-ink)] hover:border-[var(--color-slate)] transition-colors"
+          >
+            <span
+              class="w-9 h-9 rounded-full shrink-0 ring-2 ring-white"
+              style="background: var(--gradient-orb); box-shadow: var(--shadow-orb);"
+            ></span>
+            Book a strategy call
+          </a>
+        </div>
+
+        <div class="hidden md:block">
+          <QuestionPile />
+        </div>
       </div>
     </section>
+  </div>
 
+  <div class="bg-[var(--color-paper)]">
     <!-- Section 1: Service cards -->
     <section class="max-w-7xl mx-auto px-6 md:px-10 pb-16 md:pb-20">
       <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">

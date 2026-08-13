@@ -12,22 +12,40 @@
 // from the idea of mattdesl's "codevember" day 9 sketch — see git history
 // on this file for that reasoning).
 //
-// v3 (this version), per Andrew's feedback after seeing v2 live:
-// - Arrow removed entirely — it was only there in his mockup to indicate
-//   "these are falling", not meant to ship.
-// - v2's landing spread was closer to a radial FAN (jitter growing outward
-//   in all directions from one point) than a physical PILE (things stacked
-//   on top of each other, growing in height). Reworked the positioning so
-//   each chip's resting spot rises a fixed step further up the stage than
-//   the last, on top of a much tighter horizontal jitter — reads as a
-//   stack gaining height, not a burst spreading sideways.
-// - Chips now alternate between Anton (blocky stamp) and Caveat (the same
-//   handwritten font as the campfire toggle's label), each at a randomised
-//   size, per Andrew's "different sizes and possibly different fonts...
-//   to create a feeling of chaos" — more visual variety than a single
-//   consistent typeface gives, without reaching for a distortion/grunge
-//   filter (shelved earlier for the how-we-work icons specifically because
-//   it hurt legibility, and legibility matters even more for sentences).
+// v3 was per Andrew's feedback after seeing v2 live: arrow removed
+// entirely (mockup shorthand for "these are falling", not meant to
+// ship); reworked v2's radial-fan landing spread (jitter growing outward
+// in all directions from one point) into a genuine vertical stack (each
+// chip's resting spot rises a fixed step further up the stage than the
+// last); chips alternate between Anton (blocky stamp) and Caveat (the
+// campfire toggle's handwritten accent font) at randomised sizes, for
+// variety instead of a single consistent typeface.
+//
+// v4 (this version), after seeing v3 live and in isolation only — per
+// Andrew, "we'd need to get it set to the right size and speed on the
+// page to really see how it works":
+// - Now integrated into the real google-social-ads.astro hero (see that
+//   file) instead of only living on the standalone demo page.
+// - Much higher volume (8 chips -> 24, i.e. the full question set once
+//   through) at a much faster drop rate (650ms/chip -> 160ms/chip) and
+//   noticeably larger type, per "a heap more questions that come down a
+//   lot quicker... larger in terms of font size and presence" — the
+//   intensity/overwhelm is meant to build up hard before the resolution
+//   line arrives, not ease into it.
+// - The pile now aims each chip's rise at a bold target (close to the
+//   very top of the stage by the last chip) instead of a conservative
+//   fixed fraction, then corrects any individual chip that would clip —
+//   not by predicting its bounding box via trigonometry (tried that
+//   first; it disagreed with the real rendered position by tens of px,
+//   because it's genuinely fiddly to know which axis a translateY moves
+//   along inside a transform list that also contains a rotate()), but by
+//   applying the candidate position, measuring where it ACTUALLY lands
+//   with getBoundingClientRect(), and dialling back by exactly however
+//   far it overshot. Happens synchronously before the chip's first paint,
+//   so there's nothing to see. Robust across any stage height (standalone
+//   demo vs. the real hero's grid cell, mobile vs. desktop) and any
+//   text/font/size/rotation combination, since it's checking reality
+//   rather than predicting it.
 export interface Props {
   questions?: string[];
   resolutionHeading?: string;
@@ -92,11 +110,11 @@ const {
   .qpile-stage {
     position: relative;
     width: 100%;
-    height: 340px;
+    height: 360px;
   }
   @media (min-width: 768px) {
     .qpile-stage {
-      height: 420px;
+      height: 480px;
     }
   }
 
@@ -200,7 +218,7 @@ const {
     text-wrap: balance;
     opacity: 0;
     pointer-events: none;
-    transition: transform 520ms cubic-bezier(0.34, 1.56, 0.64, 1), scale 520ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 260ms ease;
+    transition: transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1), scale 400ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 200ms ease;
   }
   .qchip.is-in {
     scale: 1;
@@ -237,44 +255,87 @@ const {
     const replayBtn = root.querySelector('[data-qpile-replay]');
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const CHIP_COUNT = reduceMotion ? 4 : 8;
-    const STEP_DELAY = reduceMotion ? 0 : 650; // gap between one chip landing and the next dropping
+    // 24 = the whole question set once through, no repeats needed for "a
+    // heap more questions". 160ms/chip (was 650) is deliberately fast —
+    // Andrew wants intensity building hard before the resolution line,
+    // not an easing-in.
+    const CHIP_COUNT = reduceMotion ? 6 : 24;
+    const STEP_DELAY = reduceMotion ? 0 : 160;
 
     let timer = null;
     let runToken = 0;
 
+    const SAFE_MARGIN = 12; // px kept clear above the topmost chip at all times
+
     // Rotation/horizontal jitter grow with pile index (a real stack leans
     // more as it gets taller/more precarious) but stay tight — the visual
-    // cue that reads as "a pile getting taller" is --rise, which climbs a
-    // fixed step per chip so each one settles further up the stage than
-    // the last, on top of the one before it.
-    function spawnChip(text, index) {
+    // cue that reads as "a pile getting taller" is --rise, which climbs
+    // toward the top of the stage per chip. The DESIRED rise aims boldly
+    // (near the very top by the last chip) but gets corrected per-chip
+    // against its own ACTUAL rendered position — not predicted via
+    // trigonometry from its measured width/height/rotation, which turned
+    // out to disagree with reality by tens of px (confirmed by testing:
+    // a trig-based predictive clamp still clipped ~35px off the top on a
+    // real run, because it's genuinely fiddly to know which axis a
+    // translateY inside a transform list moves along once a rotate() is
+    // also in that same list, without just checking). Instead: apply the
+    // candidate rise, measure where the chip *actually* lands with
+    // getBoundingClientRect(), and dial the rise back by exactly however
+    // far it overshot. This happens synchronously before the chip's first
+    // paint (see the double-rAF below), so there's nothing to see.
+    function spawnChip(text, index, anchorY, desiredRiseStep) {
       const chip = document.createElement('div');
       chip.className = 'qchip';
       chip.textContent = text;
 
-      const rotateMagnitude = Math.min(5 + index * 2.2, 18);
-      const rotate = ((Math.random() * 2 - 1) * rotateMagnitude).toFixed(1);
-      const jx = ((Math.random() * 2 - 1) * Math.min(6 + index * 3.5, 34)).toFixed(0);
-      // 21px/layer, not 24 — found via testing that 24 left the tallest
-      // chip in an 8-high pile clipping the top edge of the (shorter)
-      // mobile stage by a couple of px on an unlucky rotation/text-wrap
-      // combination. 21 leaves comfortable headroom at every size tested.
-      const rise = (index * 21 + (Math.random() * 10 - 5)).toFixed(1);
+      const rotateMagnitude = Math.min(5 + index * 0.9, 20);
+      const rotate = (Math.random() * 2 - 1) * rotateMagnitude;
+      const jx = ((Math.random() * 2 - 1) * Math.min(8 + index * 1.6, 44)).toFixed(0);
 
       const isScript = Math.random() < 0.35;
       const fontSize = isScript
-        ? (1.3 + Math.random() * 0.5).toFixed(2) // Caveat reads smaller than Anton at the same px size, so run it bigger
-        : (1.05 + Math.random() * 0.45).toFixed(2);
+        ? (1.5 + Math.random() * 0.8).toFixed(2) // Caveat reads smaller than Anton at the same px size, so run it bigger
+        : (1.25 + Math.random() * 0.75).toFixed(2);
 
-      chip.style.setProperty('--r', `${rotate}deg`);
+      chip.style.setProperty('--r', `${rotate.toFixed(1)}deg`);
       chip.style.setProperty('--jx', `${jx}px`);
-      chip.style.setProperty('--rise', `${rise}px`);
       chip.style.fontFamily = isScript ? FONT_CAVEAT : FONT_ANTON;
       chip.style.fontWeight = isScript ? '600' : '400';
       chip.style.fontSize = `${fontSize}rem`;
       chip.style.zIndex = String(10 + index);
+
+      let rise = index * desiredRiseStep + (Math.random() * desiredRiseStep * 0.6 - desiredRiseStep * 0.3);
+      rise = Math.max(rise, 0);
+      chip.style.setProperty('--rise', `${rise.toFixed(1)}px`);
       stage.appendChild(chip);
+
+      // Measure against the settled (.is-in) transform, then dial back if
+      // it overshoots — a couple of passes to converge regardless of the
+      // exact relationship between --rise and the rendered position.
+      // transition is forced off for this whole measure/correct cycle:
+      // the FIRST is-in add is this element's first-ever style change so
+      // it wouldn't transition anyway, but adjusting --rise again on pass
+      // 2+ (while is-in is already applied) is a genuine before/after
+      // style change on an element the browser HAS already observed —
+      // that would actually start a real transition, and reading
+      // getBoundingClientRect() a moment later would catch it mid-flight
+      // rather than at its final value. Confirmed by testing: without
+      // this, single-correction chips measured fine but anything needing
+      // a second pass measured its pass-0 (not fully corrected) position.
+      chip.style.transition = 'none';
+      chip.classList.add('is-in');
+      for (let pass = 0; pass < 3; pass++) {
+        const stageTop = stage.getBoundingClientRect().top;
+        const chipTop = chip.getBoundingClientRect().top;
+        const overflow = SAFE_MARGIN - (chipTop - stageTop);
+        if (overflow <= 0) break;
+        rise = Math.max(rise - overflow, 0);
+        chip.style.setProperty('--rise', `${rise.toFixed(1)}px`);
+      }
+      chip.classList.remove('is-in'); // back to pre-animation state
+      void chip.offsetHeight; // force the browser to commit that reverted state...
+      chip.style.transition = ''; // ...before restoring the real transition for the pop-in below
+
       // Double rAF so the browser commits the initial (scale: .94, opacity: 0,
       // translateY(-70px)) state to a frame before .is-in flips the
       // transition target — a same-tick class add wouldn't animate, it'd
@@ -292,6 +353,16 @@ const {
       const pool = shuffle(questions).slice(0, CHIP_COUNT);
       let i = 0;
 
+      // The anchor point sits at top: 80% (see .qchip below), so anchorY
+      // (0.8 * stage height) is the spare room above it before any rise
+      // is applied. Aim boldly — try to have the pile reach almost all
+      // the way to the very top by the last chip — since spawnChip's own
+      // per-chip clamp (based on that chip's actual measured size) is
+      // what actually prevents clipping, not this target fraction.
+      const stageHeight = stage.clientHeight;
+      const anchorY = stageHeight * 0.8;
+      const desiredRiseStep = (anchorY - 12) / Math.max(pool.length - 1, 1);
+
       function step() {
         if (token !== runToken) return;
         if (i >= pool.length) {
@@ -305,7 +376,7 @@ const {
           }, 550);
           return;
         }
-        spawnChip(pool[i], i);
+        spawnChip(pool[i], i, anchorY, desiredRiseStep);
         i++;
         timer = setTimeout(step, STEP_DELAY);
       }
@@ -313,6 +384,19 @@ const {
     }
 
     replayBtn.addEventListener('click', run);
-    run();
+
+    // Anton/Caveat are only ever requested by these dynamically-created
+    // chips (nothing in the server-rendered HTML uses them), so without
+    // this the browser wouldn't start fetching either font until the very
+    // first chip sets fontFamily — meaning the first couple of chips on a
+    // cold load could render (and get measured/corrected against) a
+    // fallback font, then visibly swap to the real one a moment later.
+    // spawnChip's own measure-and-correct clamp makes that a cosmetic
+    // flash-of-fallback-font issue rather than a clipping one now, but
+    // preloading here avoids the flash too.
+    Promise.all([
+      document.fonts.load("400 2rem Anton"),
+      document.fonts.load("600 2rem Caveat"),
+    ]).catch(() => {}).then(run);
   });
 </script>

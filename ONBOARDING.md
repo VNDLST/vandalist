@@ -192,79 +192,98 @@ about it, don't just pick one.
     the original 120px label). Invisible at the widths Andrew's actually
     looking at, didn't block the ask, not chased further — but don't be
     surprised if it comes up later.
-- **New concept, not yet integrated — "question pile" for the Google Ads
-  hero's still-empty graphic slot.** Andrew supplied a CodePen-style code
-  bundle (mattdesl's "codevember" day 9) as reference and asked whether
-  its "heap of random items" effect could work with predesigned questions
-  instead. Turned out the supplied bundle was minified/unreadable
-  (browserify build) — fetched the real unminified source from GitHub to
-  actually understand the mechanic before building anything, rather than
-  guessing from minified code. Real mechanic: renders vector icon
-  *silhouettes* with a jittery hand-sketched multi-stroke outline — that
-  wobble only stays legible on simple icon shapes, not sentences, so
-  rebuilt the underlying *idea* (scattered rapid-reveal burst across a
-  bounded area, click to restart) from scratch as plain DOM+CSS chips
-  instead of canvas+SVG-contour rendering, keeping the questions readable.
-  Built as `src/components/QuestionPile.astro` (reusable) +
-  `src/pages/question-pile-demo.astro` (standalone internal preview, same
-  unlinked-from-nav pattern as `campfire-demo.astro` — live at
-  `/question-pile-demo`). Questions render in Caveat (the handwritten
-  accent font already used for the campfire toggle's label) for a
-  scrawled/anxious feel; the resolution line ("We handle all of this for
-  you.") switches to the site's normal type, so the font change itself
-  carries "mess → clarity". Andrew's initial reaction was "looks like a
-  good start" but wanted the mechanic itself changed, not just tuned —
-  see v2 below.
-- **Question pile v2 — mechanic rebuilt per a reference sketch Andrew
-  supplied, now live at `/question-pile-demo`.** v1's scattered burst
-  (~42 chips at random positions all over the stage) wasn't what he had
-  in mind — his sketch showed one question at a time, a downward arrow
-  cueing each drop, landing with rotation that fans out more as the pile
-  grows, all in one spot. That's a simpler mechanic than v1's scatter-
-  placement, not a harder one. Font switched Caveat → Anton (new
-  `@fontsource/anton` dependency) for the reference's bold "stamped
-  headline" look — no distortion/grunge filter for texture, since that
-  hurt legibility when tried on the how-we-work icons earlier and text is
-  even more sensitive to that than icons were.
-  - **Found and fixed a real bug while verifying — predates v2, affected
-    v1 the whole time too, not a regression from this rebuild.** `.qchip`
-    elements are created client-side via `document.createElement`, so
-    they never get the `data-astro-cid` attribute Astro's scoped
-    `<style>` selectors require — the scoped rules were silently matching
-    nothing, confirmed via computed style coming back as plain browser
-    defaults (`position: static`, `transform: none`) instead of anything
-    the CSS declared. Split those rules into a separate
-    `<style is:global>` block so the plain class selectors actually
-    match. Worth remembering for any *other* component that creates DOM
-    nodes via JS rather than Astro's own template rendering — same trap
-    applies.
-  - **Andrew hasn't seen v2 yet** — this was built and shipped at the very
-    end of a session on his "wrap up" cue, no feedback round yet. Don't
-    assume it's right; open with showing him `/question-pile-demo` fresh
-    rather than assuming last session's "good start" carries over to a
-    mechanic that changed underneath it.
+- **"Question pile" for the Google Ads hero's empty graphic slot — now
+  live on the real page, not just a demo.** Concept: a burst of anxious
+  questions piles up fast (deliberately overwhelming), then clears to one
+  calm resolution line ("We handle all of this for you."). Lives at
+  `src/components/QuestionPile.astro` (reusable) +
+  `src/pages/question-pile-demo.astro` (standalone preview, still useful
+  for isolated testing since the real integration only shows md+ — see
+  below). Iteration history, condensed (see git log on
+  `QuestionPile.astro` for the full blow-by-blow):
+  - **v1:** Andrew supplied a CodePen-style code bundle (mattdesl's
+    "codevember" day 9) as a mechanic reference. It turned out to be a
+    minified browserify build — fetched the real unminified source from
+    GitHub rather than guessing from the minified version, and found it
+    renders vector icon *silhouettes* with a jittery hand-sketched
+    multi-stroke outline, a technique that only stays legible on simple
+    icon shapes, not sentences. Rebuilt the underlying *idea* (rapid
+    reveal across a bounded area, click to restart) from scratch as
+    plain DOM+CSS chips instead, in Caveat (the campfire toggle's
+    handwritten font) — scattered burst placement (~42 chips at once).
+  - **v2:** per a reference sketch Andrew supplied, rebuilt as one
+    question at a time, arrow-cued, landing in one spot with growing
+    rotation. Font switched to Anton (new `@fontsource/anton`) for a
+    bold "stamped headline" look. Found and fixed a real bug while
+    verifying (predates v2, silently affected v1 too): `.qchip` elements
+    are created via `document.createElement`, so they never get Astro's
+    `data-astro-cid` scoping attribute — its scoped `<style>` rules were
+    matching nothing. Split into a separate `<style is:global>` block.
+  - **v3:** per feedback after seeing v2 live — arrow was only mockup
+    shorthand, removed entirely; v2's landing spread was actually a
+    radial fan (jitter outward from one point), not a real pile, reworked
+    into genuine vertical stacking (each chip rises a step higher than
+    the last); chips now alternate Anton/Caveat at randomised sizes for
+    more chaos.
+  - **v4 (current) — integrated into the real hero.** Per Andrew: "we'd
+    need to get it set to the right size and speed on the page to really
+    see how it works." `google-social-ads.astro`'s hero now matches
+    Home's darker `bg-paper-dim` band + two columns (was single-column,
+    no graphic) — hidden below `md`, same convention as the campfire
+    toggle. Tuned per feedback: 8 chips → 24 (the whole question set),
+    650ms/chip → 160ms/chip, noticeably larger type, and the pile now
+    genuinely builds to the top of its box before resolving — "a heap
+    more questions that come down a lot quicker... build right up to the
+    top of the area." That last part took three real attempts, each one
+    caught by actually testing rather than trusting the fix: a fixed
+    stage-height fraction clipped on long text at large fonts; a
+    trigonometric per-chip bounding-box prediction *also* clipped
+    (predicting which axis a `translateY` moves along inside a transform
+    list that also has a `rotate()` is genuinely fiddly); what actually
+    worked was applying a candidate position, reading its real
+    `getBoundingClientRect()`, and correcting against *that* — which then
+    exposed a second bug (adjusting `--rise` a second time while `.is-in`
+    was already applied silently starts a real CSS transition, so a
+    second correction pass could measure a mid-transition, not final,
+    position — fixed by forcing `transition: none` for the whole
+    measure/correct cycle).
+  - **New Browser-pane limitation found while chasing that:**
+    `requestAnimationFrame` never fires in this environment at all
+    (confirmed via a direct probe) — not just that transitions freeze
+    mid-flight (already known). Every chip's double-rAF pop-in trigger
+    never runs here, so on-pane testing has to manually force the
+    `.is-in` class (with `transition: none`) to inspect a chip's real
+    settled position rather than trusting a natural page load. Added to
+    the standing Browser-pane note below.
+  - **Where it stands:** Andrew saw v4 live on the real page and said
+    "This is pretty good thanks. Let me ponder and come back with proper
+    feedback." — a genuinely positive but *not yet final* signal. He has
+    not given specific follow-up notes yet.
 
 ## Known open items
 
-- **Top of the list for next session:** show Andrew question-pile v2 at
-  `/question-pile-demo` (see above) — he hasn't seen this rebuilt version
-  yet. Open with that, not with an assumption it's ready. Once he's happy
-  with the mechanic, integrate into `google-social-ads.astro`'s empty hero
-  slot, following the same demo→feedback→integrate flow the campfire
-  toggle went through.
+- **Top of the list for next session:** Andrew is holding specific
+  feedback on question-pile v4 (live on the real Google Ads hero — see
+  above) for a future session, after saying it "looks pretty good" but
+  wanting to think it over first. Ask what he wants adjusted rather than
+  assuming "pretty good" means it's finished — he's explicitly still
+  deciding, this is a genuinely open thread, not a wrap-up formality.
 - The 1024px-pinch-point text-overflow on Google Ads' "Our approach"
   cards (see above) — not fixed, low priority, only revisit if Andrew
   actually spots it or asks for a pass on tablet widths specifically.
 - `src/pages/campfire-demo.astro` (old standalone preview) and
   `src/pages/icon-texture-demo.astro` (+ the `how-we-work-icons-2tone`
-  assets) are all dead experiments now that how-we-work.astro is done —
+  assets) are dead experiments now that how-we-work.astro is done —
   **ask Andrew before deleting any of them**, don't delete unilaterally.
-  `question-pile-demo.astro` will join this list too once its concept is
-  either integrated or discarded.
+  `question-pile-demo.astro` is NOT in this bucket yet — it's still live
+  and still useful for isolated testing (the real hero integration only
+  renders it at md+, so the demo page is the easiest way to check mobile
+  behaviour or iterate without needing the whole page around it).
 - Nav label mismatch: "Google & Social Media Ads" vs. the actual (Google-
   only) page content — see above, ask Andrew rather than deciding.
-- Google Ads hero still has no decorative graphic — deliberate, Andrew's
-  still deciding, don't fill it with a placeholder.
+- ~~Google Ads hero still has no decorative graphic~~ — resolved, it's
+  the question-pile concept now (see above), live on the real page as of
+  this session.
 - Google Ads "Who it's for" description text doesn't semantically match
   its (retitled) cards yet — deliberate, Andrew's rewriting it separately.
 - 3-4 more service pages still to build, following the pattern
@@ -286,12 +305,23 @@ about it, don't just pick one.
   sessions now (Andrew's IP is dynamic) — a timeout means "ask Andrew to
   re-check the allowlist", not "something's broken." Get the current
   outbound IP with `curl https://api.ipify.org` when this comes up.
-- The Browser pane's screenshot/compositing has been broken in this
-  environment for a while now ("page is not compositing frames") — every
-  visual check across recent sessions has used DOM measurement
-  (`getBoundingClientRect`, computed styles) instead of an actual
-  screenshot. Not a project issue, but worth re-testing occasionally in
-  case it's fixed upstream.
+- **Standing Browser-pane limitations, not a project issue** — worth
+  re-testing occasionally in case any of these are fixed upstream, but
+  don't assume they are:
+  - Screenshot/compositing has been broken for a while ("page is not
+    compositing frames") — visual checks use DOM measurement
+    (`getBoundingClientRect`, computed styles) instead.
+  - CSS transitions freeze at their pre-transition value for all further
+    `getComputedStyle`/geometry reads once triggered — confirmed multiple
+    times across sessions (campfire toggle, question pile).
+  - `requestAnimationFrame` never fires at all in this environment
+    (confirmed via a direct probe during the question-pile work) — any
+    code gated on rAF (this project's convention for triggering CSS
+    transitions on newly-created elements) never runs here. To inspect a
+    JS-created element's real settled state on-pane, manually force
+    whatever class the rAF callback would have added, with
+    `element.style.transition = 'none'` set first so the forced change
+    doesn't itself get caught by the transition-freezing issue above.
 
 ## Working across two devices
 

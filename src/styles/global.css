@@ -10,6 +10,11 @@
    toggle's "Add a little Vandalist" label) for a playful, less-formal
    touch. Not part of the main type system (Jakarta/Manrope) on purpose. */
 @import "@fontsource/caveat/600.css";
+/* Bold "stamped headline" accent font — used for the question-pile
+   concept's dropping questions (only weight available is 400, but at the
+   sizes/tracking it's used it reads plenty bold on its own). Same "sparse
+   accent font, not part of the main type system" rule as Caveat above. */
+@import "@fontsource/anton/400.css";
 
 @tailwind base;
 @tailwind components;

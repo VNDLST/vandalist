@@ -19,15 +19,15 @@ import QuestionPile from "../components/QuestionPile.astro";
         <Eyebrow class="mb-3">Internal concept — not a real page</Eyebrow>
         <Heading as="h1" class="mb-4">Question pile, for the Google Ads hero</Heading>
         <p class="text-[var(--color-slate)]">
-          Concept for the empty hero graphic slot on the Google Ads page: a burst of
-          anxious, scrawled questions piles up fast&mdash;deliberately overwhelming&mdash;then
-          clears to one calm line. Mechanic (scattered rapid-reveal burst, click to
-          restart) is adapted from the idea behind mattdesl's "codevember" day 9 sketch;
-          rebuilt from scratch as plain chips instead of his canvas+vector-sketch
-          rendering, since that technique only stays legible for icon silhouettes, not
-          sentences. Questions are Caveat (the same handwritten accent font as the
-          campfire toggle's label); the resolution line switches to the site's normal
-          type, so the font change itself carries the "mess &rarr; clarity" idea.
+          v2, per a supplied reference sketch: questions now drop in one at a time&mdash;a
+          small arrow cues each drop&mdash;landing with a bit of rotation, building into a
+          real pile in one spot rather than v1's scattered burst across the whole stage.
+          Font switched from the handwritten Caveat to Anton, a bold "stamped headline"
+          font, for the blocky look in the reference &mdash; deliberately without a
+          distortion/grunge filter for texture, since that hurt legibility when tried on
+          the how-we-work icons earlier. The resolution line still switches to the site's
+          normal type once the pile finishes, so that font change alone still carries
+          the "mess &rarr; clarity" idea.
         </p>
       </div>
 
@@ -36,7 +36,7 @@ import QuestionPile from "../components/QuestionPile.astro";
       </div>
 
       <p class="text-center text-sm text-[var(--color-slate-light)] mt-6">
-        Runs automatically on load, or hit Replay. Try it a few times&mdash;each burst
+        Runs automatically on load, or hit Replay. Try it a few times&mdash;each run
         shuffles a different mix of the question set.
       </p>
     </section>

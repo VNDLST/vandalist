@@ -1,23 +1,27 @@
 ---
 // "Question pile" concept for the Google Ads page's currently-empty hero
-// graphic slot: a rapid burst of scrawled, anxious questions piles up
-// (deliberately overwhelming), then clears to a single calm resolution
-// line. Mechanic adapted from the *idea* of mattdesl's "codevember" day 9
-// sketch (github.com/mattdesl/codevember — rapid staggered reveal of many
-// small items scattered across a bounded area, click to restart) — but
-// not its code or icon assets. That piece renders vector icon silhouettes
-// with a jittery hand-sketched multi-stroke outline, which only works
-// because a wobbly re-traced icon still reads as "that icon" — the same
-// wobble applied to sentence text just reads as illegible scribble. So
-// this rebuilds the MECHANIC (scattered burst placement, staggered rapid
-// reveal, restart) from scratch as plain DOM+CSS chips instead of
-// canvas+SVG-contour rendering, trading the sketch-wobble for real,
-// readable (if hastily-scrawled-looking) text.
+// graphic slot: questions drop in one at a time — a small arrow cues each
+// drop, the question lands with a bit of rotation, the next one lands
+// roughly on top of it — building a genuine pile in one spot, then it
+// clears to a single calm resolution line.
 //
-// Deliberately in the site's handwritten accent font (Caveat, already
-// introduced for the campfire toggle's label) for the chaotic questions —
-// then the resolution line switches to the site's normal calm sans-serif,
-// so the type change itself carries "mess -> clarity" without extra copy.
+// v2 (this version), per Andrew's reference sketch: v1 was a rapid
+// *scattered burst* across the whole stage (~42 chips at random positions,
+// mechanic adapted from the idea of mattdesl's "codevember" day 9 sketch —
+// see git history on this file for that reasoning). Andrew's reference
+// showed something more controlled — one question at a time, a visible
+// downward arrow cueing each drop, landing in the same spot with increasing
+// rotation/spread as the pile grows. That's a simpler mechanic than v1's
+// scatter-placement, not a harder one: no randomized stage-wide positioning
+// needed, just an accumulating fan of rotations anchored to one point.
+//
+// Font swapped from the handwritten Caveat (still used for the campfire
+// toggle's label) to Anton — a bold, condensed, "stamped headline" font
+// that matches the reference's blocky look without needing a distortion
+// filter for texture. Deliberately did NOT reach for the feTurbulence
+// grunge-filter technique explored earlier for the how-we-work icons —
+// that was shelved specifically because distorting edges hurt legibility,
+// and legibility matters even more for sentences than icons.
 export interface Props {
   questions?: string[];
   resolutionHeading?: string;
@@ -57,7 +61,13 @@ const {
 ---
 
 <div class="qpile" data-qpile-root>
-  <div class="qpile-stage" data-qpile-stage aria-hidden="true"></div>
+  <div class="qpile-stage" data-qpile-stage aria-hidden="true">
+    <div class="qpile-arrow" data-qpile-arrow aria-hidden="true">
+      <svg width="20" height="36" viewBox="0 0 20 36" fill="none">
+        <path d="M10 0v27M10 27l-7.5-7.5M10 27l7.5-7.5" stroke="var(--color-accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </div>
+  </div>
 
   <div class="qpile-resolution" data-qpile-resolution>
     <span class="qpile-resolution-dot" aria-hidden="true"></span>
@@ -90,42 +100,20 @@ const {
     }
   }
 
-  /* Each question chip: absolutely positioned by inline top/left percent,
-     rotated + sized by inline custom properties (set per-chip in JS so
-     every burst looks different). `scale` is used as its own standalone
-     CSS property (not transform: scale(...)) specifically so it can
-     transition independently of the rotate() that lives in `transform` —
-     both apply at once with no conflict. */
-  .qchip {
+  .qpile-arrow {
     position: absolute;
-    transform: translate(-50%, -50%) rotate(var(--r, 0deg));
-    scale: 0.35;
-    max-width: 160px;
-    padding: 0.4rem 0.7rem;
-    border-radius: 0.75rem;
-    background: white;
-    border: 1px solid var(--color-line);
-    box-shadow: var(--shadow-card);
-    font-family: 'Caveat', cursive;
-    font-size: var(--fs, 1.1rem);
-    line-height: 1.15;
-    color: var(--color-ink);
-    text-align: center;
+    left: 50%;
+    top: 14%;
+    z-index: 40;
+    transform: translate(-50%, -8px);
     opacity: 0;
-    pointer-events: none;
-    transition: scale 420ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 260ms ease;
+    transition: opacity 200ms ease, transform 200ms ease;
   }
-  .qchip.is-in {
-    scale: var(--s, 1);
+  .qpile-arrow.is-active {
     opacity: 1;
+    transform: translate(-50%, 8px);
   }
-  /* Clearing: reuses the same transition already declared above — just
-     retargets scale/opacity, so no separate transition rule needed. */
-  .qpile-stage.is-clearing .qchip {
-    scale: calc(var(--s, 1) * 0.7);
-    opacity: 0;
-    transition: scale 320ms ease, opacity 320ms ease;
-  }
+
 
   .qpile-resolution {
     position: absolute;
@@ -192,6 +180,55 @@ const {
   }
 </style>
 
+<!-- Deliberately a SEPARATE, global (unscoped) style block: .qchip elements
+     are created client-side via document.createElement, not by Astro's own
+     render — they never get the data-astro-cid attribute Astro's normal
+     scoped-<style> selectors require, so scoping this block would silently
+     match nothing. Confirmed via computed style (position/transform coming
+     back as the browser defaults, none of this actually applying) before
+     splitting it out — this bug predates this session's changes and quietly
+     affected the very first "scattered burst" version too, not just this
+     rewrite. Class names are specific enough (qchip, qpile-*) that going
+     unscoped here is a low collision risk. -->
+<style is:global>
+  /* Each question: bare bold text (no card/border — matches the reference,
+     and keeps it legible; the "distressed" character comes from the font
+     choice + accumulating rotation, not a texture filter). Positioned at a
+     fixed anchor point; --jx/--jy/--r (jitter + rotation, set per-chip in
+     JS, growing with pile index) fan it out from there rather than
+     scattering it across the whole stage. `scale` is its own standalone
+     CSS property (not part of `transform`) specifically so the clearing
+     shrink can transition independently of the rotate/translate that live
+     in `transform` — both animate at once with no conflict. */
+  .qchip {
+    position: absolute;
+    left: 50%;
+    top: 46%;
+    transform: translate(-50%, -50%) translate(var(--jx, 0px), var(--jy, 0px)) rotate(var(--r, 0deg)) translateY(-70px);
+    scale: 0.94;
+    max-width: 260px;
+    font-family: 'Anton', sans-serif;
+    font-size: var(--fs, 1.3rem);
+    line-height: 1.15;
+    color: var(--color-ink);
+    text-align: center;
+    text-wrap: balance;
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 520ms cubic-bezier(0.34, 1.56, 0.64, 1), scale 520ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 260ms ease;
+  }
+  .qchip.is-in {
+    scale: 1;
+    opacity: 1;
+    transform: translate(-50%, -50%) translate(var(--jx, 0px), var(--jy, 0px)) rotate(var(--r, 0deg));
+  }
+  .qpile-stage.is-clearing .qchip {
+    scale: 0.7;
+    opacity: 0;
+    transition: scale 320ms ease, opacity 320ms ease;
+  }
+</style>
+
 <script define:vars={{ questions }}>
   function shuffle(input) {
     const arr = input.slice();
@@ -204,79 +241,84 @@ const {
 
   document.querySelectorAll('[data-qpile-root]').forEach((root) => {
     const stage = root.querySelector('[data-qpile-stage]');
+    const arrow = root.querySelector('[data-qpile-arrow]');
     const resolution = root.querySelector('[data-qpile-resolution]');
     const replayBtn = root.querySelector('[data-qpile-replay]');
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const CHIP_COUNT = reduceMotion ? 10 : 42;
-    const SPAWN_DELAY_MIN = reduceMotion ? 0 : 40;
-    const SPAWN_DELAY_MAX = reduceMotion ? 0 : 95;
+    const CHIP_COUNT = reduceMotion ? 4 : 8;
+    const STEP_DELAY = 820; // gap between one chip settling and the next arrow cue starting
+    const ARROW_LEAD = 260; // how long the arrow shows before the chip actually drops
 
-    let spawnTimer = null;
-    let clearTimer = null;
+    let timer = null;
     let runToken = 0;
 
-    function buildPool() {
-      const pool = [];
-      let src = shuffle(questions);
-      while (pool.length < CHIP_COUNT) {
-        if (!src.length) src = shuffle(questions);
-        pool.push(src.pop());
-      }
-      return pool;
-    }
-
-    function spawnChip(text) {
+    // Rotation/spread grows with pile index — early chips land close to
+    // upright near-centre, later ones fan out wider, matching the
+    // reference's 3-stage progression (1 upright question -> a loose
+    // stack -> a wide fanned pile) rather than a flat random scatter.
+    function spawnChip(text, index) {
       const chip = document.createElement('div');
       chip.className = 'qchip';
       chip.textContent = text;
-      const rotate = (Math.random() * 34 - 17).toFixed(1);
-      const size = (0.92 + Math.random() * 0.34).toFixed(2);
-      const fontSize = (0.95 + Math.random() * 0.4).toFixed(2);
-      const top = 8 + Math.random() * 76;
-      const left = 6 + Math.random() * 80;
+      const rotateMagnitude = Math.min(4 + index * 2.4, 16);
+      const rotate = ((Math.random() * 2 - 1) * rotateMagnitude).toFixed(1);
+      const jx = ((Math.random() * 2 - 1) * Math.min(index * 7, 70)).toFixed(0);
+      const jy = ((Math.random() * 2 - 1) * Math.min(index * 3.2, 24)).toFixed(0);
+      const fontSize = (1.15 + Math.random() * 0.3).toFixed(2);
       chip.style.setProperty('--r', `${rotate}deg`);
-      chip.style.setProperty('--s', size);
+      chip.style.setProperty('--jx', `${jx}px`);
+      chip.style.setProperty('--jy', `${jy}px`);
       chip.style.setProperty('--fs', `${fontSize}rem`);
-      chip.style.top = `${top}%`;
-      chip.style.left = `${left}%`;
+      chip.style.zIndex = String(10 + index);
       stage.appendChild(chip);
-      // Double rAF so the browser commits the initial (scale: .35, opacity: 0)
-      // state to a frame before the .is-in class flips the transition target —
-      // a same-tick class add wouldn't animate, it'd just jump to the end state.
+      // Double rAF so the browser commits the initial (scale: .94, opacity: 0,
+      // translateY(-70px)) state to a frame before .is-in flips the
+      // transition target — a same-tick class add wouldn't animate, it'd
+      // just jump straight to the end state.
       requestAnimationFrame(() => requestAnimationFrame(() => chip.classList.add('is-in')));
     }
 
     function run() {
       const token = ++runToken;
-      clearTimeout(spawnTimer);
-      clearTimeout(clearTimer);
+      clearTimeout(timer);
       stage.classList.remove('is-clearing');
       resolution.classList.remove('is-visible');
-      stage.innerHTML = '';
+      arrow.classList.remove('is-active');
+      stage.querySelectorAll('.qchip').forEach((c) => c.remove());
 
-      const pool = buildPool();
+      const pool = shuffle(questions).slice(0, CHIP_COUNT);
       let i = 0;
 
-      function spawnNext() {
-        if (token !== runToken) return; // superseded by a newer run() call
+      function step() {
+        if (token !== runToken) return;
         if (i >= pool.length) {
-          clearTimer = setTimeout(() => {
+          timer = setTimeout(() => {
             if (token !== runToken) return;
             stage.classList.add('is-clearing');
             setTimeout(() => {
               if (token !== runToken) return;
               resolution.classList.add('is-visible');
             }, 380);
-          }, 500);
+          }, 550);
           return;
         }
-        spawnChip(pool[i]);
-        i++;
-        const delay = SPAWN_DELAY_MIN + Math.random() * (SPAWN_DELAY_MAX - SPAWN_DELAY_MIN);
-        spawnTimer = setTimeout(spawnNext, delay);
+        if (reduceMotion) {
+          spawnChip(pool[i], i);
+          i++;
+          step();
+          return;
+        }
+        arrow.classList.add('is-active');
+        timer = setTimeout(() => {
+          if (token !== runToken) return;
+          arrow.classList.remove('is-active');
+          spawnChip(pool[i], i);
+          i++;
+          timer = setTimeout(step, STEP_DELAY);
+        }, ARROW_LEAD);
       }
-      spawnNext();
+      step();
     }
 
     replayBtn.addEventListener('click', run);

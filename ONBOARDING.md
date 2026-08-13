@@ -1,6 +1,6 @@
 # Vandalist site — onboarding / continuity guide
 
-Snapshot generated 2026-08-12. This is a "where we left off" briefing, not a
+Snapshot generated 2026-08-13. This is a "where we left off" briefing, not a
 live sync — if you're reading this a while after it was written, check git
 log for anything more recent.
 
@@ -212,22 +212,46 @@ about it, don't just pick one.
   accent font already used for the campfire toggle's label) for a
   scrawled/anxious feel; the resolution line ("We handle all of this for
   you.") switches to the site's normal type, so the font change itself
-  carries "mess → clarity". **Andrew's only seen it once so far —
-  reaction was "looks like a good start" before wrapping for the night,
-  not yet a decision on count/timing/wording/integration.** Pick this up
-  first next session; don't assume "good start" means it's ready to fold
-  into the real page yet — ask what specifically he wants adjusted before
-  changing it blind.
+  carries "mess → clarity". Andrew's initial reaction was "looks like a
+  good start" but wanted the mechanic itself changed, not just tuned —
+  see v2 below.
+- **Question pile v2 — mechanic rebuilt per a reference sketch Andrew
+  supplied, now live at `/question-pile-demo`.** v1's scattered burst
+  (~42 chips at random positions all over the stage) wasn't what he had
+  in mind — his sketch showed one question at a time, a downward arrow
+  cueing each drop, landing with rotation that fans out more as the pile
+  grows, all in one spot. That's a simpler mechanic than v1's scatter-
+  placement, not a harder one. Font switched Caveat → Anton (new
+  `@fontsource/anton` dependency) for the reference's bold "stamped
+  headline" look — no distortion/grunge filter for texture, since that
+  hurt legibility when tried on the how-we-work icons earlier and text is
+  even more sensitive to that than icons were.
+  - **Found and fixed a real bug while verifying — predates v2, affected
+    v1 the whole time too, not a regression from this rebuild.** `.qchip`
+    elements are created client-side via `document.createElement`, so
+    they never get the `data-astro-cid` attribute Astro's scoped
+    `<style>` selectors require — the scoped rules were silently matching
+    nothing, confirmed via computed style coming back as plain browser
+    defaults (`position: static`, `transform: none`) instead of anything
+    the CSS declared. Split those rules into a separate
+    `<style is:global>` block so the plain class selectors actually
+    match. Worth remembering for any *other* component that creates DOM
+    nodes via JS rather than Astro's own template rendering — same trap
+    applies.
+  - **Andrew hasn't seen v2 yet** — this was built and shipped at the very
+    end of a session on his "wrap up" cue, no feedback round yet. Don't
+    assume it's right; open with showing him `/question-pile-demo` fresh
+    rather than assuming last session's "good start" carries over to a
+    mechanic that changed underneath it.
 
 ## Known open items
 
-- **Top of the list for next session:** the question-pile concept at
-  `/question-pile-demo` (see above) — Andrew said "looks like a good
-  start" and wrapped for the night. Open with "what would you like
-  adjusted?" (count/density, timing, wording, the resolution message)
-  before touching the code, then integrate into
-  `google-social-ads.astro`'s empty hero slot once he's happy, following
-  the same demo→feedback→integrate flow the campfire toggle went through.
+- **Top of the list for next session:** show Andrew question-pile v2 at
+  `/question-pile-demo` (see above) — he hasn't seen this rebuilt version
+  yet. Open with that, not with an assumption it's ready. Once he's happy
+  with the mechanic, integrate into `google-social-ads.astro`'s empty hero
+  slot, following the same demo→feedback→integrate flow the campfire
+  toggle went through.
 - The 1024px-pinch-point text-overflow on Google Ads' "Our approach"
   cards (see above) — not fixed, low priority, only revisit if Andrew
   actually spots it or asks for a pass on tablet widths specifically.

@@ -1,6 +1,6 @@
 # Vandalist site — onboarding / continuity guide
 
-Snapshot generated 2026-08-13. This is a "where we left off" briefing, not a
+Snapshot generated 2026-08-14. This is a "where we left off" briefing, not a
 live sync — if you're reading this a while after it was written, check git
 log for anything more recent.
 
@@ -259,6 +259,42 @@ about it, don't just pick one.
     "This is pretty good thanks. Let me ponder and come back with proper
     feedback." — a genuinely positive but *not yet final* signal. He has
     not given specific follow-up notes yet.
+- **Google Ads hero height matched to Home's, plus two spacing/copy fixes
+  — all live.** Andrew measured (on his own screen) Google Ads' hero+nav
+  at 736px vs. Home's 706px and asked for a "universal hero rule."
+  - Root causes, found by measuring both pages at 1440px rather than
+    guessing: (1) `QuestionPile`'s `.qpile-stage` had grown to 480px tall
+    in an earlier session (vs. the text column beside it at 370px) —
+    trimmed to 370px/280px (desktop/mobile) to match. (2) Google Ads' H1
+    is ~60% longer than Home's and still wraps to 3 lines at any
+    reasonable column width within the two-column hero, so its text
+    column is inherently 370px tall vs. Home's 322px.
+  - **Not a reusable "universal rule" yet — a page-specific number.**
+    Rather than reuse Home/how-we-work's literal `lg:py-32`, which would
+    have made the overshoot worse, this page's hero padding was
+    hand-tuned to a custom `lg:py-[104px]` specifically to land on
+    Home's exact 578px/706px total given its taller content. **Flagged
+    to Andrew but not yet resolved:** if a future page's H1 is long
+    enough to wrap differently, this exact padding number won't
+    transfer — there's no shared component/utility enforcing hero
+    height sitewide yet, just consistent manual measurement per page.
+    Worth deciding later whether that's worth building (e.g. a `Hero`
+    wrapper component) once there are more service pages to compare.
+  - Merged the "What's included" Plan/Build/Improve labels from a bold
+    heading + separate small description into one small sentence (e.g.
+    "**Plan:** We research and plan with purpose.") per Andrew's
+    annotated screenshot example.
+  - **Real bug caught from a follow-up screenshot, not eyeballing:**
+    the service-cards section right after the hero had only
+    `pb-16 md:pb-20` and no top padding, so it sat hard against the
+    hero's colored band with zero gap — looked broken. Andrew's first
+    phrasing of this ("no margin against the hero border... stay
+    attached") was initially misread as *confirming* the flush
+    attachment was correct; he clarified it was the opposite. Fixed
+    with `pt-16 md:pt-20` (matching this page's own established
+    `pb-16 md:pb-20` rhythm, not Home's literal `pt-24`), giving an 80px
+    gap, verified by measuring the actual content's top offset (not the
+    padded `<section>` box, which reports 0 either way).
 
 ## Known open items
 
@@ -268,6 +304,17 @@ about it, don't just pick one.
   wanting to think it over first. Ask what he wants adjusted rather than
   assuming "pretty good" means it's finished — he's explicitly still
   deciding, this is a genuinely open thread, not a wrap-up formality.
+- **The "universal hero rule" Andrew asked for isn't actually a shared
+  rule yet** — Google Ads' hero now visually matches Home's height, but
+  only via a hand-tuned page-specific padding value (`lg:py-[104px]`)
+  compensating for its longer H1. This was surfaced to Andrew but he
+  hasn't responded on it yet. If a future service page's hero content
+  doesn't fit Home's budget either, the same manual measure-and-tune
+  process will be needed again unless a real shared solution (shorter
+  headlines by convention, or a `Hero` component that adapts padding to
+  content) gets decided on. Worth raising again once more service pages
+  exist to compare against, not something to silently keep patching
+  page-by-page.
 - The 1024px-pinch-point text-overflow on Google Ads' "Our approach"
   cards (see above) — not fixed, low priority, only revisit if Andrew
   actually spots it or asks for a pass on tablet widths specifically.

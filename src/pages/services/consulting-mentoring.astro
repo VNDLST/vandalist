@@ -1,0 +1,255 @@
+---
+// Third of 4-5 service pages, built from Andrew's supplied mockup ("get a
+// start on" — first-pass template, not final). Nav, CtaBand and Footer are
+// the site's shared chrome and untouched here per Andrew's instruction.
+//
+// This mockup's hero already had its 4 cards correctly below the hero (the
+// marketing-support.astro mockup didn't — see that file's note). Second
+// hero column deliberately left EMPTY per Andrew, same as
+// marketing-support.astro — see that file for the full reasoning.
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import SectionHeading from "../../components/SectionHeading.astro";
+import PageHeading from "../../components/PageHeading.astro";
+import Eyebrow from "../../components/Eyebrow.astro";
+import CadenceSteps from "../../components/CadenceSteps.astro";
+
+const base = import.meta.env.BASE_URL;
+
+// --- Section 1: Service cards ---
+const services = [
+  {
+    title: "Strategic advice",
+    text: "Clarity on priorities, direction, and next steps.",
+    icon: '<path d="M12 3a9 9 0 1 0 9 9M21 3l-9 9M15 3h6v6" stroke-linecap="round" stroke-linejoin="round"/>',
+  },
+  {
+    title: "Mentoring support",
+    text: "Guidance for internal marketers and growing teams.",
+    icon: '<circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.6 3.1-6.3 7-6.3s7 2.7 7 6.3"/>',
+  },
+  {
+    title: "Workshops & reviews",
+    text: "Structured sessions to solve specific problems.",
+    icon: '<path d="M4 5h16v10H9l-4 4v-4H4z" stroke-linejoin="round"/>',
+  },
+  {
+    title: "Independent perspective",
+    text: "Outside input without agency theatre.",
+    icon: '<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z" stroke-linejoin="round"/><circle cx="12" cy="12" r="3"/>',
+  },
+];
+
+// --- Section 2: Our approach — left: eyebrow/heading/paragraph + 4-point
+// checklist (same pattern used across the other service pages). Right: a
+// flat list of 4 icon+title+description rows — a simpler variant of
+// google-social-ads.astro's grouped-phases layout, since this mockup
+// doesn't group its 4 items under any higher-level phase headings. ---
+const approachPoints = [
+  { text: "Practical, not theoretical", icon: '<path d="M4 19h16" stroke-linecap="round"/><path d="M6 19V9l6-4 6 4v10" stroke-linejoin="round"/>' },
+  { text: "Honest outside perspective", icon: '<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z" stroke-linejoin="round"/><circle cx="12" cy="12" r="3"/>' },
+  { text: "Built around your context", icon: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3" stroke-linecap="round" stroke-linejoin="round"/>' },
+  { text: "Designed to leave your team stronger", icon: '<circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9" stroke-linecap="round" stroke-linejoin="round"/>' },
+];
+const approachItems = [
+  {
+    title: "Strategic sounding board",
+    text: "Talk through ideas, challenges, and decisions with an experienced marketing partner.",
+    icon: '<path d="M4 5h16v10H9l-4 4v-4H4z" stroke-linejoin="round"/><path d="M9.5 8.5a2.5 2.5 0 1 1 3 2.4c-.6.2-1 .7-1 1.3" /><circle cx="11.5" cy="14.2" r=".4" fill="currentColor" stroke="none"/>',
+  },
+  {
+    title: "One-to-one mentoring",
+    text: "Regular mentoring for internal marketers and growing teams who want support.",
+    icon: '<circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.6 3.1-6.3 7-6.3s7 2.7 7 6.3"/>',
+  },
+  {
+    title: "Team workshops",
+    text: "Focused, collaborative sessions to solve problems and build shared understanding.",
+    icon: '<circle cx="9" cy="8" r="3"/><path d="M2.5 19c0-3 2.9-5.3 6.5-5.3s6.5 2.3 6.5 5.3"/><path d="M16 8.3a2.6 2.6 0 1 1 0-5.1"/><path d="M15 13.8c2.9.5 5 2.5 5 5.2"/>',
+  },
+  {
+    title: "Review & recommendations",
+    text: "Objective review of plans, campaigns, or strategy with clear, practical recommendations.",
+    icon: '<rect x="6" y="4" width="12" height="16" rx="2"/><path d="M9 4h6v2a1 1 0 0 1-1 1H10a1 1 0 0 1-1-1V4z"/><path d="M9 13l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/>',
+  },
+];
+
+// --- Section 3: Situations we often help with ---
+const situations = [
+  { title: "Need clearer priorities?", text: "We help cut through competing ideas and focus on what matters next.", icon: '<path d="M4 7h16M4 12h10M4 17h6" stroke-linecap="round"/>' },
+  { title: "Internal marketer needs support?", text: "We provide mentoring, feedback, and experienced perspective.", icon: '<circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.6 3.1-6.3 7-6.3s7 2.7 7 6.3"/>' },
+  { title: "Campaign or plan needs review?", text: "We assess the approach and recommend practical improvements.", icon: '<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.5-4.5" stroke-linecap="round"/>' },
+  { title: "Team capability needs lifting?", text: "We help build confidence, knowledge, and useful ways of working.", icon: '<path d="M4 19h16" stroke-linecap="round"/><path d="M4 15l5-5 4 3 6-7" stroke-linecap="round" stroke-linejoin="round"/>' },
+];
+
+// --- Section 4: How this usually works ---
+const processSteps = [
+  { num: "01", title: "Understand the situation", text: "We listen, ask good questions, and get to the heart of it.", icon: '<path d="M4 5h16v10H9l-4 4v-4H4z" stroke-linejoin="round"/>' },
+  { num: "02", title: "Recommend a path forward", text: "We share clear options and practical recommendations.", icon: '<path d="M4 6h16M4 12h16M4 18h16"/><circle cx="8" cy="6" r="1.6" fill="currentColor"/><circle cx="16" cy="12" r="1.6" fill="currentColor"/><circle cx="10" cy="18" r="1.6" fill="currentColor"/>' },
+  { num: "03", title: "Support action and decisions", text: "We help you move forward with confidence.", icon: '<circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9" stroke-linecap="round" stroke-linejoin="round"/>' },
+  { num: "04", title: "Review, refine, and build confidence", text: "We reflect, adjust, and help you keep improving.", icon: '<path d="M4 21V4" stroke-linecap="round"/><path d="M4 4h12l-2.5 3.5L18 11H4" stroke-linejoin="round"/>' },
+];
+
+// --- Section 5a: Relevant experience ---
+const experience = [
+  { title: "University mentoring", text: "Supporting university students and emerging marketers through industry mentoring.", icon: '<path d="M2 8l10-4 10 4-10 4-10-4z" stroke-linejoin="round"/><path d="M6 10v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5" /><path d="M22 8v6" stroke-linecap="round"/>' },
+  { title: "Business mentoring", text: "Providing practical guidance for business owners and marketing managers.", icon: '<rect x="3" y="7" width="18" height="12" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>' },
+  { title: "Strategic review work", text: "Helping organisations assess plans, priorities, and capability gaps.", icon: '<rect x="6" y="4" width="12" height="16" rx="2"/><path d="M9 4h6v2a1 1 0 0 1-1 1H10a1 1 0 0 1-1-1V4z"/><path d="M9 13l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/>' },
+];
+
+// --- Section 5b: Who it's for ---
+const audiences = [
+  { title: "Business owners", text: "who need informed marketing guidance.", icon: '<circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.6 3.1-6.3 7-6.3s7 2.7 7 6.3"/>' },
+  { title: "Internal marketing managers", text: "who want a sounding board.", icon: '<circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.6 3.1-6.3 7-6.3s7 2.7 7 6.3"/>' },
+  { title: "Growing teams", text: "building capability and confidence.", icon: '<circle cx="9" cy="8" r="3"/><path d="M2.5 19c0-3 2.9-5.3 6.5-5.3s6.5 2.3 6.5 5.3"/><path d="M16 8.3a2.6 2.6 0 1 1 0-5.1"/><path d="M15 13.8c2.9.5 5 2.5 5 5.2"/>' },
+];
+---
+<Layout title="Consulting & Mentoring" description="Practical marketing advice, mentoring, and outside perspective.">
+  <div class="bg-[var(--color-paper)]">
+    <Header currentPage="/services/consulting-mentoring" />
+
+    <!-- Section 0: Hero -->
+    <section class="max-w-7xl mx-auto px-6 md:px-10 pt-8 md:pt-12 pb-16 md:pb-20">
+      <div class="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-10 items-center">
+        <div>
+          <PageHeading as="h1" class="mb-6">Practical marketing advice, mentoring, and outside perspective</PageHeading>
+          <p class="text-lg text-[var(--color-slate)] mb-10">
+            We help business owners, internal marketers, and growing teams make clearer decisions, build confidence, and move forward with practical support.
+          </p>
+          <a
+            href={`${base}/contact`}
+            class="inline-flex items-center gap-4 rounded-2xl bg-[var(--color-paper)] border border-[var(--color-line)] px-8 py-5 text-lg text-[var(--color-ink)] hover:border-[var(--color-slate)] transition-colors"
+          >
+            <span
+              class="w-9 h-9 rounded-full shrink-0 ring-2 ring-white"
+              style="background: var(--gradient-orb); box-shadow: var(--shadow-orb);"
+            ></span>
+            Book a mentoring call
+          </a>
+        </div>
+
+        <!-- Deliberately empty — see frontmatter note. -->
+        <div class="hidden lg:block" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <!-- Section 1: Service cards -->
+    <section class="max-w-7xl mx-auto px-6 md:px-10 pb-16 md:pb-20">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        {services.map((service) => (
+          <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6">
+            <span class="inline-flex items-center justify-center w-11 h-11 rounded-lg bg-[var(--color-accent-soft)] text-[var(--color-accent)] mb-4">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={service.icon} />
+            </span>
+            <p class="font-semibold text-[var(--color-ink)] mb-1.5">{service.title}</p>
+            <p class="text-sm text-[var(--color-slate)] leading-relaxed">{service.text}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  </div>
+
+  <!-- Section 2: Our approach — bleed-wider band -->
+  <div class="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-16 pb-16 md:pb-20">
+    <div class="rounded-[var(--radius-card)] bg-[var(--color-paper-dim)] p-6 md:p-10">
+      <div class="max-w-7xl mx-auto grid lg:grid-cols-[minmax(0,34%)_minmax(0,66%)] gap-10 items-start">
+        <div>
+          <Eyebrow class="mb-3">Our approach</Eyebrow>
+          <h2 class="text-2xl md:text-3xl font-semibold text-[var(--color-ink)] mb-4">Advice that helps you think more clearly and act with confidence</h2>
+          <p class="text-[var(--color-slate)] mb-6 max-w-md">
+            Good marketing starts with good thinking. We bring experience, honesty, and practical ideas to help you make better decisions and move forward.
+          </p>
+          <ul class="space-y-3">
+            {approachPoints.map((point) => (
+              <li class="flex items-center gap-3">
+                <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-white text-[var(--color-accent)] shrink-0 [box-shadow:var(--shadow-card)]">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={point.icon} />
+                </span>
+                <span class="text-sm text-[var(--color-ink)]">{point.text}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="space-y-4">
+          {approachItems.map((item) => (
+            <div class="rounded-xl border border-[var(--color-line)] bg-white p-5 flex items-start gap-4">
+              <span class="inline-flex items-center justify-center w-11 h-11 rounded-lg bg-[var(--color-accent-soft)] text-[var(--color-accent)] shrink-0">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={item.icon} />
+              </span>
+              <div>
+                <p class="font-semibold text-[var(--color-ink)] mb-1">{item.title}</p>
+                <p class="text-sm text-[var(--color-slate)] leading-relaxed">{item.text}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 3: Situations we often help with -->
+  <section class="max-w-7xl mx-auto px-6 md:px-10 pb-16 md:pb-20">
+    <Eyebrow class="mb-8">Situations we often help with</Eyebrow>
+    <div class="grid sm:grid-cols-2 border-t border-l border-[var(--color-line)] rounded-[var(--radius-card)] overflow-hidden">
+      {situations.map((item) => (
+        <div class="p-6 md:p-8 border-b border-r border-[var(--color-line)] flex items-start gap-4">
+          <span class="inline-flex items-center justify-center w-11 h-11 rounded-lg bg-[var(--color-accent-soft)] text-[var(--color-accent)] shrink-0">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={item.icon} />
+          </span>
+          <div>
+            <p class="font-semibold text-[var(--color-ink)] mb-1">{item.title}</p>
+            <p class="text-sm text-[var(--color-slate)] leading-relaxed">{item.text}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Section 4: How this usually works -->
+  <section class="max-w-7xl mx-auto px-6 md:px-10 pb-16 md:pb-20">
+    <SectionHeading
+      eyebrow="How this usually works"
+      heading="A simple process for getting unstuck"
+    />
+    <CadenceSteps
+      steps={processSteps}
+      gridClass="sm:grid-cols-2 lg:grid-cols-4"
+      connectorBreakpoint="lg"
+    />
+  </section>
+
+  <!-- Section 5: Relevant experience + Who it's for -->
+  <section class="max-w-7xl mx-auto px-6 md:px-10 pb-20 md:pb-28">
+    <Eyebrow class="mb-6">Relevant experience</Eyebrow>
+    <div class="grid sm:grid-cols-3 gap-5 mb-14">
+      {experience.map((item) => (
+        <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6">
+          <span class="inline-flex items-center justify-center w-11 h-11 rounded-lg bg-[var(--color-accent-soft)] text-[var(--color-accent)] mb-4">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={item.icon} />
+          </span>
+          <p class="font-semibold text-[var(--color-ink)] mb-1.5">{item.title}</p>
+          <p class="text-sm text-[var(--color-slate)] leading-relaxed">{item.text}</p>
+        </div>
+      ))}
+    </div>
+
+    <Eyebrow class="mb-6">Who it's for</Eyebrow>
+    <div class="grid sm:grid-cols-3 gap-5">
+      {audiences.map((item) => (
+        <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6">
+          <span class="inline-flex items-center justify-center w-11 h-11 rounded-lg bg-[var(--color-accent-soft)] text-[var(--color-accent)] mb-4">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={item.icon} />
+          </span>
+          <p class="font-semibold text-[var(--color-ink)] mb-1.5">{item.title}</p>
+          <p class="text-sm text-[var(--color-slate)] leading-relaxed">{item.text}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <CtaBand />
+  <Footer />
+</Layout>

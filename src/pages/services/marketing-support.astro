@@ -1,0 +1,385 @@
+---
+// Second of 4-5 service pages, built from Andrew's supplied mockup ("get a
+// start on" — first-pass template, not final). Nav, CtaBand and Footer are
+// the site's shared chrome and untouched here per Andrew's instruction.
+//
+// Hero: the supplied mockup had this page's 4 service cards INSIDE the hero
+// itself, above the fold with the H1/paragraph/CTA — a mockup error per
+// Andrew ("that is an error"), fixed here by moving them into their own
+// section below the hero, matching google-social-ads.astro's Section 1
+// pattern exactly (same card markup/tokens, not a new one-off style).
+//
+// Second hero column deliberately left EMPTY (an actual grid cell, not just
+// omitted) per Andrew: "leave the second column in both heroes empty until
+// I come up with a better idea for them." Structured this way (rather than
+// single-column) so a future graphic — like Google Ads' campfire/question-
+// pile — can drop straight in later without a layout rebuild. Plain
+// bg-paper hero (not the darker bg-paper-dim treatment Home/Google Ads use)
+// since neither mockup shows a darker band and there's no graphic here yet
+// to justify one — matches google-social-ads.astro's ORIGINAL hero look
+// before that page got its own graphic.
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import SectionHeading from "../../components/SectionHeading.astro";
+import PageHeading from "../../components/PageHeading.astro";
+import Eyebrow from "../../components/Eyebrow.astro";
+import CadenceSteps from "../../components/CadenceSteps.astro";
+
+const base = import.meta.env.BASE_URL;
+
+// --- Section 1: Service cards (moved out of the hero — see note above) ---
+const services = [
+  {
+    title: "Strategic support",
+    text: "Clear thinking and practical plans that keep your marketing focused and effective.",
+    icon: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/>',
+  },
+  {
+    title: "Content & campaigns",
+    text: "Copy, content, email, ads and assets created and executed to drive real-world results.",
+    icon: '<path d="M17 3.5a2.1 2.1 0 0 1 3 3L8.5 18 4 19l1-4.5L17 3.5z" stroke-linejoin="round"/>',
+  },
+  {
+    title: "Reporting & optimisation",
+    text: "Meaningful reporting and ongoing optimisation to improve performance over time.",
+    icon: '<path d="M4 19h16" stroke-linecap="round"/><path d="M7 19v-6M12 19V8M17 19v-9" stroke-linecap="round"/>',
+  },
+  {
+    title: "Team support",
+    text: "Extra hands and expertise when you need it—seamlessly alongside your internal team.",
+    icon: '<circle cx="9" cy="8" r="3"/><path d="M2.5 19c0-3 2.9-5.3 6.5-5.3s6.5 2.3 6.5 5.3"/><path d="M16 8.3a2.6 2.6 0 1 1 0-5.1"/><path d="M15 13.8c2.9.5 5 2.5 5 5.2"/>',
+  },
+];
+
+// --- Section 2: "How we work" — left: eyebrow/heading/paragraph + 4-point
+// checklist (same pattern as google-social-ads.astro's approachPoints).
+// Right: 4 labelled groups (Plan/Make/Improve/Support), each a vertical
+// stack of small pill items — same pill markup as google-social-ads.astro's
+// phase-items (rounded-xl border bg-white icon+label row), just stacked
+// instead of arranged 3-per-row, since that's what this mockup shows. ---
+const workPoints = [
+  {
+    text: "Flexible scope—support that adapts to your goals, resourcing, and pace.",
+    icon: '<path d="M4 7h16M4 12h10M4 17h6" stroke-linecap="round"/>',
+  },
+  {
+    text: "Strategic and hands-on—big-picture input and practical delivery under one roof.",
+    icon: '<path d="M12 3l8 4v5c0 5-3.4 8.4-8 9.5-4.6-1.1-8-4.5-8-9.5V7l8-4z" stroke-linejoin="round"/>',
+  },
+  {
+    text: "Transparent communication—clear updates, proactive suggestions, and honest advice.",
+    icon: '<path d="M4 5h16v10H9l-4 4v-4H4z" stroke-linejoin="round"/>',
+  },
+  {
+    text: "Focused on useful work—we avoid overhead and red tape, so you get value, not admin.",
+    icon: '<circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9" stroke-linecap="round" stroke-linejoin="round"/>',
+  },
+];
+
+const workGroups = [
+  {
+    label: "Plan",
+    items: [
+      { text: "Strategy input", icon: '<path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3 11.2c.6.4 1 1.1 1 1.8h4c0-.7.4-1.4 1-1.8A6 6 0 0 0 12 3z"/>' },
+      { text: "Planning & roadmaps", icon: '<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M8 3v4M16 3v4"/>' },
+      { text: "Campaign guidance", icon: '<path d="M3 11l17-7-6 17-3-7-8-3z" stroke-linejoin="round"/>' },
+    ],
+  },
+  {
+    label: "Make",
+    items: [
+      { text: "Copy & content", icon: '<path d="M17 3.5a2.1 2.1 0 0 1 3 3L8.5 18 4 19l1-4.5L17 3.5z" stroke-linejoin="round"/>' },
+      { text: "Design & assets", icon: '<circle cx="12" cy="12" r="9"/><path d="M12 3a6 6 0 0 0 0 18c1.4 0 2-.8 2-1.8 0-.5-.2-.9-.5-1.2-.3-.3-.5-.7-.5-1.2 0-1 .8-1.8 1.8-1.8H16a5 5 0 0 0 5-5 8 8 0 0 0-9-7z"/><circle cx="8.5" cy="10.5" r=".9" fill="currentColor" stroke="none"/><circle cx="12" cy="7.5" r=".9" fill="currentColor" stroke="none"/><circle cx="15.5" cy="10.5" r=".9" fill="currentColor" stroke="none"/>' },
+      { text: "Website updates", icon: '<rect x="3" y="4" width="18" height="13" rx="2"/><path d="M3 8h18M8 21h8M12 17v4"/>' },
+      { text: "Email support", icon: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5L12 13l8.5-6.5" stroke-linejoin="round"/>' },
+    ],
+  },
+  {
+    label: "Improve",
+    items: [
+      { text: "Reporting & insights", icon: '<path d="M4 19h16" stroke-linecap="round"/><path d="M7 19v-6M12 19V8M17 19v-9" stroke-linecap="round"/>' },
+      { text: "Optimisation", icon: '<path d="M4 17l5-6 4 4 7-9" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 6h5v5"/>' },
+      { text: "Performance reviews", icon: '<path d="M3 12a9 9 0 1 1 3 6.7"/><path d="M3 17v-4.5H7.5"/>' },
+    ],
+  },
+  {
+    label: "Support",
+    items: [
+      { text: "Ad-hoc requests & fixes", icon: '<path d="M4 5h16v10H9l-4 4v-4H4z" stroke-linejoin="round"/>' },
+      { text: "Coordination & projects", icon: '<circle cx="12" cy="12" r="3"/><path d="M12 3v2.2M12 18.8V21M21 12h-2.2M5.2 12H3M18 6l-1.5 1.5M7.5 16.5L6 18M18 18l-1.5-1.5M7.5 7.5L6 6"/>' },
+      { text: "Automation support", icon: '<circle cx="12" cy="12" r="3"/><path d="M12 3v2.2M12 18.8V21M21 12h-2.2M5.2 12H3M18 6l-1.5 1.5M7.5 16.5L6 18M18 18l-1.5-1.5M7.5 7.5L6 6"/>' },
+      { text: "Feedback & ideas", icon: '<path d="M4 5h16v10H9l-4 4v-4H4z" stroke-linejoin="round"/>' },
+    ],
+  },
+];
+
+// --- Section 3: Our engagement rhythm ---
+const rhythmSteps = [
+  { num: "01", title: "Prioritise", text: "We align on goals, focus areas, and the next most valuable things to tackle.", icon: '<path d="M4 7h16M4 12h10M4 17h6" stroke-linecap="round"/>' },
+  { num: "02", title: "Produce", text: "We get to work—creating, writing, running campaigns, or solving what's on the list.", icon: '<path d="M17 3.5a2.1 2.1 0 0 1 3 3L8.5 18 4 19l1-4.5L17 3.5z" stroke-linejoin="round"/>' },
+  { num: "03", title: "Review", text: "We share progress, review results, and make sure it's heading in the right direction.", icon: '<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.5-4.5" stroke-linecap="round"/>' },
+  { num: "04", title: "Adjust", text: "We refine the plan, shift priorities, and keep improving as things move forward.", icon: '<path d="M4 6h16M4 12h16M4 18h16"/><circle cx="8" cy="6" r="1.6" fill="currentColor"/><circle cx="16" cy="12" r="1.6" fill="currentColor"/><circle cx="10" cy="18" r="1.6" fill="currentColor"/>' },
+];
+
+// --- Section 4: Who it's for ---
+const audiences = [
+  {
+    title: "Lean internal teams",
+    text: "Get specialist support to extend your team and keep essential marketing moving.",
+    icon: '<circle cx="9" cy="8" r="3"/><path d="M2.5 19c0-3 2.9-5.3 6.5-5.3s6.5 2.3 6.5 5.3"/><path d="M16 8.3a2.6 2.6 0 1 1 0-5.1"/><path d="M15 13.8c2.9.5 5 2.5 5 5.2"/>',
+  },
+  {
+    title: "Growing businesses",
+    text: "Access practical strategy and execution to support growth without adding overhead.",
+    icon: '<path d="M4 19h16" stroke-linecap="round"/><path d="M4 15l5-5 4 3 6-7" stroke-linecap="round" stroke-linejoin="round"/>',
+  },
+  {
+    title: "Extra capability when it matters",
+    text: "Scale support up or down for campaigns, launches, busy periods, or key projects.",
+    icon: '<path d="M9 3h6v4H9zM3 9h4v6H3zM17 9h4v6h-4zM9 17h6v4H9z"/><path d="M9 5H7a2 2 0 0 0-2 2v2M15 5h2a2 2 0 0 1 2 2v2M9 19H7a2 2 0 0 1-2-2v-2M15 19h2a2 2 0 0 0 2-2v-2"/>',
+  },
+];
+
+// --- Section 5: How we fit in (Your team / Vandalist / Other suppliers) ---
+// Same 3-column diagram treatment as how-we-work.astro's own "How we fit
+// in" section (dashed-circle centre, inward chevrons, side panels) — just
+// with this page's own labels/content. NOTE: Andrew's mockup showed the
+// "Other suppliers" panel with a purple tint; the site's token system only
+// has --color-good (green) and --color-accent (pink) as tinted-panel
+// colours, no purple, so that panel is neutral white/bordered here instead
+// (matching how-we-work.astro's own "Your team brings" panel, which is
+// the equivalent neutral side there) — flagged to Andrew separately rather
+// than inventing a new one-off colour.
+const yourTeam = [
+  { text: "Knows your business and customers", icon: '<path d="M4 19h16" stroke-linecap="round"/><path d="M6 19V9l6-4 6 4v10" stroke-linejoin="round"/>' },
+  { text: "Sets goals and direction", icon: '<path d="M3 11l17-7-6 17-3-7-8-3z" stroke-linejoin="round"/>' },
+  { text: "Owns the customer relationship", icon: '<circle cx="9" cy="8" r="3"/><path d="M2.5 19c0-3 2.9-5.3 6.5-5.3s6.5 2.3 6.5 5.3"/>' },
+];
+const otherSuppliers = [
+  { text: "Specialist delivery", icon: '<path d="M17 3.5a2.1 2.1 0 0 1 3 3L8.5 18 4 19l1-4.5L17 3.5z" stroke-linejoin="round"/>' },
+  { text: "Technical expertise", icon: '<path d="M12 3l8 4v5c0 5-3.4 8.4-8 9.5-4.6-1.1-8-4.5-8-9.5V7l8-4z" stroke-linejoin="round"/>' },
+  { text: "Platform or channel management", icon: '<rect x="3" y="4" width="18" height="13" rx="2"/><path d="M3 8h18M8 21h8M12 17v4"/>' },
+];
+---
+<Layout title="Marketing Support" description="Flexible marketing support that fits the way your business works.">
+  <div class="bg-[var(--color-paper)]">
+    <Header currentPage="/services/marketing-support" />
+
+    <!-- Section 0: Hero -->
+    <section class="max-w-7xl mx-auto px-6 md:px-10 pt-8 md:pt-12 pb-16 md:pb-20">
+      <div class="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-10 items-center">
+        <div>
+          <PageHeading as="h1" class="mb-6">Flexible marketing support that fits the way your business works</PageHeading>
+          <p class="text-lg text-[var(--color-slate)] mb-10">
+            We provide practical, ongoing marketing capability that can flex between strategy, production, campaigns, reporting, and general support&mdash;without unnecessary lock-in.
+          </p>
+          <a
+            href={`${base}/contact`}
+            class="inline-flex items-center gap-4 rounded-2xl bg-[var(--color-paper)] border border-[var(--color-line)] px-8 py-5 text-lg text-[var(--color-ink)] hover:border-[var(--color-slate)] transition-colors"
+          >
+            <span
+              class="w-9 h-9 rounded-full shrink-0 ring-2 ring-white"
+              style="background: var(--gradient-orb); box-shadow: var(--shadow-orb);"
+            ></span>
+            Book a strategy call
+          </a>
+        </div>
+
+        <!-- Deliberately empty — see frontmatter note. -->
+        <div class="hidden lg:block" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <!-- Section 1: Service cards -->
+    <section class="max-w-7xl mx-auto px-6 md:px-10 pb-16 md:pb-20">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        {services.map((service) => (
+          <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6">
+            <span class="inline-flex items-center justify-center w-11 h-11 rounded-lg bg-[var(--color-accent-soft)] text-[var(--color-accent)] mb-4">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={service.icon} />
+            </span>
+            <p class="font-semibold text-[var(--color-ink)] mb-1.5">{service.title}</p>
+            <p class="text-sm text-[var(--color-slate)] leading-relaxed">{service.text}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  </div>
+
+  <!-- Section 2: How we work — bleed-wider band -->
+  <div class="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-16 pb-16 md:pb-20">
+    <div class="rounded-[var(--radius-card)] bg-[var(--color-paper-dim)] p-6 md:p-10">
+      <div class="max-w-7xl mx-auto grid lg:grid-cols-[minmax(0,34%)_minmax(0,66%)] gap-10 items-start">
+        <div>
+          <Eyebrow class="mb-3">How we work</Eyebrow>
+          <h2 class="text-2xl md:text-3xl font-semibold text-[var(--color-ink)] mb-4">Support shaped around your priorities</h2>
+          <p class="text-[var(--color-slate)] mb-6 max-w-md">
+            You choose the focus. We provide the right mix of thinking, doing, and support to move things forward.
+          </p>
+          <ul class="space-y-3">
+            {workPoints.map((point) => (
+              <li class="flex items-start gap-3">
+                <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-white text-[var(--color-accent)] shrink-0 [box-shadow:var(--shadow-card)]">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={point.icon} />
+                </span>
+                <span class="text-sm text-[var(--color-ink)] pt-1 leading-snug">{point.text}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-x-8 gap-y-8">
+          {workGroups.map((group) => (
+            <div>
+              <p class="text-xs font-semibold tracking-wide uppercase text-[var(--color-accent)] mb-3">{group.label}</p>
+              <div class="space-y-2.5">
+                {group.items.map((item) => (
+                  <div class="rounded-xl border border-[var(--color-line)] bg-white p-2.5 flex items-center gap-2 min-w-0">
+                    <span class="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-[var(--color-accent-soft)] text-[var(--color-accent)] shrink-0">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={item.icon} />
+                    </span>
+                    <span class="text-xs font-medium text-[var(--color-ink)] leading-snug min-w-0">{item.text}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 3: Our engagement rhythm -->
+  <section class="max-w-7xl mx-auto px-6 md:px-10 pb-16 md:pb-20">
+    <SectionHeading
+      eyebrow="Our engagement rhythm"
+      heading="A support rhythm that keeps work moving"
+    />
+    <CadenceSteps
+      steps={rhythmSteps}
+      gridClass="sm:grid-cols-2 lg:grid-cols-4"
+      connectorBreakpoint="lg"
+    />
+    <div class="flex items-center justify-center gap-2 mt-14">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.75">
+        <path d="M12 20s-7-4.5-9.5-9A5 5 0 0 1 12 6a5 5 0 0 1 9.5 5c-2.5 4.5-9.5 9-9.5 9z" stroke-linejoin="round" />
+      </svg>
+      <p class="text-sm italic text-[var(--color-slate-light)]">
+        Ongoing, collaborative, and built to adapt.
+      </p>
+    </div>
+  </section>
+
+  <!-- Section 4: Who it's for -->
+  <section class="max-w-7xl mx-auto px-6 md:px-10 pb-16 md:pb-20">
+    <SectionHeading
+      eyebrow="Who it's for"
+      heading="Useful for teams that need capability without unnecessary complexity"
+    />
+    <div class="grid sm:grid-cols-3 gap-5">
+      {audiences.map((item) => (
+        <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6">
+          <span class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-[var(--color-accent-soft)] text-[var(--color-accent)] mb-4">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={item.icon} />
+          </span>
+          <p class="font-semibold text-[var(--color-ink)] mb-1.5">{item.title}</p>
+          <p class="text-sm text-[var(--color-slate)] leading-relaxed">{item.text}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Section 5: How we fit in -->
+  <div class="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-16 pb-20 md:pb-28">
+    <div class="rounded-[var(--radius-card)] bg-[var(--color-paper-dim)] p-6 md:p-10">
+      <div class="max-w-7xl mx-auto">
+        <SectionHeading
+          eyebrow="How we fit in"
+          heading="Built to work alongside you and your existing partners"
+          subtext="We integrate with your team and suppliers to add value where it's needed most."
+        />
+
+        <div class="grid lg:grid-cols-[1fr_1.3fr_1fr] gap-6 lg:gap-8 items-center">
+          <div class="rounded-[var(--radius-card)] bg-[var(--color-good-soft)] border border-[var(--color-line)]/50 p-6 md:p-7 [box-shadow:var(--shadow-card)]">
+            <p class="text-sm font-semibold text-[var(--color-good)] mb-5">Your team</p>
+            <ul class="space-y-5">
+              {yourTeam.map((item) => (
+                <li class="flex items-start gap-3">
+                  <span class="inline-flex items-center justify-center w-9 h-9 rounded-lg bg-white/70 text-[var(--color-good)] shrink-0">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={item.icon} />
+                  </span>
+                  <span class="text-sm text-[var(--color-ink)] pt-2 leading-snug">{item.text}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="relative flex items-center justify-center py-6">
+            <div class="hidden lg:flex flex-col gap-2.5 absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-10">
+              {[0, 1, 2].map(() => (
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-good)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M8 5l7 7-7 7" />
+                </svg>
+              ))}
+            </div>
+            <div class="hidden lg:flex flex-col gap-2.5 absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-10">
+              {[0, 1, 2].map(() => (
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-slate)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M16 5l-7 7 7 7" />
+                </svg>
+              ))}
+            </div>
+
+            <div class="relative w-full max-w-[300px] lg:max-w-[380px] aspect-square mx-auto">
+              <svg class="absolute inset-0 w-full h-full" viewBox="0 0 280 280" fill="none" aria-hidden="true">
+                <circle cx="140" cy="140" r="120" stroke="var(--color-slate-light)" stroke-width="2" stroke-dasharray="4 6" />
+              </svg>
+              <div
+                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white flex flex-col items-center justify-center text-center px-6 [box-shadow:var(--shadow-card)]"
+                style="width: 72%; height: 72%; border: 8px solid var(--color-paper-dim);"
+              >
+                <span class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-[var(--color-accent-soft)] text-[var(--color-accent)] mb-3">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="9" cy="8" r="3"/><path d="M2.5 19c0-3 2.9-5.3 6.5-5.3s6.5 2.3 6.5 5.3"/><path d="M16 8.3a2.6 2.6 0 1 1 0-5.1"/><path d="M15 13.8c2.9.5 5 2.5 5 5.2"/>
+                  </svg>
+                </span>
+                <p class="text-sm font-semibold text-[var(--color-ink)] mb-1">Vandalist</p>
+                <p class="text-xs text-[var(--color-slate)] leading-snug">Flexible marketing support that adapts to your priorities.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="rounded-[var(--radius-card)] bg-white border border-[var(--color-line)] p-6 md:p-7 [box-shadow:var(--shadow-card)]">
+            <p class="text-sm font-semibold text-[var(--color-slate)] mb-5">Other suppliers</p>
+            <ul class="space-y-5">
+              {otherSuppliers.map((item) => (
+                <li class="flex items-start gap-3">
+                  <span class="inline-flex items-center justify-center w-9 h-9 rounded-lg bg-[var(--color-paper-dim)] text-[var(--color-slate)] shrink-0">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={item.icon} />
+                  </span>
+                  <span class="text-sm text-[var(--color-ink)] pt-2 leading-snug">{item.text}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-8 rounded-xl bg-[var(--color-accent-soft)] px-5 py-4 flex items-center gap-3">
+          <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-[var(--color-accent)] text-white shrink-0">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 13l4 4L19 7" />
+            </svg>
+          </span>
+          <p class="text-sm text-[var(--color-ink)]">
+            Clear communication, aligned goals, and practical support that helps everything work better together.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <CtaBand />
+  <Footer />
+</Layout>

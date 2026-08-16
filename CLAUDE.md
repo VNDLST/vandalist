@@ -135,6 +135,22 @@ URL.
   shadow strings. Note the Tailwind gotcha: `shadow-[var(--x)]` silently
   misparses the `var()` as a shadow *color* and never sets `--tw-shadow` —
   use the raw-property syntax `[box-shadow:var(--x)]` instead.
+- **Second Tailwind gotcha, same root cause:** `border-[var(--color-x)]/NN`
+  (or `bg-`/`text-`/etc. with a trailing `/NN` opacity modifier on an
+  arbitrary `var()` reference) generates no CSS rule at all — Tailwind
+  can't compute an alpha-blended color from a variable it can't read at
+  build time, so it silently emits nothing and the element falls back to
+  the browser/Tailwind default (a plain gray border, in practice). Found
+  2026-08 already shipped in 6 files/22 places across the site (border-
+  [var(--color-line)]/70 etc. — CoverageTable.astro, HowWeWork.astro,
+  CadenceSteps.astro, HelpGrid.astro, how-we-work.astro, marketing-
+  support.astro), all silently broken since they were written, unnoticed
+  because the visual difference (default gray-200 vs. the intended tinted
+  border) is subtle. Fix: use a literal precomputed `rgba(r,g,b,a)` value
+  instead — e.g. `border-[rgba(47,143,78,0.2)]` for `--color-good` at 20%
+  — not the token reference. If a token's hex ever changes, grep for its
+  rgb-equivalent across the codebase and update these by hand; there's no
+  way to keep them derived from the token automatically.
 - Typography goes through shared components, not hand-rolled classes:
   `Eyebrow.astro`, `Heading.astro` (in-page section heading, `as="h1"` on
   pages with no separate hero), `PageHeading.astro` (big page-hero H1),

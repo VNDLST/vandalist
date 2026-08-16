@@ -77,7 +77,7 @@ const rightInsetPx = ((n - 1) / n) * 40 + 56;
        white circles occlude it, so it reads as "connecting" each icon
        without needing pixel-exact math against the column widths. -->
   <div
-    class:list={[connectorVisibility, "absolute border-t-2 border-dotted border-[var(--color-accent)]/40 z-0"]}
+    class:list={[connectorVisibility, "absolute border-t-2 border-dotted border-[rgba(232,70,124,0.4)] z-0"]}
     style={`top: 56px; left: 56px; right: calc(${rightInsetPct}% - ${rightInsetPx}px);`}
     aria-hidden="true"
   ></div>
@@ -87,7 +87,7 @@ const rightInsetPx = ((n - 1) / n) * 40 + 56;
     const pct = coeff * 100;
     return (
       <div class:list={[connectorVisibility, "absolute z-0"]} style={`left: calc(${pct}% + ${px}px); top: 56px; transform: translate(-50%, -50%);`} aria-hidden="true">
-        <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-[var(--color-accent)]/25 blur-md"></div>
+        <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-[rgba(232,70,124,0.25)] blur-md"></div>
         <svg class="relative" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="3">
           <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" />
         </svg>

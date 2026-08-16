@@ -308,7 +308,7 @@ const matrix = [
             </div>
 
             <!-- Vandalist brings -->
-            <div class="rounded-[var(--radius-card)] bg-[var(--color-good-soft)] border border-[var(--color-line)]/50 p-6 md:p-7 [box-shadow:var(--shadow-card)]">
+            <div class="rounded-[var(--radius-card)] bg-[var(--color-good-soft)] border border-[rgba(228,225,220,0.5)] p-6 md:p-7 [box-shadow:var(--shadow-card)]">
               <p class="text-sm font-semibold text-[var(--color-good)] mb-5">Vandalist brings</p>
               <ul class="space-y-5">
                 {vandalistBrings.map((item) => (
@@ -328,7 +328,7 @@ const matrix = [
 
     <!-- Section 4: Decision-making & accountability -->
     <section class="max-w-7xl mx-auto px-6 md:px-10 pb-20 md:pb-28">
-      <div class="grid lg:grid-cols-[34%_66%] gap-x-10 gap-y-10">
+      <div class="grid lg:grid-cols-[minmax(0,34%)_minmax(0,66%)] gap-x-10 gap-y-10">
         <div>
           <Eyebrow class="mb-3">Decision-making & accountability</Eyebrow>
           <Heading class="mb-4">Clear roles. Confident decisions.</Heading>

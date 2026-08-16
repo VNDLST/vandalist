@@ -69,25 +69,25 @@ const icons: Record<string, string> = {
             <div class="px-5 xl:px-6 py-2 flex items-center bg-[var(--color-paper-dim)]">
               <p class="font-semibold text-sm text-[var(--color-ink)]">What matters</p>
             </div>
-            <div class="px-5 xl:px-6 py-2 border-l border-[var(--color-line)]/70 flex items-center bg-[var(--color-paper-dim)]">
+            <div class="px-5 xl:px-6 py-2 border-l border-[rgba(228,225,220,0.7)] flex items-center bg-[var(--color-paper-dim)]">
               <p class="font-semibold text-sm text-[var(--color-slate)]">Internal team</p>
             </div>
-            <div class="relative px-5 xl:px-6 py-2 border-l border-[var(--color-line)]/70 bg-[var(--color-accent-soft)] flex items-center">
+            <div class="relative px-5 xl:px-6 py-2 border-l border-[rgba(228,225,220,0.7)] bg-[var(--color-accent-soft)] flex items-center">
               <span class="absolute top-0 left-0 right-0 h-[2px]" style="background:var(--color-accent)"></span>
               <p class="font-semibold text-sm text-[var(--color-ink)]">Vandalist approach</p>
             </div>
           </div>
 
           {rows.map((row, i) => (
-            <div class:list={["grid grid-cols-[1fr_1.3fr_1.3fr]", i > 0 && "border-t border-[var(--color-line)]/70"]}>
+            <div class:list={["grid grid-cols-[1fr_1.3fr_1.3fr]", i > 0 && "border-t border-[rgba(228,225,220,0.7)]"]}>
               <div class="px-5 xl:px-6 py-2 flex items-center gap-2.5">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.75" set:html={icons[row.icon]} />
                 <p class="font-semibold text-sm text-[var(--color-ink)]">{row.label}</p>
               </div>
-              <div class="px-5 xl:px-6 py-2 border-l border-[var(--color-line)]/70 flex items-center">
+              <div class="px-5 xl:px-6 py-2 border-l border-[rgba(228,225,220,0.7)] flex items-center">
                 <p class="text-sm text-[var(--color-slate)]">{row.internal}</p>
               </div>
-              <div class="relative px-5 xl:px-6 py-2 border-l border-[var(--color-line)]/70 bg-[var(--color-accent-soft)] flex items-center gap-2.5">
+              <div class="relative px-5 xl:px-6 py-2 border-l border-[rgba(228,225,220,0.7)] bg-[var(--color-accent-soft)] flex items-center gap-2.5">
                 <span class="w-4.5 h-4.5 rounded-full flex items-center justify-center shrink-0" style="background:var(--color-accent)">
                   <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
                     <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" />
@@ -103,11 +103,11 @@ const icons: Record<string, string> = {
         <div class="lg:hidden space-y-4">
           {rows.map((row) => (
             <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white overflow-hidden">
-              <div class="flex items-center gap-2.5 px-5 py-4 border-b border-[var(--color-line)]/70">
+              <div class="flex items-center gap-2.5 px-5 py-4 border-b border-[rgba(228,225,220,0.7)]">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.75" set:html={icons[row.icon]} />
                 <p class="font-semibold text-sm text-[var(--color-ink)]">{row.label}</p>
               </div>
-              <div class="px-5 py-4 border-b border-[var(--color-line)]/70">
+              <div class="px-5 py-4 border-b border-[rgba(228,225,220,0.7)]">
                 <p class="text-xs font-medium text-[var(--color-slate)] uppercase tracking-wide mb-1">Internal team</p>
                 <p class="text-sm text-[var(--color-slate)]">{row.internal}</p>
               </div>

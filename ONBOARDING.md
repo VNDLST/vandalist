@@ -1,6 +1,6 @@
 # Vandalist site — onboarding / continuity guide
 
-Snapshot generated 2026-08-14. This is a "where we left off" briefing, not a
+Snapshot generated 2026-08-16. This is a "where we left off" briefing, not a
 live sync — if you're reading this a while after it was written, check git
 log for anything more recent.
 
@@ -296,6 +296,82 @@ about it, don't just pick one.
     gap, verified by measuring the actual content's top offset (not the
     padded `<section>` box, which reports 0 either way).
 
+- **All 5 planned service pages now exist.** The remaining four —
+  Marketing Support, Consulting & Mentoring, Websites & Optimisation, AI
+  Enablement — were built this session from Andrew's supplied mockups,
+  following the pattern google-social-ads.astro established: shared
+  Header/CtaBand/Footer chrome, Eyebrow/Heading/PageHeading/SectionHeading
+  for typography, CadenceSteps for process sections, darker `bg-paper-dim`
+  hero band (matching Home) + an intentionally EMPTY second hero column
+  (grid structure present, nothing in it yet) pending Andrew deciding on a
+  graphic for each — same "leave it empty, reserve the layout" approach as
+  Google Ads' hero originally was before the question-pile concept landed.
+  - **Nav renamed, resolving a long-standing open item:** "Google & Social
+    Media Ads" → "Google Ads", "Integrations & AI Processes" → "AI
+    Enablement". Paths unchanged, label-only, both per Andrew directly.
+  - Marketing Support's mockup had a real error — its 4 service cards were
+    drawn inside the hero itself; moved to their own section below it
+    (matching Google Ads' Section 1 exactly), per Andrew flagging it.
+  - **Per Andrew: "Disregard any new colours or inconsistent designs or
+    elements"** — applied literally, not just to the initial pass. Several
+    mockup elements were simplified rather than reproduced faithfully
+    since nothing like them exists elsewhere on the site: a "center circle
+    + orbiting satellite cards" diagram idea appeared in BOTH the Websites
+    and AI Enablement mockups (3 pillars / 6 AI-helps-here areas) — both
+    rebuilt as plain icon+title+description grids instead of introducing
+    a new radial-diagram visual language; Websites' bespoke browser-chrome
+    wireframe illustration and before/after wireframe thumbnails were
+    dropped entirely rather than hand-building new one-off illustrations;
+    AI Enablement's icons were drawn in a teal/green the token system
+    doesn't have, recoloured to the standard `--color-accent` pink used
+    everywhere else. One exception, kept close to as-drawn: AI
+    Enablement's before/after workflow comparison uses red/green status
+    tags that map exactly onto `--color-bad`/`--color-bad-soft` and
+    `--color-good`/`--color-good-soft` — tokens that already existed but
+    (per global.css's own comment) had nothing using `--color-bad` yet.
+    Genuine reuse of an existing-but-unused token, not a new colour.
+  - Marketing Support's "How we fit in" diagram reuses how-we-work.astro's
+    exact 3-column visual treatment (dashed-circle centre, inward
+    chevrons, tinted side panels) with this page's own labels/content —
+    Andrew's mockup showed a purple tint for the "Other suppliers" panel,
+    which doesn't exist in the token system (only pink/green tinted panels
+    do), so it's neutral white/bordered instead (matching the equivalent
+    neutral panel in how-we-work.astro's own version).
+  - **Found and fixed a real, previously-undetected bug while verifying
+    colours on the new pages — already shipped and wrong on the LIVE
+    site, not something introduced this session.** Any Tailwind color
+    utility using an arbitrary `var()` reference PLUS an opacity modifier
+    (`border-[var(--color-good)]/20`, `bg-[var(--color-accent)]/15`, etc.)
+    silently generates no CSS at all, since Tailwind can't compute an
+    alpha-blended colour from a variable it can't read at build time — the
+    element just falls back to the browser's plain gray default border.
+    This exact pattern was already live in 6 files (`CadenceSteps.astro`,
+    `CoverageTable.astro`, `HelpGrid.astro`, `HowWeWork.astro`,
+    `how-we-work.astro`, and — as first drafted — the new
+    `marketing-support.astro`), 21 total instances, unnoticed because the
+    visual difference (default gray-200 vs. the intended tinted border) is
+    subtle, and because this session's verification approach has mostly
+    been DOM-measurement-based rather than colour-comparison-based. Fixed
+    all of them with literal precomputed `rgba(r,g,b,a)` values instead of
+    the `var()`+opacity combination, and documented the gotcha in
+    CLAUDE.md right next to the existing (related) shadow-var gotcha.
+    **If a base color token's hex ever changes, grep for its rgb-
+    equivalent across the codebase** — these can't stay automatically
+    derived from the token, that's the actual tradeoff of this fix.
+  - **Also found and fixed a second, unrelated pre-existing bug while
+    re-verifying:** how-we-work.astro's "Decision-making & accountability"
+    grid (`lg:grid-cols-[34%_66%]`) had no `minmax(0,...)` protection —
+    the same CSS Grid gotcha already documented in CLAUDE.md, a fourth
+    occurrence of it now, causing the decision-making table to overflow
+    its column by 40px on the live page (not clipped/visible since it had
+    room to bleed into the page's own margin, but genuinely not respecting
+    its declared grid track).
+  - Both prior service pages (Google Ads, and this session's Marketing
+    Support/Consulting & Mentoring) also got the same darker `bg-paper-dim`
+    hero-band treatment applied retroactively, per a direct follow-up
+    request from Andrew ("Both need the darker background in behind the
+    heros please") after seeing them live.
+
 ## Known open items
 
 - **Top of the list for next session:** Andrew is holding specific
@@ -326,18 +402,41 @@ about it, don't just pick one.
   and still useful for isolated testing (the real hero integration only
   renders it at md+, so the demo page is the easiest way to check mobile
   behaviour or iterate without needing the whole page around it).
-- Nav label mismatch: "Google & Social Media Ads" vs. the actual (Google-
-  only) page content — see above, ask Andrew rather than deciding.
+- ~~Nav label mismatch: "Google & Social Media Ads"~~ — resolved, renamed
+  to "Google Ads" (and "Integrations & AI Processes" → "AI Enablement")
+  this session, both per Andrew directly.
 - ~~Google Ads hero still has no decorative graphic~~ — resolved, it's
   the question-pile concept now (see above), live on the real page as of
   this session.
 - Google Ads "Who it's for" description text doesn't semantically match
   its (retitled) cards yet — deliberate, Andrew's rewriting it separately.
-- 3-4 more service pages still to build, following the pattern
-  established by google-social-ads.astro (shared template chrome for
-  scribbled-out sections, CadenceSteps for any process/step sections,
-  `iconContainer`/`iconMode`/`iconExt` props if a future page needs bare
-  icons or a mixed SVG/PNG icon set like this one ended up with).
+- ~~3-4 more service pages still to build~~ — resolved, all 5 planned
+  service pages now exist (see above). **Marketing Support and Consulting
+  & Mentoring's second hero columns are still deliberately empty**,
+  pending Andrew coming up with graphics for them (same status Google Ads
+  was in before question-pile) — don't fill them with a placeholder.
+  Websites & Optimisation and AI Enablement's second hero columns are
+  the same: empty, reserved, not yet decided.
+- **New from this session — worth a dedicated pass once there's time,
+  not urgent:** Andrew's stated end-of-project goal is a documented site
+  style guide, and specifically wants inconsistencies raised rather than
+  silently left. Two concrete candidates surfaced while building these
+  four pages, not fixed (that's a design decision, not a bug):
+  - Three different "what we do" section layouts now exist across the 5
+    service pages — Google Ads groups items under phase headings with
+    icon+description+3-per-row cards; Marketing Support is a 2×2 grid of
+    labelled vertical pill-stacks; Consulting & Mentoring, Websites, and
+    AI Enablement each use a flatter icon+title+description grid/list
+    (three more small variations of each other, not identical either).
+    All conceptually the same idea, several different structures.
+  - The opacity-modifier fix above (see "found and fixed a real bug")
+    also exposed that the site uses a wide, inconsistent range of border/
+    background opacity fractions (`/70, /50, /40, /30, /25, /20, /15`)
+    with no clear system behind which value gets used where — exactly the
+    kind of "too many one-off values" Andrew wants reduced. Worth
+    consolidating into a small fixed set (e.g. just a "hairline" and a
+    "soft-tint" opacity) as part of the eventual style guide, rather than
+    continuing to pick a new fraction per section.
 - Case Studies and Resources pages don't exist yet — expected to be
   blog-style listing pages, not hero pages; design once there's real
   content to work against, not preemptively.

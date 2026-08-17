@@ -1,6 +1,6 @@
 # Vandalist site — onboarding / continuity guide
 
-Snapshot generated 2026-08-16. This is a "where we left off" briefing, not a
+Snapshot generated 2026-08-18. This is a "where we left off" briefing, not a
 live sync — if you're reading this a while after it was written, check git
 log for anything more recent.
 
@@ -372,9 +372,78 @@ about it, don't just pick one.
     request from Andrew ("Both need the darker background in behind the
     heros please") after seeing them live.
 
+- **SEO & AI Search Optimisation page shipped; AI Enablement's hub section
+  rebuilt three times chasing the right pattern — now settled on a shared
+  `SystemDiagram.astro` component, matching Andrew's actual mockup.**
+  Sequence, since it's a real lesson for the "documented style" goal:
+  1. Built `HubDiagram.astro` (connector-line hub-and-spoke — center circle,
+     6 cards, dotted SVG lines) for both AI Enablement's "Where AI actually
+     helps" and the new SEO page's "How SEO and content work together",
+     per Andrew's mockups for both.
+  2. Andrew articulated a durable design principle worth remembering for
+     any future page: **a new visual element only earns its place if it
+     conveys a genuinely different relationship than an existing pattern
+     would — not just the same message via a different tool.** Applying
+     it, we agreed a center-hub-with-6-equal-items diagram doesn't say
+     anything a flat grid doesn't (contrast with how-we-work's "How we fit
+     in", where Vandalist visually sitting *between* two parties is a
+     relationship a grid genuinely can't show). He confirmed reverting
+     both to plain grid.
+  3. **Correction, before that revert even shipped:** Andrew pointed at
+     about.astro's existing "A small team. A complete ecosystem." section
+     (stable 3-column grid, hub + flanking cards, no connector lines) as
+     his actual preferred model — since it already exists, reusing it
+     isn't "a new design element" at all, so it's the most consistent
+     choice under his own rule. `HubDiagram.astro` deleted; its layout
+     extracted from about.astro as shared `SystemDiagram.astro` instead,
+     wired into both pages.
+  4. **Two real bugs found only after Andrew flagged the live page as
+     wrong, both worth the process note:**
+     - First pass forced AI Enablement/SEO's 6 items into about.astro's
+       full 8-slot shape (2 left + 2 right + a card flanking the hub above
+       *and* below) since that's what about.astro itself uses. Andrew's
+       mockup showed the correct shape for a 6-item case is plain 3-left/
+       3-right with the hub alone in the middle — `topCard`/`bottomCard`
+       made optional on `SystemDiagram` (about.astro's own 8-card usage
+       untouched) and both pages corrected to 3+3.
+     - Even after that, Andrew said the live page "looks nothing like the
+       mockup, every section is wrong." Every DOM/content/structure check
+       said otherwise — turned out to be real, just invisible to
+       text-based checks: each card had been collapsed to a single
+       `--color-slate` (muted grey) line, matching about.astro's terser
+       one-line card style, instead of a bold `--color-ink` title +
+       description like the actual mockup shows. That single missing
+       bold-text hierarchy read as the whole page being washed-out next
+       to Andrew's mockup, even though every other section already had
+       correct dark text. Confirmed via `getComputedStyle` color checks
+       (not a screenshot — see standing Browser-pane limitation below),
+       fixed by making `title` optional on `SystemDiagram`'s Card type.
+     **Process lesson:** when a user says "this looks nothing like X" and
+     structural/text checks say it matches, don't conclude the user is
+     wrong — check actual computed colors/weights next. A component can be
+     structurally identical and still look completely different if text
+     hierarchy (bold title vs. muted single line) is off.
+
 ## Known open items
 
-- **Top of the list for next session:** Andrew is holding specific
+- **Top of the list for next session:** after three rounds of fixes to AI
+  Enablement's "Where AI actually helps" (see above — layout shape, then
+  card title/description), Andrew hasn't yet confirmed the latest deploy
+  actually resolved his "looks nothing like the mockup" complaint. Check
+  in on this before assuming it's settled; don't treat the fix as
+  confirmed just because the computed styles now check out.
+- Whether the SEO page's "How SEO and content work together" section
+  (same `SystemDiagram` component, same card-title fix applied
+  proactively even though Andrew's complaint was specifically about AI
+  Enablement) actually looks right to him too hasn't been separately
+  confirmed — worth a quick check next time it comes up.
+- Add to the "documented style guide" candidate list (see existing note
+  below on inconsistent "what we do" section layouts): `SystemDiagram` is
+  now a *fourth* distinct pattern for "central thing + supporting facets"
+  content, alongside the three already-noted "what we do" layouts. Worth
+  folding into the same eventual consolidation pass rather than treating
+  as a separate issue.
+- Separately (unrelated thread, still open): Andrew is holding specific
   feedback on question-pile v4 (live on the real Google Ads hero — see
   above) for a future session, after saying it "looks pretty good" but
   wanting to think it over first. Ask what he wants adjusted rather than

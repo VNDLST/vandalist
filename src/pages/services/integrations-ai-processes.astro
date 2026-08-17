@@ -17,17 +17,18 @@
 //   system and (per global.css's own comment) had nothing using
 //   --color-bad yet. Genuine reuse of an existing-but-unused token, not a
 //   new colour — the one part of this mockup kept close to as-drawn.
-//
-// Follow-up (Andrew, after seeing this live): "Where AI actually helps"
-// was originally simplified from the mockup's center-circle-with-6-
-// orbiting-cards diagram into a plain 2-column grid — Andrew asked for
-// this section specifically to be rebuilt closer to the mockup after all
-// (marking the "What we help you put in place" section below, which
-// stays as originally built, with a cross on his annotated screenshot to
-// show what to leave alone). Now uses the shared HubDiagram component
-// (see src/components/HubDiagram.astro) — extracted rather than
-// hand-rolled here since the SEO & AI Search Optimisation page's "How SEO
-// and content work together" needed the exact same hub-and-spoke pattern.
+// - "Where AI actually helps"'s center-circle-with-6-orbiting-cards
+//   diagram: briefly rebuilt as a hand-rolled hub-and-spoke diagram with
+//   SVG connector lines (see git history — a shared HubDiagram component
+//   was even extracted for it and reused on the SEO page), then Andrew
+//   pointed out an already-live section doing almost exactly this —
+//   about.astro's "A small team. A complete ecosystem." — as his
+//   preferred model, since it says the same "central thing + supporting
+//   facets" idea without needing connector lines at all (a stable
+//   3-column grid, per that section's own original comment). Reusing that
+//   ALREADY-EXISTING pattern (now extracted as SystemDiagram.astro) rather
+//   than the connector-line version, which just said the same thing with
+//   a fussier tool — HubDiagram.astro was removed.
 //
 // Hero gets the darker bg-paper-dim band + empty second column, same
 // reasoning as every other service page.
@@ -39,20 +40,31 @@ import SectionHeading from "../../components/SectionHeading.astro";
 import PageHeading from "../../components/PageHeading.astro";
 import Eyebrow from "../../components/Eyebrow.astro";
 import CadenceSteps from "../../components/CadenceSteps.astro";
-import HubDiagram from "../../components/HubDiagram.astro";
+import SystemDiagram from "../../components/SystemDiagram.astro";
 
 const base = import.meta.env.BASE_URL;
 
 // --- Section 1: Where AI actually helps ---
 const hubIcon = '<circle cx="12" cy="5" r="1.8"/><circle cx="6" cy="12" r="1.8"/><circle cx="18" cy="12" r="1.8"/><circle cx="9" cy="19" r="1.8"/><circle cx="15" cy="19" r="1.8"/><path d="M12 6.8L7.2 10.6M12 6.8l4.8 3.8M7.2 13.4L9 17.4M16.8 13.4L15 17.4" stroke-linecap="round"/>';
-const helpAreas = [
-  { title: "Research & insights", text: "Faster competitor, audience, and market research.", icon: '<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.5-4.5" stroke-linecap="round"/>' },
-  { title: "Ideation & strategy", text: "Generate ideas, angles, and campaign concepts.", icon: '<path d="M12 3a6 6 0 0 0-3 11.2c.6.4 1 1.1 1 1.8h4c0-.7.4-1.4 1-1.8A6 6 0 0 0 12 3z"/><path d="M9 18h6M10 21h4"/>' },
-  { title: "Content drafting", text: "First drafts, outlines, copies, and variations.", icon: '<path d="M17 3.5a2.1 2.1 0 0 1 3 3L8.5 18 4 19l1-4.5L17 3.5z" stroke-linejoin="round"/>' },
-  { title: "Repurposing at scale", text: "Turn one idea into many formats and channels.", icon: '<path d="M3 12a9 9 0 1 1 3 6.7"/><path d="M3 17v-4.5H7.5"/>' },
-  { title: "Reporting & analysis", text: "Summaries, trends, and visualisation support.", icon: '<path d="M4 19h16" stroke-linecap="round"/><path d="M7 19v-6M12 19V8M17 19v-9" stroke-linecap="round"/>' },
-  { title: "Admin & operations", text: "Meeting notes, briefs, transcripts, and more.", icon: '<circle cx="12" cy="12" r="3"/><path d="M12 3v2.2M12 18.8V21M21 12h-2.2M5.2 12H3M18 6l-1.5 1.5M7.5 16.5L6 18M18 18l-1.5-1.5M7.5 7.5L6 6"/>' },
+const helpTop = { sub: "Research & insights" };
+const helpBottom = { sub: "Admin & operations" };
+const helpLeft = [
+  { sub: "Ideation & strategy", align: "end" as const },
+  { sub: "Content drafting", align: "start" as const },
 ];
+const helpRight = [
+  { sub: "Repurposing at scale", align: "start" as const },
+  { sub: "Reporting & analysis", align: "end" as const },
+];
+const helpIcons: Record<string, string> = {
+  "Research & insights": '<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.5-4.5" stroke-linecap="round"/>',
+  "Ideation & strategy": '<path d="M12 3a6 6 0 0 0-3 11.2c.6.4 1 1.1 1 1.8h4c0-.7.4-1.4 1-1.8A6 6 0 0 0 12 3z"/><path d="M9 18h6M10 21h4"/>',
+  "Content drafting": '<path d="M17 3.5a2.1 2.1 0 0 1 3 3L8.5 18 4 19l1-4.5L17 3.5z" stroke-linejoin="round"/>',
+  "Repurposing at scale": '<path d="M3 12a9 9 0 1 1 3 6.7"/><path d="M3 17v-4.5H7.5"/>',
+  "Reporting & analysis": '<path d="M4 19h16" stroke-linecap="round"/><path d="M7 19v-6M12 19V8M17 19v-9" stroke-linecap="round"/>',
+  "Admin & operations": '<circle cx="12" cy="12" r="3"/><path d="M12 3v2.2M12 18.8V21M21 12h-2.2M5.2 12H3M18 6l-1.5 1.5M7.5 16.5L6 18M18 18l-1.5-1.5M7.5 7.5L6 6"/>',
+};
+const withIcon = (c: { sub: string; align?: "start" | "center" | "end" }) => ({ ...c, icon: helpIcons[c.sub] });
 
 // --- Section 2: A practical enablement system your team can use every day ---
 const systemItems = [
@@ -155,7 +167,14 @@ const audiences = [
             AI can support many parts of the marketing process. We focus on the areas that save time, lift quality, and free your team to focus on higher-impact work.
           </p>
         </div>
-        <HubDiagram hubTitle="AI enabled marketing" hubIcon={hubIcon} spokes={helpAreas} />
+        <SystemDiagram
+          hubText="AI enabled marketing"
+          hubIcon={hubIcon}
+          topCard={withIcon(helpTop)}
+          bottomCard={withIcon(helpBottom)}
+          leftColumn={helpLeft.map(withIcon)}
+          rightColumn={helpRight.map(withIcon)}
+        />
       </div>
     </section>
 

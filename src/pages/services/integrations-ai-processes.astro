@@ -45,16 +45,20 @@ import SystemDiagram from "../../components/SystemDiagram.astro";
 const base = import.meta.env.BASE_URL;
 
 // --- Section 1: Where AI actually helps ---
+// 3 left / 3 right, hub alone in the middle — matches Andrew's actual
+// mockup for this page (a plain 3+3 split, not the 2+2+top/bottom split
+// SystemDiagram was first wired up with here — see SystemDiagram.astro's
+// comment on why topCard/bottomCard are optional).
 const hubIcon = '<circle cx="12" cy="5" r="1.8"/><circle cx="6" cy="12" r="1.8"/><circle cx="18" cy="12" r="1.8"/><circle cx="9" cy="19" r="1.8"/><circle cx="15" cy="19" r="1.8"/><path d="M12 6.8L7.2 10.6M12 6.8l4.8 3.8M7.2 13.4L9 17.4M16.8 13.4L15 17.4" stroke-linecap="round"/>';
-const helpTop = { sub: "Research & insights" };
-const helpBottom = { sub: "Admin & operations" };
 const helpLeft = [
-  { sub: "Ideation & strategy", align: "end" as const },
-  { sub: "Content drafting", align: "start" as const },
+  { sub: "Research & insights" },
+  { sub: "Ideation & strategy" },
+  { sub: "Content drafting" },
 ];
 const helpRight = [
-  { sub: "Repurposing at scale", align: "start" as const },
-  { sub: "Reporting & analysis", align: "end" as const },
+  { sub: "Repurposing at scale" },
+  { sub: "Reporting & analysis" },
+  { sub: "Admin & operations" },
 ];
 const helpIcons: Record<string, string> = {
   "Research & insights": '<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.5-4.5" stroke-linecap="round"/>',
@@ -64,7 +68,7 @@ const helpIcons: Record<string, string> = {
   "Reporting & analysis": '<path d="M4 19h16" stroke-linecap="round"/><path d="M7 19v-6M12 19V8M17 19v-9" stroke-linecap="round"/>',
   "Admin & operations": '<circle cx="12" cy="12" r="3"/><path d="M12 3v2.2M12 18.8V21M21 12h-2.2M5.2 12H3M18 6l-1.5 1.5M7.5 16.5L6 18M18 18l-1.5-1.5M7.5 7.5L6 6"/>',
 };
-const withIcon = (c: { sub: string; align?: "start" | "center" | "end" }) => ({ ...c, icon: helpIcons[c.sub] });
+const withIcon = (c: { sub: string }) => ({ ...c, icon: helpIcons[c.sub] });
 
 // --- Section 2: A practical enablement system your team can use every day ---
 const systemItems = [
@@ -170,8 +174,6 @@ const audiences = [
         <SystemDiagram
           hubText="AI enabled marketing"
           hubIcon={hubIcon}
-          topCard={withIcon(helpTop)}
-          bottomCard={withIcon(helpBottom)}
           leftColumn={helpLeft.map(withIcon)}
           rightColumn={helpRight.map(withIcon)}
         />

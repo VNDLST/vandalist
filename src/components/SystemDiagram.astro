@@ -1,11 +1,11 @@
 ---
-// "System diagram": a hub circle + up to 8 supporting cards arranged in a
-// STABLE 3-COLUMN CSS GRID around it (left column, a middle column of
-// [top card, hub, bottom card], right column) — deliberately NO absolute
-// positioning and NO connector lines. Extracted from about.astro's "A
-// small team. A complete ecosystem." section, whose own original comment
-// already stated the reasoning: "stable 3-column grid, no absolute
-// positioning, no connector lines".
+// "System diagram": a hub circle + supporting cards arranged in a STABLE
+// 3-COLUMN CSS GRID around it (left column, a middle column of an
+// optional [top card, hub, bottom card], right column) — deliberately NO
+// absolute positioning and NO connector lines. Extracted from about.astro's
+// "A small team. A complete ecosystem." section, whose own original
+// comment already stated the reasoning: "stable 3-column grid, no
+// absolute positioning, no connector lines".
 //
 // Andrew pointed to that already-live section directly as his preferred
 // model for other pages making a similar "central capability + supporting
@@ -14,6 +14,16 @@
 // out to just be the same message via a different, fussier visual tool.
 // This reuses the pattern that already exists rather than inventing a
 // second way to say the same thing.
+//
+// topCard/bottomCard are OPTIONAL: about.astro's own section has 8 total
+// cards (3 left + 3 right + 1 flanking the hub above + 1 below), but a
+// page with exactly 6 items (3 left + 3 right, hub alone in the middle)
+// is an equally valid shape of this same pattern — don't force a 6-item
+// page into 2+2+top+bottom just to fill slots that don't exist in its
+// content. (Caught after first shipping AI Enablement/SEO with a forced
+// top/bottom split — Andrew's own mockup for AI Enablement showed a plain
+// 3-left/3-right hub-alone arrangement, matching neither the original
+// 6-card flanking-lines HubDiagram nor the forced 2+2+top+bottom split.)
 //
 // Card shadow here is the proper --shadow-card token, not about.astro's
 // own slightly-drifted hardcoded `shadow-[0_10px_24px_-10px_rgba(28,27,26,0.2)]`
@@ -36,8 +46,8 @@ interface Props {
   hubIcon: string;
   leftColumn: Card[];
   rightColumn: Card[];
-  topCard: Card;
-  bottomCard: Card;
+  topCard?: Card;
+  bottomCard?: Card;
   iconMode?: "inline" | "image";
   iconBase?: string;
 }
@@ -53,7 +63,7 @@ const {
 } = Astro.props as Props;
 
 const alignClass: Record<string, string> = { start: "self-start", center: "self-center", end: "self-end" };
-const allCards = [topCard, ...leftColumn, ...rightColumn, bottomCard];
+const allCards = [topCard, ...leftColumn, ...rightColumn, bottomCard].filter((c): c is Card => Boolean(c));
 ---
 <div>
   <!-- Desktop / tablet: stable 3-column grid -->
@@ -76,18 +86,20 @@ const allCards = [topCard, ...leftColumn, ...rightColumn, bottomCard];
     </div>
 
     <div class="flex flex-col items-center gap-8 md:gap-10">
-      <div class="flex items-center gap-3 rounded-xl bg-white p-4 [box-shadow:var(--shadow-card)] w-[80%] min-h-[104px]">
-        {iconMode === "image" ? (
-          <img src={`${iconBase}/${topCard.icon}.png`} alt="" class="w-10 h-10 shrink-0 rounded-lg" />
-        ) : (
-          <span class="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-[var(--color-accent-soft)] text-[var(--color-accent)] shrink-0">
-            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={topCard.icon} />
+      {topCard && (
+        <div class="flex items-center gap-3 rounded-xl bg-white p-4 [box-shadow:var(--shadow-card)] w-[80%] min-h-[104px]">
+          {iconMode === "image" ? (
+            <img src={`${iconBase}/${topCard.icon}.png`} alt="" class="w-10 h-10 shrink-0 rounded-lg" />
+          ) : (
+            <span class="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-[var(--color-accent-soft)] text-[var(--color-accent)] shrink-0">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={topCard.icon} />
+            </span>
+          )}
+          <span class="min-w-0 flex-1">
+            <p class="text-sm text-[var(--color-slate)] leading-snug">{topCard.sub}</p>
           </span>
-        )}
-        <span class="min-w-0 flex-1">
-          <p class="text-sm text-[var(--color-slate)] leading-snug">{topCard.sub}</p>
-        </span>
-      </div>
+        </div>
+      )}
 
       <div
         class="rounded-full bg-white [box-shadow:var(--shadow-panel)] flex flex-col items-center justify-center text-center px-4"
@@ -103,18 +115,20 @@ const allCards = [topCard, ...leftColumn, ...rightColumn, bottomCard];
         <p class="text-xs font-semibold text-[var(--color-ink)] leading-snug">{hubText}</p>
       </div>
 
-      <div class="flex items-center gap-3 rounded-xl bg-white p-4 [box-shadow:var(--shadow-card)] w-[80%] min-h-[104px]">
-        {iconMode === "image" ? (
-          <img src={`${iconBase}/${bottomCard.icon}.png`} alt="" class="w-10 h-10 shrink-0 rounded-lg" />
-        ) : (
-          <span class="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-[var(--color-accent-soft)] text-[var(--color-accent)] shrink-0">
-            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={bottomCard.icon} />
+      {bottomCard && (
+        <div class="flex items-center gap-3 rounded-xl bg-white p-4 [box-shadow:var(--shadow-card)] w-[80%] min-h-[104px]">
+          {iconMode === "image" ? (
+            <img src={`${iconBase}/${bottomCard.icon}.png`} alt="" class="w-10 h-10 shrink-0 rounded-lg" />
+          ) : (
+            <span class="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-[var(--color-accent-soft)] text-[var(--color-accent)] shrink-0">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={bottomCard.icon} />
+            </span>
+          )}
+          <span class="min-w-0 flex-1">
+            <p class="text-sm text-[var(--color-slate)] leading-snug">{bottomCard.sub}</p>
           </span>
-        )}
-        <span class="min-w-0 flex-1">
-          <p class="text-sm text-[var(--color-slate)] leading-snug">{bottomCard.sub}</p>
-        </span>
-      </div>
+        </div>
+      )}
     </div>
 
     <div class="flex flex-col justify-center gap-6 md:gap-8">

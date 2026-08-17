@@ -36,7 +36,16 @@
 // that (iconMode="image") but defaults to inline SVG paths (iconMode=
 // "inline", same convention as CadenceSteps) since most pages don't have
 // a custom icon set to hand.
+//
+// `title` is OPTIONAL: about.astro's own cards are a single terse line
+// (`sub` alone, muted --color-slate, no separate heading) and that stays
+// unchanged. AI Enablement/SEO's cards need a bold --color-ink title plus
+// a supporting description — first shipped wrongly collapsed down to just
+// `sub` (matching about.astro's terse style), which visually read as the
+// whole diagram being washed-out/low-contrast next to the mockup, since
+// every card's main label was muted grey instead of bold dark text.
 interface Card {
+  title?: string;
   sub: string;
   icon: string;
   align?: "start" | "center" | "end";
@@ -79,7 +88,14 @@ const allCards = [topCard, ...leftColumn, ...rightColumn, bottomCard].filter((c)
             </span>
           )}
           <span class="min-w-0 flex-1">
-            <p class="text-sm text-[var(--color-slate)] leading-snug">{card.sub}</p>
+            {card.title ? (
+              <>
+                <p class="font-semibold text-[var(--color-ink)] text-sm mb-0.5">{card.title}</p>
+                <p class="text-xs text-[var(--color-slate)] leading-snug">{card.sub}</p>
+              </>
+            ) : (
+              <p class="text-sm text-[var(--color-slate)] leading-snug">{card.sub}</p>
+            )}
           </span>
         </div>
       ))}
@@ -96,7 +112,14 @@ const allCards = [topCard, ...leftColumn, ...rightColumn, bottomCard].filter((c)
             </span>
           )}
           <span class="min-w-0 flex-1">
-            <p class="text-sm text-[var(--color-slate)] leading-snug">{topCard.sub}</p>
+            {topCard.title ? (
+              <>
+                <p class="font-semibold text-[var(--color-ink)] text-sm mb-0.5">{topCard.title}</p>
+                <p class="text-xs text-[var(--color-slate)] leading-snug">{topCard.sub}</p>
+              </>
+            ) : (
+              <p class="text-sm text-[var(--color-slate)] leading-snug">{topCard.sub}</p>
+            )}
           </span>
         </div>
       )}
@@ -125,7 +148,14 @@ const allCards = [topCard, ...leftColumn, ...rightColumn, bottomCard].filter((c)
             </span>
           )}
           <span class="min-w-0 flex-1">
-            <p class="text-sm text-[var(--color-slate)] leading-snug">{bottomCard.sub}</p>
+            {bottomCard.title ? (
+              <>
+                <p class="font-semibold text-[var(--color-ink)] text-sm mb-0.5">{bottomCard.title}</p>
+                <p class="text-xs text-[var(--color-slate)] leading-snug">{bottomCard.sub}</p>
+              </>
+            ) : (
+              <p class="text-sm text-[var(--color-slate)] leading-snug">{bottomCard.sub}</p>
+            )}
           </span>
         </div>
       )}
@@ -142,7 +172,14 @@ const allCards = [topCard, ...leftColumn, ...rightColumn, bottomCard].filter((c)
             </span>
           )}
           <span class="min-w-0 flex-1">
-            <p class="text-sm text-[var(--color-slate)] leading-snug">{card.sub}</p>
+            {card.title ? (
+              <>
+                <p class="font-semibold text-[var(--color-ink)] text-sm mb-0.5">{card.title}</p>
+                <p class="text-xs text-[var(--color-slate)] leading-snug">{card.sub}</p>
+              </>
+            ) : (
+              <p class="text-sm text-[var(--color-slate)] leading-snug">{card.sub}</p>
+            )}
           </span>
         </div>
       ))}
@@ -175,7 +212,14 @@ const allCards = [topCard, ...leftColumn, ...rightColumn, bottomCard].filter((c)
             </span>
           )}
           <span>
-            <p class="text-sm text-[var(--color-slate)] leading-snug">{card.sub}</p>
+            {card.title ? (
+              <>
+                <p class="font-semibold text-[var(--color-ink)] text-sm mb-0.5">{card.title}</p>
+                <p class="text-xs text-[var(--color-slate)] leading-snug">{card.sub}</p>
+              </>
+            ) : (
+              <p class="text-sm text-[var(--color-slate)] leading-snug">{card.sub}</p>
+            )}
           </span>
         </div>
       ))}

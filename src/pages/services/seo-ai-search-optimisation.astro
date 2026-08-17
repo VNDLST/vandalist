@@ -51,17 +51,19 @@ const landscapeItems = [
 // 3 left / 3 right, hub alone in the middle — same shape as AI
 // Enablement's "Where AI actually helps" (see that page's comment; both
 // were first wired up as a forced 2+2+top/bottom split before Andrew's
-// mockup feedback showed the plain 3+3 split was correct).
+// mockup feedback showed the plain 3+3 split was correct, and both first
+// dropped the bold title + description per card in favour of a single
+// muted-grey line before that too got corrected).
 const workHubIcon = '<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.5-4.5" stroke-linecap="round"/>';
 const workLeft = [
-  { sub: "Topic planning" },
-  { sub: "Technical structure" },
-  { sub: "Measurement & refinement" },
+  { title: "Topic planning", sub: "Build a focused plan around priority topics and intent." },
+  { title: "Technical structure", sub: "Ensure your site is fast, crawlable and easy to understand." },
+  { title: "Measurement & refinement", sub: "Track visibility, learn what works and refine over time." },
 ];
 const workRight = [
-  { sub: "Audience questions" },
-  { sub: "Pages & articles" },
-  { sub: "Internal linking" },
+  { title: "Audience questions", sub: "Understand what your audience is searching for and why." },
+  { title: "Pages & articles", sub: "Create and optimise content that answers and converts." },
+  { title: "Internal linking", sub: "Connect related content to share authority and context." },
 ];
 const workIcons: Record<string, string> = {
   "Topic planning": '<path d="M4 19h16" stroke-linecap="round"/><path d="M6 19V9l6-4 6 4v10" stroke-linejoin="round"/>',
@@ -71,7 +73,7 @@ const workIcons: Record<string, string> = {
   "Pages & articles": '<path d="M17 3.5a2.1 2.1 0 0 1 3 3L8.5 18 4 19l1-4.5L17 3.5z" stroke-linejoin="round"/>',
   "Internal linking": '<path d="M9 15l6-6"/><path d="M11 7l1-1a3.5 3.5 0 0 1 5 5l-1 1"/><path d="M13 17l-1 1a3.5 3.5 0 0 1-5-5l1-1"/>',
 };
-const withWorkIcon = (c: { sub: string }) => ({ ...c, icon: workIcons[c.sub] });
+const withWorkIcon = (c: { title: string; sub: string }) => ({ ...c, icon: workIcons[c.title] });
 
 // --- Section 3: What we work on ---
 const workGroups = [

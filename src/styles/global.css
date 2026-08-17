@@ -66,6 +66,16 @@
     background: var(--color-paper);
     color: var(--color-ink);
     font-family: "Manrope", system-ui, sans-serif;
+    /* Reserve scrollbar space on every page, scrolling or not — otherwise
+       a max-w-7xl mx-auto container (the header nav, page content, etc.)
+       centers against a slightly wider viewport on short pages (no
+       scrollbar) than on tall ones (scrollbar present), shifting the
+       whole layout ~7px left/right depending on page length. Found
+       2026-08-14 after Andrew noticed the nav shifting by "a couple of
+       pixels" between pages — confirmed via getBoundingClientRect, not
+       a Header.astro inconsistency (it's identical markup on every
+       page). */
+    scrollbar-gutter: stable;
   }
 
   h1, h2, h3, h4 {

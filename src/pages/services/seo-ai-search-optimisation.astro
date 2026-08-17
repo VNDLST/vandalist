@@ -1,0 +1,331 @@
+---
+// Third of the 5 planned service pages to be built from a supplied
+// mockup, but the LAST one written (built after Websites/AI Enablement,
+// once Andrew asked for the hub-and-spoke pattern back — see
+// src/components/HubDiagram.astro's own comment for that history). Nav,
+// CtaBand and Footer are the site's shared chrome and untouched here.
+//
+// Per Andrew: the mockup had a white background strip behind "Search
+// visibility now happens in more places" (Section 1) — ignored, that
+// section just uses the standard page background like everywhere else,
+// not a new one-off white band. "How SEO and content work together"
+// (Section 2) explicitly DOES get the darker bg-paper-dim band, per
+// Andrew's direct instruction — same treatment as every hero on the site,
+// just used mid-page here instead.
+//
+// Hero gets the darker bg-paper-dim band + empty second column, same as
+// every other service page.
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import SectionHeading from "../../components/SectionHeading.astro";
+import PageHeading from "../../components/PageHeading.astro";
+import Eyebrow from "../../components/Eyebrow.astro";
+import CadenceSteps from "../../components/CadenceSteps.astro";
+import HubDiagram from "../../components/HubDiagram.astro";
+
+const base = import.meta.env.BASE_URL;
+
+// --- Section 1: The new search landscape ---
+const landscapeItems = [
+  { title: "Search results", text: "Traditional organic rankings remain incredibly important for discovery and consideration.", icon: '<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.5-4.5" stroke-linecap="round"/>' },
+  { title: "AI overviews & snippets", text: "AI-generated overviews and featured snippets pull answers from trusted, well-structured content.", icon: '<path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5L12 3z" stroke-linejoin="round"/><path d="M19 15l.7 2.1 2.1.7-2.1.7-.7 2.1-.7-2.1-2.1-.7 2.1-.7.7-2.1z" stroke-linejoin="round"/>' },
+  { title: "Helpful content", text: "In-depth, original content that solves real problems earns visibility and trust.", icon: '<path d="M6 3h9l3 3v15H6z" stroke-linejoin="round"/><path d="M9 10h6M9 13.5h6M9 17h4"/>' },
+  { title: "Structured pages", text: "Clear information architecture, metadata and schema help search engines understand you.", icon: '<circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v6M12 13l-7 6M12 13l7 6"/>' },
+  { title: "Authority signals", text: "Mentions, links, reviews and brand trust influence how—and where—you appear.", icon: '<path d="M12 3l8 4v5c0 5-3.4 8.4-8 9.5-4.6-1.1-8-4.5-8-9.5V7l8-4z" stroke-linejoin="round"/><path d="M9 12.5l2 2 4-4.5" stroke-linecap="round" stroke-linejoin="round"/>' },
+];
+
+// --- Section 2: How SEO and content work together ---
+const hubIcon = '<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.5-4.5" stroke-linecap="round"/>';
+const workTogether = [
+  { title: "Topic planning", text: "Build a focused plan around priority topics and intent.", icon: '<path d="M4 19h16" stroke-linecap="round"/><path d="M6 19V9l6-4 6 4v10" stroke-linejoin="round"/>' },
+  { title: "Technical structure", text: "Ensure your site is fast, crawlable and easy to understand.", icon: '<path d="M12 3l8 4v5c0 5-3.4 8.4-8 9.5-4.6-1.1-8-4.5-8-9.5V7l8-4z" stroke-linejoin="round"/>' },
+  { title: "Measurement & refinement", text: "Track visibility, learn what works and refine over time.", icon: '<path d="M3 12a9 9 0 1 1 3 6.7"/><path d="M3 17v-4.5H7.5"/>' },
+  { title: "Audience questions", text: "Understand what your audience is searching for and why.", icon: '<path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>' },
+  { title: "Pages & articles", text: "Create and optimise content that answers and converts.", icon: '<path d="M17 3.5a2.1 2.1 0 0 1 3 3L8.5 18 4 19l1-4.5L17 3.5z" stroke-linejoin="round"/>' },
+  { title: "Internal linking", text: "Connect related content to share authority and context.", icon: '<path d="M9 15l6-6"/><path d="M11 7l1-1a3.5 3.5 0 0 1 5 5l-1 1"/><path d="M13 17l-1 1a3.5 3.5 0 0 1-5-5l1-1"/>' },
+];
+
+// --- Section 3: What we work on ---
+const workGroups = [
+  {
+    title: "Strategy & opportunities",
+    icon: '<path d="M12 3l1.6 4.9H19l-4.2 3 1.6 5-4.4-3.2L7.6 16l1.6-5-4.2-3h5.4z" stroke-linejoin="round"/>',
+    items: ["SEO audits & opportunity mapping", "Keyword & intent research", "Content strategy & prioritisation", "Competitor & gap analysis", "Roadmaps aligned to your goals"],
+  },
+  {
+    title: "Content creation & optimisation",
+    icon: '<path d="M17 3.5a2.1 2.1 0 0 1 3 3L8.5 18 4 19l1-4.5L17 3.5z" stroke-linejoin="round"/>',
+    items: ["Topic clusters & content plans", "Landing pages & service pages", "Blog content & thought leadership", "On-page optimisation", "Content refresh & consolidation", "Optimised for AI summaries"],
+  },
+  {
+    title: "Technical & on-page clarity",
+    icon: '<path d="M8 9l-4 3 4 3M16 9l4 3-4 3M13 6l-2 12" stroke-linecap="round" stroke-linejoin="round"/>',
+    items: ["Technical SEO & crawlability", "Site structure & internal linking", "Page speed & Core Web Vitals", "Schema & structured data", "Metadata & title optimisation", "Mobile & UX improvements"],
+  },
+  {
+    title: "Measurement & growth",
+    icon: '<path d="M4 19h16" stroke-linecap="round"/><path d="M7 19v-6M12 19V8M17 19v-9" stroke-linecap="round"/>',
+    items: ["Rank tracking & visibility reporting", "AI overview & snippet tracking", "Organic traffic & engagement", "Conversion tracking & leads", "Insights & ongoing optimisation"],
+  },
+];
+
+// --- Section 4: Momentum builds over time ---
+const journeySteps = [
+  { num: "01", title: "Audit & discover", text: "Uncover opportunities and technical issues holding you back.", icon: '<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.5-4.5" stroke-linecap="round"/>' },
+  { num: "02", title: "Prioritise", text: "Focus on high-impact topics and pages that move the needle.", icon: '<path d="M4 7h16M4 12h10M4 17h6" stroke-linecap="round"/>' },
+  { num: "03", title: "Improve key pages", text: "Optimise existing pages for intent, clarity and conversions.", icon: '<path d="M17 3.5a2.1 2.1 0 0 1 3 3L8.5 18 4 19l1-4.5L17 3.5z" stroke-linejoin="round"/>' },
+  { num: "04", title: "Create helpful content", text: "Build in-depth content that answers real questions.", icon: '<path d="M6 3h9l3 3v15H6z" stroke-linejoin="round"/><path d="M9 10h6M9 13.5h6M9 17h4"/>' },
+  { num: "05", title: "Strengthen connections", text: "Build internal links and topic clusters to build authority.", icon: '<path d="M9 15l6-6"/><path d="M11 7l1-1a3.5 3.5 0 0 1 5 5l-1 1"/><path d="M13 17l-1 1a3.5 3.5 0 0 1-5-5l1-1"/>' },
+  { num: "06", title: "Measure visibility", text: "Track rankings, AI visibility and traffic that matters.", icon: '<path d="M4 19h16" stroke-linecap="round"/><path d="M7 19v-6M12 19V8M17 19v-9" stroke-linecap="round"/>' },
+  { num: "07", title: "Refine & scale", text: "Double down on what works and continuously improve.", icon: '<path d="M3 12a9 9 0 1 1 3 6.7"/><path d="M3 17v-4.5H7.5"/>' },
+];
+
+// --- Section 5: Where this works well ---
+const audiences = [
+  { title: "Service businesses", text: "Generate more qualified enquiries and be found by people ready to buy.", icon: '<path d="M9 3h6v4H9zM3 9h4v6H3zM17 9h4v6h-4zM9 17h6v4H9z"/><path d="M9 5H7a2 2 0 0 0-2 2v2M15 5h2a2 2 0 0 1 2 2v2M9 19H7a2 2 0 0 1-2-2v-2M15 19h2a2 2 0 0 0 2-2v-2"/>' },
+  { title: "Established websites", text: "Increase authority, improve rankings and win more visibility in competitive markets.", icon: '<path d="M12 3l8 4v5c0 5-3.4 8.4-8 9.5-4.6-1.1-8-4.5-8-9.5V7l8-4z" stroke-linejoin="round"/><path d="M9 12.5l2 2 4-4.5" stroke-linecap="round" stroke-linejoin="round"/>' },
+  { title: "Expert-led organisations", text: "Turn expertise into discoverable content and reach more of the right audience.", icon: '<circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.6 3.1-6.3 7-6.3s7 2.7 7 6.3"/>' },
+];
+
+// --- Section 6: What better visibility looks like ---
+const stats = [
+  { label: "Organic sessions", value: "12,842", change: "48%", up: true },
+  { label: "Qualified enquiries", value: "356", change: "62%", up: true },
+  { label: "AI visibility", value: "38%", change: "29%", up: true },
+  { label: "Top 3 rankings", value: "215", change: "41%", up: true },
+];
+const topQueries = [
+  { query: "commercial fitout sydney", position: 3, clicks: "1,245" },
+  { query: "office renovation cost", position: 2, clicks: "876" },
+  { query: "workplace design trends", position: 2, clicks: "642" },
+  { query: "office fitout company", position: 5, clicks: "521" },
+  { query: "sustainable office design", position: 4, clicks: "438" },
+];
+const topPages = [
+  { page: "/services/office-fitouts", views: "3,421" },
+  { page: "/blog/workplace-trends-2024", views: "2,108" },
+  { page: "/services/office-renovations", views: "1,997" },
+  { page: "/about/our-approach", views: "1,654" },
+  { page: "/case-studies/fit-tech-office", views: "1,203" },
+];
+---
+<Layout title="SEO & AI Search Optimisation" description="SEO &amp; content that helps the right people find you.">
+  <div class="bg-[var(--color-paper-dim)]">
+    <Header currentPage="/services/seo-ai-search-optimisation" />
+
+    <!-- Section 0: Hero -->
+    <section class="max-w-7xl mx-auto px-6 md:px-10 pt-8 md:pt-12 pb-16 md:pb-20">
+      <div class="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-10 items-center">
+        <div>
+          <PageHeading as="h1" class="mb-6">SEO &amp; content that helps the right people find you.</PageHeading>
+          <p class="text-lg text-[var(--color-slate)] mb-10">
+            We improve your visibility through search intent, useful content, structure and steady optimisation&mdash;so your business is found in traditional search results and emerging AI-driven answer surfaces.
+          </p>
+          <a
+            href={`${base}/contact`}
+            class="inline-flex items-center gap-4 rounded-2xl bg-[var(--color-paper)] border border-[var(--color-line)] px-8 py-5 text-lg text-[var(--color-ink)] hover:border-[var(--color-slate)] transition-colors"
+          >
+            <span
+              class="w-9 h-9 rounded-full shrink-0 ring-2 ring-white"
+              style="background: var(--gradient-orb); box-shadow: var(--shadow-orb);"
+            ></span>
+            Book a strategy call
+          </a>
+        </div>
+
+        <!-- Deliberately empty — see frontmatter note. -->
+        <div class="hidden lg:block" aria-hidden="true"></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="bg-[var(--color-paper)]">
+    <!-- Section 1: The new search landscape (no special background — see
+         frontmatter note re: the mockup's white strip). -->
+    <section class="max-w-7xl mx-auto px-6 md:px-10 pt-16 md:pt-20 pb-16 md:pb-20">
+      <SectionHeading
+        eyebrow="The new search landscape"
+        heading="Search visibility now happens in more places."
+        subtext="People search in more ways&mdash;and get answers in more places. Visibility depends on a combination of rankings, AI summaries, helpful content, clear structure and trusted authority signals."
+      />
+      <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        {landscapeItems.map((item) => (
+          <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-5">
+            <span class="inline-flex items-center justify-center w-11 h-11 rounded-lg bg-[var(--color-accent-soft)] text-[var(--color-accent)] mb-3">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={item.icon} />
+            </span>
+            <p class="font-semibold text-[var(--color-ink)] text-sm mb-1">{item.title}</p>
+            <p class="text-xs text-[var(--color-slate)] leading-relaxed">{item.text}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  </div>
+
+  <!-- Section 2: How SEO and content work together — darker bg-paper-dim
+       band, per Andrew's explicit instruction. -->
+  <div class="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-16 pb-16 md:pb-20">
+    <div class="rounded-[var(--radius-card)] bg-[var(--color-paper-dim)] p-6 md:p-10">
+      <div class="max-w-7xl mx-auto grid lg:grid-cols-[minmax(0,30%)_minmax(0,70%)] gap-10 items-center">
+        <div>
+          <Eyebrow class="mb-3">Our approach</Eyebrow>
+          <h2 class="text-2xl md:text-3xl font-semibold text-[var(--color-ink)] mb-4">How SEO and content work together.</h2>
+          <p class="text-[var(--color-slate)] max-w-sm">
+            We connect strategy, content and technical foundations into a cohesive system that builds topical depth, earns trust and improves visibility across search and AI experiences.
+          </p>
+        </div>
+        <HubDiagram hubTitle="Search visibility for your business" hubIcon={hubIcon} spokes={workTogether} />
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-[var(--color-paper)]">
+    <!-- Section 3: What we work on -->
+    <section class="max-w-7xl mx-auto px-6 md:px-10 pt-16 md:pt-20 pb-16 md:pb-20">
+      <SectionHeading
+        eyebrow="What we work on"
+        heading="A complete visibility system."
+      />
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        {workGroups.map((group) => (
+          <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-5">
+            <div class="flex items-center gap-2.5 mb-4">
+              <span class="inline-flex items-center justify-center w-9 h-9 rounded-lg bg-[var(--color-accent-soft)] text-[var(--color-accent)] shrink-0">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={group.icon} />
+              </span>
+              <p class="font-semibold text-[var(--color-ink)] text-sm leading-snug">{group.title}</p>
+            </div>
+            <ul class="space-y-2">
+              {group.items.map((item) => (
+                <li class="flex items-start gap-2">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--color-good)" stroke-width="2.5" class="mt-0.5 shrink-0">
+                    <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                  <span class="text-xs text-[var(--color-slate)] leading-snug">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Section 4: Momentum builds over time -->
+    <section class="max-w-7xl mx-auto px-6 md:px-10 pb-16 md:pb-20">
+      <SectionHeading
+        eyebrow="The journey"
+        heading="Momentum builds over time."
+        subtext="Great SEO isn't a one-off. We follow a proven rhythm that creates compounding visibility and sustainable growth."
+      />
+      <CadenceSteps
+        steps={journeySteps}
+        gridClass="sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7"
+        connectorBreakpoint="xl"
+      />
+    </section>
+
+    <!-- Section 5: Where this works well -->
+    <section class="max-w-7xl mx-auto px-6 md:px-10 pb-16 md:pb-20">
+      <SectionHeading
+        eyebrow="Best suited for"
+        heading="Where this works well."
+      />
+      <div class="grid sm:grid-cols-3 gap-5">
+        {audiences.map((item) => (
+          <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6">
+            <span class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-[var(--color-accent-soft)] text-[var(--color-accent)] mb-4">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={item.icon} />
+            </span>
+            <p class="font-semibold text-[var(--color-ink)] mb-1.5">{item.title}</p>
+            <p class="text-sm text-[var(--color-slate)] leading-relaxed">{item.text}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Section 6: What better visibility looks like — same "static
+         illustrative reporting card" pattern as google-social-ads.astro's
+         "Results that matter" (confirmed non-functional there already). -->
+    <section class="max-w-7xl mx-auto px-6 md:px-10 pb-20 md:pb-28">
+      <div class="grid lg:grid-cols-[1fr_1.6fr] gap-10 items-start">
+        <div>
+          <Eyebrow class="mb-3">The impact</Eyebrow>
+          <h2 class="text-2xl md:text-3xl font-semibold text-[var(--color-ink)] mb-4">What better visibility looks like.</h2>
+          <p class="text-[var(--color-slate)] mb-6 max-w-sm">
+            We focus on outcomes that drive growth&mdash;more relevant traffic, stronger engagement and more enquiries from the right people.
+          </p>
+          <a
+            href={`${base}/case-studies`}
+            class="group inline-flex items-center gap-3 rounded-[var(--radius-pill)] bg-white border border-[var(--color-line)] pl-2.5 pr-5 py-2.5 [box-shadow:var(--shadow-card)] transition-all hover:[box-shadow:var(--shadow-panel)] hover:-translate-y-0.5"
+          >
+            <span class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-[var(--color-accent-soft)] text-[var(--color-accent)] shrink-0">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 18V6M4 18h16" stroke-linecap="round"/><path d="M7 14l4-4 3 3 5-6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="text-sm font-semibold text-[var(--color-ink)]">See case studies</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5" class="transition-transform group-hover:translate-x-1">
+              <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </a>
+        </div>
+
+        <div class="grid sm:grid-cols-[1.6fr_1fr] gap-5">
+          <!-- Static illustrative card — numbers/labels are placeholder
+               content matching the mockup, not a live/functional dashboard,
+               same convention as google-social-ads.astro's equivalent. -->
+          <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-5 md:p-6 [box-shadow:var(--shadow-panel)]" aria-hidden="true">
+            <div class="grid grid-cols-2 gap-3 mb-6">
+              {stats.map((stat) => (
+                <div class="rounded-lg bg-[var(--color-paper-dim)] p-3">
+                  <p class="text-xs text-[var(--color-slate)] mb-1">{stat.label}</p>
+                  <p class="text-lg font-semibold text-[var(--color-ink)] mb-0.5">{stat.value}</p>
+                  <p class="text-xs font-medium text-[var(--color-good)]">&uarr; {stat.change}</p>
+                </div>
+              ))}
+            </div>
+
+            <p class="text-xs font-semibold text-[var(--color-slate)] uppercase tracking-wide mb-2">Top queries driving visibility</p>
+            <div class="mb-5">
+              {topQueries.map((row) => (
+                <div class="flex items-center justify-between gap-3 py-1.5 border-b border-[var(--color-line)] last:border-b-0">
+                  <span class="text-xs text-[var(--color-ink)] truncate">{row.query}</span>
+                  <span class="flex items-center gap-3 shrink-0">
+                    <span class="text-xs text-[var(--color-slate)]">{row.position}</span>
+                    <span class="text-xs font-medium text-[var(--color-ink)] w-10 text-right">{row.clicks}</span>
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            <p class="text-xs font-semibold text-[var(--color-slate)] uppercase tracking-wide mb-2">Top performing pages</p>
+            <div>
+              {topPages.map((row) => (
+                <div class="flex items-center justify-between gap-3 py-1.5 border-b border-[var(--color-line)] last:border-b-0">
+                  <span class="text-xs text-[var(--color-ink)] truncate">{row.page}</span>
+                  <span class="text-xs font-medium text-[var(--color-ink)] shrink-0">{row.views}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div class="rounded-[var(--radius-card)] bg-[var(--color-accent-soft)] p-5 flex flex-col gap-3">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5L12 3z" stroke-linejoin="round"/>
+            </svg>
+            <p class="font-semibold text-[var(--color-ink)] text-sm">Search is changing.</p>
+            <p class="text-xs text-[var(--color-slate)] leading-relaxed">
+              Visibility increasingly includes being featured in AI-generated answers and summaries&mdash;not just traditional blue links.
+            </p>
+            <p class="text-xs font-semibold text-[var(--color-accent)]">We make sure you're seen in both.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <CtaBand />
+  <Footer />
+</Layout>

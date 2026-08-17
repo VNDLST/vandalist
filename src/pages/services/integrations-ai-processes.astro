@@ -5,11 +5,6 @@
 //
 // Per Andrew: "Disregard any new colours or inconsistent designs or
 // elements." Several things simplified rather than reproduced faithfully:
-// - "Where AI actually helps"'s center-circle-with-6-orbiting-cards diagram
-//   (same "hub and spoke" language as the Websites page's 3-pillar orbit —
-//   evidently a recurring idea in this mockup batch, but still not
-//   anything the rest of the site does) rebuilt as a plain 2-column grid
-//   of icon+title+description cards instead.
 // - Icons in "A practical enablement system..." were drawn in a teal/green
 //   the token system doesn't have — recoloured to the standard
 //   --color-accent pink used for every other icon on the site, not a new
@@ -23,6 +18,17 @@
 //   --color-bad yet. Genuine reuse of an existing-but-unused token, not a
 //   new colour — the one part of this mockup kept close to as-drawn.
 //
+// Follow-up (Andrew, after seeing this live): "Where AI actually helps"
+// was originally simplified from the mockup's center-circle-with-6-
+// orbiting-cards diagram into a plain 2-column grid — Andrew asked for
+// this section specifically to be rebuilt closer to the mockup after all
+// (marking the "What we help you put in place" section below, which
+// stays as originally built, with a cross on his annotated screenshot to
+// show what to leave alone). Now uses the shared HubDiagram component
+// (see src/components/HubDiagram.astro) — extracted rather than
+// hand-rolled here since the SEO & AI Search Optimisation page's "How SEO
+// and content work together" needed the exact same hub-and-spoke pattern.
+//
 // Hero gets the darker bg-paper-dim band + empty second column, same
 // reasoning as every other service page.
 import Layout from "../../layouts/Layout.astro";
@@ -33,10 +39,12 @@ import SectionHeading from "../../components/SectionHeading.astro";
 import PageHeading from "../../components/PageHeading.astro";
 import Eyebrow from "../../components/Eyebrow.astro";
 import CadenceSteps from "../../components/CadenceSteps.astro";
+import HubDiagram from "../../components/HubDiagram.astro";
 
 const base = import.meta.env.BASE_URL;
 
 // --- Section 1: Where AI actually helps ---
+const hubIcon = '<circle cx="12" cy="5" r="1.8"/><circle cx="6" cy="12" r="1.8"/><circle cx="18" cy="12" r="1.8"/><circle cx="9" cy="19" r="1.8"/><circle cx="15" cy="19" r="1.8"/><path d="M12 6.8L7.2 10.6M12 6.8l4.8 3.8M7.2 13.4L9 17.4M16.8 13.4L15 17.4" stroke-linecap="round"/>';
 const helpAreas = [
   { title: "Research & insights", text: "Faster competitor, audience, and market research.", icon: '<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.5-4.5" stroke-linecap="round"/>' },
   { title: "Ideation & strategy", text: "Generate ideas, angles, and campaign concepts.", icon: '<path d="M12 3a6 6 0 0 0-3 11.2c.6.4 1 1.1 1 1.8h4c0-.7.4-1.4 1-1.8A6 6 0 0 0 12 3z"/><path d="M9 18h6M10 21h4"/>' },
@@ -147,19 +155,7 @@ const audiences = [
             AI can support many parts of the marketing process. We focus on the areas that save time, lift quality, and free your team to focus on higher-impact work.
           </p>
         </div>
-        <div class="grid sm:grid-cols-2 gap-4">
-          {helpAreas.map((item) => (
-            <div class="rounded-xl border border-[var(--color-line)] bg-white p-5 flex items-start gap-3">
-              <span class="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-[var(--color-accent-soft)] text-[var(--color-accent)] shrink-0">
-                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={item.icon} />
-              </span>
-              <div>
-                <p class="font-semibold text-[var(--color-ink)] mb-1">{item.title}</p>
-                <p class="text-sm text-[var(--color-slate)] leading-relaxed">{item.text}</p>
-              </div>
-            </div>
-          ))}
-        </div>
+        <HubDiagram hubTitle="AI enabled marketing" hubIcon={hubIcon} spokes={helpAreas} />
       </div>
     </section>
 

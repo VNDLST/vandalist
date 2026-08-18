@@ -1,0 +1,53 @@
+---
+// Case studies archive. Reusable content system, not a hard-coded page —
+// every entry here comes from src/content/case-studies/*.md. See
+// src/content/config.ts for the schema and CLAUDE.md-adjacent notes in
+// each component for the conventions this follows.
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import PageHeading from "../../components/PageHeading.astro";
+import Eyebrow from "../../components/Eyebrow.astro";
+import CaseStudyFeatured from "../../components/CaseStudyFeatured.astro";
+import CaseStudyCard from "../../components/CaseStudyCard.astro";
+import CaseStudyFilterBar from "../../components/CaseStudyFilterBar.astro";
+import { getFeatured, sortByDateDesc } from "../../lib/caseStudies";
+
+const allEntries = await getCollection("case-studies");
+const featured = getFeatured(allEntries);
+const gridEntries = sortByDateDesc(allEntries).filter((e) => e.slug !== featured?.slug);
+---
+<Layout title="Case Studies" description="A selection of practical marketing work across different businesses, sectors and challenges.">
+  <div class="bg-[var(--color-paper)]">
+    <Header currentPage="/case-studies" />
+
+    <div class="max-w-7xl mx-auto px-6 md:px-10 pb-10 md:pb-14">
+      <div class="md:max-w-[60%]">
+        <Eyebrow class="mb-3">Case Studies</Eyebrow>
+        <PageHeading class="mb-4">Real work. Real outcomes.</PageHeading>
+        <p class="text-[var(--color-slate)] max-w-md">
+          A selection of practical marketing work across different businesses, sectors and challenges.
+        </p>
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 md:px-10 pb-20 md:pb-28">
+      {featured && (
+        <div class="mb-10">
+          <CaseStudyFeatured entry={featured} />
+        </div>
+      )}
+
+      <CaseStudyFilterBar />
+
+      <div class="grid sm:grid-cols-2 gap-6 md:gap-8">
+        {gridEntries.map((entry) => <CaseStudyCard entry={entry} />)}
+      </div>
+    </div>
+  </div>
+
+  <CtaBand />
+  <Footer />
+</Layout>

@@ -1,0 +1,14 @@
+---
+// Small non-interactive tag chip for a case study's service(s) — matches
+// the mockup exactly (plain rounded pill, no link affordance, no hover
+// state). Reuses the same pill treatment as the dropdown-chrome pills on
+// google-social-ads.astro's illustrative reporting card.
+interface Props {
+  label: string;
+  class?: string;
+}
+const { label, class: className = "" } = Astro.props as Props;
+---
+<span class:list={["inline-flex items-center rounded-[var(--radius-pill)] border border-[var(--color-line)] px-3 py-1.5 text-xs text-[var(--color-slate)]", className]}>
+  {label}
+</span>

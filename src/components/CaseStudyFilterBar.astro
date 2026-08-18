@@ -1,0 +1,74 @@
+---
+// Simple single-select filter bar for the case-studies archive grid. No
+// query params, no search, no multi-select — per the brief's explicit
+// "do not introduce complicated multi-filter logic" instruction. Filters
+// only the grid below it; the featured case study above stays pinned
+// regardless of the active filter (it's a permanent highlight, not part of
+// the filterable set).
+//
+// Pure vanilla JS (no framework) — matches "do not add unnecessary
+// dependencies". Reads `data-services` (comma-separated service keys) off
+// whatever elements the calling page renders with that attribute (the
+// CaseStudyCard grid), so this component only needs to exist once on the
+// page for the script to wire up correctly.
+import { SERVICES } from "../lib/services";
+---
+<div class="flex flex-wrap gap-2 mb-8" role="group" aria-label="Filter case studies by service">
+  <button
+    type="button"
+    data-filter="all"
+    aria-pressed="true"
+    class="filter-pill is-active inline-flex items-center rounded-[var(--radius-pill)] px-4 py-2 text-sm font-medium transition-colors"
+  >
+    All
+  </button>
+  {SERVICES.map((s) => (
+    <button
+      type="button"
+      data-filter={s.key}
+      aria-pressed="false"
+      class="filter-pill inline-flex items-center rounded-[var(--radius-pill)] px-4 py-2 text-sm font-medium transition-colors"
+    >
+      {s.label}
+    </button>
+  ))}
+</div>
+
+<style>
+  .filter-pill {
+    border: 1px solid var(--color-line);
+    color: var(--color-slate);
+    background: white;
+  }
+  .filter-pill:hover {
+    border-color: var(--color-slate);
+    color: var(--color-ink);
+  }
+  .filter-pill.is-active {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: white;
+  }
+</style>
+
+<script>
+  const pills = document.querySelectorAll<HTMLButtonElement>(".filter-pill");
+  const cards = document.querySelectorAll<HTMLElement>("[data-services]");
+
+  pills.forEach((pill) => {
+    pill.addEventListener("click", () => {
+      const filter = pill.dataset.filter ?? "all";
+
+      pills.forEach((p) => {
+        p.classList.toggle("is-active", p === pill);
+        p.setAttribute("aria-pressed", String(p === pill));
+      });
+
+      cards.forEach((card) => {
+        const services = card.dataset.services?.split(",") ?? [];
+        const show = filter === "all" || services.includes(filter);
+        card.classList.toggle("hidden", !show);
+      });
+    });
+  });
+</script>

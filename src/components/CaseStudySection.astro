@@ -1,0 +1,33 @@
+---
+// Shared "icon badge + heading + body" wrapper for a case study's numbered
+// sections (The problem, What we found, What we did, Why we took that
+// approach, Outcome...). Reused instead of hand-rolling the same
+// icon+heading markup per section. An optional `aside` slot renders as a
+// side panel next to the body on desktop (used for the Results callout
+// next to "The problem") — omit it and the section is just a plain single
+// column.
+interface Props {
+  title: string;
+  icon: string;
+}
+const { title, icon } = Astro.props as Props;
+const hasAside = Astro.slots.has("aside");
+---
+<div class:list={["grid gap-8", hasAside && "lg:grid-cols-[1fr_280px] items-start"]}>
+  <div>
+    <div class="flex items-center gap-3 mb-4">
+      <span class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-[var(--color-accent-soft)] text-[var(--color-accent)] shrink-0">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" set:html={icon} />
+      </span>
+      <h2 class="text-xl md:text-2xl font-semibold text-[var(--color-ink)]">{title}</h2>
+    </div>
+    <div class="text-[var(--color-slate)] leading-relaxed space-y-4">
+      <slot />
+    </div>
+  </div>
+  {hasAside && (
+    <div>
+      <slot name="aside" />
+    </div>
+  )}
+</div>

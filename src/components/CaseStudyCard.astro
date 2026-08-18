@@ -1,0 +1,47 @@
+---
+// Editorial grid card for the case-studies archive. Deliberately not the
+// service-page "icon + title + description" card pattern — per the brief,
+// this section should feel more editorial/evidence-led. Natural height
+// variation between cards (short vs. long summary, 0 vs. 1 result stat) is
+// acceptable and expected, not a bug to chase.
+import type { CollectionEntry } from "astro:content";
+import CaseStudyImage from "./CaseStudyImage.astro";
+import ServiceTagPill from "./ServiceTagPill.astro";
+import { serviceLabel } from "../lib/services";
+
+interface Props {
+  entry: CollectionEntry<"case-studies">;
+}
+const { entry } = Astro.props as Props;
+const { data } = entry;
+const base = import.meta.env.BASE_URL;
+const primaryResult = data.results?.[0];
+---
+<a
+  href={`${base}/case-studies/${entry.slug}`}
+  data-services={data.services.join(",")}
+  class="case-study-card group rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white overflow-hidden flex flex-col [box-shadow:var(--shadow-card)] hover:-translate-y-0.5 transition-transform"
+>
+  <div class="aspect-[16/10]">
+    <CaseStudyImage src={data.featuredImage} alt={data.title} rounded="rounded-none" />
+  </div>
+  <div class="p-6 flex flex-col flex-1">
+    <p class="font-semibold text-[var(--color-ink)] mb-1.5">{data.title}</p>
+    <p class="text-sm text-[var(--color-slate)] leading-relaxed mb-4">{data.summary}</p>
+
+    <div class="flex flex-wrap gap-2 mb-4">
+      {data.services.map((s) => <ServiceTagPill label={serviceLabel(s)} />)}
+    </div>
+
+    {primaryResult && (
+      <p class="text-sm mb-4">
+        <span class="font-semibold text-[var(--color-accent)]">{primaryResult.value}</span>{" "}
+        <span class="text-[var(--color-slate)]">{primaryResult.label}</span>
+      </p>
+    )}
+
+    <span class="mt-auto text-[var(--color-accent)] text-sm font-medium inline-flex items-center gap-1">
+      View case study <span class="transition-transform group-hover:translate-x-0.5" aria-hidden="true">&rarr;</span>
+    </span>
+  </div>
+</a>

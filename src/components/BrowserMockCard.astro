@@ -1,0 +1,95 @@
+---
+// Static illustrative "browser chrome" wireframe card -- fake window
+// dots, title bars, a placeholder hero graphic, a CTA bar, and a bottom
+// row -- no real content, same spirit as google-social-ads.astro's
+// "Results that matter" illustrative reporting card (aria-hidden,
+// decorative only). Built for websites-optimisation.astro's mockup,
+// which showed this same wireframe illustration three times: once large
+// ("Everything your website needs...") and twice small, side by side, as
+// a Before/After pair ("Better structure..."). Extracted as one
+// component with variant/size props rather than three hand-rolled
+// copies, same reasoning as CadenceSteps/SystemDiagram.
+//
+// variant="plain" (grayscale) vs "accent" (pink highlights) is how the
+// mockup distinguishes "before" from "after" / draws attention in the
+// big standalone version -- not a new colour, just --color-accent vs.
+// --color-line on the same shapes.
+interface Props {
+  variant?: "plain" | "accent";
+  size?: "lg" | "sm";
+  label?: string;
+}
+const { variant = "plain", size = "lg", label } = Astro.props as Props;
+const isAccent = variant === "accent";
+const isLg = size === "lg";
+---
+<div
+  class:list={[
+    "relative rounded-xl border border-[var(--color-line)] bg-white overflow-hidden",
+    isLg ? "[box-shadow:var(--shadow-panel)] p-5" : "[box-shadow:var(--shadow-card)] p-3",
+  ]}
+  aria-hidden="true"
+>
+  {label && (
+    <span class="absolute top-2.5 left-2.5 z-10 text-[10px] font-semibold text-[var(--color-slate)] bg-white/90 rounded-full px-2 py-0.5 border border-[var(--color-line)]">{label}</span>
+  )}
+
+  <!-- window chrome dots -->
+  <div class:list={["flex items-center gap-1.5", isLg ? "mb-4" : "mb-3", label && !isLg && "pl-9"]}>
+    <span class:list={["rounded-full bg-[var(--color-accent)]", isLg ? "w-2.5 h-2.5" : "w-1.5 h-1.5"]}></span>
+    <span class:list={["rounded-full bg-[var(--color-line)]", isLg ? "w-2.5 h-2.5" : "w-1.5 h-1.5"]}></span>
+    <span class:list={["rounded-full bg-[var(--color-line)]", isLg ? "w-2.5 h-2.5" : "w-1.5 h-1.5"]}></span>
+  </div>
+
+  <!-- title bar -->
+  <div class:list={["rounded-full bg-[var(--color-line)]", isLg ? "h-2.5 w-2/5 mb-3" : "h-1.5 w-2/5 mb-2.5"]}></div>
+
+  <!-- hero placeholder: a few text lines + a mountain-shape image stand-in -->
+  <div class:list={["grid grid-cols-[1fr_auto] items-end gap-3", isLg ? "mb-4" : "mb-2.5"]}>
+    <div class="space-y-1.5">
+      <div class:list={["rounded-full bg-[var(--color-line)]", isLg ? "h-2 w-full" : "h-1 w-full"]}></div>
+      <div class:list={["rounded-full bg-[var(--color-line)]", isLg ? "h-2 w-4/5" : "h-1 w-4/5"]}></div>
+      <div class:list={["rounded-full bg-[var(--color-line)]", isLg ? "h-2 w-3/5" : "h-1 w-3/5"]}></div>
+    </div>
+    <svg class:list={isLg ? "w-24 h-16" : "w-16 h-10"} viewBox="0 0 100 60" fill="none">
+      <rect width="100" height="60" rx="6" fill="var(--color-paper-dim)" />
+      <path d="M10 46l20-20 15 12 20-24 25 32z" fill="var(--color-slate-light)" opacity="0.5" />
+      <circle cx={isAccent ? "78" : "22"} cy="16" r="6" fill={isAccent ? "var(--color-accent)" : "var(--color-slate-light)"} />
+    </svg>
+  </div>
+
+  <!-- CTA bar -->
+  <div class:list={["rounded-full", isLg ? "h-3 w-1/4 mb-4" : "h-2 w-1/4 mb-2.5", isAccent ? "bg-[var(--color-accent)]" : "bg-[var(--color-line)]"]}></div>
+
+  {isLg && (
+    <div class="flex items-center gap-2 mb-4">
+      {[0, 1, 2].map(() => (
+        <span class="w-8 h-8 rounded-lg bg-[var(--color-paper-dim)] border border-[var(--color-line)]"></span>
+      ))}
+    </div>
+  )}
+
+  <!-- bottom row: accent gets the pink-highlighted treatment, plain stays neutral -->
+  <div
+    class:list={[
+      "rounded-lg flex items-center gap-2",
+      isLg ? "p-2.5" : "p-1.5",
+      isAccent ? "bg-[var(--color-accent-soft)]" : "bg-[var(--color-paper-dim)]",
+    ]}
+  >
+    <span class:list={["rounded-full shrink-0", isLg ? "w-6 h-6" : "w-3.5 h-3.5", isAccent ? "bg-[var(--color-accent)]" : "bg-[var(--color-slate-light)]"]}></span>
+    <span
+      class:list={["rounded-full flex-1", isLg ? "h-2" : "h-1"]}
+      style={`background: ${isAccent ? "rgba(232,70,124,0.4)" : "var(--color-line)"};`}
+    ></span>
+  </div>
+
+  {isLg && (
+    <div class="flex justify-center gap-1.5 mt-4">
+      <span class="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)]"></span>
+      <span class="w-1.5 h-1.5 rounded-full bg-[var(--color-line)]"></span>
+      <span class="w-1.5 h-1.5 rounded-full bg-[var(--color-line)]"></span>
+      <span class="w-1.5 h-1.5 rounded-full bg-[var(--color-line)]"></span>
+    </div>
+  )}
+</div>

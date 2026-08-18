@@ -423,15 +423,71 @@ about it, don't just pick one.
      wrong — check actual computed colors/weights next. A component can be
      structurally identical and still look completely different if text
      hierarchy (bold title vs. muted single line) is off.
+- **Three more commits landed from the other machine right after the
+  SystemDiagram work above, while this machine's session kept running —
+  worth reading in full since a prior open item above is now resolved by
+  them:**
+  - **Nav pixel-shift fixed sitewide + AI Enablement renamed and moved.**
+    Root cause: pages without a vertical scrollbar centered their
+    `max-w-7xl` containers ~7px further right than pages with one (a
+    viewport-width-vs-scrollbar artifact, not a Header.astro bug) — fixed
+    with `scrollbar-gutter: stable` on `html` in `global.css`, so every
+    page reserves the same width regardless of its own content height.
+    Separately, **the AI Enablement page moved**:
+    `src/pages/services/integrations-ai-processes.astro` →
+    `src/pages/services/ai-enablement-for-marketing-teams.astro`, nav
+    label now "AI enablement for marketing teams", live URL now
+    `/vandalist-2.0/services/ai-enablement-for-marketing-teams/` (old URL
+    now 404s, confirmed). Update any bookmarks/links to the old path.
+  - **AI Enablement rebuilt further, "Where AI actually helps" explicitly
+    left alone** — resolves the open item above about whether Andrew
+    confirmed the SystemDiagram fix: he came back with follow-up feedback
+    on the OTHER two sections instead, and the commit message states
+    "Where AI actually helps stays untouched" — a decent signal the hub
+    section itself is settled, though still not an explicit "yes that's
+    right" from him. "A practical enablement system..." (previously the
+    section Andrew said not to touch at all) got rebuilt into the
+    mockup's 3-column grid with bare icons — Andrew revisited that
+    decision himself on this later pass, not a contradiction of the
+    earlier instruction. "From manual and messy..." became an actual
+    connected flow diagram (bordered step cards, dashed connector arrows,
+    red pain-point marks, a center "transform" arrow) replacing the
+    earlier plain two-list version. One flagged simplification kept: the
+    row 1→row 2 corner connector is a straight vertical drop, not the
+    mockup's diagonal jump between columns.
+  - **Websites & Optimisation rebuilt further too:** "Three pillars" got
+    a real hub-and-spoke diagram (center + 3 satellites + dashed
+    connectors) — **deliberately didn't reuse `SystemDiagram`**, since
+    that component assumes an even 3-left/3-right split and this mockup's
+    3 satellites sit in an asymmetric radial arrangement, a genuinely
+    different shape (good judgment call, not a missed reuse
+    opportunity). Brought back a browser-chrome wireframe illustration
+    (new shared `src/components/BrowserMockCard.astro`, static/decorative)
+    for "Everything your website needs..." and a small Before/After
+    wireframe pair for "Better structure..." using the same component —
+    both previously simplified away, now restored per Andrew wanting
+    them matched more closely to the original mockup.
+  - **Two-device note, not a problem, just worth recording:** these
+    commits were made and pushed (and deployed — verified live) by the
+    other machine's session while this machine's session was still
+    active and had already written its own ONBOARDING.md refresh. Andrew
+    left that other session without explicitly telling it to wrap up,
+    then asked here whether that mattered. It didn't — everything it did
+    was already committed, pushed, and deployed by the time this was
+    checked (`git fetch` + `git log HEAD..origin/main` showed nothing
+    pending). The only thing this machine's session couldn't have known
+    about automatically was catching this doc up after the fact, which
+    it then did by reading the other session's commit messages/diffs
+    directly rather than needing Andrew to relay anything.
 
 ## Known open items
 
-- **Top of the list for next session:** after three rounds of fixes to AI
-  Enablement's "Where AI actually helps" (see above — layout shape, then
-  card title/description), Andrew hasn't yet confirmed the latest deploy
-  actually resolved his "looks nothing like the mockup" complaint. Check
-  in on this before assuming it's settled; don't treat the fix as
-  confirmed just because the computed styles now check out.
+- **Top of the list for next session:** after three rounds of fixes to
+  "Where AI actually helps" (layout shape, then card title/description),
+  the follow-up session's rebuild explicitly left that section untouched
+  and moved on to other sections instead — a decent signal it's settled,
+  but still not an explicit "yes that's right" from Andrew. Don't assume
+  confirmed unless he actually says so.
 - Whether the SEO page's "How SEO and content work together" section
   (same `SystemDiagram` component, same card-title fix applied
   proactively even though Andrew's complaint was specifically about AI

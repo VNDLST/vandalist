@@ -1,16 +1,63 @@
 ---
+// Services flyout: icon + title + short explainer per item, matching
+// Andrew's supplied mockup (2026-08-19). Default state is a neutral grey
+// icon square + ink title; hovering a single item switches that item's
+// icon square and title to the accent-pink treatment — not a sitewide
+// "everything's pink" flyout, just the one row under the cursor (per the
+// mockup screenshot, only its highlighted first row was pink). Needs a
+// named group (`group/item`) on each <a> since the flyout's own
+// visibility is already driven by the outer <li>'s unnamed `group`.
+//
+// Primary-item hover dot: per a CodePen Andrew supplied (single shared
+// .dot sliding via hardcoded per-link translateX) reworked for this
+// nav's variable-width, wrapping/responsive links — a shared sliding dot
+// needs fixed-width fixed-position items, which these aren't. Instead
+// each <li> gets its own small dot, positioned above the label (the
+// CodePen's was below), shown purely via CSS opacity/scale on hover, so
+// it works regardless of label width or breakpoint. Colour is
+// --color-accent throughout, not the CodePen's yellow.
 interface Props {
   currentPage?: string;
 }
 const { currentPage = "" } = Astro.props as Props;
 
 const serviceLinks = [
-  { label: "Marketing Support", path: "/services/marketing-support" },
-  { label: "Consulting & Mentoring", path: "/services/consulting-mentoring" },
-  { label: "Google Ads", path: "/services/google-social-ads" },
-  { label: "SEO & AI Search Optimisation", path: "/services/seo-ai-search-optimisation" },
-  { label: "Websites & Optimisation", path: "/services/websites-optimisation" },
-  { label: "AI enablement for marketing teams", path: "/services/ai-enablement-for-marketing-teams" },
+  {
+    label: "Marketing Support",
+    path: "/services/marketing-support",
+    desc: "Ongoing support to keep your marketing moving forward.",
+    icon: '<path d="M3 10v4h3l5 4V6L6 10H3z" stroke-linejoin="round"/><path d="M16 8a5 5 0 0 1 0 8M19 5a9 9 0 0 1 0 14" stroke-linecap="round"/>',
+  },
+  {
+    label: "Consulting & Mentoring",
+    path: "/services/consulting-mentoring",
+    desc: "Expert advice and mentoring to help you grow.",
+    icon: '<circle cx="8.5" cy="8" r="2.6"/><path d="M3.5 19c0-2.8 2.2-4.9 5-4.9s5 2.1 5 4.9"/><circle cx="16.2" cy="9.3" r="2"/><path d="M14.8 12.6c2 .2 3.7 1.8 3.7 3.9"/>',
+  },
+  {
+    label: "Google Ads",
+    path: "/services/google-social-ads",
+    desc: "Targeted Google Ads that drive quality leads.",
+    letter: "G",
+  },
+  {
+    label: "SEO & AI Search Optimisation",
+    path: "/services/seo-ai-search-optimisation",
+    desc: "Improve visibility and get found by the right people.",
+    icon: '<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.5-4.5" stroke-linecap="round"/>',
+  },
+  {
+    label: "Websites & Optimisation",
+    path: "/services/websites-optimisation",
+    desc: "Fast, modern websites that convert and grow.",
+    icon: '<rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4" stroke-linecap="round"/>',
+  },
+  {
+    label: "AI enablement for marketing teams",
+    path: "/services/ai-enablement-for-marketing-teams",
+    desc: "Practical AI training and systems for marketing teams.",
+    icon: '<path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8L12 3z" stroke-linejoin="round"/><path d="M19 15l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8.8-2z" stroke-linejoin="round"/>',
+  },
 ];
 
 const links = [
@@ -36,30 +83,64 @@ const isServicesActive = currentPage === "/services" || serviceLinks.some((l) =>
         <a
           href={`${base}/services`}
           class:list={[
-            "transition-colors inline-flex items-center gap-1",
-            isServicesActive ? "text-[var(--color-accent)] font-medium" : "hover:text-[var(--color-ink)]",
+            "relative transition-colors inline-flex items-center gap-1",
+            isServicesActive ? "text-[var(--color-accent)] font-medium" : "hover:text-[var(--color-accent)]",
           ]}
         >
           Services
           <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="mt-px">
             <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
+          <span
+            class="absolute left-1/2 -translate-x-1/2 -top-2.5 w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] opacity-0 scale-50 transition-all duration-200 group-hover:opacity-100 group-hover:scale-100"
+            aria-hidden="true"
+          ></span>
         </a>
         {isServicesActive && (
           <span class="absolute left-1/2 -translate-x-1/2 -bottom-2 w-4 h-[2px] rounded-full bg-[var(--color-accent)]"></span>
         )}
 
-        <div class="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity duration-150 absolute left-0 top-full pt-3 z-20">
-          <div class="w-64 rounded-xl border border-[var(--color-line)] bg-white [box-shadow:var(--shadow-panel)] py-2">
+        <!-- Smooth reveal: fade + slight rise/scale rather than a hard
+             opacity-only cut. pointer-events (not `invisible`) keeps the
+             panel truly non-interactive while hidden without snapping
+             visibility mid-transition. -->
+        <div
+          class="absolute left-0 top-full pt-3 z-20 opacity-0 -translate-y-1 scale-[0.98] pointer-events-none transition-all duration-200 ease-out group-hover:opacity-100 group-hover:translate-y-0 group-hover:scale-100 group-hover:pointer-events-auto"
+        >
+          <div class="w-80 rounded-xl border border-[var(--color-line)] bg-white [box-shadow:var(--shadow-panel)] p-2">
             {serviceLinks.map((s) => (
               <a
                 href={`${base}${s.path}`}
                 class:list={[
-                  "block px-4 py-2.5 text-sm transition-colors",
-                  currentPage === s.path ? "text-[var(--color-accent)] font-medium" : "text-[var(--color-slate)] hover:text-[var(--color-ink)] hover:bg-[var(--color-paper-dim)]",
+                  "group/item flex items-start gap-3 rounded-lg p-2.5 transition-colors",
+                  currentPage === s.path ? "bg-[var(--color-paper-dim)]" : "hover:bg-[var(--color-paper-dim)]",
                 ]}
               >
-                {s.label}
+                <span
+                  class:list={[
+                    "inline-flex items-center justify-center w-11 h-11 rounded-lg shrink-0 transition-colors",
+                    currentPage === s.path
+                      ? "bg-[var(--color-accent-soft)] text-[var(--color-accent)]"
+                      : "bg-[var(--color-paper-dim)] text-[var(--color-slate)] group-hover/item:bg-[var(--color-accent-soft)] group-hover/item:text-[var(--color-accent)]",
+                  ]}
+                >
+                  {s.letter ? (
+                    <span class="text-lg font-bold">{s.letter}</span>
+                  ) : (
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={s.icon} />
+                  )}
+                </span>
+                <span class="min-w-0">
+                  <span
+                    class:list={[
+                      "block text-sm font-semibold transition-colors",
+                      currentPage === s.path ? "text-[var(--color-accent)]" : "text-[var(--color-ink)] group-hover/item:text-[var(--color-accent)]",
+                    ]}
+                  >
+                    {s.label}
+                  </span>
+                  <span class="block text-xs text-[var(--color-slate)] leading-snug mt-0.5">{s.desc}</span>
+                </span>
               </a>
             ))}
           </div>
@@ -67,15 +148,19 @@ const isServicesActive = currentPage === "/services" || serviceLinks.some((l) =>
       </li>
 
       {links.map((link) => (
-        <li class="relative">
+        <li class="relative group">
           <a
             href={`${base}${link.path}`}
             class:list={[
-              "transition-colors",
-              currentPage === link.path ? "text-[var(--color-accent)] font-medium" : "hover:text-[var(--color-ink)]",
+              "relative transition-colors",
+              currentPage === link.path ? "text-[var(--color-accent)] font-medium" : "hover:text-[var(--color-accent)]",
             ]}
           >
             {link.label}
+            <span
+              class="absolute left-1/2 -translate-x-1/2 -top-2.5 w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] opacity-0 scale-50 transition-all duration-200 group-hover:opacity-100 group-hover:scale-100"
+              aria-hidden="true"
+            ></span>
           </a>
           {currentPage === link.path && (
             <span class="absolute left-1/2 -translate-x-1/2 -bottom-2 w-4 h-[2px] rounded-full bg-[var(--color-accent)]"></span>
@@ -84,7 +169,7 @@ const isServicesActive = currentPage === "/services" || serviceLinks.some((l) =>
       ))}
     </ul>
 
-    <!-- mobile: simple stacked link row, no hamburger complexity for v1. Services links straight to its landing page (no flyout). -->
+    <!-- mobile: simple stacked link row, no hamburger complexity for v1. Services links straight to its landing page (no flyout). No hover dot here — touch devices don't hover. -->
     <ul class="flex md:hidden items-center gap-3 text-xs text-[var(--color-slate)] overflow-x-auto">
       <li class="relative shrink-0">
         <a href={`${base}/services`} class:list={isServicesActive ? "text-[var(--color-accent)] font-medium" : ""}>

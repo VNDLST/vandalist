@@ -652,6 +652,18 @@ about it, don't just pick one.
   - CSS transitions freeze at their pre-transition value for all further
     `getComputedStyle`/geometry reads once triggered — confirmed multiple
     times across sessions (campfire toggle, question pile).
+  - **This extends to plain `:hover`-driven CSS, no JS involved** —
+    confirmed 2026-08-19 testing the nav's new hover-dot effect. The
+    `computer` tool's synthetic hover DOES register at the DOM level
+    (`element.matches(':hover')` correctly returns `true`), but
+    `getComputedStyle` still reports the pre-hover value for any property
+    that has a `transition` on it — even on an *already-shipped, already-
+    working* hover effect (tested against the "Book a strategy call"
+    button's existing `hover:border-color`), so this isn't specific to
+    new code. Workaround: inject a temporary
+    `<style>* { transition: none !important; }</style>`, hover, read
+    `getComputedStyle`, then remove the injected style — with transitions
+    neutralized, hover-driven computed styles read correctly.
   - `requestAnimationFrame` never fires at all in this environment
     (confirmed via a direct probe during the question-pile work) — any
     code gated on rAF (this project's convention for triggering CSS

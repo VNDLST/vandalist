@@ -1,6 +1,6 @@
 # Vandalist site — onboarding / continuity guide
 
-Snapshot generated 2026-08-18. This is a "where we left off" briefing, not a
+Snapshot generated 2026-08-19. This is a "where we left off" briefing, not a
 live sync — if you're reading this a while after it was written, check git
 log for anything more recent.
 
@@ -479,10 +479,77 @@ about it, don't just pick one.
     about automatically was catching this doc up after the fact, which
     it then did by reading the other session's commit messages/diffs
     directly rather than needing Andrew to relay anything.
+- **Case Studies section built — a genuine content system, not two
+  hard-coded pages, per a detailed written brief Andrew supplied.** Live
+  at `/case-studies/` (archive) and `/case-studies/<slug>/` (template).
+  - **Content collection** (`src/content/case-studies/*.md` +
+    `src/content/config.ts`, zod schema) is the actual point of this
+    build: every body section (situation/problem/findings/workstreams/
+    reasoning/outcome/evidence/quote) is optional beyond the intro
+    basics, so a case study with just a summary and outcome is a fully
+    valid page — this is what makes "give Claude the project info in
+    chat, it drafts a structured content file" (the future workflow
+    Andrew described) actually work, rather than forcing every future
+    case study through a fixed template shape.
+  - `src/lib/services.ts` is the single source of truth for the 6
+    service tags/keys feeding the zod enum, the filter bar, and card tag
+    pills — deliberately separate from Header.astro's nav labels (the
+    nav says "AI enablement for marketing teams", but the case-studies
+    tag/filter, matching Andrew's own mockup, just says "AI Enablement").
+  - `src/lib/caseStudies.ts`: `getRelatedCaseStudies` scores by
+    overlapping `services` tags (manual `related` frontmatter override
+    wins if set), `getFeatured` picks whichever entry has `featured:
+    true` (falls back to most recent).
+  - Archive: quiet intro (no bespoke CTA, per brief), one pinned featured
+    editorial card (not part of the filterable grid), single-select
+    filter bar (vanilla JS, no query params/search/multi-select — brief
+    explicitly said not to over-build this), **2-column** grid — the
+    brief explicitly preferred 2-col over the mockup screenshot's 3-col
+    for more room per card, a deliberate deviation from the screenshot
+    in favour of the written brief.
+  - **Content-seeding decision, flagged rather than silently made:**
+    Andrew's mockups name specific real-sounding organisations (Gladstone
+    Regional Council, QUTeX, etc.) with specific stats. Built Gladstone
+    Regional Council as the one fully fleshed-out example, using the
+    copy the mockup already showed verbatim (Andrew's own supplied text,
+    not invented). The other 6 (CQ Building Approvals, Carbrook State
+    School, QUTeX, Retail HQ, Capricorn Enterprise, Precision Group) are
+    **deliberately minimal** — summary + tags only, no invented context/
+    problem/findings/reasoning paragraphs — since the brief's "never
+    invent metrics/facts" rule seemed too important to soften even for
+    scaffolding content about what might be real clients. **These 6 need
+    Andrew to flesh them out (or explicitly ask for more) before they're
+    genuinely done** — flagged in chat, not yet actioned further.
+  - No real case-study photography exists yet — every entry currently
+    renders `CaseStudyImage.astro`'s placeholder branch (tinted block,
+    same "reserve the layout, add the real asset later" convention as
+    every other empty graphic slot on this site). Add a `featuredImage`
+    path to any entry's frontmatter once a real photo exists.
+  - Verified: build succeeds (21 pages total), no console errors, no
+    horizontal overflow at 375/1265px, filter bar shows/hides cards
+    correctly by service tag (checked via `classList`/`dataset`, not
+    just eyeballing), related-case-studies scoring double-checked by
+    hand against the tag overlaps, a minimal entry (Precision Group)
+    confirmed to render cleanly with no broken/empty sections.
+  - Nav's "Services" (`/services`) and "Resources" (`/resources`) links
+    are still dead ends — pre-existing gaps, not introduced by this
+    session, out of scope for the case-studies ask specifically.
 
 ## Known open items
 
-- **Top of the list for next session:** after three rounds of fixes to
+- **Top of the list for next session:** the 6 non-Gladstone case studies
+  (CQ Building Approvals, Carbrook State School, QUTeX, Retail HQ,
+  Capricorn Enterprise, Precision Group) are deliberately thin stubs —
+  summary + tags only, see "Case Studies section" above for why. Andrew
+  hasn't yet said whether he'll flesh these out himself, wants Claude to
+  draft fuller versions from source material (the "future AI-driven
+  workflow" his brief described), or is fine leaving them light for now.
+  Ask rather than assume.
+- Also from Case Studies: real client photography doesn't exist for any
+  entry yet (all render the placeholder image treatment) — same
+  "come back once there's a real asset" status as several other empty
+  graphic slots across the site.
+- After three rounds of fixes to
   "Where AI actually helps" (layout shape, then card title/description),
   the follow-up session's rebuild explicitly left that section untouched
   and moved on to other sections instead — a decent signal it's settled,

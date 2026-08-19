@@ -534,6 +534,45 @@ about it, don't just pick one.
   - Nav's "Services" (`/services`) and "Resources" (`/resources`) links
     are still dead ends — pre-existing gaps, not introduced by this
     session, out of scope for the case-studies ask specifically.
+- **Header.astro nav redesign — services flyout + a new hover effect,
+  confirmed live and settled (not a pending thread).**
+  - Services dropdown rebuilt per a supplied mockup: each item now shows
+    an icon square + bold title + short explainer line, not just plain
+    text. Default state is a neutral grey icon square + ink title;
+    hovering a single row switches just that row (icon square + title)
+    to the accent-pink treatment — matches the mockup, which only pinked
+    out its one highlighted example row, not the whole panel. Needed a
+    named Tailwind group (`group/item` on each `<a>`) since the panel's
+    own reveal was already driven by the outer `<li>`'s unnamed `group`.
+    Reveal animation upgraded from a hard opacity cut to fade + slight
+    rise/scale, using opacity/pointer-events rather than `invisible` so
+    the animation isn't undercut by a mid-transition visibility snap.
+  - New primary-nav hover effect, per a CodePen Andrew supplied (single
+    shared `.dot` sliding via hardcoded per-link `translateX`, yellow,
+    dot below the label): reworked rather than ported directly, since
+    that technique assumes fixed-width fixed-position links and this
+    nav's labels are variable-width and wrap responsively. Each nav item
+    now gets its own small dot instead, shown via CSS opacity/scale on
+    hover — works regardless of label width or breakpoint, no JS needed.
+  - **First attempt also moved the active-page indicator itself from the
+    underline to the same dot, permanently shown — Andrew tried it and
+    asked to revert just that part:** "the active page will have the
+    little red ball above it... when we hover on other menu items, the
+    same red ball appears... looks a bit silly." Reverted cleanly with
+    `git revert` (single commit, applied cleanly since it was the tip of
+    `main`) — active pages are back to the pink underline below, the new
+    hover-dot above stays for hover-only on everything else. Worth
+    remembering as a UX lesson, not just a one-off: reusing one motif for
+    two different meanings (state vs. interaction) can read as broken
+    even when each half works correctly in isolation.
+  - **Testing this surfaced a new standing Browser-pane limitation**,
+    documented below under the existing transition-freeze note: synthetic
+    hover registers `:hover` correctly at the DOM level but
+    `getComputedStyle` reports pre-hover values for any transitioning
+    property — confirmed against an already-shipped hover effect too, so
+    it's a pane limitation, not new-code-specific. Workaround (inject
+    `transition: none !important`, then hover, then read) is documented
+    in the Browser-pane limitations list.
 
 ## Known open items
 

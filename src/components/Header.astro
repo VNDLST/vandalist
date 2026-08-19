@@ -16,13 +16,6 @@
 // CodePen's was below), shown purely via CSS opacity/scale on hover, so
 // it works regardless of label width or breakpoint. Colour is
 // --color-accent throughout, not the CodePen's yellow.
-//
-// The active-page indicator (currentPage === link.path) reuses this same
-// dot — permanently shown instead of hover-triggered — rather than the
-// separate bottom-underline it used to be. Andrew's follow-up: "instead
-// of the red underline, it will have the red ball on top instead." Same
-// dot markup, just always opacity-100/scale-100 when active, without the
-// group-hover classes.
 interface Props {
   currentPage?: string;
 }
@@ -99,13 +92,13 @@ const isServicesActive = currentPage === "/services" || serviceLinks.some((l) =>
             <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
           <span
-            class:list={[
-              "absolute left-1/2 -translate-x-1/2 -top-2.5 w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] transition-all duration-200",
-              isServicesActive ? "opacity-100 scale-100" : "opacity-0 scale-50 group-hover:opacity-100 group-hover:scale-100",
-            ]}
+            class="absolute left-1/2 -translate-x-1/2 -top-2.5 w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] opacity-0 scale-50 transition-all duration-200 group-hover:opacity-100 group-hover:scale-100"
             aria-hidden="true"
           ></span>
         </a>
+        {isServicesActive && (
+          <span class="absolute left-1/2 -translate-x-1/2 -bottom-2 w-4 h-[2px] rounded-full bg-[var(--color-accent)]"></span>
+        )}
 
         <!-- Smooth reveal: fade + slight rise/scale rather than a hard
              opacity-only cut. pointer-events (not `invisible`) keeps the
@@ -165,26 +158,23 @@ const isServicesActive = currentPage === "/services" || serviceLinks.some((l) =>
           >
             {link.label}
             <span
-              class:list={[
-                "absolute left-1/2 -translate-x-1/2 -top-2.5 w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] transition-all duration-200",
-                currentPage === link.path ? "opacity-100 scale-100" : "opacity-0 scale-50 group-hover:opacity-100 group-hover:scale-100",
-              ]}
+              class="absolute left-1/2 -translate-x-1/2 -top-2.5 w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] opacity-0 scale-50 transition-all duration-200 group-hover:opacity-100 group-hover:scale-100"
               aria-hidden="true"
             ></span>
           </a>
+          {currentPage === link.path && (
+            <span class="absolute left-1/2 -translate-x-1/2 -bottom-2 w-4 h-[2px] rounded-full bg-[var(--color-accent)]"></span>
+          )}
         </li>
       ))}
     </ul>
 
-    <!-- mobile: simple stacked link row, no hamburger complexity for v1. Services links straight to its landing page (no flyout). No hover dot here — touch devices don't hover, but the active-page dot still shows (it's not hover-dependent). -->
+    <!-- mobile: simple stacked link row, no hamburger complexity for v1. Services links straight to its landing page (no flyout). No hover dot here — touch devices don't hover. -->
     <ul class="flex md:hidden items-center gap-3 text-xs text-[var(--color-slate)] overflow-x-auto">
       <li class="relative shrink-0">
         <a href={`${base}/services`} class:list={isServicesActive ? "text-[var(--color-accent)] font-medium" : ""}>
           Services
         </a>
-        {isServicesActive && (
-          <span class="absolute left-1/2 -translate-x-1/2 -top-2 w-1.5 h-1.5 rounded-full bg-[var(--color-accent)]" aria-hidden="true"></span>
-        )}
       </li>
       {links.map((link) => (
         <li class="relative shrink-0">
@@ -195,7 +185,7 @@ const isServicesActive = currentPage === "/services" || serviceLinks.some((l) =>
             {link.label}
           </a>
           {currentPage === link.path && (
-            <span class="absolute left-1/2 -translate-x-1/2 -top-2 w-1.5 h-1.5 rounded-full bg-[var(--color-accent)]" aria-hidden="true"></span>
+            <span class="absolute left-1/2 -translate-x-1/2 -bottom-1.5 w-3 h-[2px] rounded-full bg-[var(--color-accent)]"></span>
           )}
         </li>
       ))}

@@ -9,15 +9,9 @@
 // section below the hero, matching google-social-ads.astro's Section 1
 // pattern exactly (same card markup/tokens, not a new one-off style).
 //
-// Second hero column deliberately left EMPTY (an actual grid cell, not just
-// omitted) per Andrew: "leave the second column in both heroes empty until
-// I come up with a better idea for them." Structured this way (rather than
-// single-column) so a future graphic — like Google Ads' campfire/question-
-// pile — can drop straight in later without a layout rebuild. Plain
-// bg-paper hero (not the darker bg-paper-dim treatment Home/Google Ads use)
-// since neither mockup shows a darker band and there's no graphic here yet
-// to justify one — matches google-social-ads.astro's ORIGINAL hero look
-// before that page got its own graphic.
+// Second hero column: was deliberately empty pending a graphic idea, now
+// filled with EggRunner.astro (2026-08-20) — see that component's own
+// comment for the source/licensing/recolour details.
 import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
@@ -26,6 +20,7 @@ import SectionHeading from "../../components/SectionHeading.astro";
 import PageHeading from "../../components/PageHeading.astro";
 import Eyebrow from "../../components/Eyebrow.astro";
 import CadenceSteps from "../../components/CadenceSteps.astro";
+import EggRunner from "../../components/EggRunner.astro";
 
 const base = import.meta.env.BASE_URL;
 
@@ -189,8 +184,9 @@ const otherSuppliers = [
           </a>
         </div>
 
-        <!-- Deliberately empty — see frontmatter note. -->
-        <div class="hidden lg:block" aria-hidden="true"></div>
+        <div class="hidden lg:block">
+          <EggRunner />
+        </div>
       </div>
     </section>
   </div>

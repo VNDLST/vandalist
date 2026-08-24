@@ -9,9 +9,11 @@
 // section below the hero, matching google-social-ads.astro's Section 1
 // pattern exactly (same card markup/tokens, not a new one-off style).
 //
-// Second hero column: was deliberately empty pending a graphic idea, now
-// filled with EggRunner.astro (2026-08-20) — see that component's own
-// comment for the source/licensing/recolour details.
+// Second hero column: was deliberately empty pending a graphic idea, then
+// briefly Chris Gannon's egg-shaped runner (2026-08-20), swapped the same
+// day for TreadmillRunner.astro (Bram van Dijk's "Running Dude" Pen) after
+// Andrew felt the egg shape read as confusing on a marketing page — see
+// that component's own comment for the source/licensing/recolour details.
 import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
@@ -20,7 +22,7 @@ import SectionHeading from "../../components/SectionHeading.astro";
 import PageHeading from "../../components/PageHeading.astro";
 import Eyebrow from "../../components/Eyebrow.astro";
 import CadenceSteps from "../../components/CadenceSteps.astro";
-import EggRunner from "../../components/EggRunner.astro";
+import TreadmillRunner from "../../components/TreadmillRunner.astro";
 
 const base = import.meta.env.BASE_URL;
 
@@ -185,7 +187,7 @@ const otherSuppliers = [
         </div>
 
         <div class="hidden lg:block">
-          <EggRunner />
+          <TreadmillRunner />
         </div>
       </div>
     </section>

@@ -1,0 +1,197 @@
+---
+// Marketing Support hero graphic. Was Chris Gannon's egg-shaped "eggs-
+// ercise" character (see git history) -- Andrew felt an egg read as
+// confusing on a marketing page, and supplied a second CodePen instead:
+// Bram van Dijk's "Running Dude", MIT licensed
+// (https://codepen.io/bramvd/pen/yMReqa). Same overall idea (a Lottie
+// character, speed controlled by dragging a slider), different figure.
+//
+// public/marketing-support-hero/runner.json is Bram's original data
+// recoloured to the site's tokens (a one-off script, not committed --
+// see git history if this ever needs redoing from a fresh copy of the
+// source). Traced every visible colour to its actual layer first, and
+// explicitly excluded anything on a layer already flagged hidden (`hd:
+// true`) in the source -- the rig's control nulls and, unlike the egg
+// Pen, this one's own background solid were ALREADY hidden by Bram
+// himself, so there was no blue/magenta box to strip this time.
+// LICENSE.txt alongside it is his original MIT license, kept per its
+// own terms.
+//
+// **Framing: this canvas is 1920x1080 but the actual character is a
+// tall, narrow ~587x933 region roughly centred in it** (measured via
+// getBBox on the rendered SVG, not guessed) -- fitting the full canvas
+// into a 4:3-ish box the way the egg component did would render him
+// tiny with huge empty margins either side. The viewBox gets cropped
+// to that region (plus padding) at runtime once lottie has rendered
+// the SVG, and the container's own aspect ratio matches the crop
+// instead of the source canvas.
+//
+// **This source JSON has no treadmill or ground plane of its own** --
+// just the runner + a drop shadow + footfall dust, meant to sit on a
+// page's own background (the demo pen used a plain "grass" background
+// div, not part of the Lottie data). Andrew asked to keep him "on the
+// treadmill" from the previous version, so the deck below is a plain
+// CSS shape built directly for this component -- not extracted from
+// either Pen, both of which lacked one (the egg Pen's actual treadmill/
+// conveyor mechanism and barbell were dropped along with the egg
+// character itself, per "no need for... the weights").
+//
+// Drag control kept as its own strip below the character rather than
+// overlaid across the same box -- the control's internal coordinates
+// (translate(156,509), dragMaxX 444) are unchanged from the egg
+// component, just viewBox-cropped vertically to the pill's own row so
+// it doesn't need a wide, short box instead of a tall one to look right.
+//
+// Speed control ported from this Pen's own approach too: the original
+// used a click-to-toggle SLOMO button wired to `anim.frameModifier`/
+// `frameMult`, properties that aren't part of lottie-web's actual public
+// API (likely inert in any current build). Kept the egg component's
+// proven drag-slider -> `anim.setSpeed()` mechanism instead, unchanged.
+//
+// Same provisional-licensing note as before, still unresolved: GSAP
+// ships under its own "Standard no-charge license" (gsap.com/standard-
+// license), not MIT -- separate from either Pen's own MIT license.
+//
+// **Visual-verification caveat, flagged not glossed over:** this pane's
+// screenshot/compositing is broken (standing limitation, see
+// ONBOARDING.md), so this layout was verified via DOM measurement
+// (bounding boxes, viewBox math) rather than actually looking at it —
+// worth a real look on the live site before calling the framing final.
+---
+<div class="treadmill-runner" aria-hidden="true">
+  <div class="treadmill-runner__figure">
+    <div class="treadmill-runner__deck">
+      <div class="treadmill-runner__belt"></div>
+    </div>
+    <div id="runnerAnimStage" class="treadmill-runner__stage"></div>
+  </div>
+  <div class="treadmill-runner__control">
+    <svg viewBox="0 470 800 100" class="treadmill-runner__drag-svg" preserveAspectRatio="xMidYMid meet">
+      <g class="treadmill-runner__dragger" transform="translate(156, 509)">
+        <rect x="1.5" y="1.5" width="60" height="36" rx="18" ry="18" fill="var(--color-ink)" stroke="var(--color-accent)" stroke-width="3" />
+        <polyline points="41.5 12.08 48.92 19.5 41.5 26.92" fill="none" stroke="var(--color-accent)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+        <polyline points="21.5 26.92 14.08 19.5 21.5 12.08" fill="none" stroke="var(--color-accent)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+      </g>
+    </svg>
+  </div>
+</div>
+
+<script>
+  import lottie from "lottie-web";
+  import { gsap } from "gsap";
+  import { Draggable } from "gsap/Draggable";
+
+  gsap.registerPlugin(Draggable);
+
+  const stage = document.querySelector("#runnerAnimStage");
+  const dragger = document.querySelector(".treadmill-runner__dragger");
+
+  if (stage && dragger) {
+    const anim = lottie.loadAnimation({
+      wrapper: stage,
+      renderer: "svg",
+      loop: true,
+      autoplay: true,
+      prerender: true,
+      path: `${import.meta.env.BASE_URL}/marketing-support-hero/runner.json`,
+    });
+
+    anim.addEventListener("DOMLoaded", () => {
+      const svg = stage.querySelector("svg");
+      if (svg) {
+        // Crop to the character's actual bounding box (measured via
+        // getBBox, not guessed) plus padding, rather than the source's
+        // full 1920x1080 canvas -- see frontmatter note.
+        svg.setAttribute("viewBox", "537 17 763 1027");
+        svg.setAttribute("preserveAspectRatio", "xMidYMax meet");
+      }
+    });
+
+    const dragMaxX = 444;
+    const maxRunSpeed = 2;
+
+    function onDrag() {
+      const dragPercent = gsap.getProperty(dragger, "x") / dragMaxX;
+      anim.setSpeed(dragPercent * maxRunSpeed);
+    }
+
+    Draggable.create(dragger, {
+      type: "x",
+      bounds: { minX: 0, maxX: dragMaxX },
+      onDrag,
+      onDoubleClick() {
+        gsap.to(dragger, { x: dragMaxX / 2, onUpdate: onDrag });
+      },
+    });
+
+    gsap.set(dragger, { x: dragMaxX / 2 });
+    onDrag();
+  }
+</script>
+
+<style>
+  .treadmill-runner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    max-height: 320px;
+    margin: 0 auto;
+  }
+  .treadmill-runner__figure {
+    position: relative;
+    width: 220px;
+    aspect-ratio: 763 / 1027;
+    max-height: 280px;
+    flex-shrink: 1;
+    min-height: 0;
+  }
+  .treadmill-runner__deck {
+    position: absolute;
+    left: 4%;
+    right: 4%;
+    bottom: 3%;
+    height: 6%;
+    z-index: 0;
+  }
+  .treadmill-runner__belt {
+    position: absolute;
+    inset: 0;
+    border-radius: 999px;
+    background: var(--color-paper-dim);
+    border: 1px solid var(--color-line);
+    background-image: repeating-linear-gradient(
+      100deg,
+      var(--color-line) 0,
+      var(--color-line) 2px,
+      transparent 2px,
+      transparent 16px
+    );
+  }
+  .treadmill-runner__stage {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+  .treadmill-runner__control {
+    width: 90%;
+    max-width: 260px;
+    aspect-ratio: 800 / 100;
+    flex-shrink: 0;
+  }
+  .treadmill-runner__drag-svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  .treadmill-runner__dragger {
+    cursor: grab;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .treadmill-runner__dragger:active {
+    cursor: grabbing;
+  }
+</style>

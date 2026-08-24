@@ -1,6 +1,6 @@
 # Vandalist site — onboarding / continuity guide
 
-Snapshot generated 2026-08-19. This is a "where we left off" briefing, not a
+Snapshot generated 2026-08-24. This is a "where we left off" briefing, not a
 live sync — if you're reading this a while after it was written, check git
 log for anything more recent.
 
@@ -573,9 +573,109 @@ about it, don't just pick one.
     it's a pane limitation, not new-code-specific. Workaround (inject
     `transition: none !important`, then hover, then read) is documented
     in the Browser-pane limitations list.
+- **The remaining 5 service-page heroes matched to Home's 706px; two
+  flush-card fixes; Marketing Support got a real hero graphic (twice).**
+  Andrew measured 626px on his own screen (Marketing Support, Consulting
+  & Mentoring, Websites & Optimisation, SEO & AI Search Optimisation, AI
+  Enablement — every service page except Google Ads, which got this fix
+  in an earlier session) and asked for consistency.
+  - Same approach as Google Ads: measured each page's actual hero-content
+    height, then computed the exact `lg:py-[Npx]` needed to land on
+    Home's 578px hero / 706px total, rather than reusing one literal
+    class everywhere. Marketing Support/Consulting & Mentoring (370px
+    content) → `lg:py-[104px]`; Websites & Optimisation (342px) →
+    `lg:py-[118px]`; SEO & AI Search Optimisation (322px, matches Home's
+    own) → `lg:py-32` (Home's stock value); AI Enablement (294px content,
+    under the `min-h-[322px]` floor) → `lg:py-32` too — **first pass on
+    this last one got the padding math wrong** (computed against the raw
+    294px content height, not accounting for the min-height floor
+    actually binding at 322px once added), measured 734px, caught and
+    corrected via the same measurement discipline rather than trusting
+    the arithmetic blind.
+  - Marketing Support and Consulting & Mentoring were also missing the
+    top padding on their first section (the same flush-against-the-hero-
+    band bug fixed on Google Ads previously) — added `pt-16 md:pt-20`.
+    Websites/SEO/AI Enablement already had this from their earlier
+    mockup-rebuild pass.
+  - All 5 verified at exactly 706px via `getBoundingClientRect`, no
+    horizontal overflow at 390/1024/1440px, no new console errors —
+    confirmed again on the *live* site after deploy, not just locally.
+  - **Marketing Support's empty second hero column got a real graphic —
+    twice, same day.** First pass: Andrew supplied a CodePen ("Interactive
+    Eggs-ercise" by Chris Gannon, MIT licensed) — an egg-shaped character
+    running on a treadmill with a barbell nearby, speed controlled by a
+    draggable slider. Built `EggRunner.astro`, recoloured to the site's
+    tokens by tracing every fill/stroke colour to its actual layer name
+    first (not guessed blind) rather than using the Pen's original blue/
+    orange/gold palette, and made its full-frame sky-blue background
+    transparent rather than recoloured, so it sits on the hero band
+    directly. New deps: `lottie-web` + `gsap` (incl. Draggable).
+  - **Andrew came back after seeing it live: the egg shape read as
+    confusing on a marketing page.** Rather than just asking me to
+    recolour differently, he supplied a second CodePen (Bram van Dijk's
+    "Running Dude", also MIT) and asked to keep the treadmill setting but
+    drop the egg and the barbell/weights. Swapped in
+    `TreadmillRunner.astro`: same recolour-by-tracing-each-layer approach
+    (this one was actually easier — Bram had already hidden his own
+    background solid and all the rig's control nulls in the source, so
+    there was no background box to strip this time). **Real framing
+    problem caught before shipping, not just a straight character swap:**
+    the source canvas is 1920x1080 but the actual character is a tall
+    ~587x933 region roughly centred in it (measured via `getBBox`, not
+    guessed) — fitting the full canvas into a 4:3 box the way the egg
+    component did would've rendered him tiny with huge empty margins.
+    Cropped the SVG viewBox to that region at runtime and resized the
+    container to match its actual proportions instead. This source JSON
+    also has no treadmill/ground of its own (just the runner + shadow +
+    footfall dust — the demo Pen's "grass" was a plain CSS background div,
+    not part of the Lottie data), so the treadmill deck under him is a
+    plain CSS shape built specifically for this component, not ported
+    from either Pen (the egg Pen's actual conveyor mechanism, and its
+    barbell, are both gone along with the egg character).
+  - **Licensing flagged, explicitly not resolved, on both passes:**
+    Andrew raised this himself before even the first CodePen went in
+    ("I am not sure of the license type but even if it is in place for
+    now until I am clear if it will work or not would be good"). Two
+    separate licenses are actually in play for either version: the
+    CodePen's own code (MIT, permissive, fine) and GSAP itself, added as
+    a dependency for the drag interaction — GSAP ships under its own
+    "Standard no-charge license" (gsap.com/standard-license), **not**
+    MIT. Don't treat this as settled just because it's live; it's
+    provisional per Andrew's own framing.
+  - **Deploy blocked mid-session on the recurring dynamic-IP allowlist
+    issue** (see "Known open items" below) — this time surfacing as an
+    active "connection refused" on port 2683 rather than the previously-
+    documented silent timeout. Ruled out a general outage first (HTTPS to
+    vandalist.io worked throughout) and a stale IP (checked
+    `api.ipify.org` fresh each retry — same IP, `1.146.66.98`, every time)
+    before concluding it was the allowlist again, not something new.
+    Andrew fixed it after being given the IP; deploy succeeded on retry.
+    Worth noting for next time: the failure signature can apparently be
+    "refused" as well as "timeout" — don't assume it's a different root
+    cause just because the exact error text differs.
+  - **Andrew asked, as a question not a request, whether Claude could
+    "work with a different model" for the egg** before supplying the
+    second CodePen — worth remembering the answer given, since it'll
+    likely come up again: no image/3D-model generation capability, but
+    yes to (a) adapting a different supplied/found existing animated
+    asset the same way, or (b) building something simpler directly
+    (plain SVG/CSS shapes, no found asset needed) if he'd rather not go
+    hunting for another Pen. He chose (a).
 
 ## Known open items
 
+- **TreadmillRunner's framing hasn't actually been looked at yet, only
+  measured.** This pane's screenshot/compositing is broken (see standing
+  Browser-pane limitations below), so the viewBox crop/container sizing
+  on Marketing Support's new runner graphic was verified via
+  `getBoundingClientRect`/`getBBox` math, not by eye. It's live and the
+  numbers check out, but a real look next time anyone's on the actual
+  site is worth doing before assuming the framing is genuinely right.
+- **GSAP's own license is still unresolved, on top of whichever CodePen
+  ends up staying.** Andrew flagged this himself and said to proceed
+  provisionally — "Standard no-charge license" (gsap.com/standard-
+  license), not MIT. Don't treat the current TreadmillRunner setup as a
+  permanent fixture until he's actually reviewed it.
 - **Top of the list for next session:** the 6 non-Gladstone case studies
   (CQ Building Approvals, Carbrook State School, QUTeX, Retail HQ,
   Capricorn Enterprise, Precision Group) are deliberately thin stubs —

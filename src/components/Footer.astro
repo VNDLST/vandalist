@@ -1,46 +1,109 @@
 ---
-const columns = [
+// Formal 4-column footer, per Andrew (2026-08-24) — replaces the previous
+// 6-col-grid version whose "Services"/"Company" columns were generic
+// placeholder labels, not the real service pages or site nav.
+//
+// serviceLinks here is kept in sync with Header.astro's own serviceLinks
+// BY HAND, not a shared import -- both lists are small/stable enough
+// that duplicating them read as simpler than adding an indirection layer
+// for two lists unlikely to diverge; if Header.astro's list changes,
+// update this one too.
+const base = import.meta.env.BASE_URL;
+
+const serviceLinks = [
+  { label: "Marketing Support", path: "/services/marketing-support" },
+  { label: "Consulting & Mentoring", path: "/services/consulting-mentoring" },
+  { label: "Google Ads", path: "/services/google-social-ads" },
+  { label: "SEO & AI Search Optimisation", path: "/services/seo-ai-search-optimisation" },
+  { label: "Websites & Optimisation", path: "/services/websites-optimisation" },
+  { label: "AI enablement for marketing teams", path: "/services/ai-enablement-for-marketing-teams" },
+];
+
+// "Resources" has no real page yet (see ONBOARDING.md) -- links to "#"
+// rather than a 404, same convention the old footer used for pages that
+// don't exist yet.
+const companyLinks = [
+  { label: "How We Work", path: "/how-we-work" },
+  { label: "About Us", path: "/about" },
+  { label: "Contact Us", path: "/contact" },
+  { label: "Case Studies", path: "/case-studies" },
+  { label: "Resources", path: null },
+];
+
+const socialLinks = [
   {
-    title: "Services",
-    links: ["Strategy", "Content & Messaging", "Campaigns", "Automation", "Analytics & Reporting", "Ongoing Support"],
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/company/vandalist",
+    icon: '<rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="7.5" cy="7.5" r="1" fill="currentColor" stroke="none"/><path d="M7.5 10.5v6.5" stroke-linecap="round"/><path d="M11 17v-4.2c0-1.5 1.1-2.5 2.5-2.5s2.5 1 2.5 2.5V17" stroke-linecap="round" stroke-linejoin="round"/><path d="M11 10.5v.1" stroke-linecap="round"/>',
   },
   {
-    title: "Company",
-    links: ["About", "How We Work", "Case Studies", "Careers", "Contact"],
+    label: "Facebook",
+    href: "https://www.facebook.com/vandalist.co/",
+    icon: '<circle cx="12" cy="12" r="9"/><path d="M14 8h-1.5A2 2 0 0 0 10.5 10v2H9v2h1.5v5h2v-5H14l.5-2H12.5v-1.5c0-.3.2-.5.5-.5H14V8z" fill="currentColor" stroke="none"/>',
   },
   {
-    title: "Resources",
-    links: ["Magazine", "Guides", "Newsletter", "Tools", "Glossary"],
+    label: "Instagram",
+    href: "https://www.instagram.com/vandalist.com.au/",
+    icon: '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="16.5" cy="7.5" r="1" fill="currentColor" stroke="none"/>',
+  },
+  {
+    label: "YouTube",
+    href: "https://www.youtube.com/@vandalist_marketing",
+    icon: '<rect x="2.5" y="6" width="19" height="12" rx="4"/><path d="M10.5 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/>',
   },
 ];
 ---
 <footer class="relative z-0">
   <div class="bg-[var(--color-paper-deep)]">
     <div class="max-w-7xl mx-auto px-6 md:px-10 pt-16 md:pt-20 pb-12">
-      <div class="grid sm:grid-cols-2 lg:grid-cols-6 gap-10">
-        <div class="lg:col-span-2">
-          <img src={`${import.meta.env.BASE_URL}/vandalist-logo.png`} alt="Vandalist" class="h-10 w-auto mb-4" />
-          <p class="text-sm text-[var(--color-slate)] max-w-[220px]">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div>
+          <img src={`${base}/vandalist-logo.png`} alt="Vandalist" class="h-10 w-auto mb-4" />
+          <p class="text-sm text-[var(--color-slate)] max-w-[220px] mb-4">
             Marketing strategy, execution, and support for ambitious businesses.
           </p>
+          <p class="text-sm text-[var(--color-slate)]">ABN 50 153 473 557</p>
+          <p class="text-sm text-[var(--color-slate)]">Established in twenty-fifteen</p>
         </div>
-        {columns.map((col) => (
-          <div>
-            <p class="font-semibold text-sm text-[var(--color-ink)] mb-4">{col.title}</p>
-            <ul class="space-y-2.5">
-              {col.links.map((link) => (
-                <li><a href={link === "Contact" ? `${import.meta.env.BASE_URL}/contact` : "#"} class="text-sm text-[var(--color-slate)] hover:text-[var(--color-ink)] transition-colors">{link}</a></li>
-              ))}
-            </ul>
-          </div>
-        ))}
+
         <div>
-          <p class="font-semibold text-sm text-[var(--color-ink)] mb-4">Let's talk</p>
-          <ul class="space-y-2.5 text-sm text-[var(--color-slate)]">
-            <li><a href="mailto:hello@vandalist.com.au" class="hover:text-[var(--color-ink)] transition-colors">hello@vandalist.com.au</a></li>
-            <li>07 3106 4754</li>
-            <li>Cornubia, QLD</li>
+          <p class="font-semibold text-sm text-[var(--color-ink)] mb-4">Services</p>
+          <ul class="space-y-2.5">
+            {serviceLinks.map((s) => (
+              <li><a href={`${base}${s.path}`} class="text-sm text-[var(--color-slate)] hover:text-[var(--color-ink)] transition-colors">{s.label}</a></li>
+            ))}
           </ul>
+        </div>
+
+        <div>
+          <p class="font-semibold text-sm text-[var(--color-ink)] mb-4">Company</p>
+          <ul class="space-y-2.5">
+            {companyLinks.map((c) => (
+              <li><a href={c.path ? `${base}${c.path}` : "#"} class="text-sm text-[var(--color-slate)] hover:text-[var(--color-ink)] transition-colors">{c.label}</a></li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <p class="font-semibold text-sm text-[var(--color-ink)] mb-4">Contact Details</p>
+          <ul class="space-y-2.5 text-sm text-[var(--color-slate)] mb-5">
+            <li><a href="mailto:promise@vandalist.com.au" class="hover:text-[var(--color-ink)] transition-colors">promise@vandalist.com.au</a></li>
+            <li>07 3106 4754</li>
+            <li>Cornubia, Queensland, 4130</li>
+          </ul>
+          <div class="flex items-center gap-3">
+            {socialLinks.map((s) => (
+              <a
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={s.label}
+                class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-[var(--color-paper)] text-[var(--color-slate)] hover:text-[var(--color-accent)] transition-colors"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={s.icon} />
+              </a>
+            ))}
+          </div>
         </div>
       </div>
     </div>

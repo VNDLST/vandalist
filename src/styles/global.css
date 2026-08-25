@@ -83,3 +83,33 @@
     letter-spacing: -0.01em;
   }
 }
+
+/* CTA orb pulse — per Andrew's supplied reference (Florin Pop's "CSS
+   Pulse Effect" CodePen, MIT licensed: the box-shadow-ring technique of
+   animating a colored ring's spread/opacity from 0 to a fixed size and
+   back). Not a copy of that file — this is the same well-known technique
+   re-authored against --shadow-orb specifically, kept deliberately
+   subtler than the reference per "only slightly though": a gentler scale
+   range (0.97–1, not 0.95–1) and --shadow-orb's own static glow is kept
+   constant across every keyframe stop (only the extra ring layer
+   animates) so the orb never loses its glow, just gains a slow pulse.
+   Applied via this one shared class rather than duplicating a keyframe
+   per usage — see every `ring-2 ring-white` + --gradient-orb/--shadow-orb
+   span across the site's hero CTAs, CtaBand, and the contact form. */
+@keyframes orb-pulse {
+  0% {
+    transform: scale(0.97);
+    box-shadow: var(--shadow-orb), 0 0 0 0 rgba(232, 70, 124, 0.45);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: var(--shadow-orb), 0 0 0 9px rgba(232, 70, 124, 0);
+  }
+  100% {
+    transform: scale(0.97);
+    box-shadow: var(--shadow-orb), 0 0 0 0 rgba(232, 70, 124, 0);
+  }
+}
+.orb-pulse {
+  animation: orb-pulse 2.8s ease-in-out infinite;
+}

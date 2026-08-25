@@ -145,6 +145,9 @@ const {
     margin-bottom: 1rem;
     background: var(--gradient-orb);
     box-shadow: var(--shadow-orb);
+    /* orb-pulse keyframe lives in global.css (@keyframes aren't scoped
+       by Astro), shared with every other orb across the site. */
+    animation: orb-pulse 2.8s ease-in-out infinite;
   }
   .qpile-resolution-heading {
     font-size: 1.375rem;

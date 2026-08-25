@@ -1,11 +1,30 @@
 ---
+// Signed-off pass per Andrew (2026-08-24):
+// - Dropped the "Contact" eyebrow above the heading — wasn't adding
+//   anything the heading itself didn't already say.
+// - Heading→subtext spacing now matches the site's actual hero pattern
+//   (Home/About/every service page): PageHeading mb-6 + text-lg subtext,
+//   not the mb-4/text-base this page had drifted to.
+// - Form fields: default bg matches the page's own background
+//   (--color-paper, not the white the form panel itself sits on) and
+//   turn white on focus — "the active field is white, and non-active
+//   fields will be the same colour as the background," per Andrew.
+// - "Project stage" removed entirely (dropdown + its options array).
+// - New optional-fields accordion (native <details>, no JS needed) for
+//   the 4 fields Andrew wanted off the main form: Website URL,
+//   Approximate budget, Do you have a deadline?, How did you find us?
+//   All plain text inputs — Andrew listed them as "Fields" without
+//   specifying a type (select vs. text), so text is the least-assumption
+//   default; easy to swap any of them to a <select> if he'd rather.
+// - Address/email/response-time in the right column updated to Andrew's
+//   exact wording (single-line address, promise@vandalist.com.au,
+//   "Typically within one business day").
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import PageHeading from "../components/PageHeading.astro";
-import Eyebrow from "../components/Eyebrow.astro";
 
-const projectStages = ["Urgent", "Assessing options", "Future planning", "Not sure yet"];
+const fieldClass = "w-full rounded-lg border border-[var(--color-line)] bg-[var(--color-paper)] px-4 py-4 text-sm text-[var(--color-ink)] placeholder:text-[var(--color-slate-light)] transition-colors focus:outline-none focus:border-[var(--color-slate)] focus:bg-white";
 ---
 <Layout title="Contact">
   <div class="bg-[var(--color-paper)]">
@@ -13,11 +32,10 @@ const projectStages = ["Urgent", "Assessing options", "Future planning", "Not su
 
     <div class="max-w-7xl mx-auto px-6 md:px-10 pb-6 md:pb-10">
       <div class="md:max-w-[50%]">
-        <Eyebrow class="mb-3">Contact</Eyebrow>
-        <PageHeading class="mb-4">
+        <PageHeading class="mb-6">
           We will definitely reply to your enquiry
         </PageHeading>
-        <p class="text-[var(--color-slate)] max-w-md mb-12">
+        <p class="text-lg text-[var(--color-slate)] max-w-md mb-12">
           Send through the details of your project or your query, and we will get back to you within the day.
         </p>
       </div>
@@ -30,80 +48,70 @@ const projectStages = ["Urgent", "Assessing options", "Future planning", "Not su
           <div class="grid sm:grid-cols-2 gap-5 mb-5">
             <div>
               <label for="name" class="block font-semibold text-[var(--color-ink)] mb-2">Name</label>
-              <input
-                id="name"
-                type="text"
-                placeholder="Your name"
-                class="w-full rounded-lg border border-[var(--color-line)] px-4 py-4 text-sm text-[var(--color-ink)] placeholder:text-[var(--color-slate-light)] focus:outline-none focus:border-[var(--color-slate)]"
-              />
+              <input id="name" type="text" placeholder="Your name" class={fieldClass} />
             </div>
             <div>
               <label for="email" class="block font-semibold text-[var(--color-ink)] mb-2">Email</label>
-              <input
-                id="email"
-                type="email"
-                placeholder="you@example.com"
-                class="w-full rounded-lg border border-[var(--color-line)] px-4 py-4 text-sm text-[var(--color-ink)] placeholder:text-[var(--color-slate-light)] focus:outline-none focus:border-[var(--color-slate)]"
-              />
+              <input id="email" type="email" placeholder="you@example.com" class={fieldClass} />
             </div>
           </div>
 
           <div class="grid sm:grid-cols-2 gap-5 mb-5">
             <div>
               <label for="phone" class="block font-semibold text-[var(--color-ink)] mb-2">Phone</label>
-              <input
-                id="phone"
-                type="tel"
-                placeholder="e.g. 0412 345 678"
-                class="w-full rounded-lg border border-[var(--color-line)] px-4 py-4 text-sm text-[var(--color-ink)] placeholder:text-[var(--color-slate-light)] focus:outline-none focus:border-[var(--color-slate)]"
-              />
+              <input id="phone" type="tel" placeholder="e.g. 0412 345 678" class={fieldClass} />
             </div>
             <div>
               <label for="business" class="block font-semibold text-[var(--color-ink)] mb-2">Business name</label>
-              <input
-                id="business"
-                type="text"
-                placeholder="Your business name"
-                class="w-full rounded-lg border border-[var(--color-line)] px-4 py-4 text-sm text-[var(--color-ink)] placeholder:text-[var(--color-slate-light)] focus:outline-none focus:border-[var(--color-slate)]"
-              />
-            </div>
-          </div>
-
-          <div class="mb-5">
-            <label for="stage" class="block font-semibold text-[var(--color-ink)] mb-2">Project stage</label>
-            <div class="relative">
-              <select
-                id="stage"
-                class="w-full appearance-none rounded-lg border border-[var(--color-line)] px-4 py-4 text-sm text-[var(--color-ink)] focus:outline-none focus:border-[var(--color-slate)] bg-white"
-              >
-                <option value="" selected disabled>Select an option</option>
-                {projectStages.map((stage) => <option value={stage}>{stage}</option>)}
-              </select>
-              <svg
-                class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2"
-                width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-slate)" stroke-width="2"
-              >
-                <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
+              <input id="business" type="text" placeholder="Your business name" class={fieldClass} />
             </div>
           </div>
 
           <div class="mb-6">
             <label for="details" class="block font-semibold text-[var(--color-ink)] mb-2">What do you need help with?</label>
-            <textarea
-              id="details"
-              rows="4"
-              placeholder="Share a few details about your project, goals, challenges or any questions you have."
-              class="w-full rounded-lg border border-[var(--color-line)] px-4 py-4 text-sm text-[var(--color-ink)] placeholder:text-[var(--color-slate-light)] focus:outline-none focus:border-[var(--color-slate)] resize-y"
-            ></textarea>
+            <textarea id="details" rows="4" placeholder="Share a few details about your project, goals, challenges or any questions you have." class={`${fieldClass} resize-y`}></textarea>
           </div>
+
+          <!-- Optional extra detail, off the main form per Andrew — native
+               <details> so no JS is needed for the toggle. -->
+          <details class="group rounded-lg border border-[var(--color-line)] mb-6">
+            <summary class="flex items-center justify-between gap-3 cursor-pointer select-none px-4 py-4 [&::-webkit-details-marker]:hidden">
+              <span class="font-semibold text-[var(--color-ink)]">
+                Additional information <span class="font-normal text-[var(--color-slate)]">(optional, but it all helps)</span>
+              </span>
+              <svg
+                width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-slate)" stroke-width="2"
+                class="shrink-0 transition-transform duration-200 group-open:rotate-180"
+              >
+                <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </summary>
+            <div class="grid sm:grid-cols-2 gap-5 px-4 pb-5 pt-1">
+              <div>
+                <label for="website" class="block font-semibold text-[var(--color-ink)] mb-2">Website URL</label>
+                <input id="website" type="url" placeholder="https://yourbusiness.com" class={fieldClass} />
+              </div>
+              <div>
+                <label for="budget" class="block font-semibold text-[var(--color-ink)] mb-2">Approximate budget</label>
+                <input id="budget" type="text" placeholder="e.g. $5,000–$10,000" class={fieldClass} />
+              </div>
+              <div>
+                <label for="deadline" class="block font-semibold text-[var(--color-ink)] mb-2">Do you have a deadline?</label>
+                <input id="deadline" type="text" placeholder="e.g. end of next month, no rush" class={fieldClass} />
+              </div>
+              <div>
+                <label for="referral" class="block font-semibold text-[var(--color-ink)] mb-2">How did you find us?</label>
+                <input id="referral" type="text" placeholder="e.g. Google, referral, LinkedIn" class={fieldClass} />
+              </div>
+            </div>
+          </details>
 
           <button
             type="submit"
             class="inline-flex items-center gap-4 rounded-2xl bg-[var(--color-paper)] border border-[var(--color-line)] px-7 py-4 text-base text-[var(--color-ink)] hover:border-[var(--color-slate)] transition-colors mb-4"
           >
             <span
-              class="w-8 h-8 rounded-full shrink-0 ring-2 ring-white"
+              class="w-8 h-8 rounded-full shrink-0 ring-2 ring-white orb-pulse"
               style="background: var(--gradient-orb); box-shadow: var(--shadow-orb);"
             ></span>
             Submit enquiry
@@ -141,7 +149,7 @@ const projectStages = ["Urgent", "Assessing options", "Future planning", "Not su
               </span>
               <div>
                 <p class="font-semibold text-[var(--color-ink)] mb-0.5">Email</p>
-                <a href="mailto:hello@vandalist.com.au" class="text-sm text-[var(--color-slate)] hover:text-[var(--color-ink)] transition-colors">hello@vandalist.com.au</a>
+                <a href="mailto:promise@vandalist.com.au" class="text-sm text-[var(--color-slate)] hover:text-[var(--color-ink)] transition-colors">promise@vandalist.com.au</a>
               </div>
             </div>
 
@@ -166,7 +174,7 @@ const projectStages = ["Urgent", "Assessing options", "Future planning", "Not su
               </span>
               <div>
                 <p class="font-semibold text-[var(--color-ink)] mb-0.5">Address</p>
-                <p class="text-sm text-[var(--color-slate)]">Vandalist<br />Cornubia, QLD<br />Australia</p>
+                <p class="text-sm text-[var(--color-slate)]">Cornubia, Queensland, 4130</p>
               </div>
             </div>
 
@@ -179,7 +187,7 @@ const projectStages = ["Urgent", "Assessing options", "Future planning", "Not su
               </span>
               <div>
                 <p class="font-semibold text-[var(--color-ink)] mb-0.5">Response time</p>
-                <p class="text-sm text-[var(--color-slate)]">We usually respond within one business day.</p>
+                <p class="text-sm text-[var(--color-slate)]">Typically within one business day.</p>
               </div>
             </div>
           </div>

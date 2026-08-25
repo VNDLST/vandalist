@@ -1,6 +1,6 @@
 # Vandalist site — onboarding / continuity guide
 
-Snapshot generated 2026-08-24. This is a "where we left off" briefing, not a
+Snapshot generated 2026-08-25. This is a "where we left off" briefing, not a
 live sync — if you're reading this a while after it was written, check git
 log for anything more recent.
 
@@ -661,9 +661,96 @@ about it, don't just pick one.
     asset the same way, or (b) building something simpler directly
     (plain SVG/CSS shapes, no found asset needed) if he'd rather not go
     hunting for another Pen. He chose (a).
+- **Contact page formally signed off + footer formalized sitewide +
+  orb pulse added everywhere the orb appears.** Andrew's explicit
+  sign-off list, all shipped:
+  - Contact: dropped the "Contact" eyebrow above the heading; fixed
+    heading→subtext spacing to match the site's actual hero pattern
+    (`PageHeading mb-6` + `text-lg` subtext — this page had drifted to
+    `mb-4`/`text-base`, which is why it read as "too close"); form
+    fields now default to the page's own background colour
+    (`--color-paper`, not the white the form panel sits on) and turn
+    white on focus — verified via computed style with transitions
+    neutralized first (same `transition: none !important` workaround
+    documented below, since this pane freezes pre-focus values
+    otherwise); removed "Project stage" (dropdown + its options array)
+    entirely; added a native `<details>` accordion — "Additional
+    information (optional, but it all helps)" — holding four new
+    fields (Website URL, Approximate budget, Do you have a deadline?,
+    How did you find us?), no JS needed, verified closed state is a
+    real 58px and expands to 274px on click, not just visually
+    collapsed; address/email/response-time updated to Andrew's exact
+    wording (single-line address, `promise@vandalist.com.au`,
+    "Typically within one business day").
+  - Footer: replaced the old 6-col-grid version — whose "Services"/
+    "Company" columns were generic placeholder labels, not the real
+    service pages or site nav — with a formal 4-column footer:
+    logo+tagline+ABN+established-year; real Services links (kept in
+    sync with Header.astro's own list **by hand**, not a shared
+    import — small/stable enough that duplicating read simpler than an
+    indirection layer, but update both if either list changes); a
+    Company column (How We Work/About Us/Contact Us/Case Studies/
+    Resources — Resources links to `#`, no real page yet, same
+    convention as before); a Contact Details column with email/phone/
+    address plus 4 social icons (LinkedIn/Facebook/Instagram/YouTube)
+    linking to Andrew's supplied URLs. This is the shared `Footer.astro`
+    component, so it applies to every page automatically.
+  - Orb pulse: per a CodePen Andrew supplied (Florin Pop's "CSS Pulse
+    Effect", MIT licensed) — not copied verbatim, the same well-known
+    box-shadow-ring technique re-authored against `--shadow-orb`
+    specifically (the glow stays constant across every keyframe stop,
+    only an added ring layer pulses), deliberately subtler than the
+    reference per "only slightly though" (0.97–1 scale, not the
+    reference's 0.95–1). One shared `.orb-pulse` class added to
+    `global.css`, applied to all 9 `--gradient-orb`/`--shadow-orb`
+    usages sitewide (every hero CTA, CtaBand, the contact form) plus
+    QuestionPile's resolution dot, rather than duplicating a keyframe
+    per file.
+  - **New Browser-pane limitation, extending an existing one:**
+    confirmed the animation rule applies correctly (`animationName`/
+    `animationDuration` both read back right), but couldn't confirm
+    actual frame-to-frame visual progression in this pane — sampled
+    the orb's computed `transform` twice, 1.4s apart, and got the
+    identical value both times. This is the same root "compositing is
+    broken" limitation already documented below, just newly confirmed
+    to extend to plain always-running `@keyframes infinite` animations,
+    not only hover/transition-triggered ones. Standard CSS animation
+    semantics aren't in question (this is extremely well-established
+    browser behaviour) — it's specifically this pane's rendering
+    pipeline that can't show it. **Andrew hasn't yet confirmed the
+    pulse actually reads right on the real site** — worth asking if he
+    hasn't brought it up unprompted.
+  - **Deploy hit a real disk-quota wall mid-session, not the usual IP-
+    allowlist issue.** `deploy.sh`'s `git pull` failed with "disk quota
+    exceeded" while unpacking objects, so `npm install`/`astro build`
+    never ran — but the script's final `echo DEPLOY SUCCESS` prints
+    unconditionally regardless of whether earlier steps failed, so the
+    terminal output looked like a clean success. **Caught this by not
+    trusting that line at face value** — checked `git status`/`git
+    fsck` on the host directly (clean, just one harmless dangling
+    commit object from the interrupted unpack, no corruption) and
+    confirmed via `df -h`/`du -sh ~/*` that the account's 54GB usage
+    was overwhelmingly OTHER sites on the same shared hosting account
+    (`intranetchrc.vandalist.io` alone at 30GB), not the 39MB Vandalist
+    repo. Didn't touch any of that myself — flagged it to Andrew and
+    waited; he freed up space (105GB available afterward, up from 79GB)
+    and the retry completed cleanly. **Worth remembering for next time
+    this comes up: "DEPLOY SUCCESS" in the output is not proof of a
+    successful deploy** — this script has no error-checking between
+    steps, so a failure partway through can still end with that line.
+    Confirm via the actual step output (or just re-check the live site)
+    rather than trusting the final line alone.
 
 ## Known open items
 
+- **The orb pulse hasn't been visually confirmed by Andrew yet either** —
+  same underlying reason as the TreadmillRunner item just below (this
+  pane's compositing is broken, this time confirmed to also affect
+  plain infinite CSS animations, not just hover/transition-triggered
+  ones). The CSS rule is verified correct (`animationName`, keyframe
+  math), but nobody has actually watched it pulse. Ask if he hasn't
+  brought it up unprompted — "only slightly though" was the one
+  specific calibration request, worth checking it landed where he meant.
 - **TreadmillRunner's framing hasn't actually been looked at yet, only
   measured.** This pane's screenshot/compositing is broken (see standing
   Browser-pane limitations below), so the viewBox crop/container sizing
@@ -811,6 +898,18 @@ about it, don't just pick one.
     whatever class the rAF callback would have added, with
     `element.style.transition = 'none'` set first so the forced change
     doesn't itself get caught by the transition-freezing issue above.
+  - **Plain `@keyframes infinite` CSS animations don't visibly progress
+    either** — confirmed 2026-08-25 on the orb-pulse effect: the
+    animation rule applies correctly (`animationName`/`animationDuration`
+    both read back right), but sampling the animated element's computed
+    `transform` twice, 1.4s apart, returned the identical value both
+    times. Same root "compositing is broken" limitation as the first
+    bullet above, just newly confirmed to extend to animations that
+    aren't hover/transition-triggered at all — this isn't a sign the
+    animation itself is broken (infinite keyframe animations are
+    completely standard, well-established browser behaviour), just
+    something this pane specifically can't render frame-to-frame. No
+    known workaround beyond checking the live site directly.
 
 ## Working across two devices
 

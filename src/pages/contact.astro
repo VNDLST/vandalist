@@ -10,12 +10,15 @@
 //   turn white on focus — "the active field is white, and non-active
 //   fields will be the same colour as the background," per Andrew.
 // - "Project stage" removed entirely (dropdown + its options array).
-// - New optional-fields accordion (native <details>, no JS needed) for
-//   the 4 fields Andrew wanted off the main form: Website URL,
-//   Approximate budget, Do you have a deadline?, How did you find us?
-//   All plain text inputs — Andrew listed them as "Fields" without
-//   specifying a type (select vs. text), so text is the least-assumption
-//   default; easy to swap any of them to a <select> if he'd rather.
+// - Optional-fields section (Website URL, Approximate budget, Do you have
+//   a deadline?, How did you find us?) — originally a collapsible native
+//   <details> accordion, now permanently expanded per a later follow-up
+//   ("easy enough to see without it being overwhelming, remove the toggle
+//   and just leave that section as it is") — same border/spacing/content,
+//   just no summary/toggle. All plain text inputs — Andrew listed them as
+//   "Fields" without specifying a type (select vs. text), so text is the
+//   least-assumption default; easy to swap any of them to a <select> if
+//   he'd rather.
 // - Address/email/response-time in the right column updated to Andrew's
 //   exact wording (single-line address, promise@vandalist.com.au,
 //   "Typically within one business day").
@@ -72,20 +75,15 @@ const fieldClass = "w-full rounded-lg border border-[var(--color-line)] bg-[var(
             <textarea id="details" rows="4" placeholder="Share a few details about your project, goals, challenges or any questions you have." class={`${fieldClass} resize-y`}></textarea>
           </div>
 
-          <!-- Optional extra detail, off the main form per Andrew — native
-               <details> so no JS is needed for the toggle. -->
-          <details class="group rounded-lg border border-[var(--color-line)] mb-6">
-            <summary class="flex items-center justify-between gap-3 cursor-pointer select-none px-4 py-4 [&::-webkit-details-marker]:hidden">
-              <span class="font-semibold text-[var(--color-ink)]">
-                Additional information <span class="font-normal text-[var(--color-slate)]">(optional, but it all helps)</span>
-              </span>
-              <svg
-                width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-slate)" stroke-width="2"
-                class="shrink-0 transition-transform duration-200 group-open:rotate-180"
-              >
-                <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-            </summary>
+          <!-- Optional extra detail, off the main form per Andrew — was a
+               collapsible <details> accordion, now permanently expanded per
+               his follow-up ("easy enough to see without it being
+               overwhelming"). Same border/spacing/content as before, just
+               no toggle. -->
+          <div class="rounded-lg border border-[var(--color-line)] mb-6">
+            <p class="px-4 py-4 font-semibold text-[var(--color-ink)]">
+              Additional information <span class="font-normal text-[var(--color-slate)]">(optional, but it all helps)</span>
+            </p>
             <div class="grid sm:grid-cols-2 gap-5 px-4 pb-5 pt-1">
               <div>
                 <label for="website" class="block font-semibold text-[var(--color-ink)] mb-2">Website URL</label>
@@ -104,7 +102,7 @@ const fieldClass = "w-full rounded-lg border border-[var(--color-line)] bg-[var(
                 <input id="referral" type="text" placeholder="e.g. Google, referral, LinkedIn" class={fieldClass} />
               </div>
             </div>
-          </details>
+          </div>
 
           <button
             type="submit"

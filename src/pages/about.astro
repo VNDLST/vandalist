@@ -173,8 +173,25 @@ const partnerCells = [
             </a>
           </div>
 
-          <!-- Desktop / tablet: stable 3-column grid, no absolute positioning, no connector lines -->
-          <div class="hidden sm:grid grid-cols-3 gap-4 md:gap-6">
+          <!-- Desktop / tablet: stable 3-column grid, no absolute positioning,
+               no connector LINES — per Andrew's follow-up, the diagram read
+               as "bloaty and disconnected" as pure whitespace between hub
+               and cards, so small sparkle/spark marks (same accent mark used
+               in how-we-work.astro's "Together" card) sit at the two column
+               seams to signal "these connect back to the centre" without
+               going as far as literal connector lines (which would
+               contradict this diagram's own original no-lines rationale). -->
+          <div class="hidden sm:grid grid-cols-3 gap-4 md:gap-6 relative">
+            <span class="absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.75" stroke-linecap="round">
+                <path d="M12 3v4M12 17v4M3 12h4M17 12h4" />
+              </svg>
+            </span>
+            <span class="absolute top-1/2 left-2/3 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.75" stroke-linecap="round">
+                <path d="M12 3v4M12 17v4M3 12h4M17 12h4" />
+              </svg>
+            </span>
             <!-- Left column -->
             <div class="flex flex-col justify-center gap-6 md:gap-8">
               {leftColumn.map((card) => (
@@ -248,8 +265,11 @@ const partnerCells = [
     <!-- Partnerships & trust -->
     <div class="max-w-7xl mx-auto px-6 md:px-10 pb-20 md:pb-28">
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-12">
-        <!-- Cell 1: heading + intro -->
-        <div class="p-2">
+        <!-- Cell 1: heading + intro — dashed border (paper-dim, the site's
+             standard "darker background" tone) + white fill, so this reads
+             as the information cell vs. the 5 actual partner/trust cells
+             beside it, which stay plain/borderless as before. -->
+        <div class="p-6 rounded-[var(--radius-card)] border-2 border-dashed border-[var(--color-paper-dim)] bg-white">
           <Eyebrow class="mb-3">Partnerships & trust</Eyebrow>
           <Heading class="mb-4">We are a small agency that believes in making a big contribution.</Heading>
           <div class="w-10 h-[3px] bg-[var(--color-accent)] rounded-full mb-4"></div>

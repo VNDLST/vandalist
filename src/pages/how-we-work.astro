@@ -78,19 +78,36 @@ const cadenceSteps = [
   },
 ];
 
-// --- Section 3: How we fit with internal teams ---
-const teamBrings = [
-  { text: "Deep knowledge of your business and customers", icon: '<circle cx="8.5" cy="8" r="2.6"/><path d="M3.5 19c0-2.8 2.2-4.9 5-4.9s5 2.1 5 4.9"/><circle cx="16" cy="8" r="2.2"/><path d="M14.5 12.6c2.2.3 3.9 2 3.9 4.4"/>' },
-  { text: "Existing plans, processes and tools", icon: '<rect x="6" y="4" width="12" height="16" rx="2"/><path d="M9 4h6v2a1 1 0 0 1-1 1H10a1 1 0 0 1-1-1V4z"/><path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/>' },
-  { text: "Internal relationships and approvals", icon: '<path d="M4 8h5M4 16h5M9 8v8" stroke-linecap="round"/><circle cx="9" cy="8" r="1.4" fill="currentColor" stroke="none"/><circle cx="9" cy="16" r="1.4" fill="currentColor" stroke="none"/><circle cx="18" cy="12" r="2.4"/><path d="M13.5 12h2" stroke-linecap="round"/>' },
-  { text: "Context, history and constraints", icon: '<circle cx="11" cy="11" r="7"/><path d="M16 16l4.5 4.5" stroke-linecap="round"/><path d="M11 8v3l2 1.5" stroke-linecap="round" stroke-linejoin="round"/>' },
+// --- Section 3: How we fit in — redesigned per Andrew's supplied mockup,
+// replacing the earlier "shared workspace diagram" (dashed circle +
+// inward chevrons) entirely. Genuinely different relationship from the
+// system-diagram pattern used elsewhere (about.astro's "A small team",
+// SystemDiagram.astro) — a bilateral "your team / together / Vandalist"
+// split, not a hub-with-facets shape — so real connector lines here are
+// consistent with the established rule (a new visual element earns its
+// place if it shows a relationship a plain grid can't; this one already
+// did before this redesign too, just with a different diagram).
+const yourTeamBrings = [
+  { title: "Business knowledge", text: "Deep understanding of your business, goals and market.", icon: '<path d="M12 3a6 6 0 0 0-3 11.2c.6.4 1 1.1 1 1.8h4c0-.7.4-1.4 1-1.8A6 6 0 0 0 12 3z"/><path d="M9 18h6M10 21h4"/>' },
+  { title: "Customer insight", text: "First-hand knowledge of your customers and their needs.", icon: '<circle cx="9" cy="8" r="3"/><path d="M4 20c0-3 2.2-5.2 5-5.2s5 2.2 5 5.2"/><circle cx="17" cy="9" r="2.3"/><path d="M15 20c0-2.3 1-4.1 2.9-4.7"/>' },
+  { title: "Internal relationships", text: "Access to key stakeholders across the business.", icon: '<circle cx="6" cy="12" r="2.2"/><circle cx="18" cy="6" r="2.2"/><circle cx="18" cy="18" r="2.2"/><path d="M8 11l8-3.5M8 13l8 3.5" stroke-linecap="round"/>' },
+  { title: "Approvals and decision making", text: "Guidance, feedback and timely sign-off.", icon: '<path d="M6 3h9l3 3v15H6z" stroke-linejoin="round"/><path d="M9 13l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/>' },
+  { title: "Strategic context", text: "The bigger picture, priorities and what success looks like.", icon: '<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="12" cy="12" r="0.8" fill="currentColor" stroke="none"/>' },
 ];
 const vandalistBrings = [
-  { text: "Marketing strategy and fresh perspective", icon: '<path d="M3 11l17-8-6 17-3.5-7L3 11z" stroke-linejoin="round"/>' },
-  { text: "Specialist skills and proven methods", icon: '<path d="M9 3h6l3 5-6 13L6 8l3-5z" stroke-linejoin="round"/><path d="M6 8h12M9.5 3l2.5 5 2.5-5" stroke-linejoin="round"/>' },
-  { text: "Structured execution and clear comms", icon: '<path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/>' },
-  { text: "Tools, templates and continuous improvement", icon: '<circle cx="5.5" cy="7" r="1" fill="currentColor" stroke="none"/><circle cx="5.5" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="5.5" cy="17" r="1" fill="currentColor" stroke="none"/><path d="M9 7h11M9 12h11M9 17h11" stroke-linecap="round"/>' },
+  { title: "Specialist skills and expertise", text: "Marketing strategy, campaigns, content, SEO, paid and more.", icon: '<circle cx="12" cy="12" r="3"/><path d="M12 3v2.2M12 18.8V21M21 12h-2.2M5.2 12H3M18 6l-1.5 1.5M7.5 16.5L6 18M18 18l-1.5-1.5M7.5 7.5L6 6"/>' },
+  { title: "Practical execution", text: "We turn plans into action, with quality and speed.", icon: '<path d="M9 6h11M9 12h11M9 18h11" stroke-linecap="round"/><path d="M4 6l1 1 2-2M4 12l1 1 2-2M4 18l1 1 2-2" stroke-linecap="round" stroke-linejoin="round"/>' },
+  { title: "Systems and reporting", text: "Clear processes, tracking and insights to keep you informed.", icon: '<path d="M4 19h16" stroke-linecap="round"/><path d="M7 19v-6M12 19V8M17 19v-9" stroke-linecap="round"/>' },
+  { title: "Accountability", text: "We own delivery and keep things moving.", icon: '<path d="M12 3l8 4v5c0 5-3.4 8.4-8 9.5-4.6-1.1-8-4.5-8-9.5V7l8-4z" stroke-linejoin="round"/><path d="M9 12.5l2 2 4-4.5" stroke-linecap="round" stroke-linejoin="round"/>' },
+  { title: "Momentum", text: "Proactive support to sustain progress and drive results.", icon: '<path d="M12 2c3 2 5 6 5 10 0 2-.5 3.5-1.2 4.8L12 20l-3.8-3.2C7.5 15.5 7 14 7 12c0-4 2-8 5-10z" stroke-linejoin="round"/><circle cx="12" cy="10" r="1.8"/><path d="M8.5 16.5L6 19M15.5 16.5L18 19" stroke-linecap="round"/>' },
 ];
+const togetherItems = [
+  { title: "Clear roles", text: "Everyone knows what they own.", icon: '<circle cx="9" cy="8" r="3"/><path d="M4 20c0-3 2.2-5.2 5-5.2s5 2.2 5 5.2"/><circle cx="17" cy="9" r="2.3"/><path d="M15 20c0-2.3 1-4.1 2.9-4.7"/>' },
+  { title: "Faster decisions", text: "Less friction, more progress.", icon: '<path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z" stroke-linejoin="round"/>' },
+  { title: "Shared outcomes", text: "A bigger impact, together.", icon: '<path d="M4 19h16" stroke-linecap="round"/><path d="M7 19v-6M12 19V8M17 19v-9" stroke-linecap="round"/>' },
+];
+const puzzleIcon = '<rect x="3" y="3" width="8" height="8" rx="1.5"/><circle cx="11.5" cy="7" r="1.9" fill="currentColor" stroke="none"/><rect x="13" y="13" width="8" height="8" rx="1.5" fill="currentColor" stroke="none"/><circle cx="13" cy="17" r="1.9"/>';
+const sparkIcon = '<path d="M12 3v4M12 17v4M3 12h4M17 12h4" stroke-linecap="round"/>';
 
 // --- Section 4: Decision-making & accountability ---
 const matrix = [
@@ -192,7 +209,7 @@ const matrix = [
               class="flex items-center gap-5 rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6 [box-shadow:var(--shadow-card)]"
               style={`transform: ${card.tilt};`}
             >
-              <div class="w-20 h-20 shrink-0 flex items-center justify-center">
+              <div class="w-[60px] h-[60px] shrink-0 flex items-center justify-center">
                 <img src={`${base}/working-style-icons/${card.icon}.svg`} alt="" class="w-full h-full object-contain" />
               </div>
               <div>
@@ -209,7 +226,7 @@ const matrix = [
               class="flex items-center gap-5 rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6 [box-shadow:var(--shadow-card)]"
               style={`transform: ${card.tilt};`}
             >
-              <div class="w-20 h-20 shrink-0 flex items-center justify-center">
+              <div class="w-[60px] h-[60px] shrink-0 flex items-center justify-center">
                 <img src={`${base}/working-style-icons/${card.icon}.svg`} alt="" class="w-full h-full object-contain" />
               </div>
               <div>
@@ -235,6 +252,8 @@ const matrix = [
         gridClass="sm:grid-cols-2 lg:grid-cols-5"
         iconMode="image"
         iconBase={`${base}/how-we-work-icons`}
+        circleBg="dim"
+        shimmerConnector
       />
 
       <div class="flex items-center justify-center gap-2 mt-14">
@@ -247,76 +266,97 @@ const matrix = [
       </div>
     </section>
 
-    <!-- Section 3: How we fit with internal teams -->
+    <!-- Section 3: How we fit in — redesigned per Andrew's mockup (see
+         data comment above for why real connector lines are appropriate
+         here specifically). -->
     <div class="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-16 pb-20 md:pb-28">
       <div class="rounded-[var(--radius-card)] bg-[var(--color-paper-dim)] p-6 md:p-10">
         <div class="max-w-7xl mx-auto">
           <SectionHeading
             eyebrow="How we fit in"
-            heading="We play nice with others"
-            subtext="We work alongside your team, existing suppliers and partners, to enhance your marketing ecosystem."
+            heading="You stay close to the work. We bring the specialist capability, structure and momentum to move it forward."
+            align="center"
           />
 
-          <div class="grid lg:grid-cols-[1fr_1.3fr_1fr] gap-6 lg:gap-8 items-center">
+          <div class="flex flex-col lg:flex-row lg:items-center gap-8 lg:gap-0">
             <!-- Your team brings -->
-            <div class="rounded-[var(--radius-card)] bg-white border border-[var(--color-line)] p-6 md:p-7 [box-shadow:var(--shadow-card)]">
-              <p class="text-sm font-semibold text-[var(--color-accent)] mb-5">Your team brings</p>
-              <ul class="space-y-5">
-                {teamBrings.map((item) => (
-                  <li class="flex items-start gap-3">
-                    <span class="inline-flex items-center justify-center w-9 h-9 rounded-lg bg-[var(--color-accent-soft)] text-[var(--color-accent)] shrink-0">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={item.icon} />
+            <div class="flex-1 rounded-[var(--radius-card)] bg-white border border-[var(--color-line)] p-6 md:p-7 [box-shadow:var(--shadow-card)]">
+              <p class="text-xl font-semibold text-[var(--color-ink)] mb-1.5">Your team brings</p>
+              <p class="text-sm text-[var(--color-slate)] mb-2">The business context, internal knowledge and relationships that make it happen.</p>
+              <ul>
+                {yourTeamBrings.map((item, i) => (
+                  <li class:list={["flex items-start gap-3 py-4", i > 0 && "border-t border-[var(--color-line)]"]}>
+                    <span class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-[var(--color-accent-soft)] text-[var(--color-accent)] shrink-0">
+                      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={item.icon} />
                     </span>
-                    <span class="text-sm text-[var(--color-ink)] pt-2 leading-snug">{item.text}</span>
+                    <div>
+                      <p class="font-semibold text-[var(--color-ink)] text-sm mb-0.5">{item.title}</p>
+                      <p class="text-sm text-[var(--color-slate)] leading-snug">{item.text}</p>
+                    </div>
                   </li>
                 ))}
               </ul>
             </div>
 
-            <!-- Shared workspace diagram -->
-            <div class="relative flex items-center justify-center py-6">
-              <!-- inward arrows: left side -->
-              <div class="hidden lg:flex flex-col gap-2.5 absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-10">
-                {[0, 1, 2].map(() => (
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M8 5l7 7-7 7" />
-                  </svg>
-                ))}
-              </div>
-              <!-- inward arrows: right side -->
-              <div class="hidden lg:flex flex-col gap-2.5 absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-10">
-                {[0, 1, 2].map(() => (
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-good)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M16 5l-7 7 7 7" />
-                  </svg>
-                ))}
-              </div>
-
-              <div class="relative w-full max-w-[300px] lg:max-w-[420px] aspect-square mx-auto">
-                <svg class="absolute inset-0 w-full h-full" viewBox="0 0 280 280" fill="none" aria-hidden="true">
-                  <circle cx="140" cy="140" r="120" stroke="var(--color-slate-light)" stroke-width="2" stroke-dasharray="4 6" />
+            <!-- Connector: left card → Together -->
+            <div class="hidden lg:flex items-center justify-center w-14 shrink-0 relative" aria-hidden="true">
+              <div class="w-full border-t-2 border-dashed border-[rgba(232,70,124,0.4)]"></div>
+              <span class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white border-2 border-[var(--color-accent)] flex items-center justify-center [box-shadow:var(--shadow-card)]">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 5l7 7-7 7" />
                 </svg>
+              </span>
+            </div>
 
-                <div
-                  class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white flex flex-col items-center justify-center text-center px-6 [box-shadow:var(--shadow-card)]"
-                  style="width: 72%; height: 72%; border: 8px solid var(--color-paper-dim);"
-                >
-                  <img src={`${base}/how-we-work-icons/interact.svg`} alt="" class="w-20 h-20 object-contain mb-3" />
-                  <p class="text-sm font-semibold text-[var(--color-ink)] leading-snug">An aligned, collaborative, and practical shared working experience.</p>
-                </div>
+            <!-- Together -->
+            <div class="lg:w-[300px] shrink-0 relative rounded-[var(--radius-card)] bg-[var(--color-accent-soft)] border border-[rgba(232,70,124,0.3)] p-6 md:p-8 text-center [box-shadow:var(--shadow-panel)]">
+              <div class="flex justify-center gap-3 mb-2 text-[var(--color-accent)]" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" set:html={sparkIcon} />
+              </div>
+              <span class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-white text-[var(--color-accent)] mb-3 [box-shadow:var(--shadow-card)]">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={puzzleIcon} />
+              </span>
+              <p class="text-2xl font-semibold text-[var(--color-ink)] mb-2">Together</p>
+              <p class="text-sm text-[var(--color-slate)] mb-5">One aligned team, with clear ownership and better delivery.</p>
+              <div class="space-y-3">
+                {togetherItems.map((item) => (
+                  <div class="flex items-center gap-3 rounded-xl bg-white p-3 text-left [box-shadow:var(--shadow-card)]">
+                    <span class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-[var(--color-accent-soft)] text-[var(--color-accent)] shrink-0">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={item.icon} />
+                    </span>
+                    <div class="min-w-0">
+                      <p class="font-semibold text-[var(--color-ink)] text-sm leading-snug">{item.title}</p>
+                      <p class="text-xs text-[var(--color-slate)] leading-snug">{item.text}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
 
+            <!-- Connector: Together → right card -->
+            <div class="hidden lg:flex items-center justify-center w-14 shrink-0 relative" aria-hidden="true">
+              <div class="w-full border-t-2 border-dashed border-[rgba(232,70,124,0.4)]"></div>
+              <span class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white border-2 border-[var(--color-accent)] flex items-center justify-center [box-shadow:var(--shadow-card)]">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M16 5l-7 7 7 7" />
+                </svg>
+              </span>
+            </div>
+
             <!-- Vandalist brings -->
-            <div class="rounded-[var(--radius-card)] bg-[var(--color-good-soft)] border border-[rgba(228,225,220,0.5)] p-6 md:p-7 [box-shadow:var(--shadow-card)]">
-              <p class="text-sm font-semibold text-[var(--color-good)] mb-5">Vandalist brings</p>
-              <ul class="space-y-5">
-                {vandalistBrings.map((item) => (
-                  <li class="flex items-start gap-3">
-                    <span class="inline-flex items-center justify-center w-9 h-9 rounded-lg bg-white/70 text-[var(--color-good)] shrink-0">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={item.icon} />
+            <div class="flex-1 rounded-[var(--radius-card)] bg-white border border-[var(--color-line)] p-6 md:p-7 [box-shadow:var(--shadow-card)]">
+              <p class="text-xl font-semibold text-[var(--color-ink)] mb-1.5">Vandalist brings</p>
+              <p class="text-sm text-[var(--color-slate)] mb-2">The specialist capability, structure and execution to move it forward.</p>
+              <ul>
+                {vandalistBrings.map((item, i) => (
+                  <li class:list={["flex items-start gap-3 py-4", i > 0 && "border-t border-[var(--color-line)]"]}>
+                    <span class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-[var(--color-accent-soft)] text-[var(--color-accent)] shrink-0">
+                      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={item.icon} />
                     </span>
-                    <span class="text-sm text-[var(--color-ink)] pt-2 leading-snug">{item.text}</span>
+                    <div>
+                      <p class="font-semibold text-[var(--color-ink)] text-sm mb-0.5">{item.title}</p>
+                      <p class="text-sm text-[var(--color-slate)] leading-snug">{item.text}</p>
+                    </div>
                   </li>
                 ))}
               </ul>

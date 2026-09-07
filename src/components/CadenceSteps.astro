@@ -35,6 +35,19 @@
 // h-28 footprint stays either way, so the connector line/chevron math
 // (which assumes that footprint) doesn't need to know or care which mode
 // is active.
+//
+// `circleBg="white"` (default) is every existing usage's plain white
+// circle. `"dim"` swaps it for --color-paper-dim, per how-we-work.astro's
+// "How engagements are structured" specifically wanting a darker circle —
+// opt-in per page rather than changed sitewide.
+//
+// `shimmerConnector` (default false) adds a slow sliding highlight sweep
+// along the connector line, on top of the existing static dotted line —
+// same visual language as HowWeWork.astro's homepage-teaser shimmer
+// (a soft accent-coloured gradient block translating across), reused here
+// per how-we-work.astro wanting "the same slow sliding pulse line" for its
+// own full cadence section. Opt-in per page since other CadenceSteps
+// callers (e.g. Google Ads' process section) haven't asked for it.
 interface Step {
   num: string;
   title: string;
@@ -49,6 +62,8 @@ interface Props {
   iconBase?: string;
   iconExt?: string;
   iconContainer?: "circle" | "bare";
+  circleBg?: "white" | "dim";
+  shimmerConnector?: boolean;
 }
 const {
   steps,
@@ -58,6 +73,8 @@ const {
   iconBase = "",
   iconExt = "svg",
   iconContainer = "circle",
+  circleBg = "white",
+  shimmerConnector = false,
 } = Astro.props as Props;
 const n = steps.length;
 // All three written as literal strings so Tailwind's static scanner finds
@@ -81,6 +98,15 @@ const rightInsetPx = ((n - 1) / n) * 40 + 56;
     style={`top: 56px; left: 56px; right: calc(${rightInsetPct}% - ${rightInsetPx}px);`}
     aria-hidden="true"
   ></div>
+  {shimmerConnector && (
+    <div
+      class:list={[connectorVisibility, "absolute z-0 overflow-hidden"]}
+      style={`top: 55px; left: 56px; right: calc(${rightInsetPct}% - ${rightInsetPx}px); height: 2px;`}
+      aria-hidden="true"
+    >
+      <div class="cadence-shimmer"></div>
+    </div>
+  )}
   {Array.from({ length: n - 1 }, (_, i) => i).map((i) => {
     const coeff = (i + 0.5) / n;
     const px = 56 + coeff * 40;
@@ -98,7 +124,7 @@ const rightInsetPx = ((n - 1) / n) * 40 + 56;
   <div class:list={["relative z-10 grid gap-y-14 gap-x-10", gridClass]}>
     {steps.map((step) => (
       <div class="flex flex-col">
-        <div class:list={["w-28 h-28 mb-6 flex items-center justify-center shrink-0", iconContainer === "circle" && "rounded-full bg-white [box-shadow:var(--shadow-card)]"]}>
+        <div class:list={["w-28 h-28 mb-6 flex items-center justify-center shrink-0", iconContainer === "circle" && ["rounded-full [box-shadow:var(--shadow-card)]", circleBg === "dim" ? "bg-[var(--color-paper-dim)]" : "bg-white"]]}>
           {iconMode === "image" ? (
             <img
               src={`${iconBase}/${step.icon}.${iconExt}`}
@@ -116,3 +142,27 @@ const rightInsetPx = ((n - 1) / n) * 40 + 56;
     ))}
   </div>
 </div>
+
+<style>
+  /* Slow sliding highlight along the connector line — same visual idea as
+     HowWeWork.astro's homepage-teaser shimmer (soft accent gradient block
+     translating across), just one continuous sweep along this component's
+     single full-row line rather than per-gap segments, since "slow" was
+     the explicit ask here (vs. the homepage teaser's quicker per-segment
+     relay). Only rendered when shimmerConnector is true. */
+  .cadence-shimmer {
+    position: absolute;
+    inset: 0;
+    width: 22%;
+    background: linear-gradient(to right, transparent, var(--color-accent), transparent);
+    opacity: 0;
+    transform: translateX(-120%);
+    animation: cadence-shimmer-sweep 4s ease-in-out infinite;
+  }
+  @keyframes cadence-shimmer-sweep {
+    0% { transform: translateX(-120%); opacity: 0; }
+    8% { opacity: 1; }
+    50% { opacity: 1; transform: translateX(350%); }
+    58%, 100% { opacity: 0; transform: translateX(350%); }
+  }
+</style>

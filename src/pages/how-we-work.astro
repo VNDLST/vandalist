@@ -106,14 +106,11 @@ const togetherItems = [
   { title: "Faster decisions", text: "Less friction, more progress.", icon: '<path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z" stroke-linejoin="round"/>' },
   { title: "Shared outcomes", text: "A bigger impact, together.", icon: '<path d="M4 19h16" stroke-linecap="round"/><path d="M7 19v-6M12 19V8M17 19v-9" stroke-linecap="round"/>' },
 ];
-// Two interlocking rounded-square puzzle pieces (white/outlined top-left,
-// solid pink bottom-right, connected by a small tab+notch pair at the
-// corner where they meet) — per Andrew's supplied reference image for the
-// "Together" card specifically. Hand-authored to match it (no source
-// vector/file was attached, just pasted inline), same convention as every
-// other icon on the site.
-const puzzleIcon = '<rect x="2.5" y="2.5" width="9" height="9" rx="2.5"/><circle cx="12" cy="7" r="2.1" fill="currentColor" stroke="none"/><rect x="12.5" y="12.5" width="9" height="9" rx="2.5" fill="currentColor" stroke="none"/><circle cx="12.5" cy="17" r="2.1"/>';
-const sparkIcon = '<path d="M12 3v4M12 17v4M3 12h4M17 12h4" stroke-linecap="round"/>';
+// The "Together" card's puzzle graphic is a real supplied image now
+// (public/system-icons/puzzle-together.png), not a hand-drawn icon —
+// see that <img> usage below. Two earlier hand-drawn SVG attempts
+// (rect+circle approximation, then a plain two-circles placeholder)
+// are gone; this file has no icon constant for it anymore.
 
 // --- Section 4: Decision-making & accountability — redesigned per
 // Andrew's supplied mockup. Renamed "Tactical" -> "Execution" and "Your
@@ -339,12 +336,10 @@ const megaphoneIcon = '<path d="M3 10v4h3l6 4V6l-6 4H3z" stroke-linejoin="round"
                  its content is vertically centered within that taller box
                  rather than sitting jammed at the top. -->
             <div class="lg:w-[300px] shrink-0 relative rounded-[var(--radius-card)] bg-[var(--color-accent-soft)] border border-[rgba(232,70,124,0.3)] p-6 md:p-8 text-center [box-shadow:var(--shadow-panel)] flex flex-col lg:justify-center">
-              <div class="flex justify-center gap-3 mb-2 text-[var(--color-accent)]" aria-hidden="true">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" set:html={sparkIcon} />
-              </div>
-              <span class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-white text-[var(--color-accent)] mb-3 [box-shadow:var(--shadow-card)]">
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={puzzleIcon} />
-              </span>
+              <!-- Real supplied image, already includes the spark marks
+                   above the puzzle pieces — no separate icon row or
+                   circular badge wrapper needed. -->
+              <img src={`${base}/system-icons/puzzle-together.png`} alt="" class="w-[130px] h-auto mx-auto mb-2" />
               <p class="text-2xl font-semibold text-[var(--color-ink)] mb-2">Together</p>
               <p class="text-sm text-[var(--color-slate)] mb-5">One aligned team, with clear ownership and better delivery.</p>
               <div class="space-y-3">

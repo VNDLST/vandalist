@@ -1,6 +1,6 @@
 # Vandalist site — onboarding / continuity guide
 
-Snapshot generated 2026-08-25. This is a "where we left off" briefing, not a
+Snapshot generated 2026-09-08. This is a "where we left off" briefing, not a
 live sync — if you're reading this a while after it was written, check git
 log for anything more recent.
 
@@ -739,11 +739,112 @@ about it, don't just pick one.
     successful deploy** — this script has no error-checking between
     steps, so a failure partway through can still end with that line.
     Confirm via the actual step output (or just re-check the live site)
-    rather than trusting the final line alone.
+    rather than trusting the final line alone. **Confirmed a second time
+    this session** (2026-09-08, mid this same batch) — an esbuild service
+    crash mid-build on the shared host, same "prints DEPLOY SUCCESS
+    regardless" blind spot, caught by independently curling the live HTML
+    afterward rather than trusting the script's own output. Do this as
+    standing practice now, not just when something feels off.
+- **Contact/About/How We Work adjustment batch, all shipped — a longer,
+  multi-round session working through Andrew's detailed feedback on 3
+  pages he'd flagged as feeling "rushed," using about.astro as the
+  intentionality benchmark.** Several real corrections along the way,
+  each worth reading in full if picking this back up:
+  - **Contact:** the "Additional information" section's `<details>`
+    toggle removed — permanently expanded now, same content/layout.
+    Later: pink asterisk + `required` added to the 5 actually-mandatory
+    main-form fields (Name/Email/Phone/Business name/"What do you need
+    help with?"); the 4 optional fields stay unmarked.
+  - **About:** the system diagram's "bloaty and disconnected" feel fixed
+    with small radial dash marks around the hub — **first pass added just
+    2 sparkle marks at the column seams, which Andrew's follow-up
+    screenshot showed wasn't the intent; corrected to 8 short dashes, one
+    toward each of the 8 surrounding cards, reviving the diagram's own
+    pre-simplification "8 nodes, 45deg apart" radial technique** (see the
+    file's own historical comment). Partnerships & trust: the intro cell
+    now has a dashed --color-paper-dim border + white fill, distinct from
+    the 5 plain partner cells.
+  - **How We Work, several distinct threads:**
+    - Section 1 icons (Responsiveness/Capability/Transparency/
+      Accountability) reduced 80px → 60px (25%, as asked).
+    - `CadenceSteps.astro` gained two new opt-in props (`circleBg`,
+      `shimmerConnector`, both default off) so this page's own cadence
+      section could get a darker circle + a slow sliding shimmer sweep
+      (same technique as the homepage teaser's `HowWeWork.astro`) without
+      touching Google Ads' existing usage of the same component.
+    - "How we fit in" fully rebuilt around a supplied mockup: "Your team
+      brings / Together / Vandalist brings", with real dashed connector
+      lines + arrow-circle midpoints — a deliberately different, bilateral
+      relationship from the hub-diagram pattern used elsewhere (About,
+      AI Enablement, SEO), so real connector lines are consistent with the
+      established "new visual element only earns its place if it shows a
+      relationship a grid can't" rule, not an exception to it. The
+      "Together" column's height was initially shorter/centered
+      (mismatched the mockup) — fixed to stretch to the same height as the
+      two side cards, per Andrew's direct correction.
+    - **The "Decision-making & accountability" table went through several
+      real rounds, each catching something the last one missed — worth
+      reading the full commit sequence
+      (`git log --oneline -- src/pages/how-we-work.astro`), not just this
+      summary:**
+      1. Renamed "Tactical"→"Execution", "Your ownership"→"Your
+         oversight"; header cells got their own icon + pink/green tint.
+      2. Andrew: **"just a plain white table with a couple of highlighted
+         cells."** Root cause: every cell had been left with no
+         background/shadow/border at all — floating icon+text with
+         nothing behind it. Fixed with a consistent tinted first column
+         and real white+shadowed cards for the 4 content cells.
+      3. A detailed 7-point desktop-only brief followed: widen the intro/
+         panel split (34/66 → 28/72, broader+shallower), tighten the
+         matrix gap substantially, **remove the content cells' individual
+         shadows entirely** (outer container's shadow should be the only
+         one), fix the label column to a narrow 152px instead of "auto",
+         reduce cell padding so rows hug their content, lock the
+         transparency banner to one line at desktop widths specifically.
+         All implemented and verified via computed-style checks, not
+         eyeballing.
+      4. Andrew: **"too flat"** — removing the content cells' shadows
+         entirely (step 3) overcorrected. Landed on a middle tier: outer
+         container keeps `--shadow-card`; the 4 content cells get a
+         hairline border + a new, deliberately soft literal shadow value
+         (`0 4px 10px -4px rgba(28,27,26,0.12)`, no existing token matches
+         it — flagged as a style-guide candidate, not turned into a new
+         named token for one usage); label cells and header cells stay
+         flat (tint only, no shadow). This is where it stands now.
+  - **The puzzle icon on "Together" — a real process lesson, not just a
+    UI fix, and now documented in `CLAUDE.md` under "Recovering an image
+    Andrew shared in chat" so it isn't re-learned the hard way again.**
+    Two hand-drawn SVG attempts both failed (Andrew, bluntly: "garbage").
+    What followed was a long, avoidable back-and-forth: repeated searches
+    of the project folder / Downloads / Desktop / scratchpad found
+    nothing, and — worse — this got filled in with confident-sounding but
+    unverified explanations (claiming the Google Ads icons from an
+    earlier session must have been pre-existing files Andrew coincidentally
+    had saved, presented as fact rather than a guess). Andrew correctly
+    and repeatedly pushed back that he has never needed to manually place
+    a file anywhere for this to work, and proved it by pointing at
+    `public/how-we-work-hero-bg.svg` — a file that exists ONLY in this
+    repo, with no counterpart anywhere in his Assets folder, meaning a
+    prior session got a real file through chat alone. **The actual
+    mechanism, found by checking this session's own transcript file:**
+    every image sent in a Claude Code chat is embedded as base64 directly
+    in that session's `.jsonl` under `~/.claude/projects/<project>/
+    <session-id>.jsonl` — a small Node script streaming that file,
+    finding the image content block, and base64-decoding it recovered the
+    exact PNG Andrew had sent. It's now a real asset,
+    `public/system-icons/puzzle-together.png`, wired into the "Together"
+    card in place of both failed hand-drawn attempts.
 
 ## Known open items
 
-- **The orb pulse hasn't been visually confirmed by Andrew yet either** —
+- **Top of the list for next session:** the Decision-making & accountability
+  table's latest shadow tier (content cells: hairline border + a soft
+  literal shadow; label/header cells: flat) hasn't been explicitly
+  confirmed by Andrew as right yet — the last message before wrap-up was
+  his ask, not his sign-off on the result. Same for About's 8-radial-dash
+  hub marks (built from a screenshot Andrew sent, not an explicit "yes").
+  Check both are actually landed before assuming settled.
+- The orb pulse hasn't been visually confirmed by Andrew yet either —
   same underlying reason as the TreadmillRunner item just below (this
   pane's compositing is broken, this time confirmed to also affect
   plain infinite CSS animations, not just hover/transition-triggered

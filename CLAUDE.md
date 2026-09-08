@@ -189,6 +189,42 @@ URL.
    (Playwright), not by eyeballing — "build succeeded" only means no
    syntax errors.
 
+### Recovering an image Andrew shared in chat (don't ask him to re-upload)
+
+When Andrew pastes/attaches an image in a Claude Code chat and it needs to
+become a real project asset (an icon, a photo, a background), **do not**
+conclude "no file exists" just because it doesn't turn up in the project
+folder, Downloads, Desktop, or a scratchpad — and don't ask him to save it
+into the repo/dev folder himself. That is not how this has ever worked,
+and telling him otherwise (2026-09-08) caused real, justified frustration
+before the actual mechanism was found.
+
+**The image is already on disk, in this session's own transcript.** Every
+image sent in a Claude Code chat is embedded as base64 in that session's
+`.jsonl` file under `~/.claude/projects/<project-folder-name>/<session-id>.jsonl`
+(same machine, always local for a local session). To recover it:
+
+1. Find the session's transcript path (visible in this file's own header
+   metadata, or search `~/.claude/projects/<this-project>/*.jsonl` for one
+   modified around when the image was sent).
+2. Write a small Node script that streams the file line-by-line (it's one
+   JSON object per line, can be tens of MB — don't load it all into memory
+   at once), `JSON.parse`s the target line(s), walks the object for any
+   `{ type: "image", source: { media_type, data } }` block, and
+   `Buffer.from(data, 'base64')`-decodes `data` straight to a `.png`/`.jpg`
+   file.
+3. Narrow to the right line first via `grep -n "image/png\|image/jpeg"
+   <file> | tail`, then extract only those candidate line numbers rather
+   than parsing the whole file as JSON.
+4. Verify what you extracted (check pixel dimensions from the PNG header,
+   or just `Read` the file — it renders as an image) before treating it as
+   the right one; a long session can have many images across many turns.
+
+This is a general capability of this environment, not a one-off — it's
+exactly how the puzzle icon on how-we-work.astro's "Together" card was
+finally recovered after two failed hand-drawn attempts and a lot of
+incorrect back-and-forth about where files "should" come from.
+
 ### Repo lives inside SharePoint/OneDrive sync — file-integrity note
 
 This repo's working directory is inside a SharePoint/OneDrive-synced

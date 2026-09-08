@@ -106,7 +106,13 @@ const togetherItems = [
   { title: "Faster decisions", text: "Less friction, more progress.", icon: '<path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z" stroke-linejoin="round"/>' },
   { title: "Shared outcomes", text: "A bigger impact, together.", icon: '<path d="M4 19h16" stroke-linecap="round"/><path d="M7 19v-6M12 19V8M17 19v-9" stroke-linecap="round"/>' },
 ];
-const puzzleIcon = '<rect x="3" y="3" width="8" height="8" rx="1.5"/><circle cx="11.5" cy="7" r="1.9" fill="currentColor" stroke="none"/><rect x="13" y="13" width="8" height="8" rx="1.5" fill="currentColor" stroke="none"/><circle cx="13" cy="17" r="1.9"/>';
+// Two interlocking rounded-square puzzle pieces (white/outlined top-left,
+// solid pink bottom-right, connected by a small tab+notch pair at the
+// corner where they meet) — per Andrew's supplied reference image for the
+// "Together" card specifically. Hand-authored to match it (no source
+// vector/file was attached, just pasted inline), same convention as every
+// other icon on the site.
+const puzzleIcon = '<rect x="2.5" y="2.5" width="9" height="9" rx="2.5"/><circle cx="12" cy="7" r="2.1" fill="currentColor" stroke="none"/><rect x="12.5" y="12.5" width="9" height="9" rx="2.5" fill="currentColor" stroke="none"/><circle cx="12.5" cy="17" r="2.1"/>';
 const sparkIcon = '<path d="M12 3v4M12 17v4M3 12h4M17 12h4" stroke-linecap="round"/>';
 
 // --- Section 4: Decision-making & accountability ---
@@ -278,7 +284,7 @@ const matrix = [
             align="center"
           />
 
-          <div class="flex flex-col lg:flex-row lg:items-center gap-8 lg:gap-0">
+          <div class="flex flex-col lg:flex-row gap-8 lg:gap-0">
             <!-- Your team brings -->
             <div class="flex-1 rounded-[var(--radius-card)] bg-white border border-[var(--color-line)] p-6 md:p-7 [box-shadow:var(--shadow-card)]">
               <p class="text-xl font-semibold text-[var(--color-ink)] mb-1.5">Your team brings</p>
@@ -308,8 +314,11 @@ const matrix = [
               </span>
             </div>
 
-            <!-- Together -->
-            <div class="lg:w-[300px] shrink-0 relative rounded-[var(--radius-card)] bg-[var(--color-accent-soft)] border border-[rgba(232,70,124,0.3)] p-6 md:p-8 text-center [box-shadow:var(--shadow-panel)]">
+            <!-- Together — same height as the side cards now (Andrew:
+                 "middle pink column should be same height as others"), so
+                 its content is vertically centered within that taller box
+                 rather than sitting jammed at the top. -->
+            <div class="lg:w-[300px] shrink-0 relative rounded-[var(--radius-card)] bg-[var(--color-accent-soft)] border border-[rgba(232,70,124,0.3)] p-6 md:p-8 text-center [box-shadow:var(--shadow-panel)] flex flex-col lg:justify-center">
               <div class="flex justify-center gap-3 mb-2 text-[var(--color-accent)]" aria-hidden="true">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" set:html={sparkIcon} />
               </div>

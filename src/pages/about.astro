@@ -176,22 +176,16 @@ const partnerCells = [
           <!-- Desktop / tablet: stable 3-column grid, no absolute positioning,
                no connector LINES — per Andrew's follow-up, the diagram read
                as "bloaty and disconnected" as pure whitespace between hub
-               and cards, so small sparkle/spark marks (same accent mark used
-               in how-we-work.astro's "Together" card) sit at the two column
-               seams to signal "these connect back to the centre" without
-               going as far as literal connector lines (which would
-               contradict this diagram's own original no-lines rationale). -->
-          <div class="hidden sm:grid grid-cols-3 gap-4 md:gap-6 relative">
-            <span class="absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none" aria-hidden="true">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.75" stroke-linecap="round">
-                <path d="M12 3v4M12 17v4M3 12h4M17 12h4" />
-              </svg>
-            </span>
-            <span class="absolute top-1/2 left-2/3 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none" aria-hidden="true">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.75" stroke-linecap="round">
-                <path d="M12 3v4M12 17v4M3 12h4M17 12h4" />
-              </svg>
-            </span>
+               and cards. First pass added 2 sparkle marks at the column
+               seams; Andrew's follow-up note showed the intent was a full
+               radial burst instead — 8 short dashes just outside the hub's
+               own edge, one pointing toward each of the 8 surrounding
+               cards (evenly spaced 45° apart, same technique this
+               diagram's own OLD radial-layout iteration used before it was
+               simplified to this 3-column grid — see the top-of-file
+               comment). Small dashes, not full lines, so it still doesn't
+               cross into this diagram's "no connector lines" territory. -->
+          <div class="hidden sm:grid grid-cols-3 gap-4 md:gap-6">
             <!-- Left column -->
             <div class="flex flex-col justify-center gap-6 md:gap-8">
               {leftColumn.map((card) => (
@@ -213,10 +207,21 @@ const partnerCells = [
                 </span>
               </div>
 
-              <div class="rounded-full bg-white [box-shadow:var(--shadow-panel)] flex flex-col items-center justify-center text-center px-4"
-                   style="width: 190px; height: 190px; border: 10px solid var(--color-paper-dim);">
-                <img src={`${base}/system-icons/icon-hub.png`} alt="" class="w-16 h-16 rounded-lg" />
-                <p class="text-xs font-semibold text-[var(--color-ink)] leading-snug">The right people working on the right projects</p>
+              <div class="relative">
+                <!-- 8 short dashes radiating from the hub's edge, one toward
+                     each surrounding card — see comment above this grid. -->
+                {Array.from({ length: 8 }, (_, i) => i * 45).map((angle) => (
+                  <span
+                    class="absolute top-1/2 left-1/2 w-[2px] h-[13px] rounded-full bg-[var(--color-accent)] pointer-events-none"
+                    style={`transform: translate(-50%, -50%) rotate(${angle}deg) translateY(-107px);`}
+                    aria-hidden="true"
+                  ></span>
+                ))}
+                <div class="relative rounded-full bg-white [box-shadow:var(--shadow-panel)] flex flex-col items-center justify-center text-center px-4"
+                     style="width: 190px; height: 190px; border: 10px solid var(--color-paper-dim);">
+                  <img src={`${base}/system-icons/icon-hub.png`} alt="" class="w-16 h-16 rounded-lg" />
+                  <p class="text-xs font-semibold text-[var(--color-ink)] leading-snug">The right people working on the right projects</p>
+                </div>
               </div>
 
               <div class="flex items-center gap-3 rounded-xl bg-white p-4 shadow-[0_10px_24px_-10px_rgba(28,27,26,0.2)] w-[80%] min-h-[104px]">

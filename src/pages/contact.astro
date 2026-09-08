@@ -50,29 +50,29 @@ const fieldClass = "w-full rounded-lg border border-[var(--color-line)] bg-[var(
         <form class="rounded-[var(--radius-card)] bg-white p-6 md:p-8 [box-shadow:var(--shadow-panel)]">
           <div class="grid sm:grid-cols-2 gap-5 mb-5">
             <div>
-              <label for="name" class="block font-semibold text-[var(--color-ink)] mb-2">Name</label>
-              <input id="name" type="text" placeholder="Your name" class={fieldClass} />
+              <label for="name" class="block font-semibold text-[var(--color-ink)] mb-2">Name <span class="text-[var(--color-accent)]">*</span></label>
+              <input id="name" type="text" placeholder="Your name" required class={fieldClass} />
             </div>
             <div>
-              <label for="email" class="block font-semibold text-[var(--color-ink)] mb-2">Email</label>
-              <input id="email" type="email" placeholder="you@example.com" class={fieldClass} />
+              <label for="email" class="block font-semibold text-[var(--color-ink)] mb-2">Email <span class="text-[var(--color-accent)]">*</span></label>
+              <input id="email" type="email" placeholder="you@example.com" required class={fieldClass} />
             </div>
           </div>
 
           <div class="grid sm:grid-cols-2 gap-5 mb-5">
             <div>
-              <label for="phone" class="block font-semibold text-[var(--color-ink)] mb-2">Phone</label>
-              <input id="phone" type="tel" placeholder="e.g. 0412 345 678" class={fieldClass} />
+              <label for="phone" class="block font-semibold text-[var(--color-ink)] mb-2">Phone <span class="text-[var(--color-accent)]">*</span></label>
+              <input id="phone" type="tel" placeholder="e.g. 0412 345 678" required class={fieldClass} />
             </div>
             <div>
-              <label for="business" class="block font-semibold text-[var(--color-ink)] mb-2">Business name</label>
-              <input id="business" type="text" placeholder="Your business name" class={fieldClass} />
+              <label for="business" class="block font-semibold text-[var(--color-ink)] mb-2">Business name <span class="text-[var(--color-accent)]">*</span></label>
+              <input id="business" type="text" placeholder="Your business name" required class={fieldClass} />
             </div>
           </div>
 
           <div class="mb-6">
-            <label for="details" class="block font-semibold text-[var(--color-ink)] mb-2">What do you need help with?</label>
-            <textarea id="details" rows="4" placeholder="Share a few details about your project, goals, challenges or any questions you have." class={`${fieldClass} resize-y`}></textarea>
+            <label for="details" class="block font-semibold text-[var(--color-ink)] mb-2">What do you need help with? <span class="text-[var(--color-accent)]">*</span></label>
+            <textarea id="details" rows="4" placeholder="Share a few details about your project, goals, challenges or any questions you have." required class={`${fieldClass} resize-y`}></textarea>
           </div>
 
           <!-- Optional extra detail, off the main form per Andrew — was a

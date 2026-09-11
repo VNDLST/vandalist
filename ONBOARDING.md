@@ -1,6 +1,6 @@
 # Vandalist site — onboarding / continuity guide
 
-Snapshot generated 2026-09-08. This is a "where we left off" briefing, not a
+Snapshot generated 2026-09-11. This is a "where we left off" briefing, not a
 live sync — if you're reading this a while after it was written, check git
 log for anything more recent.
 
@@ -834,9 +834,62 @@ about it, don't just pick one.
     exact PNG Andrew had sent. It's now a real asset,
     `public/system-icons/puzzle-together.png`, wired into the "Together"
     card in place of both failed hand-drawn attempts.
+- **TreadmillRunner moved pages; Marketing Support's hero rebuilt to match
+  How We Work's; How We Work's hero emptied out — a short, focused
+  session, one real bug fix in the middle of it.**
+  - TreadmillRunner (the running-character hero graphic) moved from
+    Marketing Support's hero to Websites & Optimisation's — was that
+    page's "deliberately empty" second hero column, now genuinely used.
+    Not duplicated — fully removed from marketing-support.astro.
+  - **Real bug found and fixed, not guessed at:** Andrew reported the
+    runner's "legs are backwards, walks like an alien." Inspecting
+    `public/marketing-support-hero/runner.json` directly (comparing
+    front-limb vs. back-limb joint layers, which should mirror each
+    other) found two corrupted scale values — `front leg::Ankle` was
+    `[17882,-16215,100]` (absurd magnitude, negative/flipped height)
+    where `back leg::Ankle` was the correct `[100,100,100]`; same pattern
+    on `front arm::Wrist`. Reset both to match their back-limb
+    counterparts. Almost certainly a casualty of the earlier one-off
+    recolour script, not something in Bram van Dijk's original source.
+    Fixed in the data itself, so it travels with the component
+    automatically — confirmed via the live-served JSON, not just the
+    local file. **Nobody has actually watched the animation play** (this
+    pane can't render/composite Lottie playback) — worth Andrew's own
+    look at the live site to confirm the gait actually reads right now,
+    not just that the numbers aren't absurd anymore.
+  - Marketing Support's hero rebuilt wholesale to match How We Work's
+    hero pattern, per Andrew directly: full-bleed background image behind
+    Header+hero (this page's own new `marketing-support-bg.svg`, a
+    distinct supplied asset, not a copy of how-we-work-hero-bg.svg), same
+    heading/subtext copy, CampfireToggle in the second column. **The
+    "Book a strategy call" CTA this page's hero used to have was
+    dropped** — how-we-work's hero (the thing being copied wholesale) has
+    none, and Andrew's instruction was "the FULL hero" — flagged as a
+    judgment call, not silently decided, since a CTA disappearing from a
+    service page's hero is a real thing to notice if it wasn't intended.
+  - How We Work's hero content removed per "left blank for now, content
+    removed" — background image and reserved height kept (still reads as
+    a hero band), heading/subtext/CampfireToggle gone. **The page
+    currently has no `<h1>` at all** as a direct result (the next heading
+    down is an h2) — flagged, not patched with an invented placeholder
+    heading, since Andrew said "for now."
+  - Deploy hit the dynamic-IP allowlist issue again mid-session (see
+    "Known open items" below) — this time Andrew's own cPanel "add IP"
+    flow suggested a *different* IP than the one this session reported,
+    and he added both rather than picking one. Worth remembering: his own
+    browser's outbound IP and this session's outbound IP aren't
+    guaranteed to be the same address, so if a re-add doesn't fix a
+    timeout, a second IP might be needed too.
 
 ## Known open items
 
+- **Also top of the list:** two judgment calls from the Marketing
+  Support/Websites/How We Work hero shuffle haven't been confirmed —
+  (1) Marketing Support's hero lost its "Book a strategy call" CTA
+  entirely (how-we-work's hero, which was copied wholesale, never had
+  one), and (2) how-we-work.astro now has no `<h1>` on the page at all.
+  Both were flagged in chat rather than silently decided, but neither has
+  an explicit "yes that's fine" from Andrew yet.
 - **Top of the list for next session:** the Decision-making & accountability
   table's latest shadow tier (content cells: hairline border + a soft
   literal shadow; label/header cells: flat) hasn't been explicitly
@@ -852,13 +905,15 @@ about it, don't just pick one.
   math), but nobody has actually watched it pulse. Ask if he hasn't
   brought it up unprompted — "only slightly though" was the one
   specific calibration request, worth checking it landed where he meant.
-- **TreadmillRunner's framing hasn't actually been looked at yet, only
-  measured.** This pane's screenshot/compositing is broken (see standing
-  Browser-pane limitations below), so the viewBox crop/container sizing
-  on Marketing Support's new runner graphic was verified via
-  `getBoundingClientRect`/`getBBox` math, not by eye. It's live and the
-  numbers check out, but a real look next time anyone's on the actual
-  site is worth doing before assuming the framing is genuinely right.
+- **TreadmillRunner (now on Websites & Optimisation, not Marketing
+  Support) still hasn't actually been watched play, only measured.** This
+  pane can't render/composite Lottie animation (see standing Browser-pane
+  limitations below), so both the original viewBox crop/container sizing
+  AND this session's leg-scale bug fix were verified via
+  `getBoundingClientRect`/`getBBox` math and reading the JSON directly,
+  never by eye. It's live, the numbers check out, and the animation data
+  is no longer objectively corrupted — but a real look at the actual
+  gait on the live site is still owed before calling this genuinely done.
 - **GSAP's own license is still unresolved, on top of whichever CodePen
   ends up staying.** Andrew flagged this himself and said to proceed
   provisionally — "Standard no-charge license" (gsap.com/standard-

@@ -25,7 +25,12 @@
 // matching the treatment already applied to Home/Google Ads/Marketing
 // Support/Consulting & Mentoring — Andrew's own consistency directive
 // extends to this page too, even though he didn't ask again explicitly.
-// Second hero column left empty, same reasoning as the other new pages.
+// Second hero column: was deliberately empty, now holds TreadmillRunner
+// (2026-09-11, moved here from marketing-support.astro per Andrew — this
+// is now that component's page, not a placeholder use of it). The
+// "walks like an alien" leg bug Andrew flagged was fixed directly in
+// public/marketing-support-hero/runner.json (corrupted scale values on
+// two joint layers), so it travels with the component automatically.
 //
 // **2026-08-14 revisit** — same "match the mockup after all" request as
 // ai-enablement-for-marketing-teams.astro got. All three simplifications
@@ -55,6 +60,7 @@ import PageHeading from "../../components/PageHeading.astro";
 import Eyebrow from "../../components/Eyebrow.astro";
 import CadenceSteps from "../../components/CadenceSteps.astro";
 import BrowserMockCard from "../../components/BrowserMockCard.astro";
+import TreadmillRunner from "../../components/TreadmillRunner.astro";
 
 // --- Section 1's hub-and-spoke diagram: 3 satellites around a center
 // circle, connector lines drawn as a percentage-based SVG overlay (same
@@ -164,8 +170,9 @@ const audiences = [
           </a>
         </div>
 
-        <!-- Deliberately empty — see frontmatter note. -->
-        <div class="hidden lg:block" aria-hidden="true"></div>
+        <div class="hidden lg:block">
+          <TreadmillRunner />
+        </div>
       </div>
     </section>
   </div>

@@ -10,10 +10,31 @@
 // pattern exactly (same card markup/tokens, not a new one-off style).
 //
 // Second hero column: was deliberately empty pending a graphic idea, then
-// briefly Chris Gannon's egg-shaped runner (2026-08-20), swapped the same
-// day for TreadmillRunner.astro (Bram van Dijk's "Running Dude" Pen) after
-// Andrew felt the egg shape read as confusing on a marketing page — see
-// that component's own comment for the source/licensing/recolour details.
+// briefly Chris Gannon's egg-shaped runner (2026-08-20), then swapped for
+// TreadmillRunner.astro (Bram van Dijk's "Running Dude" Pen). Moved on
+// 2026-09-11 to websites-optimisation.astro instead — Andrew's call, not
+// a quality issue with this page; his supplied fix for the "legs backwards,
+// walks like an alien" report was a real bug in the recoloured Lottie data
+// itself (front arm::Wrist and front leg::Ankle layers had been corrupted
+// to absurd/negative scale values, e.g. front leg::Ankle at
+// [17882,-16215,100] vs. its mirror back leg::Ankle's correct [100,100,100])
+// — fixed directly in public/marketing-support-hero/runner.json, not
+// something that needed rebuilding, and the fix travels with the component
+// wherever it's used.
+//
+// Hero rebuilt 2026-09-11 to match how-we-work.astro's exact pattern
+// instead of this page's own original one, per Andrew directly ("replace
+// the full marketing support hero with everything from the how we work
+// hero"): full-bleed background image behind Header+hero (edge-to-edge,
+// no side padding cut), same heading/subtext copy, CampfireToggle in the
+// second column. Background image is marketing-support-bg.svg — a
+// distinct supplied asset, not a copy of how-we-work-hero-bg.svg.
+// **Dropped the "Book a strategy call" CTA button this page's hero used
+// to have** — how-we-work.astro's hero (the thing being copied wholesale)
+// has no CTA at all, and Andrew's instruction was "the FULL hero", not an
+// addition to it. Flagged rather than silently kept, since a CTA
+// disappearing is the one part of "copy everything" that's easy to miss
+// mattering.
 import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
@@ -22,7 +43,7 @@ import SectionHeading from "../../components/SectionHeading.astro";
 import PageHeading from "../../components/PageHeading.astro";
 import Eyebrow from "../../components/Eyebrow.astro";
 import CadenceSteps from "../../components/CadenceSteps.astro";
-import TreadmillRunner from "../../components/TreadmillRunner.astro";
+import CampfireToggle from "../../components/CampfireToggle.astro";
 
 const base = import.meta.env.BASE_URL;
 
@@ -161,36 +182,40 @@ const otherSuppliers = [
 ];
 ---
 <Layout title="Marketing Support" description="Flexible marketing support that fits the way your business works.">
-  <div class="bg-[var(--color-paper-dim)]">
-    <Header currentPage="/services/marketing-support" />
+  <div class="bg-[var(--color-paper)]">
+    <!-- Section 0: Hero — full-bleed background image behind Header+hero,
+         copied wholesale from how-we-work.astro's own hero pattern (see
+         that file's comment for the full rationale: no overflow-hidden
+         since the boosted campfire flame is meant to rise past its own
+         stage, image src is this page's own marketing-support-bg.svg). -->
+    <div class="relative">
+      <img
+        src={`${base}/marketing-support-bg.svg`}
+        alt=""
+        class="absolute inset-0 w-full h-full object-cover object-bottom pointer-events-none"
+        aria-hidden="true"
+      />
+      <div class="relative z-10">
+        <Header currentPage="/services/marketing-support" />
 
-    <!-- Section 0: Hero — darker bg-paper-dim band behind Header+hero,
-         matching Home's Hero.astro and Google Ads' hero treatment, per
-         Andrew's follow-up request. -->
-    <section class="max-w-7xl mx-auto px-6 md:px-10 py-20 md:py-28 lg:py-[104px]">
-      <div class="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-10 items-center min-h-[339px] lg:min-h-[322px]">
-        <div>
-          <PageHeading as="h1" class="mb-6">Flexible marketing support that fits the way your business works</PageHeading>
-          <p class="text-lg text-[var(--color-slate)] mb-10">
-            We provide practical, ongoing marketing capability that can flex between strategy, production, campaigns, reporting, and general support&mdash;without unnecessary lock-in.
-          </p>
-          <a
-            href={`${base}/contact`}
-            class="inline-flex items-center gap-4 rounded-2xl bg-[var(--color-paper)] border border-[var(--color-line)] px-8 py-5 text-lg text-[var(--color-ink)] hover:border-[var(--color-slate)] transition-colors"
-          >
-            <span
-              class="w-9 h-9 rounded-full shrink-0 ring-2 ring-white orb-pulse"
-              style="background: var(--gradient-orb); box-shadow: var(--shadow-orb);"
-            ></span>
-            Book a strategy call
-          </a>
-        </div>
+        <section class="max-w-7xl mx-auto px-6 md:px-10 py-20 md:py-28 lg:py-32">
+          <div class="grid md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-10 items-center min-h-[339px] lg:min-h-[322px]">
+            <div>
+              <PageHeading as="h1" class="mb-6">Marketing support that fits the way your business works</PageHeading>
+              <p class="max-w-md text-lg text-[var(--color-slate)]">
+                We combine clear priorities, specialist capability and practical collaboration&mdash;without adding unnecessary process or complexity.
+              </p>
+            </div>
 
-        <div class="hidden lg:block">
-          <TreadmillRunner />
-        </div>
+            <div class="hidden md:block relative self-stretch">
+              <div class="absolute left-1/2 md:top-[66%] lg:top-[68%] -translate-y-[110px] md:translate-x-[calc(-50%-70px)] lg:translate-x-[calc(-50%-130px)]">
+                <CampfireToggle />
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
-    </section>
+    </div>
   </div>
 
   <div class="bg-[var(--color-paper)]">

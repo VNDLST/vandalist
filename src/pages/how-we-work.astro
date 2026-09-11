@@ -5,9 +5,7 @@ import Footer from "../components/Footer.astro";
 import CtaBand from "../components/CtaBand.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import Heading from "../components/Heading.astro";
-import PageHeading from "../components/PageHeading.astro";
 import Eyebrow from "../components/Eyebrow.astro";
-import CampfireToggle from "../components/CampfireToggle.astro";
 import CadenceSteps from "../components/CadenceSteps.astro";
 
 const base = import.meta.env.BASE_URL;
@@ -182,34 +180,22 @@ const megaphoneIcon = '<path d="M3 10v4h3l6 4V6l-6 4H3z" stroke-linejoin="round"
       <div class="relative z-10">
         <Header currentPage="/how-we-work" />
 
-        <!-- Section 0: Hero — padding matches Home hero's exact recipe
-             (Hero.astro's inner div: py-20 md:py-28 lg:py-32) rather than a
-             one-off value, per Andrew's pointer to that class, so the two
-             stay in sync if that recipe is ever retuned. -->
+        <!-- Section 0: Hero — content removed 2026-09-11 per Andrew ("left
+             blank for now"): the heading/subtext/CampfireToggle that used
+             to live here moved to marketing-support.astro's hero instead
+             (copied wholesale, per his instruction). Background image +
+             structure kept as-is, with the same reserved min-height, so
+             this still reads as a real hero band ready for new content
+             rather than collapsing to nothing — not a placeholder graphic,
+             just deliberately empty. Padding matches Home hero's exact
+             recipe (Hero.astro's inner div: py-20 md:py-28 lg:py-32)
+             rather than a one-off value, per Andrew's original pointer to
+             that class, so the two stay in sync if that recipe is ever
+             retuned. -->
         <section class="max-w-7xl mx-auto px-6 md:px-10 py-20 md:py-28 lg:py-32">
           <div class="grid md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-10 items-center min-h-[339px] lg:min-h-[322px]">
-            <div>
-              <PageHeading as="h1" class="mb-6">Marketing support that fits the way your business works</PageHeading>
-              <p class="max-w-md text-lg text-[var(--color-slate)]">
-                We combine clear priorities, specialist capability and practical collaboration&mdash;without adding unnecessary process or complexity.
-              </p>
-            </div>
-
-            <!-- self-stretch (overriding the row's items-center default just
-                 for this column) so it fills the row's full height, giving
-                 the 66%-from-top position below something real to measure
-                 against instead of just centering in whatever space the
-                 flame itself needs. -->
-            <!-- top-% is measured against this column's own box (= the grid
-                 row height only, not the section's padding), so it isn't
-                 the same number as "66% of the visible hero block" — tuned
-                 per breakpoint against the actual rendered section height so
-                 the flame's centre lands at ~66% down the real hero area. -->
-            <div class="hidden md:block relative self-stretch">
-              <div class="absolute left-1/2 md:top-[66%] lg:top-[68%] -translate-y-[110px] md:translate-x-[calc(-50%-70px)] lg:translate-x-[calc(-50%-130px)]">
-                <CampfireToggle />
-              </div>
-            </div>
+            <div></div>
+            <div class="hidden md:block" aria-hidden="true"></div>
           </div>
         </section>
       </div>

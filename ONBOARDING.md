@@ -1,6 +1,6 @@
 # Vandalist site — onboarding / continuity guide
 
-Snapshot generated 2026-09-11. This is a "where we left off" briefing, not a
+Snapshot generated 2026-10-12. This is a "where we left off" briefing, not a
 live sync — if you're reading this a while after it was written, check git
 log for anything more recent.
 
@@ -881,7 +881,72 @@ about it, don't just pick one.
     guaranteed to be the same address, so if a re-add doesn't fix a
     timeout, a second IP might be needed too.
 
+- **"Universal changes" round (2026-10-12) — header, nav, CTA band, brand pink,
+  Previous Work rename, Australian spelling. All live.** Andrew supplied a
+  washed-out mockup (only the relevant parts left visible), answered a
+  list of confirm-first questions, then this shipped in one pass:
+  - **Logo +66%, desktop only** (48px -> 80px at `lg`+; mobile/tablet logo
+    unchanged). Header vertical padding trimmed (`lg:py-6`) so the header
+    stays **128px** and the "every hero is 706px total" rule is untouched —
+    Andrew approved that trade rather than letting every page grow to 738px.
+  - **Nav labels 1rem bold.** This is what forced a breakpoint change: the
+    bigger logo + bigger labels need ~970px, and at 768px the labels
+    wrapped onto two lines even with tighter gaps. **The full desktop nav
+    now starts at `lg` (1024px), not `md`** — below that the compact row is
+    used. Measured (not eyeballed): single-line labels, 41px spare, no
+    overflow at 1024px.
+  - **"Case Studies" -> "Previous Work"** in header, footer, page title,
+    eyebrow, back link, "Related work" and the SEO page's link; the route
+    moved `/case-studies` -> `/previous-work` (old URL now 404s, nothing
+    linked to it). The content collection is still named `case-studies`
+    internally (src/content/case-studies) and card CTAs still say "View case
+    study" — section is "Previous Work", individual items remain case studies.
+  - **"Services" is no longer a link** (it pointed at `/services`, which has
+    never existed). It's a button; the desktop flyout opens on hover and on
+    keyboard focus (`group-has-[:focus-visible]`). **Mobile/tablet gained a
+    tap-to-expand Services list** — previously the compact row's only route
+    to the service pages was that same dead link.
+  - **CTA band (shared, every page):** left-aligned, small "Brain dump or
+    specific requirements:" line, large headline with a rotating pink word
+    (direction / support / resources / concepts / clarity), button and band
+    background unchanged. Technique is Cruip's MIT "Sliding Text Animation
+    with Tailwind CSS" CodePen, re-authored (keyframes in `global.css`,
+    `word-slide`); its percentages assume six rows = five words + a repeat
+    of the first. Screen readers get one static sentence; reduced-motion
+    freezes on the first word. Headline is 28px at md+ so it sits on one
+    line like the mockup (30px wrapped). Known cosmetic quirk, not fixed:
+    the word window is as wide as the widest word, so short words
+    ("support", "clarity") leave a slightly larger gap before "you're
+    looking for".
+  - **Brand pink changed sitewide: `--color-accent` is now #FF3D6B** (the logo
+    colour; was #e8467c). Andrew's call: "FF3D6B is our brand colour and
+    used in our logo. So perhaps we need to replace e8467c." Derived values
+    were recomputed, not just swapped: `--color-accent-soft` #ffe8ed, orb
+    gradient stops #ff6e90 / #db2951, `--shadow-orb` and the orb-pulse
+    keyframes (rgba 255,61,107), every literal old-pink hex/rgba in 7 files,
+    and the Lottie runner JSON (recoloured via script). **If a future
+    session sees #e8467c anywhere, it's stale.** Side effect to be aware of:
+    #FF3D6B on the paper background is ~3.3:1 contrast (old pink was ~3.6:1)
+    — fine for the large/decorative uses here, but small pink body text
+    would be borderline.
+  - **Australian spelling:** four American -ize words fixed
+    (organizations/Prioritize/Modernized/Specialized -> -ise). Everything
+    else containing a Z is genuine (puzzle, lazy, bezier) or a proper noun
+    (Zzzopa, Berlitz, Grozdic) and was left alone.
+  - Verified by measurement at 390/768/1024/1440 (header height, nav
+    wrapping, overflow, hero totals), production build, and then against the
+    **live** site after deploy (not just the script's DEPLOY SUCCESS line,
+    per the earlier false-success lesson).
+  - Deploy access: SSH needed a fresh allowlist entry again (IP 1.146.85.43
+    this time); Andrew added it and it connected on the next check.
+
 ## Known open items
+
+- **Andrew has not yet seen the new header/CTA live** (the pane's screenshot
+  tool is broken, so everything above was verified by measurement). Worth
+  asking how the 80px logo, bold nav and rotating CTA word actually read,
+  especially the uneven gap after short words and the tablet (768-1023px)
+  compact row, which now shows where the full nav used to.
 
 - **Also top of the list:** two judgment calls from the Marketing
   Support/Websites/How We Work hero shuffle haven't been confirmed —

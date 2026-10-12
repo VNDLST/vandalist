@@ -914,10 +914,20 @@ about it, don't just pick one.
     `word-slide`); its percentages assume six rows = five words + a repeat
     of the first. Screen readers get one static sentence; reduced-motion
     freezes on the first word. Headline is 28px at md+ so it sits on one
-    line like the mockup (30px wrapped). Known cosmetic quirk, not fixed:
-    the word window is as wide as the widest word, so short words
-    ("support", "clarity") leave a slightly larger gap before "you're
-    looking for".
+    line like the mockup.
+    **Refined the same day after Andrew saw it live** (his three notes + a
+    size note), all measured, not eyeballed: (1) pink flecks above some words
+    were the tails of p/y from the word above poking into the window — the
+    font's ink overshot a 1.2em row by ~1.5px; rows are now 1.5em. (2) Words
+    are centred in the window (it's still as wide as the widest word, so the
+    sentence doesn't jump). (3) The word sat ~5px low (19px after the row
+    change); its lowercase centre line now matches the sentence's within
+    0.03px, via `align-[-0.08em]` calibrated from measured baselines — my
+    first theoretical value was wrong for an inline-flex box, so trust the
+    measurement approach if this is ever retuned. (4) Headline is now 40px
+    at xl (36/30/24 below), ~1.35x the section H2 as in his mockup, column
+    widened to `max-w-6xl` (text starts ~64px in, like the mockup). Negative
+    margins on the word window stop the roomier rows inflating the line.
   - **Brand pink changed sitewide: `--color-accent` is now #FF3D6B** (the logo
     colour; was #e8467c). Andrew's call: "FF3D6B is our brand colour and
     used in our logo. So perhaps we need to replace e8467c." Derived values

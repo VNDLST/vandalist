@@ -1,9 +1,22 @@
 ---
+// Homepage hero section (heading, subtext, CTA, campfire toggle). The
+// full-bleed camp-site background and the Header live in index.astro so the
+// background can sit behind both and spill below the hero.
+//
+// 2026-10-12 (Andrew): the homepage took over Marketing Support's hero —
+// camp-site background + the "Add a little Vandalist" CampfireToggle in the
+// second column — to feel more dynamic. The old still-life image
+// (vandalist-hero.png) moved to Marketing Support. Layout/recipe is the same
+// one Marketing Support's camp hero used (py-20 md:py-28 lg:py-32, grid with
+// min-h so the hero stays at the site-wide 706px, campfire offsets copied
+// verbatim) so the campfire and text sit exactly where they did there. This
+// page keeps its own copy and its "How can we help?" CTA.
 import PageHeading from "./PageHeading.astro";
+import CampfireToggle from "./CampfireToggle.astro";
 ---
-<div class="relative overflow-hidden bg-[var(--color-paper-dim)]">
-  <div class="relative mx-auto max-w-7xl px-6 md:px-10 py-20 md:py-28 lg:py-32">
-    <div class="relative z-10 w-full max-w-[652px]">
+<section class="max-w-7xl mx-auto px-6 md:px-10 py-20 md:py-28 lg:py-32">
+  <div class="grid md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-10 items-center min-h-[339px] lg:min-h-[322px]">
+    <div>
       <PageHeading class="mb-6">
         Marketing strategy, execution, and support
       </PageHeading>
@@ -21,10 +34,11 @@ import PageHeading from "./PageHeading.astro";
         How can we help?
       </a>
     </div>
-    <img
-      src={`${import.meta.env.BASE_URL}/vandalist-hero.png`}
-      alt="Abstract still life of strategy pieces: a pink X, an engraved play-diagram panel, an arch, a sphere, and a bowl with a pink sphere"
-      class="hidden md:block absolute z-0 right-[-20px] bottom-8 w-[66%] max-w-[900px] h-auto object-contain object-right-bottom pointer-events-none"
-    />
+
+    <div class="hidden md:block relative self-stretch">
+      <div class="absolute left-1/2 md:top-[66%] lg:top-[68%] -translate-y-[110px] md:translate-x-[calc(-50%-70px)] lg:translate-x-[calc(-50%-130px)]">
+        <CampfireToggle />
+      </div>
+    </div>
   </div>
-</div>
+</section>

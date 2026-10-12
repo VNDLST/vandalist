@@ -1,103 +1,142 @@
 ---
+// "Trusted by ambitious teams" — rebuilt 2026-10-12 per Andrew: replaced the
+// two scrolling marquees with a calm grid of white tiles (two rows of five)
+// where, every 3 seconds, ONE tile crossfades to a logo that isn't currently
+// showing. 14 logos in the pool for 10 slots, so 4 are always "in reserve".
+//
+// - On phones the grid is 2 columns x 3 rows (Andrew: 5 across is too small
+//   and 2x5 too overbearing), so only the first 6 tiles show there.
+//   All 10 slots always hold DIFFERENT logos whether visible or not, and only
+//   visible tiles are ever swapped, so widening the window never reveals a
+//   duplicate. Order below is chosen so the 6 phone tiles are the strongest.
+// - Each tile has two image layers (a/b) rendered by the server and toggled
+//   by `data-front`, rather than creating elements in JS: Astro's scoped
+//   <style> never reaches elements made with createElement (the same trap
+//   that bit QuestionPile), and a pure state toggle needs no rAF.
+// - Pauses when the tab is hidden or the grid is off-screen; no swapping at
+//   all under prefers-reduced-motion. Never picks the same tile twice running.
 const logos = [
-  { file: "kestral.jpg", name: "Kestral" },
-  { file: "archie.jpg", name: "Archie" },
-  { file: "berlitz.jpg", name: "Berlitz" },
-  { file: "central-highlands.jpg", name: "Central Highlands Regional Council" },
-  { file: "matilda.jpg", name: "Matilda Veneer" },
-  { file: "martin-engineering.jpg", name: "Martin Engineering" },
-  { file: "paragon.jpg", name: "Paragon Insurance Broking" },
-  { file: "solo.jpg", name: "Solo Resource Recovery" },
-  { file: "sonic.jpg", name: "Sonic Equipment" },
-  { file: "tandm.jpg", name: "Tandm" },
-  { file: "busy-group.jpg", name: "The BUSY Group" },
-  { file: "waterups.jpg", name: "Water Ups" },
-  { file: "zzzopa.jpg", name: "Zzzopa" },
-  { file: "acads-bsg.jpg", name: "ACADS-BSG" },
+  { key: "kestral", file: "kestral.jpg", name: "Kestral" },
+  { key: "martin", file: "martin-engineering.jpg", name: "Martin Engineering" },
+  { key: "busy", file: "busy-group.jpg", name: "The BUSY Group" },
+  { key: "tandm", file: "tandm.jpg", name: "Tandm" },
+  { key: "zzzopa", file: "zzzopa.jpg", name: "Zzzopa" },
+  { key: "waterups", file: "waterups.jpg", name: "Water Ups" },
+  { key: "berlitz", file: "berlitz.jpg", name: "Berlitz" },
+  { key: "paragon", file: "paragon.jpg", name: "Paragon Insurance Broking" },
+  { key: "sonic", file: "sonic.jpg", name: "Sonic Equipment" },
+  { key: "matilda", file: "matilda.jpg", name: "Matilda Veneer" },
+  // reserve (not shown on first load)
+  { key: "archie", file: "archie.jpg", name: "Archie" },
+  { key: "central", file: "central-highlands.jpg", name: "Central Highlands Regional Council" },
+  { key: "solo", file: "solo.jpg", name: "Solo Resource Recovery" },
+  { key: "acads", file: "acads-bsg.jpg", name: "ACADS-BSG" },
 ];
-
-const row1 = logos.slice(0, 7);
-const row2 = logos.slice(7, 14);
+const SLOTS = 10;
+const base = import.meta.env.BASE_URL;
+const initial = logos.slice(0, SLOTS);
 ---
 <section class="max-w-7xl mx-auto px-6 md:px-10 py-16 md:py-24">
   <p class="text-sm tracking-wide text-[var(--color-accent)] font-medium mb-8">Trusted by ambitious teams</p>
 
-  <div class="flex flex-col gap-6">
-    <div class="marquee-mask">
-      <div class="marquee-track marquee-left">
-        {[...row1, ...row1].map((logo) => (
-          <div class="logo-slot">
-            <img
-              src={`${import.meta.env.BASE_URL}/client-logos/${logo.file}`}
-              alt={logo.name}
-              class="h-16 md:h-20 w-auto object-contain"
-            />
-          </div>
-        ))}
+  <div
+    id="logo-grid"
+    class="grid grid-cols-2 sm:grid-cols-5 gap-3 md:gap-4"
+    data-base={base}
+    data-logos={JSON.stringify(logos)}
+  >
+    {initial.map((logo, i) => (
+      <div
+        class:list={[
+          "logo-tile relative rounded-xl border border-[var(--color-line)] bg-white aspect-[7/5] overflow-hidden",
+          i >= 6 && "hidden sm:block",
+        ]}
+        data-front="a"
+        data-key={logo.key}
+      >
+        <img class="logo-layer" data-layer="a" src={`${base}/client-logos/${logo.file}`} alt={logo.name} loading="lazy" />
+        <img class="logo-layer" data-layer="b" alt="" />
       </div>
-    </div>
-    <div class="marquee-mask">
-      <div class="marquee-track marquee-right">
-        {[...row2, ...row2].map((logo) => (
-          <div class="logo-slot">
-            <img
-              src={`${import.meta.env.BASE_URL}/client-logos/${logo.file}`}
-              alt={logo.name}
-              class="h-16 md:h-20 w-auto object-contain"
-            />
-          </div>
-        ))}
-      </div>
-    </div>
+    ))}
   </div>
 </section>
 
+<script>
+  const grid = document.getElementById("logo-grid");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (grid && !reduceMotion) {
+    const logos = JSON.parse(grid.dataset.logos);
+    const base = grid.dataset.base;
+    const tiles = [...grid.querySelectorAll(".logo-tile")];
+    const shown = tiles.map((t) => t.dataset.key);
+    const urlFor = (l) => `${base}/client-logos/${l.file}`;
+    const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+    let lastSlot = -1;
+    // Starts true: browsers call the observer straight away with the real
+    // state, but if one never reports (e.g. a hidden preview pane) swaps
+    // should still be able to run rather than silently never starting.
+    let inView = true;
+
+    // Warm the cache so a swap never waits on the network mid-fade.
+    logos.forEach((l) => { const im = new Image(); im.src = urlFor(l); });
+
+    function swap() {
+      if (document.hidden || !inView) return;
+      const candidates = tiles
+        .map((tile, i) => ({ tile, i }))
+        .filter(({ tile, i }) => tile.offsetParent !== null && i !== lastSlot);
+      const pool = logos.filter((l) => !shown.includes(l.key));
+      if (!candidates.length || !pool.length) return;
+
+      const { tile, i } = pick(candidates);
+      const logo = pick(pool);
+      const incomingLayer = tile.dataset.front === "a" ? "b" : "a";
+      const img = tile.querySelector(`[data-layer="${incomingLayer}"]`);
+
+      lastSlot = i;
+      shown[i] = logo.key;
+      tile.dataset.key = logo.key;
+      img.alt = logo.name;
+      img.src = urlFor(logo);
+      // Fade in once the file is in (usually instantly — it was preloaded),
+      // but never wait on it forever: the state above already says this tile
+      // shows the new logo, so a stalled load must not leave the old one up.
+      // (Not img.decode(): that never settles while the page isn't being
+      // rendered, which stranded tiles half-swapped.)
+      let flipped = false;
+      const flip = () => { if (!flipped) { flipped = true; tile.dataset.front = incomingLayer; } };
+      if (img.complete && img.naturalWidth > 0) flip();
+      else { img.addEventListener("load", flip, { once: true }); setTimeout(flip, 1200); }
+    }
+
+    new IntersectionObserver(([entry]) => { inView = entry.isIntersecting; }, { threshold: 0.2 }).observe(grid);
+    setInterval(swap, 3000);
+  }
+</script>
+
 <style>
-  .marquee-mask {
-    overflow: hidden;
-    width: 100%;
-    mask-image: linear-gradient(to right, transparent, black 4%, black 96%, transparent);
-    -webkit-mask-image: linear-gradient(to right, transparent, black 4%, black 96%, transparent);
-  }
-  .marquee-track {
-    display: flex;
-    align-items: center;
-  }
-  .logo-slot {
-    flex: 0 0 auto;
-    width: 130px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 0.5rem;
+  .logo-layer {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    height: 4rem;
+    width: auto;
+    max-width: 78%;
+    object-fit: contain;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 700ms ease, transform 700ms ease;
   }
   @media (min-width: 768px) {
-    .logo-slot {
-      width: 145px;
-    }
+    .logo-layer { height: 5rem; }
   }
-  .marquee-left, .marquee-right {
-    animation-duration: 32s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-  }
-  .marquee-left {
-    animation-name: marquee-scroll-left;
-  }
-  .marquee-right {
-    animation-name: marquee-scroll-right;
-  }
-  @keyframes marquee-scroll-left {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
-  @keyframes marquee-scroll-right {
-    from { transform: translateX(-50%); }
-    to { transform: translateX(0); }
+  .logo-tile[data-front="a"] .logo-layer[data-layer="a"],
+  .logo-tile[data-front="b"] .logo-layer[data-layer="b"] {
+    opacity: 1;
+    transform: none;
   }
   @media (prefers-reduced-motion: reduce) {
-    .marquee-left, .marquee-right {
-      animation: none;
-    }
+    .logo-layer { transition: none; }
   }
 </style>

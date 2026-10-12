@@ -24,7 +24,9 @@ const weArent = [
 // Shimmer cycle: one arrow lit at a time, left to right, looping.
 // Total loop = steps.length * SLICE seconds; each arrow's keyframe window
 // is the first quarter of its own (offset) cycle, silent the rest.
-const SLICE = 1.6;
+// SLICE was 1.6s; Andrew asked for it 25% slower (2026-10-12) -> 2.0s. The
+// sweep itself is a fixed share of the cycle, so it slows by the same amount.
+const SLICE = 2.0;
 const CYCLE = SLICE * (steps.length - 1);
 ---
 <section class="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-16 py-10">
@@ -68,7 +70,7 @@ const CYCLE = SLICE * (steps.length - 1);
           <p class="font-semibold text-[var(--color-ink)] mb-1">{step.title}</p>
           <p class="text-sm text-[var(--color-slate)]">{step.text}</p>
           {i < steps.length - 1 && (
-            <div class="arrow-track hidden lg:block absolute top-8 left-[calc(50%+40px)] w-[calc(100%-80px)] h-[2px]" aria-hidden="true">
+            <div class="arrow-track hidden lg:block absolute top-[30px] left-[calc(50%+40px)] w-[calc(100%-80px)] h-[4px]" aria-hidden="true">
               <div class="h-full w-full arrow-base"></div>
               <div class="shimmer" style={`animation-delay:${i * SLICE}s`}></div>
               <span class="arrowhead"></span>
@@ -141,9 +143,9 @@ const CYCLE = SLICE * (steps.length - 1);
     background: repeating-linear-gradient(
       to right,
       var(--color-line) 0,
-      var(--color-line) 4px,
-      transparent 4px,
-      transparent 8px
+      var(--color-line) 6px,
+      transparent 6px,
+      transparent 12px
     );
   }
   .shimmer {
@@ -157,12 +159,12 @@ const CYCLE = SLICE * (steps.length - 1);
   }
   .arrowhead {
     position: absolute;
-    right: -1px;
+    right: -2px;
     top: 50%;
-    width: 7px;
-    height: 7px;
-    border-top: 2px solid var(--color-line);
-    border-right: 2px solid var(--color-line);
+    width: 11px;
+    height: 11px;
+    border-top: 4px solid var(--color-line);
+    border-right: 4px solid var(--color-line);
     transform: translateY(-50%) rotate(45deg);
   }
   @keyframes shimmer-sweep {

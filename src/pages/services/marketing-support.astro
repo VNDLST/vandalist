@@ -22,6 +22,14 @@
 // something that needed rebuilding, and the fix travels with the component
 // wherever it's used.
 //
+// **2026-10-12 hero swap (Andrew):** the homepage took this page's camp-site
+// background + CampfireToggle hero ("make the homepage more dynamic"), and
+// this page took the homepage's old hero image (public/vandalist-hero.png)
+// on the standard tinted service-page band, with the "Book a strategy call"
+// button restored. The camp background moved with it (now
+// public/home-hero-bg.svg). Everything below about the camp hero describes
+// the previous state and is kept only as history.
+//
 // Hero rebuilt 2026-09-11 to match how-we-work.astro's exact pattern
 // instead of this page's own original one, per Andrew directly ("replace
 // the full marketing support hero with everything from the how we work
@@ -43,7 +51,6 @@ import SectionHeading from "../../components/SectionHeading.astro";
 import PageHeading from "../../components/PageHeading.astro";
 import Eyebrow from "../../components/Eyebrow.astro";
 import CadenceSteps from "../../components/CadenceSteps.astro";
-import CampfireToggle from "../../components/CampfireToggle.astro";
 
 const base = import.meta.env.BASE_URL;
 
@@ -182,39 +189,45 @@ const otherSuppliers = [
 ];
 ---
 <Layout title="Marketing Support" description="Flexible marketing support that fits the way your business works.">
-  <div class="bg-[var(--color-paper)]">
-    <!-- Section 0: Hero — full-bleed background image behind Header+hero,
-         copied wholesale from how-we-work.astro's own hero pattern (see
-         that file's comment for the full rationale: no overflow-hidden
-         since the boosted campfire flame is meant to rise past its own
-         stage, image src is this page's own marketing-support-bg.svg). -->
-    <div class="relative">
-      <img
-        src={`${base}/marketing-support-bg.svg`}
-        alt=""
-        class="absolute inset-0 w-full h-full object-cover object-bottom pointer-events-none"
-        aria-hidden="true"
-      />
-      <div class="relative z-10">
-        <Header currentPage="/services/marketing-support" />
+  <div class="bg-[var(--color-paper-dim)]">
+    <Header currentPage="/services/marketing-support" />
 
-        <section class="max-w-7xl mx-auto px-6 md:px-10 py-20 md:py-28 lg:py-32">
-          <div class="grid md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-10 items-center min-h-[339px] lg:min-h-[322px]">
-            <div>
-              <PageHeading as="h1" class="mb-6">Marketing support that fits the way your business works</PageHeading>
-              <p class="max-w-md text-lg text-[var(--color-slate)]">
-                We combine clear priorities, specialist capability and practical collaboration&mdash;without adding unnecessary process or complexity.
-              </p>
-            </div>
-
-            <div class="hidden md:block relative self-stretch">
-              <div class="absolute left-1/2 md:top-[66%] lg:top-[68%] -translate-y-[110px] md:translate-x-[calc(-50%-70px)] lg:translate-x-[calc(-50%-130px)]">
-                <CampfireToggle />
-              </div>
-            </div>
+    <!-- Section 0: Hero — the old homepage hero's look: tinted band with the
+         still-life image bleeding off the bottom-right (classes copied
+         verbatim from the homepage's former hero, so it sits exactly as it
+         did there; overflow-hidden clips the bleed but is NOT around the
+         Header, so the services flyout isn't clipped). Text keeps this page's
+         own copy; the "Book a strategy call" button is back, matching the
+         other service pages. The image only shows from lg (1024px) up: below
+         that the text column spans the full width and ran over the artwork
+         (measured at 768px: heading and subtext overlapped it by 40-160px). -->
+    <div class="relative overflow-hidden">
+      <section class="relative max-w-7xl mx-auto px-6 md:px-10 py-20 md:py-28 lg:py-[104px]">
+        <div class="relative z-10 grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-10 items-center min-h-[339px] lg:min-h-[322px]">
+          <div>
+            <PageHeading as="h1" class="mb-6">Marketing support that fits the way your business works</PageHeading>
+            <p class="text-lg text-[var(--color-slate)] max-w-md mb-10">
+              We combine clear priorities, specialist capability and practical collaboration&mdash;without adding unnecessary process or complexity.
+            </p>
+            <a
+              href={`${base}/contact`}
+              class="inline-flex items-center gap-4 rounded-2xl bg-[var(--color-paper)] border border-[var(--color-line)] px-8 py-5 text-lg text-[var(--color-ink)] hover:border-[var(--color-slate)] transition-colors"
+            >
+              <span
+                class="w-9 h-9 rounded-full shrink-0 ring-2 ring-white orb-pulse"
+                style="background: var(--gradient-orb); box-shadow: var(--shadow-orb);"
+              ></span>
+              Book a strategy call
+            </a>
           </div>
-        </section>
-      </div>
+          <div class="hidden lg:block" aria-hidden="true"></div>
+        </div>
+        <img
+          src={`${base}/vandalist-hero.png`}
+          alt="Abstract still life of strategy pieces: a pink X, an engraved play-diagram panel, an arch, a sphere, and a bowl with a pink sphere"
+          class="hidden lg:block absolute z-0 right-[-20px] bottom-8 w-[66%] max-w-[900px] h-auto object-contain object-right-bottom pointer-events-none"
+        />
+      </section>
     </div>
   </div>
 

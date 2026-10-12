@@ -1,6 +1,6 @@
 # Vandalist site — onboarding / continuity guide
 
-Snapshot generated 2026-10-12. This is a "where we left off" briefing, not a
+Snapshot generated 2026-10-13. This is a "where we left off" briefing, not a
 live sync — if you're reading this a while after it was written, check git
 log for anything more recent.
 
@@ -960,6 +960,54 @@ about it, don't just pick one.
     per the earlier false-success lesson).
   - Deploy access: SSH needed a fresh allowlist entry again (IP 1.146.85.43
     this time); Andrew added it and it connected on the next check.
+
+- **Homepage round (2026-10-12/13): hero swap, How We Work arrows, missing icon,
+  logo grid, CTA padding. All live.** Andrew confirmed the plan first, then:
+  - **Hero swap.** Homepage now has Marketing Support's old hero: camp-site
+    background + the "Add a little Vandalist" CampfireToggle (offsets copied
+    verbatim, so at his 1920px mockup width the campfire sits at 59% — an
+    exact match). It keeps its own heading/copy and "How can we help?" button
+    and still totals 706px. Marketing Support got the old homepage image
+    (`public/vandalist-hero.png`, opaque paper-dim background so it needs the
+    tinted band) with its "Book a strategy call" button restored. The camp
+    asset was renamed `marketing-support-bg.svg` -> `home-hero-bg.svg`. The
+    homepage background image is taller than the hero by half of the first
+    row's top padding (3rem of 6rem at md+, 2rem of 4rem on mobile) so the
+    curves finish lower; it only overlaps empty padding, 48px stays clear
+    above row one. Measured: lower wave edges now start at y>=684 vs the CTA
+    bottom at 578. **Marketing Support's image shows from lg (1024px) only**:
+    at 768px the full-width text column ran over the artwork by 40-160px
+    (checked by comparing each text line's right edge to the PNG's leftmost
+    artwork pixel at that height); at 1440 it clears every line by >=81px, at
+    1024 one subtext line grazes a soft shadow edge by 32px (accepted).
+  - **How We Work arrows (homepage only):** pulse 25% slower (1.6s -> 2.0s per
+    arrow, 6s cycle; read as "25% longer", the speed-based reading would be
+    2.13s), connector and arrowheads doubled to 4px, re-centred on the circles
+    (0px off). The same pulse line on the How We Work page / service pages
+    (CadenceSteps) was deliberately NOT changed.
+  - **Missing "Post-transaction or new brand" icon** added
+    (`public/who-icons/post-transaction.webp`, 700x700 / 24KB, matching the
+    other five); the card image box is exactly square so nothing is cropped.
+  - **Client logos:** marquees replaced by a grid of white tiles (5x2; 2x3 on
+    phones) where one random tile crossfades every 3s to a logo not on screen.
+    14 logos in the pool (Andrew said use 14, not 15), 10 slots; all 10 slots
+    always hold different logos, only visible tiles swap, never the same tile
+    twice running; pauses off-screen/hidden tab; static under reduced motion.
+    **Two bugs found only by testing the live behaviour:** the first version
+    waited on `img.decode()` before fading, which never resolves while the
+    page isn't rendered, leaving tiles half-swapped (state said new logo,
+    screen showed old, so duplicates could appear) — now it waits on `load`
+    with a 1.2s timeout; and the in-view flag now starts true so a silent
+    IntersectionObserver can't stall swaps forever. Pane note: this preview
+    pane reports `document.hidden = true` and never fires IntersectionObserver,
+    so to test timers/animation logic override
+    `Object.defineProperty(document,'hidden',{get:()=>false})` after load.
+  - **CTA band padding** reduced to 2.5rem top and bottom (was 5rem at md+).
+  - Not done / left for Andrew: in his mockup the hero text starts ~37px
+    further right than the logo and cards (at 1920px) and sits ~30px higher
+    than ours; ours lines up with the logo like every other page and centres
+    in the 706px hero, so it was left alone. His mockup's hero subtext also
+    looks very faint over the hills — not verified on the real page.
 
 ## Known open items
 

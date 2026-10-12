@@ -1,14 +1,15 @@
 ---
 import SectionHeading from "./SectionHeading.astro";
 
-// Real client-supplied thumbnails swapped in where available.
-// "Post-transaction or new brand" (puzzle piece) image is still pending —
-// keep its flat color swatch until that asset arrives.
+// Real client-supplied thumbnails (700x700 webp, public/who-icons/). The
+// "Post-transaction or new brand" image (three pieces feeding into one
+// stacked block) arrived 2026-10-12 and replaced its flat colour swatch;
+// resized/compressed from a 1254px, 233KB original to match the others.
 const items = [
   { image: "growth-stage", title: "Growth-stage companies", text: "Scaling fast and needing marketing that keeps up." },
   { image: "lean-marketing", title: "In-house lean marketing teams", text: "Need extra hands, expertise, or fresh perspective." },
   { image: "strategic-refresh", title: "Strategic refresh moment", text: "Repositioning, refining messaging, or entering new markets." },
-  { color: "#d9cfc0", title: "Post-transaction or new brand", text: "Need to align, integrate, and move forward fast." },
+  { image: "post-transaction", title: "Post-transaction or new brand", text: "Need to align, integrate, and move forward fast." },
   { image: "performance-improvement", title: "Performance improvement", text: "Looking to drive stronger results from marketing." },
   { image: "support-network", title: "In-house teams needing support", text: "Specialised expertise without the overhead of full-time hires." },
 ];

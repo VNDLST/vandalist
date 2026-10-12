@@ -19,13 +19,13 @@ const allEntries = await getCollection("case-studies");
 const featured = getFeatured(allEntries);
 const gridEntries = sortByDateDesc(allEntries).filter((e) => e.slug !== featured?.slug);
 ---
-<Layout title="Case Studies" description="A selection of practical marketing work across different businesses, sectors and challenges.">
+<Layout title="Previous Work" description="A selection of practical marketing work across different businesses, sectors and challenges.">
   <div class="bg-[var(--color-paper)]">
-    <Header currentPage="/case-studies" />
+    <Header currentPage="/previous-work" />
 
     <div class="max-w-7xl mx-auto px-6 md:px-10 pb-10 md:pb-14">
       <div class="md:max-w-[60%]">
-        <Eyebrow class="mb-3">Case Studies</Eyebrow>
+        <Eyebrow class="mb-3">Previous Work</Eyebrow>
         <PageHeading class="mb-4">Real work. Real outcomes.</PageHeading>
         <p class="text-[var(--color-slate)] max-w-md">
           A selection of practical marketing work across different businesses, sectors and challenges.

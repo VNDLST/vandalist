@@ -3,7 +3,7 @@
 // (2026-10-12): left-aligned inside the same centred max-w-3xl column the
 // band always used, a small "Brain dump or specific requirements:" line,
 // then a large headline whose pink word rotates through direction /
-// support / resources / concepts / clarity. Button and band background
+// flexibility / resources / concepts / guidance. Button and band background
 // are unchanged.
 //
 // The rotating-word technique is Cruip's "Sliding Text Animation with
@@ -38,7 +38,7 @@
 // Accessibility: the animated markup is aria-hidden and a single sr-only
 // sentence carries the full meaning, so screen readers don't hear the
 // words cycling. prefers-reduced-motion freezes it on the first word.
-const words = ["direction", "support", "resources", "concepts", "clarity"];
+const words = ["direction", "flexibility", "resources", "concepts", "guidance"];
 ---
 <section class="relative z-10 bg-[var(--color-paper-dim)] border-t-2 border-[var(--color-paper-deep)]">
   <div class="max-w-6xl mx-auto px-6 md:px-10 py-16 md:py-20 text-left">

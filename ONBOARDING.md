@@ -928,6 +928,17 @@ about it, don't just pick one.
     at xl (36/30/24 below), ~1.35x the section H2 as in his mockup, column
     widened to `max-w-6xl` (text starts ~64px in, like the mockup). Negative
     margins on the word window stop the roomier rows inflating the line.
+    **Word list changed afterwards (Andrew): support -> flexibility, clarity ->
+    guidance** (now direction / flexibility / resources / concepts / guidance).
+    Reason: the words are centred in a window as wide as the widest word, so
+    "clarity" (169px) left ~50px of extra space each side next to "resources"
+    (270px). Andrew chose swapping words over adding measuring script or
+    moving the word to the end of the sentence (that alternative would remove
+    the gap problem entirely if the copy ever changes: put the word last with
+    no full stop after it). New widths are within 24px of each other
+    (246-270px), i.e. ~12px either side. Per-word vertical centring was also
+    offered (words differ ~8px in visual centre because of tall letters vs
+    tails) and declined as not worth the extra code.
   - **Brand pink changed sitewide: `--color-accent` is now #FF3D6B** (the logo
     colour; was #e8467c). Andrew's call: "FF3D6B is our brand colour and
     used in our logo. So perhaps we need to replace e8467c." Derived values

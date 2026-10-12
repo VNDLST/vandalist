@@ -1003,6 +1003,10 @@ about it, don't just pick one.
     so to test timers/animation logic override
     `Object.defineProperty(document,'hidden',{get:()=>false})` after load.
   - **CTA band padding** reduced to 2.5rem top and bottom (was 5rem at md+).
+  - **Campfire label tucked up:** removed the 0.75rem gap between the fire and
+    "Add a little Vandalist" (`.campfire-demo { gap: 0 }` in CampfireToggle) —
+    label moves up 12px, fire does not move. (Andrew's earlier "note the
+    campfire and text" referred to this label gap, not hero text position.)
   - Not done / left for Andrew: in his mockup the hero text starts ~37px
     further right than the logo and cards (at 1920px) and sits ~30px higher
     than ours; ours lines up with the logo like every other page and centres

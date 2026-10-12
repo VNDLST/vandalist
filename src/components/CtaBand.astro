@@ -16,20 +16,39 @@
 // The word is sized 1.4em of the headline (larger than the surrounding
 // text, as in the mockup) and uses --color-accent, which is now #FF3D6B.
 //
+// Fixes after Andrew saw it live (2026-10-12):
+// - Rows are 1.5em tall, not 1.2em. At 1.2em the font's ink overshot the row
+//   by ~1.5px, so the tail of a "p"/"y" in the word above showed as a
+//   little pink fleck at the top of the window. 1.5em leaves clear space.
+// - Words are centred in the window (which is as wide as the widest word)
+//   so short words get equal space either side.
+// - The window is lowered so the word's lowercase letters share a centre
+//   line with the sentence's lowercase letters (align-middle centres the
+//   whole row, which includes the empty space under descenders, and put
+//   the word ~5px too low). The -0.08em is calibrated from measured
+//   baselines (x-height centres within 0.5px), not derived from theory.
+// - The roomier rows would otherwise inflate the line (36px of blank space
+//   above the headline, 48px below). Negative margins on the window trim
+//   its layout footprint to the word's actual ink (~39px above the baseline,
+//   ~17px below) without moving the word; gaps match the mockup's rhythm.
+// - Headline is ~40px at xl (about 1.35x the section H2, per his mockup),
+//   so the column is max-w-6xl to keep it on one line; it steps down
+//   through 36/30/24px at narrower widths.
+//
 // Accessibility: the animated markup is aria-hidden and a single sr-only
 // sentence carries the full meaning, so screen readers don't hear the
 // words cycling. prefers-reduced-motion freezes it on the first word.
 const words = ["direction", "support", "resources", "concepts", "clarity"];
 ---
 <section class="relative z-10 bg-[var(--color-paper-dim)] border-t-2 border-[var(--color-paper-deep)]">
-  <div class="max-w-3xl mx-auto px-6 md:px-10 py-16 md:py-20 text-left">
-    <p class="text-sm text-[var(--color-ink)] mb-1.5">Brain dump or specific requirements:</p>
-    <h2 class="text-2xl md:text-[28px] font-bold text-[var(--color-ink)] mb-6">
+  <div class="max-w-6xl mx-auto px-6 md:px-10 py-16 md:py-20 text-left">
+    <p class="text-sm text-[var(--color-ink)] mb-2">Brain dump or specific requirements:</p>
+    <h2 class="text-2xl md:text-3xl lg:text-4xl xl:text-[40px] font-bold text-[var(--color-ink)] mb-3.5">
       <span class="sr-only">We’ll provide the {words.slice(0, -1).join(", ")} or {words[words.length - 1]} you’re looking for.</span>
       <span aria-hidden="true">
         We’ll provide the
-        <span class="inline-flex flex-col overflow-hidden align-middle mx-1.5 h-[1.2em] text-[1.4em] leading-[1.2] font-semibold text-[var(--color-accent)]">
-          <span class="block word-slide text-left [&>span]:block">
+        <span class="inline-flex flex-col overflow-hidden align-[-0.08em] -mt-[0.4em] -mb-[0.09em] mx-1.5 h-[1.5em] text-[1.4em] leading-[1.5] font-semibold text-[var(--color-accent)]">
+          <span class="block word-slide text-center [&>span]:block">
             {words.map((w) => <span>{w}</span>)}
             <span>{words[0]}</span>
           </span>

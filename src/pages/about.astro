@@ -352,8 +352,9 @@ const partnerCells = [
      the curled-over flap — a white triangle (mask) with a soft shading gradient along
      the fold, rounded at its free corner. Both sit over the 1px border (top/right -1px)
      and are painted by overlay rather than clip-path so the card's drop shadow isn't
-     clipped. On hover the card is pink, so the flap turns the light pink
-     (--color-accent-soft) and stays subtle. Text sits above them (z-index 1). */
+     clipped. Once flipped (hover/focus/tap) the corner fades out entirely — Andrew:
+     by then the visitor has worked out the interaction. Text sits above them
+     (z-index 1). */
   .value-card::before,
   .value-card::after {
     content: "";
@@ -363,6 +364,7 @@ const partnerCells = [
     width: 1.5rem;
     height: 1.5rem;
     pointer-events: none;
+    transition: opacity 250ms ease;
   }
   @media (min-width: 640px) {
     .value-card::before,
@@ -378,15 +380,17 @@ const partnerCells = [
     -webkit-mask-image: linear-gradient(225deg, transparent 50%, #000 50%);
     mask-image: linear-gradient(225deg, transparent 50%, #000 50%);
     border-bottom-left-radius: 0.55rem;
-    transition: background-color 250ms ease;
   }
   .value-card > div { position: relative; z-index: 1; }
+  .value-card:focus-visible::before,
   .value-card:focus-visible::after,
-  .value-card.is-open::after { background-color: var(--color-accent-soft); }
+  .value-card.is-open::before,
+  .value-card.is-open::after { opacity: 0; }
   @media (hover: hover) {
-    .value-card:hover::after { background-color: var(--color-accent-soft); }
+    .value-card:hover::before,
+    .value-card:hover::after { opacity: 0; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .value-card, .value-card::after, .value-card .vc-icon, .value-card .vc-label, .value-card .vc-meaning { transition: none; }
+    .value-card, .value-card::before, .value-card::after, .value-card .vc-icon, .value-card .vc-label, .value-card .vc-meaning { transition: none; }
   }
 </style>

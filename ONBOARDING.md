@@ -1045,7 +1045,8 @@ about it, don't just pick one.
       (mask + shading gradient, rounded free corner), 2rem (1.5rem below sm). Done as
       overlays, not clip-path, so the card's drop shadow isn't clipped (would need a
       filter: drop-shadow wrapper if the section ever gets a photo/texture behind it).
-      On hover/focus/tap the flap turns --color-accent-soft (subtle, no extra peel).
+      On hover/focus/tap both layers fade out entirely (Andrew: by then the visitor has
+      worked out the interaction) — earlier idea of a light-pink flap was dropped.
       Verified with a headless-Edge screenshot (the pane's own screenshot still fails):
       `msedge --headless=new --screenshot=... --window-size=1440,2600 <url>`, then crop
       with System.Drawing — handy when the pane can't render.

@@ -1031,10 +1031,15 @@ about it, don't just pick one.
       changes. Scoped CSS in about.astro (.value-card) + a tiny click-toggle script
       (.is-open) for touch. Note: white 14px text on #ff3d6b is ~3.3:1 contrast, below
       WCAG AA for small text — flagged to Andrew, not changed.
-    - How we work diagram: the 8 white capability cards got a 3px border in
-      --color-paper-dim (the old hub-circle look: reads as a soft inset ring against the
-      panel; swap the colour if he wants it visible); the hub circle keeps its 10px
-      border but it is now pink.
+    - How we work diagram (revised 2026-10-14 from Andrew's mockup, colours sampled
+      from the screenshot): capability cards have a 5px --color-accent-soft border
+      (screenshot measured 5px at 1:1, though he'd said 2-3px earlier — went with the
+      image), card width 80% -> 90% of the column so the two middle cards stop wrapping
+      to 4 lines (all 3 now at 1483px), hub circle border back to 10px but in
+      --color-paper (#faf9f7, matches the screenshot ring).
+    - Values cards (revised 2026-10-14): resting label 1.3rem + `capitalize`
+      ("Start Excited, Stay Excited"), icons 3.5rem; labels now wrap to 2 lines on
+      three of the five cards at 320px wide; card heights stay equal (148px).
   - **Campfire label tucked up:** removed the 0.75rem gap between the fire and
     "Add a little Vandalist" (`.campfire-demo { gap: 0 }` in CampfireToggle) —
     label moves up 12px, fire does not move. (Andrew's earlier "note the
@@ -1054,9 +1059,6 @@ about it, don't just pick one.
     placeholder with no play action wired up.
   - About value cards: white 14px text on #ff3d6b is ~3.3:1 contrast (below AA).
     Raised with Andrew, not yet decided (bigger text or a slightly darker pink).
-  - About "how we work" capability cards: the 3px border is --color-paper-dim, so it
-    reads as a soft ring, not a visible line. He didn't object yet; ask if he wants it
-    visible (and in which colour).
   - Sitewide heading is now line-height 1.2 / normal tracking and heroes use
     `lg:min-h-[578px]` centring (706px held at 1440, verified at 1024 for Google
     Ads). Tablet (768-1023) and phone hero heights are NOT pinned to any target and

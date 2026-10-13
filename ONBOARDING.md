@@ -1009,6 +1009,12 @@ about it, don't just pick one.
     within the day." with "We won't leave you hanging! ..." beneath, and the intro
     gained top padding (`pt-8 md:pt-12`, same as About) — it sat tight under the nav
     once the logo/menu grew (heading was 0px below the header, now 48px).
+    Follow-up same day: removed the 3rem (`mb-12`) under the subtext (gap to the form is
+    now just the wrapper's 40px), and the Contact heading alone uses line-height 1.2 and
+    normal tracking via `!leading-[1.2] !tracking-normal` on `<PageHeading>`. The shared
+    `PageHeading` default (1.05 / -0.02em) is untouched on purpose: it drives every hero
+    and the calibrated 706px hero totals. OPEN: if Andrew wants 1.2/no-tracking sitewide,
+    change PageHeading.astro and re-measure + retune every hero's padding.
   - **Campfire label tucked up:** removed the 0.75rem gap between the fire and
     "Add a little Vandalist" (`.campfire-demo { gap: 0 }` in CampfireToggle) —
     label moves up 12px, fire does not move. (Andrew's earlier "note the

@@ -1040,6 +1040,15 @@ about it, don't just pick one.
     - Values cards (revised 2026-10-14): resting label 1.3rem + `capitalize`
       ("Start Excited, Stay Excited"), icons 3.5rem; labels now wrap to 2 lines on
       three of the five cards at 320px wide; card heights stay equal (148px).
+    - Peeling corner on the values cards (2026-10-14, Andrew's mockup, pure CSS):
+      `.value-card::before` = pink underside triangle, `::after` = curled white flap
+      (mask + shading gradient, rounded free corner), 2rem (1.5rem below sm). Done as
+      overlays, not clip-path, so the card's drop shadow isn't clipped (would need a
+      filter: drop-shadow wrapper if the section ever gets a photo/texture behind it).
+      On hover/focus/tap the flap turns --color-accent-soft (subtle, no extra peel).
+      Verified with a headless-Edge screenshot (the pane's own screenshot still fails):
+      `msedge --headless=new --screenshot=... --window-size=1440,2600 <url>`, then crop
+      with System.Drawing — handy when the pane can't render.
   - **Campfire label tucked up:** removed the 0.75rem gap between the fire and
     "Add a little Vandalist" (`.campfire-demo { gap: 0 }` in CampfireToggle) —
     label moves up 12px, fire does not move. (Andrew's earlier "note the

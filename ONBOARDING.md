@@ -1003,6 +1003,8 @@ about it, don't just pick one.
     so to test timers/animation logic override
     `Object.defineProperty(document,'hidden',{get:()=>false})` after load.
   - **CTA band padding** reduced to 2.5rem top and bottom (was 5rem at md+).
+  - **Coverage section link:** "Explore how it works" (a dead `#`) is now "Find out how we
+    work →" and links to `/how-we-work` (CoverageTable.astro).
   - **Campfire label tucked up:** removed the 0.75rem gap between the fire and
     "Add a little Vandalist" (`.campfire-demo { gap: 0 }` in CampfireToggle) —
     label moves up 12px, fire does not move. (Andrew's earlier "note the

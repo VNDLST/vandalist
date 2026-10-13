@@ -1021,6 +1021,20 @@ about it, don't just pick one.
     to `lg:py-12 lg:min-h-[578px] lg:flex lg:items-center` (grid gets `lg:w-full`), so
     header+hero = 706px at 1440 regardless of heading height (verified all 7). About
     pb 112->93px and Previous Work pb 56->46px keep their old totals (464 / 328).
+  - **About page round (2026-10-13):**
+    - Intro video: the "Play intro video" button on the left is gone, replaced by the
+      97-second summary paragraph; the right-hand video box is still a placeholder
+      (Andrew will supply the video later — OPEN, nothing to embed yet).
+    - "Our core values" -> "Our values". The five cards are now a fixed 320px wide
+      (min-h 9.25rem) and flip on hover / keyboard focus / tap to pink (--color-accent)
+      with white icon + Andrew's explanation text; label fades out, card size never
+      changes. Scoped CSS in about.astro (.value-card) + a tiny click-toggle script
+      (.is-open) for touch. Note: white 14px text on #ff3d6b is ~3.3:1 contrast, below
+      WCAG AA for small text — flagged to Andrew, not changed.
+    - How we work diagram: the 8 white capability cards got a 3px border in
+      --color-paper-dim (the old hub-circle look: reads as a soft inset ring against the
+      panel; swap the colour if he wants it visible); the hub circle keeps its 10px
+      border but it is now pink.
   - **Campfire label tucked up:** removed the 0.75rem gap between the fire and
     "Add a little Vandalist" (`.campfire-demo { gap: 0 }` in CampfireToggle) —
     label moves up 12px, fire does not move. (Andrew's earlier "note the

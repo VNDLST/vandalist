@@ -9,12 +9,14 @@ import Eyebrow from "../components/Eyebrow.astro";
 
 const base = import.meta.env.BASE_URL;
 
+// Each card shows its label at rest and swaps to `meaning` on hover/focus/tap
+// (Andrew's copy, 2026-10-13). Wording is his, reflowed from poster line breaks.
 const coreValues = [
-  { icon: "knowledge", label: "Never know enough" },
-  { icon: "fearless", label: "Pitch fearlessness" },
-  { icon: "shipit", label: "Ship it right" },
-  { icon: "excited", label: "Start excited, stay excited" },
-  { icon: "different", label: "We aren't everyone" },
+  { icon: "knowledge", label: "Never know enough", meaning: "Our best work comes from listening, researching, and executing. The more we know, the more we grow." },
+  { icon: "fearless", label: "Pitch fearlessness", meaning: "We aim for excellence; being fearless with how we meet challenges, pitch ideas, and how we solve problems." },
+  { icon: "shipit", label: "Ship it right", meaning: "Some things need time, some things just need to get done right now. We move with urgency and aim huge." },
+  { icon: "excited", label: "Start excited, stay excited", meaning: "We are skilful, motivated professionals that do cool work. We don't get complacent; we get more valuable." },
+  { icon: "different", label: "We aren't everyone", meaning: "We are confident in our talents but are not so arrogant to think that our way is the only way to go." },
 ];
 
 // Radial "system" nodes, positioned evenly around the center circle (8 nodes, 45deg apart).
@@ -96,16 +98,10 @@ const partnerCells = [
         <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-8 items-center">
           <div>
             <Eyebrow class="mb-3">Intro video</Eyebrow>
-            <Heading class="mb-6">A quick hello from Andrew.</Heading>
-            <a
-              href="#"
-              class="inline-flex items-center gap-3 rounded-2xl bg-white border border-[var(--color-line)] px-6 py-3.5 text-sm font-medium text-[var(--color-ink)] hover:border-[var(--color-slate)] transition-colors"
-            >
-              <span class="w-7 h-7 rounded-full bg-[var(--color-accent-soft)] flex items-center justify-center shrink-0">
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="var(--color-accent)"><path d="M6 4l14 8-14 8V4z" /></svg>
-              </span>
-              Play intro video
-            </a>
+            <Heading class="mb-4">A quick hello from Andrew.</Heading>
+            <p class="text-[var(--color-ink)] max-w-md">
+              A 97 second overview of why Vandalist was created, our approach to &lsquo;marketing&rsquo;, and what businesses can expect when working with us.
+            </p>
           </div>
 
           <div class="relative rounded-[var(--radius-card)] overflow-hidden aspect-[4/3] bg-[var(--color-ink)]">
@@ -131,7 +127,7 @@ const partnerCells = [
 
     <!-- Core values -->
     <div class="max-w-7xl mx-auto px-6 md:px-10 pb-20 md:pb-28">
-      <Eyebrow class="text-center mb-10">Our core values</Eyebrow>
+      <Eyebrow class="text-center mb-10">Our values</Eyebrow>
 
       <div class="max-w-5xl mx-auto flex flex-wrap justify-center items-start gap-x-5 gap-y-7">
         {coreValues.map((value, i) => {
@@ -144,14 +140,20 @@ const partnerCells = [
           ][i % 5];
           return (
             <div
-              class="inline-flex items-center gap-4 rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white px-7 py-6 [box-shadow:var(--shadow-card)]"
+              class="value-card relative w-full sm:w-[320px] sm:min-h-[9.25rem] flex items-center gap-4 rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white px-7 py-6 [box-shadow:var(--shadow-card)] cursor-default select-none"
               style={`transform: ${tilt};`}
+              tabindex="0"
+              role="group"
+              aria-label={`${value.label}: ${value.meaning}`}
             >
               <span
-                class="w-12 h-12 shrink-0"
-                style={`background-color: var(--color-accent); -webkit-mask-image:url(${base}/values-icons/${value.icon}.svg); mask-image:url(${base}/values-icons/${value.icon}.svg); -webkit-mask-size:contain; mask-size:contain; -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat; -webkit-mask-position:center; mask-position:center;`}
+                class="vc-icon w-12 h-12 shrink-0"
+                style={`-webkit-mask-image:url(${base}/values-icons/${value.icon}.svg); mask-image:url(${base}/values-icons/${value.icon}.svg); -webkit-mask-size:contain; mask-size:contain; -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat; -webkit-mask-position:center; mask-position:center;`}
               ></span>
-              <p class="text-[var(--color-ink)] leading-snug sm:whitespace-nowrap" style="font-size: 1.125rem; font-weight: 600;">{value.label}</p>
+              <div class="grid min-w-0 flex-1" aria-hidden="true">
+                <p class="vc-label [grid-area:1/1] self-center text-[var(--color-ink)] leading-snug" style="font-size: 1.125rem; font-weight: 600;">{value.label}</p>
+                <p class="vc-meaning [grid-area:1/1] self-center text-white text-sm leading-snug font-medium">{value.meaning}</p>
+              </div>
             </div>
           );
         })}
@@ -189,7 +191,7 @@ const partnerCells = [
             <!-- Left column -->
             <div class="flex flex-col justify-center gap-6 md:gap-8">
               {leftColumn.map((card) => (
-                <div class={`flex items-center gap-3 rounded-xl bg-white p-4 shadow-[0_10px_24px_-10px_rgba(28,27,26,0.2)] w-[80%] min-h-[104px] ${alignClass[card.align]}`}>
+                <div class={`flex items-center gap-3 rounded-xl border-[3px] border-[var(--color-paper-dim)] bg-white p-4 shadow-[0_10px_24px_-10px_rgba(28,27,26,0.2)] w-[80%] min-h-[104px] ${alignClass[card.align]}`}>
                   <img src={`${base}/system-icons/icon-${card.icon}.png`} alt="" class="w-10 h-10 shrink-0 rounded-lg" />
                   <span class="min-w-0 flex-1">
                     <p class="text-sm text-[var(--color-slate)] leading-snug">{card.sub}</p>
@@ -200,7 +202,7 @@ const partnerCells = [
 
             <!-- Middle column -->
             <div class="flex flex-col items-center gap-8 md:gap-10">
-              <div class="flex items-center gap-3 rounded-xl bg-white p-4 shadow-[0_10px_24px_-10px_rgba(28,27,26,0.2)] w-[80%] min-h-[104px]">
+              <div class="flex items-center gap-3 rounded-xl border-[3px] border-[var(--color-paper-dim)] bg-white p-4 shadow-[0_10px_24px_-10px_rgba(28,27,26,0.2)] w-[80%] min-h-[104px]">
                 <img src={`${base}/system-icons/icon-${strategyCard.icon}.png`} alt="" class="w-10 h-10 shrink-0 rounded-lg" />
                 <span class="min-w-0 flex-1">
                   <p class="text-sm text-[var(--color-slate)] leading-snug">{strategyCard.sub}</p>
@@ -218,13 +220,13 @@ const partnerCells = [
                   ></span>
                 ))}
                 <div class="relative rounded-full bg-white [box-shadow:var(--shadow-panel)] flex flex-col items-center justify-center text-center px-4"
-                     style="width: 190px; height: 190px; border: 10px solid var(--color-paper-dim);">
+                     style="width: 190px; height: 190px; border: 10px solid var(--color-accent);">
                   <img src={`${base}/system-icons/icon-hub.png`} alt="" class="w-16 h-16 rounded-lg" />
                   <p class="text-xs font-semibold text-[var(--color-ink)] leading-snug">The right people working on the right projects</p>
                 </div>
               </div>
 
-              <div class="flex items-center gap-3 rounded-xl bg-white p-4 shadow-[0_10px_24px_-10px_rgba(28,27,26,0.2)] w-[80%] min-h-[104px]">
+              <div class="flex items-center gap-3 rounded-xl border-[3px] border-[var(--color-paper-dim)] bg-white p-4 shadow-[0_10px_24px_-10px_rgba(28,27,26,0.2)] w-[80%] min-h-[104px]">
                 <img src={`${base}/system-icons/icon-${contentCard.icon}.png`} alt="" class="w-10 h-10 shrink-0 rounded-lg" />
                 <span class="min-w-0 flex-1">
                   <p class="text-sm text-[var(--color-slate)] leading-snug">{contentCard.sub}</p>
@@ -235,7 +237,7 @@ const partnerCells = [
             <!-- Right column -->
             <div class="flex flex-col justify-center gap-6 md:gap-8">
               {rightColumn.map((card) => (
-                <div class={`flex items-center gap-3 rounded-xl bg-white p-4 shadow-[0_10px_24px_-10px_rgba(28,27,26,0.2)] w-[80%] min-h-[104px] ${alignClass[card.align]}`}>
+                <div class={`flex items-center gap-3 rounded-xl border-[3px] border-[var(--color-paper-dim)] bg-white p-4 shadow-[0_10px_24px_-10px_rgba(28,27,26,0.2)] w-[80%] min-h-[104px] ${alignClass[card.align]}`}>
                   <img src={`${base}/system-icons/icon-${card.icon}.png`} alt="" class="w-10 h-10 shrink-0 rounded-lg" />
                   <span class="min-w-0 flex-1">
                     <p class="text-sm text-[var(--color-slate)] leading-snug">{card.sub}</p>
@@ -248,13 +250,13 @@ const partnerCells = [
           <!-- Mobile: hub first, then a simple 2-column card grid -->
           <div class="sm:hidden flex flex-col items-center gap-6">
             <div class="rounded-full bg-white [box-shadow:var(--shadow-panel)] flex flex-col items-center justify-center text-center px-4"
-                 style="width: 170px; height: 170px; border: 10px solid var(--color-paper-dim);">
+                 style="width: 170px; height: 170px; border: 10px solid var(--color-accent);">
               <img src={`${base}/system-icons/icon-hub.png`} alt="" class="w-16 h-16 rounded-lg" />
               <p class="text-xs font-semibold text-[var(--color-ink)] leading-snug">The right people working on the right projects</p>
             </div>
             <div class="grid grid-cols-2 gap-3 w-full">
               {[strategyCard, ...leftColumn, ...rightColumn, contentCard].map((card) => (
-                <div class="flex items-center gap-2.5 rounded-xl bg-white p-4 shadow-[0_10px_24px_-10px_rgba(28,27,26,0.2)] min-h-[104px]">
+                <div class="flex items-center gap-2.5 rounded-xl border-[3px] border-[var(--color-paper-dim)] bg-white p-4 shadow-[0_10px_24px_-10px_rgba(28,27,26,0.2)] min-h-[104px]">
                   <img src={`${base}/system-icons/icon-${card.icon}.png`} alt="" class="w-10 h-10 shrink-0 rounded-lg" />
                   <span>
                     <p class="text-sm text-[var(--color-slate)] leading-snug">{card.sub}</p>
@@ -306,3 +308,46 @@ const partnerCells = [
   <CtaBand />
   <Footer />
 </Layout>
+
+<script>
+  // Touch has no hover: tap a value card to flip it, tap again or elsewhere to
+  // flip back. (Mouse uses :hover and keyboard uses :focus-visible in CSS.)
+  const cards = [...document.querySelectorAll<HTMLElement>(".value-card")];
+  cards.forEach((card) => {
+    card.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const open = card.classList.contains("is-open");
+      cards.forEach((c) => c.classList.remove("is-open"));
+      if (!open) card.classList.add("is-open");
+    });
+  });
+  document.addEventListener("click", () => cards.forEach((c) => c.classList.remove("is-open")));
+</script>
+
+<style>
+  .value-card {
+    transition: background-color 250ms ease, border-color 250ms ease;
+    outline-offset: 3px;
+  }
+  .value-card .vc-icon { background-color: var(--color-accent); transition: background-color 250ms ease; }
+  .value-card .vc-label,
+  .value-card .vc-meaning { transition: opacity 250ms ease; }
+  .value-card .vc-meaning { opacity: 0; }
+  .value-card:focus-visible,
+  .value-card.is-open { background-color: var(--color-accent); border-color: var(--color-accent); }
+  .value-card:focus-visible .vc-icon,
+  .value-card.is-open .vc-icon { background-color: #fff; }
+  .value-card:focus-visible .vc-label,
+  .value-card.is-open .vc-label { opacity: 0; }
+  .value-card:focus-visible .vc-meaning,
+  .value-card.is-open .vc-meaning { opacity: 1; }
+  @media (hover: hover) {
+    .value-card:hover { background-color: var(--color-accent); border-color: var(--color-accent); }
+    .value-card:hover .vc-icon { background-color: #fff; }
+    .value-card:hover .vc-label { opacity: 0; }
+    .value-card:hover .vc-meaning { opacity: 1; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .value-card, .value-card .vc-icon, .value-card .vc-label, .value-card .vc-meaning { transition: none; }
+  }
+</style>

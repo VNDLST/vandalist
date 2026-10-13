@@ -3,12 +3,18 @@
 // canonical size is responsive (scales down on mobile) — don't reintroduce a
 // fixed rem size like the old text-[4.25rem] pattern, which had no mobile
 // fallback.
+//
+// Line-height 1.2 and normal tracking (Andrew, 2026-10-13). Note the line-height
+// is repeated as md:leading-[1.2] on purpose: Tailwind's md:text-5xl also sets
+// line-height:1 inside the md media query, which silently beat the old plain
+// leading-[1.05] (the heading was really 1.0 at desktop). Same trap for any
+// text-Nxl + leading-* pair across breakpoints.
 interface Props {
   as?: "h1" | "h2";
   class?: string;
 }
 const { as: Tag = "h1", class: className } = Astro.props as Props;
 ---
-<Tag class:list={["text-4xl md:text-5xl font-semibold leading-[1.05] tracking-[-0.02em]", className]}>
+<Tag class:list={["text-4xl md:text-5xl font-semibold leading-[1.2] md:leading-[1.2] tracking-normal", className]}>
   <slot />
 </Tag>

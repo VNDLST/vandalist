@@ -1009,12 +1009,18 @@ about it, don't just pick one.
     within the day." with "We won't leave you hanging! ..." beneath, and the intro
     gained top padding (`pt-8 md:pt-12`, same as About) — it sat tight under the nav
     once the logo/menu grew (heading was 0px below the header, now 48px).
-    Follow-up same day: removed the 3rem (`mb-12`) under the subtext (gap to the form is
-    now just the wrapper's 40px), and the Contact heading alone uses line-height 1.2 and
-    normal tracking via `!leading-[1.2] !tracking-normal` on `<PageHeading>`. The shared
-    `PageHeading` default (1.05 / -0.02em) is untouched on purpose: it drives every hero
-    and the calibrated 706px hero totals. OPEN: if Andrew wants 1.2/no-tracking sitewide,
-    change PageHeading.astro and re-measure + retune every hero's padding.
+    Follow-ups same day: removed the 3rem (`mb-12`) under the subtext (gap to the
+    form is now the wrapper's 40px). Then Andrew made the heading change UNIVERSAL:
+    `PageHeading` is now line-height 1.2 + normal tracking. Discovery: the old
+    `leading-[1.05]` never applied at md+ because `md:text-5xl` sets line-height:1 inside
+    the md media query (heading was really 1.0 / 48px); so the component now repeats
+    `md:leading-[1.2]`. General lesson for the framework: a `text-Nxl` utility carries
+    its own line-height at each breakpoint; pair it with a same-breakpoint `leading-*`.
+    Because headings got taller (and Google Ads now wraps to 4 lines), the six service
+    heroes + homepage hero were switched from hand-tuned `lg:py-[104px]`/`32`/`[118px]`
+    to `lg:py-12 lg:min-h-[578px] lg:flex lg:items-center` (grid gets `lg:w-full`), so
+    header+hero = 706px at 1440 regardless of heading height (verified all 7). About
+    pb 112->93px and Previous Work pb 56->46px keep their old totals (464 / 328).
   - **Campfire label tucked up:** removed the 0.75rem gap between the fire and
     "Add a little Vandalist" (`.campfire-demo { gap: 0 }` in CampfireToggle) —
     label moves up 12px, fire does not move. (Andrew's earlier "note the

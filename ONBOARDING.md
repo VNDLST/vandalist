@@ -1005,6 +1005,10 @@ about it, don't just pick one.
   - **CTA band padding** reduced to 2.5rem top and bottom (was 5rem at md+).
   - **Coverage section link:** "Explore how it works" (a dead `#`) is now "Find out how we
     work →" and links to `/how-we-work` (CoverageTable.astro).
+  - **Contact page intro (2026-10-13):** heading is now "We will get back to you
+    within the day." with "We won't leave you hanging! ..." beneath, and the intro
+    gained top padding (`pt-8 md:pt-12`, same as About) — it sat tight under the nav
+    once the logo/menu grew (heading was 0px below the header, now 48px).
   - **Campfire label tucked up:** removed the 0.75rem gap between the fire and
     "Add a little Vandalist" (`.campfire-demo { gap: 0 }` in CampfireToggle) —
     label moves up 12px, fire does not move. (Andrew's earlier "note the

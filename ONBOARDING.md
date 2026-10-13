@@ -1047,6 +1047,22 @@ about it, don't just pick one.
 
 ## Known open items
 
+- **Wrap-up 2026-10-13 — newest items first.** Andrew confirmed ("looks great")
+  the Contact page, the sitewide heading change and the About video section.
+  Still open from this stretch:
+  - About intro video itself: Andrew will supply it later; the box is a
+    placeholder with no play action wired up.
+  - About value cards: white 14px text on #ff3d6b is ~3.3:1 contrast (below AA).
+    Raised with Andrew, not yet decided (bigger text or a slightly darker pink).
+  - About "how we work" capability cards: the 3px border is --color-paper-dim, so it
+    reads as a soft ring, not a visible line. He didn't object yet; ask if he wants it
+    visible (and in which colour).
+  - Sitewide heading is now line-height 1.2 / normal tracking and heroes use
+    `lg:min-h-[578px]` centring (706px held at 1440, verified at 1024 for Google
+    Ads). Tablet (768-1023) and phone hero heights are NOT pinned to any target and
+    were not eyeballed — Andrew should glance at them on a phone.
+  - Browser-pane reminder: after a long idle the pane can lose its tab; reopen with
+    `navigate` to the localhost URL (the dev server itself usually keeps running).
 - **Andrew has not yet seen the new header/CTA live** (the pane's screenshot
   tool is broken, so everything above was verified by measurement). Worth
   asking how the 80px logo, bold nav and rotating CTA word actually read,

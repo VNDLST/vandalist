@@ -1084,6 +1084,13 @@ about it, don't just pick one.
     378x299, plant x56 y96 102x215, clock x208 y71 51x51 in the 680x430 space), matched to
     his mock-up. Not animated (the clock's hands are one joined shape). If re-exporting
     from Illustrator, strip the <metadata> block again (a quick regex removal is enough).
+    Enlarged ~50% (2026-10-14, Andrew: "more space over there"): HeroCharacter's viewBox
+    was cropped from 0 0 680 430 to 40 24 640 380 (drawing coordinates unchanged, empty
+    margins removed; max-width 820px) and the hero grid became
+    `lg:grid-cols-[minmax(0,360px)_minmax(0,1fr)]` (fixed 360px text column, art takes the
+    rest: 800px wide at 1440, head ~1.47x bigger). Heading now wraps to 2 lines. Hero still
+    706px at 1440 / 578 section at 1024, no overflow at 390. Arm pivots switched to
+    fill-box percentages so they don't depend on the viewBox origin.
   - **Campfire label tucked up:** removed the 0.75rem gap between the fire and
     "Add a little Vandalist" (`.campfire-demo { gap: 0 }` in CampfireToggle) —
     label moves up 12px, fire does not move. (Andrew's earlier "note the

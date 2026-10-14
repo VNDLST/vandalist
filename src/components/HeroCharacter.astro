@@ -18,13 +18,18 @@
 // as the character, positions taken from his mock-up and then fitted inside
 // the frame. They sit BEHIND everything else.
 //
+// The viewBox is cropped to the artwork (40 24 640 380, the drawing coordinates
+// themselves are unchanged) so the picture can be drawn ~50% larger than before
+// without wasted margin. Arm pivots use fill-box percentages (shoulder = the
+// corner of each arm's own box) so they do not depend on viewBox origin quirks.
+//
 // All colours are literals that mirror the site tokens (this is art, not UI):
 //   accent #ff3d6b, accent-soft #ffe8ed, ink #1c1b1a, slate #6b6862.
 // Animation lives in @media (prefers-reduced-motion: no-preference); the base
 // styles are the complete, still version of the picture.
 const base = import.meta.env.BASE_URL;
 ---
-<svg class="hero-character" viewBox="0 0 680 430" role="img" aria-label="Illustration of a friendly team member working among floating screens showing code, a strategy play diagram, a progress bar and a loading indicator" xmlns="http://www.w3.org/2000/svg">
+<svg class="hero-character" viewBox="40 24 640 380" role="img" aria-label="Illustration of a friendly team member working among floating screens showing code, a strategy play diagram, a progress bar and a loading indicator" xmlns="http://www.w3.org/2000/svg">
   <g aria-hidden="true">
     <image href={`${base}/how-we-work-scene/desk.svg`} x="302" y="31" width="378" height="299" />
     <image href={`${base}/how-we-work-scene/plant.svg`} x="56" y="96" width="102" height="215" />
@@ -142,7 +147,7 @@ const base = import.meta.env.BASE_URL;
   .hero-character {
     display: block;
     width: 100%;
-    max-width: 680px;
+    max-width: 820px;
     height: auto;
     overflow: visible;
   }
@@ -163,8 +168,8 @@ const base = import.meta.env.BASE_URL;
   @media (prefers-reduced-motion: no-preference) {
     .hero-character .hc-torso { animation: hc-bob 2.4s ease-in-out infinite; }
     .hero-character .hc-head { animation: hc-bob 2.4s ease-in-out -0.3s infinite; }
-    .hero-character .hc-arm-l { transform-origin: 302px 180px; transform-box: view-box; animation: hc-arm-l 1.6s ease-in-out infinite; }
-    .hero-character .hc-arm-r { transform-origin: 378px 180px; transform-box: view-box; animation: hc-arm-r 1.9s ease-in-out infinite; }
+    .hero-character .hc-arm-l { transform-origin: 100% 0%; animation: hc-arm-l 1.6s ease-in-out infinite; }
+    .hero-character .hc-arm-r { transform-origin: 0% 0%; animation: hc-arm-r 1.9s ease-in-out infinite; }
     .hero-character .hc-eye { animation: hc-blink 4.5s infinite; }
 
     .hero-character .hc-float { animation: hc-float 4.2s ease-in-out infinite; }

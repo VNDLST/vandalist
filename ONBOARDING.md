@@ -1058,8 +1058,13 @@ about it, don't just pick one.
     floating screens: code lines that type in, a strategy play diagram (X's, an O and a
     sweeping arrow that draws itself, per Andrew's reference image), a progress bar and a
     hexagon loader. Pure CSS animation inside prefers-reduced-motion: no-preference (still
-    picture otherwise), no JS, no audio. Centred in the previously empty hero using the
-    `lg:min-h-[578px]` recipe (706px total held at 1440; no overflow at 390). Credit to the
+    picture otherwise), no JS, no audio. Same day Andrew asked for the STANDARD hero layout:
+    the hero is now the service-page recipe — bg-[var(--color-paper-dim)] band behind
+    Header + hero, h1 + paragraph on the left (PLACEHOLDER copy: "How we work with you" /
+    "Placeholder text: ..."), character on the right, no CTA button, the old mountains bg
+    image (how-we-work-hero-bg.svg, still in /public, now unused) removed. The page now
+    has its one h1. `lg:min-h-[578px]` recipe: 706px at 1440, no overflow at 390.
+    Andrew will source SVG office furniture to go behind the character later. Credit to the
     pen is in the component's header comment — keep it, and if any of that pen's code is
     ever copied keep Béthy's MIT notice. Pen files live on Andrew's Desktop, not in the repo.
   - **Campfire label tucked up:** removed the 0.75rem gap between the fire and
@@ -1076,8 +1081,8 @@ about it, don't just pick one.
 
 - **How We Work hero (2026-10-14):** the character is live but Andrew has not seen it
   in motion on the live site yet (pane can't render animation; checked via a headless
-  screenshot + computed animations). The hero is still headingless: this page has no
-  `<h1>` and the hero has no copy — ask if he wants a headline beside/under the character.
+  screenshot + computed animations). The heading/paragraph are PLACEHOLDERS awaiting
+  Andrew's real copy; office-furniture SVGs to be supplied by him.
 
 - **Wrap-up 2026-10-13 — newest items first.** Andrew confirmed ("looks great")
   the Contact page, the sitewide heading change and the About video section.

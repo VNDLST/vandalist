@@ -8,6 +8,7 @@ import Heading from "../components/Heading.astro";
 import Eyebrow from "../components/Eyebrow.astro";
 import CadenceSteps from "../components/CadenceSteps.astro";
 import HeroCharacter from "../components/HeroCharacter.astro";
+import PageHeading from "../components/PageHeading.astro";
 
 const base = import.meta.env.BASE_URL;
 
@@ -157,54 +158,33 @@ const megaphoneIcon = '<path d="M3 10v4h3l6 4V6l-6 4H3z" stroke-linejoin="round"
 ---
 <Layout title="How We Work">
   <div class="bg-[var(--color-paper)]">
-    <!-- Header + hero share one full-bleed background image (mountains,
-         per supplied mockup) — a different pattern from the site's usual
-         "bleed-wider band" (which caps at 1400px and keeps side padding);
-         this one runs truly edge-to-edge behind the nav too. Header.astro
-         itself has no background of its own (it only ever looked opaque
-         because it normally sits on this div's bg-[var(--color-paper)]),
-         so it drops onto the image here with no changes needed.
+    <!-- Hero: the standard layout (same recipe as the service pages) —
+         tinted bg-paper-dim band behind Header + hero, heading and small text
+         on the left, the animated HeroCharacter on the right. Changed
+         2026-10-14 per Andrew: this page used to have a full-bleed mountains
+         image (how-we-work-hero-bg.svg, now unused but still in /public) and,
+         before that, a deliberately empty hero. The heading and paragraph
+         below are PLACEHOLDERS until Andrew supplies the real copy; the heading
+         is the page's h1 (the page had none). Andrew plans to add SVG office
+         furniture behind the character later. No CTA button yet (not asked for).
+         Same lg:min-h-[578px] centring recipe as the other heroes, so
+         header + hero is 706px at 1440 whatever the content height. -->
+    <div class="bg-[var(--color-paper-dim)]">
+      <Header currentPage="/how-we-work" />
 
-         No overflow-hidden here on purpose: the boosted campfire flame is
-         taller than its own stage and is meant to visually rise past it —
-         clipping it here would just cut the flame off, and (when this div
-         still resized on boost) was also forcing the background image's
-         object-cover crop to recompute every frame of the transition,
-         which read as the image glitching. -->
-    <div class="relative">
-      <img
-        src={`${base}/how-we-work-hero-bg.svg`}
-        alt=""
-        class="absolute inset-0 w-full h-full object-cover object-bottom pointer-events-none"
-        aria-hidden="true"
-      />
-      <div class="relative z-10">
-        <Header currentPage="/how-we-work" />
-
-        <!-- Section 0: Hero — content removed 2026-09-11 per Andrew ("left
-             blank for now"): the heading/subtext/CampfireToggle that used
-             to live here moved to marketing-support.astro's hero instead
-             (copied wholesale, per his instruction). Background image +
-             structure kept as-is, with the same reserved min-height, so
-             this still reads as a real hero band ready for new content
-             rather than collapsing to nothing — not a placeholder graphic,
-             just deliberately empty. Padding matches Home hero's exact
-             recipe (Hero.astro's inner div: py-20 md:py-28 lg:py-32)
-             rather than a one-off value, per Andrew's original pointer to
-             that class, so the two stay in sync if that recipe is ever
-             retuned. -->
-        <!-- 2026-10-14: the hero now holds HeroCharacter (an original animated
-             SVG character working among floating "busy" screens), centred.
-             Uses the same lg:min-h-[578px] centring recipe as the other
-             heroes so header + hero stays 706px at 1440 whatever the
-             illustration's height. Decorative only (aria-label on the SVG);
-             note this page still has no <h1>. -->
-        <section class="max-w-7xl mx-auto px-6 md:px-10 py-20 md:py-28 lg:py-12 lg:min-h-[578px] lg:flex lg:items-center">
-          <div class="flex justify-center items-center min-h-[339px] lg:min-h-[322px] lg:w-full">
+      <section class="max-w-7xl mx-auto px-6 md:px-10 py-20 md:py-28 lg:py-12 lg:min-h-[578px] lg:flex lg:items-center">
+        <div class="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-10 items-center min-h-[339px] lg:min-h-[322px] lg:w-full">
+          <div>
+            <PageHeading as="h1" class="mb-6">How we work with you</PageHeading>
+            <p class="text-lg text-[var(--color-slate)]">
+              Placeholder text: a short introduction to how we plan, deliver and report on your marketing. The final copy will go here.
+            </p>
+          </div>
+          <div class="flex justify-center items-center">
             <HeroCharacter />
           </div>
-        </section>
-      </div>
+        </div>
+      </section>
     </div>
 
     <!-- Section 1: Our working style (restored to its original layout) -->

@@ -1,0 +1,183 @@
+---
+// How We Work hero illustration: an original, friendly character working among
+// floating "busy" screens, pure inline SVG + CSS (no images, no JS).
+//
+// Technique credit: the animation approach (a stack of simple shapes, bobbing
+// body/head, blinking, typing code lines, floating skewed screens, a hexagon
+// loader and a progress bar) was inspired by "Initiating the Hack (Pure CSS
+// Sombra)" by Béthy (Tee), MIT licence, https://codepen.io/acupoftee/pen/PoPPZGe.
+// Only the idea is reused: the character, drawing, palette and code here are
+// original and deliberately NOT Sombra (Blizzard's character), her skull logo,
+// audio or text. Do not paste in anything from that pen. If any of its code is
+// ever copied, keep Béthy's MIT copyright notice with it.
+//
+// All colours are literals that mirror the site tokens (this is art, not UI):
+//   accent #ff3d6b, accent-soft #ffe8ed, ink #1c1b1a, slate #6b6862.
+// Animation lives in @media (prefers-reduced-motion: no-preference); the base
+// styles are the complete, still version of the picture.
+---
+<svg class="hero-character" viewBox="0 0 680 430" role="img" aria-label="Illustration of a friendly team member working among floating screens showing code, a strategy play diagram, a progress bar and a loading indicator" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="340" cy="388" rx="96" ry="12" fill="#1c1b1a" opacity="0.12" />
+
+  <g class="hc-legs">
+    <rect x="314" y="290" width="25" height="84" rx="11" fill="#2b2a28" />
+    <rect x="341" y="290" width="25" height="84" rx="11" fill="#2b2a28" />
+    <ellipse cx="322" cy="378" rx="21" ry="9" fill="#ffffff" />
+    <rect x="302" y="380" width="42" height="5" rx="2.5" fill="#ff3d6b" />
+    <ellipse cx="358" cy="378" rx="21" ry="9" fill="#ffffff" />
+    <rect x="338" y="380" width="42" height="5" rx="2.5" fill="#ff3d6b" />
+  </g>
+
+  <g class="hc-upper">
+    <g class="hc-torso">
+      <path d="M292 184 Q292 150 340 146 Q388 150 388 184 L394 304 Q340 322 286 304 Z" fill="#ff3d6b" />
+      <path d="M340 160 L340 306" stroke="#d92f5c" stroke-width="3" fill="none" />
+      <path d="M318 152 Q340 172 362 152" stroke="#d92f5c" stroke-width="5" fill="none" stroke-linecap="round" />
+      <path d="M328 168 L326 196 M352 168 L354 196" stroke="#ffffff" stroke-width="3" fill="none" stroke-linecap="round" />
+      <path d="M304 270 Q340 282 376 270 L378 296 Q340 308 302 296 Z" fill="#ff6b8e" />
+    </g>
+
+    <g class="hc-arm hc-arm-l">
+      <path d="M302 180 L262 236 L242 216" stroke="#ff3d6b" stroke-width="28" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+      <circle cx="236" cy="210" r="12" fill="#f2c19b" />
+    </g>
+    <g class="hc-arm hc-arm-r">
+      <path d="M378 180 L418 236 L438 216" stroke="#ff3d6b" stroke-width="28" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+      <circle cx="444" cy="210" r="12" fill="#f2c19b" />
+    </g>
+
+    <g class="hc-head">
+      <rect x="330" y="128" width="20" height="26" rx="8" fill="#e8ae84" />
+      <circle cx="296" cy="108" r="9" fill="#f2c19b" />
+      <circle cx="384" cy="108" r="9" fill="#f2c19b" />
+      <ellipse cx="340" cy="104" rx="44" ry="48" fill="#f2c19b" />
+      <path d="M293 104 Q286 48 340 46 Q394 48 387 104 Q380 78 356 74 Q336 86 312 76 Q298 82 293 104 Z" fill="#3b2a20" />
+      <circle cx="318" cy="52" r="14" fill="#3b2a20" />
+      <circle cx="344" cy="46" r="15" fill="#3b2a20" />
+      <circle cx="368" cy="54" r="13" fill="#3b2a20" />
+      <circle cx="322" cy="108" r="13" fill="#ffffff" fill-opacity="0.5" stroke="#1c1b1a" stroke-width="3" />
+      <circle cx="358" cy="108" r="13" fill="#ffffff" fill-opacity="0.5" stroke="#1c1b1a" stroke-width="3" />
+      <path d="M335 108 L345 108" stroke="#1c1b1a" stroke-width="3" fill="none" />
+      <circle class="hc-eye" cx="322" cy="109" r="4" fill="#1c1b1a" />
+      <circle class="hc-eye" cx="358" cy="109" r="4" fill="#1c1b1a" />
+      <path d="M311 88 Q322 82 333 88 M347 88 Q358 82 369 88" stroke="#3b2a20" stroke-width="4" fill="none" stroke-linecap="round" />
+      <circle cx="310" cy="128" r="7" fill="#ff8fab" opacity="0.5" />
+      <circle cx="370" cy="128" r="7" fill="#ff8fab" opacity="0.5" />
+      <path d="M322 128 Q340 146 358 128 Z" fill="#ffffff" stroke="#1c1b1a" stroke-width="3" stroke-linejoin="round" />
+    </g>
+  </g>
+
+  <!-- Screen 1: code, lines "type" in one after another -->
+  <g transform="translate(112 170) skewX(8)">
+    <g class="hc-float hc-float-1">
+      <rect x="0" y="0" width="140" height="108" rx="10" fill="#ffffff" fill-opacity="0.88" stroke="#ffc2d2" stroke-width="5" />
+      <circle cx="14" cy="14" r="3.5" fill="#ff3d6b" />
+      <circle cx="26" cy="14" r="3.5" fill="#ffc2d2" />
+      <circle cx="38" cy="14" r="3.5" fill="#ffc2d2" />
+      <rect class="hc-line" style="--i:0" x="14" y="30" width="62" height="5" rx="2.5" fill="#ff3d6b" opacity="0.85" />
+      <rect class="hc-line" style="--i:1" x="26" y="42" width="88" height="5" rx="2.5" fill="#6b6862" opacity="0.5" />
+      <rect class="hc-line" style="--i:2" x="26" y="54" width="54" height="5" rx="2.5" fill="#6b6862" opacity="0.5" />
+      <rect class="hc-line" style="--i:3" x="38" y="66" width="76" height="5" rx="2.5" fill="#ff3d6b" opacity="0.55" />
+      <rect class="hc-line" style="--i:4" x="26" y="78" width="96" height="5" rx="2.5" fill="#6b6862" opacity="0.5" />
+      <rect class="hc-line" style="--i:5" x="14" y="90" width="48" height="5" rx="2.5" fill="#ff3d6b" opacity="0.85" />
+    </g>
+  </g>
+
+  <!-- Screen 2: strategy play diagram (X's, an O, a sweeping arrow) -->
+  <g transform="translate(452 150) skewX(-8)">
+    <g class="hc-float hc-float-2">
+      <rect x="0" y="0" width="108" height="108" rx="10" fill="#ffffff" fill-opacity="0.88" stroke="#ffc2d2" stroke-width="5" />
+      <g class="hc-x" style="--i:0">
+        <path d="M18 18 L32 32 M32 18 L18 32" stroke="#1c1b1a" stroke-width="4" fill="none" stroke-linecap="round" />
+      </g>
+      <g class="hc-x" style="--i:1">
+        <path d="M74 54 L88 68 M88 54 L74 68" stroke="#1c1b1a" stroke-width="4" fill="none" stroke-linecap="round" />
+      </g>
+      <g class="hc-x" style="--i:2">
+        <path d="M46 78 L60 92 M60 78 L46 92" stroke="#1c1b1a" stroke-width="4" fill="none" stroke-linecap="round" />
+      </g>
+      <circle class="hc-o" cx="24" cy="70" r="9" stroke="#ff3d6b" stroke-width="4" fill="none" />
+      <path class="hc-arrow" pathLength="100" d="M30 62 C40 28 62 16 90 22" stroke="#ff3d6b" stroke-width="4" fill="none" stroke-linecap="round" />
+      <path class="hc-arrowhead" d="M80 13 L91 22 L79 30" stroke="#ff3d6b" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+    </g>
+  </g>
+
+  <!-- Screen 3: progress bar -->
+  <g transform="translate(468 286) skewX(-8)">
+    <g class="hc-float hc-float-3">
+      <rect x="0" y="0" width="136" height="50" rx="10" fill="#ffffff" fill-opacity="0.88" stroke="#ffc2d2" stroke-width="5" />
+      <rect x="14" y="12" width="56" height="5" rx="2.5" fill="#6b6862" opacity="0.5" />
+      <rect x="14" y="28" width="108" height="9" rx="4.5" fill="#ffe8ed" />
+      <rect class="hc-fill" x="14" y="28" width="108" height="9" rx="4.5" fill="#ff3d6b" />
+    </g>
+  </g>
+
+  <!-- Screen 4: hexagon loader -->
+  <g transform="translate(150 306) skewX(8)">
+    <g class="hc-float hc-float-4">
+      <rect x="0" y="0" width="76" height="64" rx="10" fill="#ffffff" fill-opacity="0.88" stroke="#ffc2d2" stroke-width="5" />
+      <polygon class="hc-hex" style="--i:0" points="38,16 45,22 45,30 38,36 31,30 31,22" fill="#ff3d6b" />
+      <polygon class="hc-hex" style="--i:1" points="52,24 59,30 59,38 52,44 45,38 45,30" fill="#ffc2d2" />
+      <polygon class="hc-hex" style="--i:2" points="24,24 31,30 31,38 24,44 17,38 17,30" fill="#ffc2d2" />
+      <polygon class="hc-hex" style="--i:3" points="38,32 45,38 45,46 38,52 31,46 31,38" fill="#ff3d6b" opacity="0.6" />
+    </g>
+  </g>
+</svg>
+
+<style>
+  .hero-character {
+    display: block;
+    width: 100%;
+    max-width: 680px;
+    height: auto;
+    overflow: visible;
+  }
+  /* Still version (also what reduced-motion users see). */
+  .hero-character .hc-fill { transform-box: fill-box; transform-origin: left center; transform: scaleX(0.62); }
+  .hero-character .hc-line,
+  .hero-character .hc-hex,
+  .hero-character .hc-x,
+  .hero-character .hc-o,
+  .hero-character .hc-eye,
+  .hero-character .hc-float,
+  .hero-character .hc-arm,
+  .hero-character .hc-head,
+  .hero-character .hc-torso { transform-box: fill-box; transform-origin: center; }
+  .hero-character .hc-line { transform-origin: left center; }
+  .hero-character .hc-arrow { stroke-dasharray: 100; stroke-dashoffset: 0; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-character .hc-torso { animation: hc-bob 2.4s ease-in-out infinite; }
+    .hero-character .hc-head { animation: hc-bob 2.4s ease-in-out -0.3s infinite; }
+    .hero-character .hc-arm-l { transform-origin: 302px 180px; transform-box: view-box; animation: hc-arm-l 1.6s ease-in-out infinite; }
+    .hero-character .hc-arm-r { transform-origin: 378px 180px; transform-box: view-box; animation: hc-arm-r 1.9s ease-in-out infinite; }
+    .hero-character .hc-eye { animation: hc-blink 4.5s infinite; }
+
+    .hero-character .hc-float { animation: hc-float 4.2s ease-in-out infinite; }
+    .hero-character .hc-float-2 { animation-delay: -1.1s; }
+    .hero-character .hc-float-3 { animation-delay: -2.2s; }
+    .hero-character .hc-float-4 { animation-delay: -3.1s; }
+
+    .hero-character .hc-line { animation: hc-type 7s ease-out infinite; animation-delay: calc(var(--i) * 0.45s); }
+    .hero-character .hc-fill { animation: hc-load 6s ease-out infinite; }
+    .hero-character .hc-hex { animation: hc-hex 2.4s ease-in-out infinite; animation-delay: calc(var(--i) * 0.3s); }
+
+    .hero-character .hc-x { animation: hc-pop 6s ease-out infinite; animation-delay: calc(var(--i) * 0.35s); }
+    .hero-character .hc-o { animation: hc-pulse 3s ease-in-out infinite; }
+    .hero-character .hc-arrow { animation: hc-draw 6s ease-in-out infinite; }
+    .hero-character .hc-arrowhead { animation: hc-head 6s ease-in-out infinite; }
+  }
+
+  @keyframes hc-bob { 0%, 100% { transform: translateY(1.5px); } 50% { transform: translateY(-1.5px); } }
+  @keyframes hc-arm-l { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(4deg); } }
+  @keyframes hc-arm-r { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(-4deg); } }
+  @keyframes hc-blink { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(0.1); } }
+  @keyframes hc-float { 0%, 100% { transform: translateY(3px); } 50% { transform: translateY(-5px); } }
+  @keyframes hc-type { 0% { transform: scaleX(0); } 14%, 88% { transform: scaleX(1); } 100% { transform: scaleX(0); } }
+  @keyframes hc-load { 0% { transform: scaleX(0.05); } 85%, 100% { transform: scaleX(1); } }
+  @keyframes hc-hex { 0%, 100% { transform: scale(0.85); opacity: 1; } 40%, 55% { transform: scale(0.35); opacity: 0; } }
+  @keyframes hc-pop { 0% { opacity: 0; transform: scale(0.4); } 8%, 90% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(0.4); } }
+  @keyframes hc-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.18); } }
+  @keyframes hc-draw { 0%, 20% { stroke-dashoffset: 100; } 55%, 90% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: 100; } }
+  @keyframes hc-head { 0%, 52% { opacity: 0; } 58%, 90% { opacity: 1; } 100% { opacity: 0; } }
+</style>

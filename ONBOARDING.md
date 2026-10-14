@@ -1050,6 +1050,18 @@ about it, don't just pick one.
       Verified with a headless-Edge screenshot (the pane's own screenshot still fails):
       `msedge --headless=new --screenshot=... --window-size=1440,2600 <url>`, then crop
       with System.Drawing — handy when the pane can't render.
+  - **How We Work hero character (2026-10-14):** Andrew supplied the CodePen "Initiating
+    the Hack (Pure CSS Sombra)" (Béthy/Tee, MIT) as inspiration. It is a fan drawing of
+    Sombra (Blizzard IP) — the MIT licence covers the code, NOT the character — so the
+    pen's code/art/audio/skull were NOT used. Instead `src/components/HeroCharacter.astro`
+    is an ORIGINAL inline-SVG character (glasses, curly hair, brand-pink hoodie) among four
+    floating screens: code lines that type in, a strategy play diagram (X's, an O and a
+    sweeping arrow that draws itself, per Andrew's reference image), a progress bar and a
+    hexagon loader. Pure CSS animation inside prefers-reduced-motion: no-preference (still
+    picture otherwise), no JS, no audio. Centred in the previously empty hero using the
+    `lg:min-h-[578px]` recipe (706px total held at 1440; no overflow at 390). Credit to the
+    pen is in the component's header comment — keep it, and if any of that pen's code is
+    ever copied keep Béthy's MIT notice. Pen files live on Andrew's Desktop, not in the repo.
   - **Campfire label tucked up:** removed the 0.75rem gap between the fire and
     "Add a little Vandalist" (`.campfire-demo { gap: 0 }` in CampfireToggle) —
     label moves up 12px, fire does not move. (Andrew's earlier "note the
@@ -1061,6 +1073,11 @@ about it, don't just pick one.
     looks very faint over the hills — not verified on the real page.
 
 ## Known open items
+
+- **How We Work hero (2026-10-14):** the character is live but Andrew has not seen it
+  in motion on the live site yet (pane can't render animation; checked via a headless
+  screenshot + computed animations). The hero is still headingless: this page has no
+  `<h1>` and the hero has no copy — ask if he wants a headline beside/under the character.
 
 - **Wrap-up 2026-10-13 — newest items first.** Andrew confirmed ("looks great")
   the Contact page, the sitewide heading change and the About video section.

@@ -1074,6 +1074,16 @@ about it, don't just pick one.
     header/nav round) and the flyout inherited both. Fixed with `whitespace-normal
     font-normal` on the flyout panel in Header.astro. General lesson: utilities on a
     nav list inherit into dropdown panels — reset them on the panel.
+    Background scene added (2026-10-14): Andrew's own Illustrator SVGs (desk with
+    monitor/speakers/keyboard, plant, clock; originals + the .ai in his
+    Assets/How We Work folder, untouched) were copied to `public/how-we-work-scene/`
+    with ALL metadata stripped at his request (Adobe Content Credentials / "Firefly"
+    manifest, XML prolog, Illustrator layer ids — ~90% of each file; 53/43/39 KB ->
+    15/5/1 KB; the generic `.cls-N` style class names remain). They are placed as
+    <image> elements behind the character inside HeroCharacter.astro (desk x302 y31
+    378x299, plant x56 y96 102x215, clock x208 y71 51x51 in the 680x430 space), matched to
+    his mock-up. Not animated (the clock's hands are one joined shape). If re-exporting
+    from Illustrator, strip the <metadata> block again (a quick regex removal is enough).
   - **Campfire label tucked up:** removed the 0.75rem gap between the fire and
     "Add a little Vandalist" (`.campfire-demo { gap: 0 }` in CampfireToggle) —
     label moves up 12px, fire does not move. (Andrew's earlier "note the
@@ -1086,6 +1096,10 @@ about it, don't just pick one.
 
 ## Known open items
 
+- **Pre-existing horizontal overflow on How We Work at ~1024px:** a <p class="text-sm
+  ... lg:whitespace-nowrap"> far down the page (~y 3977) runs ~115px past the viewport
+  at 1024 (page scrollWidth 1124 vs 1009). Not caused by the hero work; found while
+  testing. Unfixed — Andrew hasn't asked; check at 1024-1100px widths.
 - **How We Work hero (2026-10-14):** the character is live but Andrew has not seen it
   in motion on the live site yet (pane can't render animation; checked via a headless
   screenshot + computed animations). The heading/paragraph are PLACEHOLDERS awaiting

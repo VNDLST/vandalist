@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 114.16 114.16"><defs>
+    <style>
+      .cls-1 {
+        fill: #2f2215;
+        mix-blend-mode: multiply;
+        opacity: .3;
+      }
+
+      .cls-2 {
+        fill: #6d4f35;
+      }
+
+      .cls-3 {
+        isolation: isolate;
+      }
+
+      .cls-4 {
+        fill: #fbf7ec;
+      }
+
+      .cls-5 {
+        fill: #ae8b66;
+      }
+
+      .cls-6 {
+        opacity: .5;
+      }
+    </style>
+  </defs>
+  <g class="cls-3">
+    <g>
+      <g>
+        <g class="cls-6">
+          <circle class="cls-5" cx="57.08" cy="57.08" r="57.08"/>
+          <circle class="cls-4" cx="57.08" cy="57.08" r="48.66"/>
+          <path class="cls-1" d="M105.74,57.09c0,13.99-5.92,26.61-15.38,35.49,8.17-8.7,13.17-20.41,13.17-33.28,0-26.88-21.79-48.67-48.67-48.67-12.88,0-24.59,5-33.28,13.17,8.88-9.46,21.5-15.38,35.5-15.38,26.87,0,48.65,21.79,48.65,48.67Z"/>
+          <rect class="cls-2" x="34.65" y="38.28" width="2.42" height="37.6" transform="translate(-21.22 92.94) rotate(-90)"/>
+          <rect class="cls-2" x="53.45" y="32.32" width="2.42" height="25.96"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

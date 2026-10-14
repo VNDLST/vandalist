@@ -1067,6 +1067,13 @@ about it, don't just pick one.
     Andrew will source SVG office furniture to go behind the character later. Credit to the
     pen is in the component's header comment — keep it, and if any of that pen's code is
     ever copied keep Béthy's MIT notice. Pen files live on Andrew's Desktop, not in the repo.
+    Follow-ups same day: (1) How We Work's first section under the hero had pt-8
+    md:pt-12 (3rem) vs 5rem on the other pages -> now pt-16 md:pt-20. (2) BUG on every
+    page: the Services flyout's descriptions ran outside the panel and looked bold,
+    because the desktop nav <ul> has `whitespace-nowrap font-bold` (added in the
+    header/nav round) and the flyout inherited both. Fixed with `whitespace-normal
+    font-normal` on the flyout panel in Header.astro. General lesson: utilities on a
+    nav list inherit into dropdown panels — reset them on the panel.
   - **Campfire label tucked up:** removed the 0.75rem gap between the fire and
     "Add a little Vandalist" (`.campfire-demo { gap: 0 }` in CampfireToggle) —
     label moves up 12px, fire does not move. (Andrew's earlier "note the

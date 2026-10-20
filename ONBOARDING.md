@@ -1091,6 +1091,23 @@ about it, don't just pick one.
     rest: 800px wide at 1440, head ~1.47x bigger). Heading now wraps to 2 lines. Hero still
     706px at 1440 / 578 section at 1024, no overflow at 390. Arm pivots switched to
     fill-box percentages so they don't depend on the viewBox origin.
+  - **How We Work page, round 2 (2026-10-20):** hero copy is now Andrew's real copy
+    ("We simplify the agency relationship" / "We combine great humans & systems to make
+    sure we are easy to work with & a genuine problem-solving solution."); the h1 uses
+    `text-balance` so the narrow 360px column breaks "We simplify / the agency /
+    relationship" instead of stranding "agency". First section redesigned from his
+    mockup (its hero, arrow and sparkles deliberately omitted): eyebrow "How we work",
+    40px heading "Sometimes we're boringly conventional. Other times we are
+    eyebrow-raisingly unorthodox." with the second sentence's last phrase in pink (line
+    break after "conventional." only at lg+), line "But we are always well organised,
+    responsive, and reliable.", then four cards in a row (Organised by design /
+    Communication matters / Thinking beyond the brief / Respect for your time) using his
+    supplied illustrations, converted PNG -> WebP into `public/working-style-cards/`.
+    Replaced the old 2x2 tilted "working style" cards (styleCards const removed; the
+    old `public/working-style-icons/*.svg` are now unused by this page). Deviations
+    from the mockup: eyebrow is the site's sentence-case Eyebrow, not ALL CAPS; cards
+    use the site's border + shadow-card style. Recovered the icon PNGs from the session's
+    images folder (they were attached in chat), no re-upload needed.
   - **Campfire label tucked up:** removed the 0.75rem gap between the fire and
     "Add a little Vandalist" (`.campfire-demo { gap: 0 }` in CampfireToggle) —
     label moves up 12px, fire does not move. (Andrew's earlier "note the
@@ -1109,8 +1126,7 @@ about it, don't just pick one.
   testing. Unfixed — Andrew hasn't asked; check at 1024-1100px widths.
 - **How We Work hero (2026-10-14):** the character is live but Andrew has not seen it
   in motion on the live site yet (pane can't render animation; checked via a headless
-  screenshot + computed animations). The heading/paragraph are PLACEHOLDERS awaiting
-  Andrew's real copy; office-furniture SVGs to be supplied by him.
+  screenshot + computed animations). Hero copy is final as of 2026-10-20.
 
 - **Wrap-up 2026-10-13 — newest items first.** Andrew confirmed ("looks great")
   the Contact page, the sitewide heading change and the About video section.

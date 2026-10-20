@@ -12,31 +12,30 @@ import PageHeading from "../components/PageHeading.astro";
 
 const base = import.meta.env.BASE_URL;
 
-// --- Section 1: Our working style ---
-const styleCards = [
+// --- Section 1: "Sometimes boringly conventional, sometimes unorthodox" ---
+// Redesigned 2026-10-20 per Andrew's mockup (replaces the old 2x2 "working
+// style" cards). Icons are his supplied illustrations, converted to WebP in
+// public/working-style-cards/. Copy is from the mockup.
+const principleCards = [
   {
-    title: "Responsiveness",
-    text: "Access to the right specialists when needed, including strategic planning and training.",
-    icon: "responsive",
-    tilt: "rotate(-1deg) translateY(-3px)",
+    title: "Organised by design",
+    text: "Clear priorities, structured workflows and attention to the details that keep work moving.",
+    icon: "organised",
   },
   {
-    title: "Capability",
-    text: "Experienced marketing people working in the marketing areas they specialise in.",
-    icon: "capability",
-    tilt: "rotate(1deg) translateY(3px)",
+    title: "Communication matters",
+    text: "Regular updates, honest conversations and fewer occasions where you need to chase us.",
+    icon: "communication",
   },
   {
-    title: "Transparency",
-    text: "Clear work-in-progress tracking, agreed deadlines, and regular, useful updates.",
-    icon: "transparent",
-    tilt: "rotate(-1deg) translateY(-3px)",
+    title: "Thinking beyond the brief",
+    text: "We contribute ideas, question assumptions and suggest alternatives when we see a better way.",
+    icon: "thinking",
   },
   {
-    title: "Accountability",
-    text: "Monthly action and outcomes reporting, supported by regular planning meetings.",
-    icon: "accountable",
-    tilt: "rotate(1deg) translateY(3px)",
+    title: "Respect for your time",
+    text: "We recognise that marketing is one of many competing priorities, not the only thing on your plate.",
+    icon: "respect",
   },
 ];
 
@@ -164,7 +163,7 @@ const megaphoneIcon = '<path d="M3 10v4h3l6 4V6l-6 4H3z" stroke-linejoin="round"
          2026-10-14 per Andrew: this page used to have a full-bleed mountains
          image (how-we-work-hero-bg.svg, now unused but still in /public) and,
          before that, a deliberately empty hero. The heading and paragraph
-         below are PLACEHOLDERS until Andrew supplies the real copy; the heading
+         below are Andrew's real copy (2026-10-20; they were placeholders before); the heading
          is the page's h1 (the page had none). Andrew plans to add SVG office
          furniture behind the character later. No CTA button yet (not asked for).
          Same lg:min-h-[578px] centring recipe as the other heroes, so
@@ -175,9 +174,9 @@ const megaphoneIcon = '<path d="M3 10v4h3l6 4V6l-6 4H3z" stroke-linejoin="round"
       <section class="max-w-7xl mx-auto px-6 md:px-10 py-20 md:py-28 lg:py-12 lg:min-h-[578px] lg:flex lg:items-center">
         <div class="grid lg:grid-cols-[minmax(0,360px)_minmax(0,1fr)] gap-10 items-center min-h-[339px] lg:min-h-[322px] lg:w-full">
           <div>
-            <PageHeading as="h1" class="mb-6">How we work with you</PageHeading>
+            <PageHeading as="h1" class="mb-6 text-balance">We simplify the agency relationship</PageHeading>
             <p class="text-lg text-[var(--color-slate)]">
-              Placeholder text: a short introduction to how we plan, deliver and report on your marketing. The final copy will go here.
+              We combine great humans &amp; systems to make sure we are easy to work with &amp; a genuine problem-solving solution.
             </p>
           </div>
           <div class="flex justify-center items-center">
@@ -187,50 +186,30 @@ const megaphoneIcon = '<path d="M3 10v4h3l6 4V6l-6 4H3z" stroke-linejoin="round"
       </section>
     </div>
 
-    <!-- Section 1: Our working style (restored to its original layout) -->
+    <!-- Section 1: conventional vs unorthodox + four principle cards, per
+         Andrew's 2026-10-20 mockup (its hero, and the little arrow + sparkles
+         beside the heading, deliberately left out). The mockup's eyebrow is
+         ALL CAPS with wide tracking; this uses the site's shared Eyebrow
+         (sentence case) for consistency. The <br> only applies at lg+ so the
+         heading breaks after "conventional." where it has room. -->
     <section class="max-w-7xl mx-auto px-6 md:px-10 pt-16 md:pt-20 pb-20 md:pb-28">
-      <div class="grid lg:grid-cols-[minmax(0,36%)_minmax(0,32%)_minmax(0,32%)] gap-x-10 gap-y-12">
-        <div>
-          <Eyebrow class="mb-3">How we work</Eyebrow>
-          <Heading class="mb-4">Practical, sustainable, and easy to work with</Heading>
-          <p class="text-[var(--color-slate)] max-w-md">
-            We adapt to requirements whether that is being part of the strategic conversations, or being utilised for specific production tasks.
-          </p>
-        </div>
+      <Eyebrow class="mb-3">How we work</Eyebrow>
+      <Heading class="mb-4 text-3xl md:text-4xl lg:text-[2.5rem] leading-tight">
+        Sometimes we&rsquo;re boringly conventional.<br class="hidden lg:block" />
+        Other times we are <span class="text-[var(--color-accent)]">eyebrow-raisingly unorthodox.</span>
+      </Heading>
+      <p class="text-lg text-[var(--color-ink)] mb-10 md:mb-12">
+        But we are always well organised, responsive, and reliable.
+      </p>
 
-        <div class="flex flex-col gap-6">
-          {styleCards.slice(0, 2).map((card) => (
-            <div
-              class="flex items-center gap-5 rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6 [box-shadow:var(--shadow-card)]"
-              style={`transform: ${card.tilt};`}
-            >
-              <div class="w-[60px] h-[60px] shrink-0 flex items-center justify-center">
-                <img src={`${base}/working-style-icons/${card.icon}.svg`} alt="" class="w-full h-full object-contain" />
-              </div>
-              <div>
-                <p class="font-semibold text-[var(--color-ink)] mb-1.5">{card.title}</p>
-                <p class="text-sm text-[var(--color-slate)] leading-relaxed">{card.text}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div class="flex flex-col gap-6">
-          {styleCards.slice(2, 4).map((card) => (
-            <div
-              class="flex items-center gap-5 rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6 [box-shadow:var(--shadow-card)]"
-              style={`transform: ${card.tilt};`}
-            >
-              <div class="w-[60px] h-[60px] shrink-0 flex items-center justify-center">
-                <img src={`${base}/working-style-icons/${card.icon}.svg`} alt="" class="w-full h-full object-contain" />
-              </div>
-              <div>
-                <p class="font-semibold text-[var(--color-ink)] mb-1.5">{card.title}</p>
-                <p class="text-sm text-[var(--color-slate)] leading-relaxed">{card.text}</p>
-              </div>
-            </div>
-          ))}
-        </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
+        {principleCards.map((card) => (
+          <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6 [box-shadow:var(--shadow-card)]">
+            <img src={`${base}/working-style-cards/${card.icon}.webp`} alt="" class="h-24 w-auto mb-4" loading="lazy" />
+            <p class="text-lg font-semibold text-[var(--color-ink)] mb-2">{card.title}</p>
+            <p class="text-[var(--color-slate)] leading-relaxed">{card.text}</p>
+          </div>
+        ))}
       </div>
     </section>
 

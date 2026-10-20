@@ -1120,6 +1120,33 @@ about it, don't just pick one.
 
 ## Known open items
 
+- **TOP OF THE LIST for the next session (left mid-discussion 2026-10-20): site-wide type
+  hierarchy + contrast. Nothing has been changed for this yet.** Andrew likes the new
+  How We Work intro line (18px, --color-ink) better than the old standard small text
+  (SectionHeading subtext: 16px, --color-slate) and is worried about consistency
+  elsewhere. Findings so far:
+  - Measured sizes today: hero heading 36/48px (PageHeading); section heading 24/30px
+    (Heading); a larger "statement" heading 30/36/40px (the new How We Work heading, and
+    the CTA band's 40px at xl); eyebrow 14px; intro text 18px grey (hero paragraphs) vs
+    16px grey (SectionHeading subtext) vs 18px ink (new line); card titles a mix of
+    18-24px; element text 14px (135 uses) / 12px (55).
+  - Proposed tiers: Hero heading, Statement heading (one per page), Section heading,
+    Intro text (18px), Body (16px), Element title, Element text, Caption — via shared
+    components (e.g. a new Lead.astro like Eyebrow/Heading). Moving SectionHeading's
+    subtext to the new look would touch ~24 uses (HelpGrid, HowWeWork, ProofGrid,
+    WhoThisIsFor, how-we-work x2, and the six service pages) — review every page after.
+  - QUESTION STILL OPEN: should intro text be 18px ink everywhere (one pass, with
+    before/after measurements), or only where chosen (start with How We Work only)?
+  - Contrast (WCAG): slate on paper 5.28:1 / on paper-dim 4.88:1 (passes AA), ink 15-16:1.
+    FAILS for small text: brand pink on paper 3.25:1 / paper-dim 3.01:1 (the 14px
+    eyebrows), --color-slate-light 2.80:1 (check where it is used for readable text), and
+    white on --color-accent ~3.3:1 (the flipped About value cards). Bold does not change
+    the ratio; WCAG only relaxes to 3:1 for text >= 24px or >= 18.7px bold. Options given:
+    bold + ~19px, or a deeper pink for SMALL pink text only (#d4163f = 5.01 on paper /
+    4.63 on paper-dim; #d91a4a = 4.76 / 4.40), or leave as is. My recommendation was the
+    deeper pink for eyebrows, tried on one page first so Andrew can compare. Awaiting
+    his call.
+
 - **Pre-existing horizontal overflow on How We Work at ~1024px:** a <p class="text-sm
   ... lg:whitespace-nowrap"> far down the page (~y 3977) runs ~115px past the viewport
   at 1024 (page scrollWidth 1124 vs 1009). Not caused by the hero work; found while

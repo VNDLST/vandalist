@@ -1120,8 +1120,21 @@ about it, don't just pick one.
 
 ## Known open items
 
-- **TOP OF THE LIST for the next session (left mid-discussion 2026-10-20): site-wide type
-  hierarchy + contrast. Nothing has been changed for this yet.** Andrew likes the new
+- **2026-10-21 UPDATE — type hierarchy test case is LIVE on How We Work only.** Andrew chose
+  "use How We Work as the test case; if it looks as punchy as hoped, roll out elsewhere and
+  adjust layouts as needed". Done: `Heading.astro` and `SectionHeading.astro` gained a
+  `size="statement"` option (30/36/40px, line-height 1.2 incl. the md repeat, `text-balance`;
+  SectionHeading statement = max-w-5xl wrapper + 18px ink subtext). Applied to all four
+  headings under the hero on how-we-work.astro (the first-row heading no longer has inline
+  size classes). His note that the first-row heading's line-height looked tight was right:
+  `leading-tight` lost to `md:text-4xl`'s own line-height (1.0, 40px) — now 48px (1.2).
+  ALSO, sitewide, by his OK: `Eyebrow.astro` now uses a new token `--color-accent-text`
+  (#d4163f, 5.0:1 on paper / 4.6:1 on paper-dim) instead of brand pink. NOT changed (still
+  brand pink at small sizes, candidates for the same treatment): text links like "See how we
+  work →", step numbers (01-05), and white-on-pink About value cards. NEXT: Andrew reviews
+  How We Work live; if happy, roll "statement" headings + 18px ink intro text out to the
+  other pages (SectionHeading has ~24 uses) and re-measure each page.
+  Earlier note (2026-10-20, kept for the reasoning): site-wide type hierarchy + contrast. Andrew likes the new
   How We Work intro line (18px, --color-ink) better than the old standard small text
   (SectionHeading subtext: 16px, --color-slate) and is worried about consistency
   elsewhere. Findings so far:

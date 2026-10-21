@@ -3,11 +3,14 @@
 // no default margin — callers pass spacing via `class` so this stays a pure
 // typography atom (no override-collision risk between component defaults
 // and caller-supplied utility classes).
+//
+// Colour: --color-accent-text (a deeper pink), NOT the brand pink: at 14px the
+// brand pink is only ~3.2:1 on the page background, below the 4.5:1 WCAG target.
 interface Props {
   class?: string;
 }
 const { class: className } = Astro.props as Props;
 ---
-<p class:list={["text-sm tracking-wide text-[var(--color-accent)] font-medium", className]}>
+<p class:list={["text-sm tracking-wide text-[var(--color-accent-text)] font-medium", className]}>
   <slot />
 </p>

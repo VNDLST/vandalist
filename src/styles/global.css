@@ -33,6 +33,7 @@
 
     /* Accent — used sparingly, per brand rule */
     --color-accent: #ff3d6b;       /* Vandalist pink */
+    --color-accent-text: #d4163f;  /* deeper pink for SMALL pink text (eyebrows): 5.0:1 on paper, 4.6:1 on paper-dim; brand pink #ff3d6b is only ~3.2:1 */
     --color-accent-soft: #ffe8ed;  /* pink tint, for badge backgrounds only */
 
     /* Signal colours for compare/check patterns, kept muted not saturated.

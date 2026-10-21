@@ -1120,6 +1120,21 @@ about it, don't just pick one.
 
 ## Known open items
 
+- **2026-10-21 — scroll-activated cadence row is LIVE on How We Work only. REMIND ANDREW
+  when we review the service pages** (he asked; also saved as a Claude memory). Built as an
+  opt-in `activateOnScroll` prop on `CadenceSteps.astro`: icons start grey (pale circle,
+  muted glyph, grey dotted line + chevrons); when the row is ~25% on screen (IntersectionObserver)
+  a pulse crosses the line once (1.3s per gap, 0.5s start delay, ~6s total), each icon goes
+  bright pink + white glyph then settles to soft pink + pink glyph, the line behind the pulse
+  turns pink, ending as a full pink row; no repeat. Chevron glow removed in this mode. Below lg
+  (connector hidden) the icons just light up in turn with the same timing. Reduced motion / no JS
+  = finished pink state shown at once (an inline script arms the idle state before paint).
+  Glyphs are CSS-masked (`--icon` url) so only single-colour icons work. Step numbers in
+  CadenceSteps now use `--color-accent-text` on EVERY page that uses it. Verified by seeking the
+  Web Animations timeline in the browser pane (exact colours at 0.5s/1.8s/3.1s/5.7s/8s) plus a
+  headless Edge capture. Service pages still use the old shimmer behaviour: before enabling there,
+  check each page's icons (some are PNGs / inline) are single-colour silhouettes.
+
 - **2026-10-21 UPDATE — type hierarchy test case is LIVE on How We Work only.** Andrew chose
   "use How We Work as the test case; if it looks as punchy as hoped, roll out elsewhere and
   adjust layouts as needed". Done: `Heading.astro` and `SectionHeading.astro` gained a

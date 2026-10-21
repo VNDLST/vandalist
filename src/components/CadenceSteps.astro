@@ -48,6 +48,20 @@
 // per how-we-work.astro wanting "the same slow sliding pulse line" for its
 // own full cadence section. Opt-in per page since other CadenceSteps
 // callers (e.g. Google Ads' process section) haven't asked for it.
+//
+// `activateOnScroll` (default false; How We Work opts in, 2026-10-21) replaces
+// the endless shimmer with a ONE-TIME sequence that starts when the row scrolls
+// into view: every icon starts understated (pale circle, muted grey glyph; dotted
+// line and chevrons grey), a pulse travels left to right, each icon it reaches
+// goes bright pink with a white glyph ("active") and then settles to a soft pink
+// circle with a pink glyph ("done"), and the dotted line behind the pulse turns
+// pink, ending on a full row of pink icons. The chevron glow is removed in this
+// mode. Below lg the connector is hidden (the grid wraps), so only the icons
+// light up in turn, same timing, no travelling pulse. Image icons are recoloured
+// with a CSS mask (single-colour silhouettes only). Without JS, or under
+// prefers-reduced-motion, the row simply renders in its finished pink state (an
+// inline script arms the idle state before first paint, only when motion is OK).
+// Timing lives in --cs-start / --cs-gap on .cadence-seq (travel = gap x (n-1)).
 interface Step {
   num: string;
   title: string;
@@ -64,6 +78,7 @@ interface Props {
   iconContainer?: "circle" | "bare";
   circleBg?: "white" | "dim";
   shimmerConnector?: boolean;
+  activateOnScroll?: boolean;
 }
 const {
   steps,
@@ -75,6 +90,7 @@ const {
   iconContainer = "circle",
   circleBg = "white",
   shimmerConnector = false,
+  activateOnScroll = false,
 } = Astro.props as Props;
 const n = steps.length;
 // All three written as literal strings so Tailwind's static scanner finds
@@ -89,16 +105,32 @@ const connectorVisibility = { md: "hidden md:block", lg: "hidden lg:block", xl: 
 const rightInsetPct = 100 / n;
 const rightInsetPx = ((n - 1) / n) * 40 + 56;
 ---
-<div class="mt-16 relative">
+<div class:list={["mt-16 relative", activateOnScroll && "cadence-seq"]} data-cadence-seq={activateOnScroll ? "" : undefined} style={activateOnScroll ? `--cs-n: ${n - 1}` : undefined}>
   <!-- Connector line spans the full row behind the circles — the opaque
        white circles occlude it, so it reads as "connecting" each icon
        without needing pixel-exact math against the column widths. -->
   <div
-    class:list={[connectorVisibility, "absolute border-t-2 border-dotted border-[rgba(255,61,107,0.4)] z-0"]}
+    class:list={[connectorVisibility, "absolute border-t-2 border-dotted z-0", activateOnScroll ? "border-[rgba(154,150,142,0.45)]" : "border-[rgba(255,61,107,0.4)]"]}
     style={`top: 56px; left: 56px; right: calc(${rightInsetPct}% - ${rightInsetPx}px);`}
     aria-hidden="true"
   ></div>
-  {shimmerConnector && (
+  {activateOnScroll && (
+    <>
+      <div
+        class:list={[connectorVisibility, "cadence-trail absolute border-t-2 border-dotted border-[rgba(255,61,107,0.4)] z-0"]}
+        style={`top: 56px; left: 56px; right: calc(${rightInsetPct}% - ${rightInsetPx}px);`}
+        aria-hidden="true"
+      ></div>
+      <div
+        class:list={[connectorVisibility, "absolute z-0"]}
+        style={`top: 55px; left: 56px; right: calc(${rightInsetPct}% - ${rightInsetPx}px); height: 2px;`}
+        aria-hidden="true"
+      >
+        <div class="cadence-pulse"></div>
+      </div>
+    </>
+  )}
+  {shimmerConnector && !activateOnScroll && (
     <div
       class:list={[connectorVisibility, "absolute z-0 overflow-hidden"]}
       style={`top: 55px; left: 56px; right: calc(${rightInsetPct}% - ${rightInsetPx}px); height: 2px;`}
@@ -113,8 +145,8 @@ const rightInsetPx = ((n - 1) / n) * 40 + 56;
     const pct = coeff * 100;
     return (
       <div class:list={[connectorVisibility, "absolute z-0"]} style={`left: calc(${pct}% + ${px}px); top: 56px; transform: translate(-50%, -50%);`} aria-hidden="true">
-        <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-[rgba(255,61,107,0.25)] blur-md"></div>
-        <svg class="relative" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="3">
+        {!activateOnScroll && <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-[rgba(255,61,107,0.25)] blur-md"></div>}
+        <svg class:list={["relative", activateOnScroll && "cadence-chevron"]} style={activateOnScroll ? `--i: ${i}` : undefined} width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={activateOnScroll ? "currentColor" : "var(--color-accent)"} stroke-width="3">
           <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
       </div>
@@ -122,10 +154,12 @@ const rightInsetPx = ((n - 1) / n) * 40 + 56;
   })}
 
   <div class:list={["relative z-10 grid gap-y-14 gap-x-10", gridClass]}>
-    {steps.map((step) => (
+    {steps.map((step, stepIndex) => (
       <div class="flex flex-col">
-        <div class:list={["w-28 h-28 mb-6 flex items-center justify-center shrink-0", iconContainer === "circle" && ["rounded-full [box-shadow:var(--shadow-card)]", circleBg === "dim" ? "bg-[var(--color-paper-dim)]" : "bg-white"]]}>
-          {iconMode === "image" ? (
+        <div style={activateOnScroll ? `--i: ${stepIndex}` : undefined} class:list={["w-28 h-28 mb-6 flex items-center justify-center shrink-0", activateOnScroll && "cadence-circle", iconContainer === "circle" && ["rounded-full [box-shadow:var(--shadow-card)]", circleBg === "dim" ? "bg-[var(--color-paper-dim)]" : "bg-white"]]}>
+          {iconMode === "image" && activateOnScroll && iconContainer === "circle" ? (
+            <span class="cadence-glyph w-16 h-16 block" style={`--icon: url(${iconBase}/${step.icon}.${iconExt})`} role="presentation"></span>
+          ) : iconMode === "image" ? (
             <img
               src={`${iconBase}/${step.icon}.${iconExt}`}
               alt=""
@@ -135,13 +169,46 @@ const rightInsetPx = ((n - 1) / n) * 40 + 56;
             <svg width="68" height="68" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={step.icon} />
           )}
         </div>
-        <p class="text-sm font-bold text-[var(--color-accent)] mb-1">{step.num}</p>
+        <p class="text-sm font-bold text-[var(--color-accent-text)] mb-1">{step.num}</p>
         <p class="text-lg font-semibold text-[var(--color-ink)] mb-1.5">{step.title}</p>
         <p class="text-sm text-[var(--color-slate)] leading-relaxed">{step.text}</p>
       </div>
     ))}
   </div>
 </div>
+{activateOnScroll && (
+  <script is:inline>
+    (function () {
+      var s = document.currentScript;
+      var w = s && s.previousElementSibling;
+      if (w && w.hasAttribute("data-cadence-seq") && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        w.classList.add("is-armed");
+      }
+    })();
+  </script>
+)}
+
+<script>
+  // One-time start: when an armed cadence row is ~25% on screen, begin its sequence.
+  const rows = document.querySelectorAll<HTMLElement>("[data-cadence-seq].is-armed");
+  if (rows.length && "IntersectionObserver" in window) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            (entry.target as HTMLElement).classList.add("is-playing");
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.25 },
+    );
+    rows.forEach((el) => io.observe(el));
+  } else {
+    // No observer support: finish in the pink state rather than stay idle.
+    rows.forEach((el) => el.classList.remove("is-armed"));
+  }
+</script>
 
 <style>
   /* Slow sliding highlight along the connector line — same visual idea as
@@ -164,5 +231,84 @@ const rightInsetPx = ((n - 1) / n) * 40 + 56;
     8% { opacity: 1; }
     50% { opacity: 1; transform: translateX(350%); }
     58%, 100% { opacity: 0; transform: translateX(350%); }
+  }
+
+  /* ---- activateOnScroll sequence (see header comment) ---- */
+  .cadence-seq { --cs-start: 0.5s; --cs-gap: 1.3s; }
+
+  /* Finished state = the default (no JS / reduced motion). */
+  .cadence-seq .cadence-circle { background-color: var(--color-accent-soft); }
+  .cadence-seq .cadence-glyph {
+    background-color: var(--color-accent);
+    -webkit-mask: var(--icon) center / contain no-repeat;
+    mask: var(--icon) center / contain no-repeat;
+  }
+  .cadence-seq .cadence-chevron { color: var(--color-accent); }
+  .cadence-seq .cadence-trail { clip-path: inset(0 0 0 0); }
+  .cadence-seq .cadence-pulse { opacity: 0; }
+
+  /* Armed (waiting to scroll into view): everything understated. */
+  .cadence-seq.is-armed .cadence-circle { background-color: var(--color-paper-dim); }
+  .cadence-seq.is-armed .cadence-glyph { background-color: rgba(154, 150, 142, 0.6); }
+  .cadence-seq.is-armed .cadence-chevron { color: rgba(154, 150, 142, 0.6); }
+  .cadence-seq.is-armed .cadence-trail { clip-path: inset(0 100% 0 0); }
+
+  /* Playing: icon i is reached by the pulse at start + i x gap. */
+  .cadence-seq.is-playing .cadence-circle,
+  .cadence-seq.is-playing .cadence-glyph {
+    animation-duration: 1.8s;
+    animation-timing-function: ease;
+    animation-fill-mode: forwards;
+    animation-delay: calc(var(--cs-start) + var(--i) * var(--cs-gap) - 0.3s);
+  }
+  .cadence-seq.is-playing .cadence-circle { animation-name: cs-circle; }
+  .cadence-seq.is-playing .cadence-glyph { animation-name: cs-glyph; }
+  .cadence-seq.is-playing .cadence-chevron {
+    animation: cs-chevron 0.5s ease forwards;
+    animation-delay: calc(var(--cs-start) + (var(--i) + 0.5) * var(--cs-gap));
+  }
+  .cadence-seq.is-playing .cadence-trail {
+    animation: cs-trail calc(var(--cs-gap) * var(--cs-n)) linear forwards;
+    animation-delay: var(--cs-start);
+  }
+  .cadence-pulse {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 96px;
+    height: 2px;
+    margin-left: -48px;
+    background: linear-gradient(to right, transparent, var(--color-accent), transparent);
+  }
+  .cadence-seq.is-playing .cadence-pulse {
+    animation: cs-pulse calc(var(--cs-gap) * var(--cs-n)) linear forwards;
+    animation-delay: var(--cs-start);
+  }
+  @keyframes cs-circle {
+    0% { background-color: var(--color-paper-dim); }
+    17%, 45% { background-color: var(--color-accent); }
+    80%, 100% { background-color: var(--color-accent-soft); }
+  }
+  @keyframes cs-glyph {
+    0% { background-color: rgba(154, 150, 142, 0.6); }
+    17%, 45% { background-color: #fff; }
+    80%, 100% { background-color: var(--color-accent); }
+  }
+  @keyframes cs-chevron {
+    from { color: rgba(154, 150, 142, 0.6); }
+    to { color: var(--color-accent); }
+  }
+  @keyframes cs-trail {
+    from { clip-path: inset(0 100% 0 0); }
+    to { clip-path: inset(0 0 0 0); }
+  }
+  @keyframes cs-pulse {
+    0% { left: 0%; opacity: 1; }
+    94% { opacity: 1; }
+    100% { left: 100%; opacity: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cadence-seq .cadence-circle, .cadence-seq .cadence-glyph, .cadence-seq .cadence-chevron,
+    .cadence-seq .cadence-trail, .cadence-seq .cadence-pulse { animation: none !important; }
   }
 </style>

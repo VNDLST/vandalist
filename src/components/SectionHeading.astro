@@ -22,5 +22,5 @@ const alignClass = align === "center" ? "text-center mx-auto" : "";
 <div class={`mb-12 ${statement ? "max-w-5xl" : "max-w-3xl"} ${alignClass}`}>
   <Eyebrow class="mb-3">{eyebrow}</Eyebrow>
   <Heading noWrap={headingNoWrap} size={size} class="mb-4">{heading}</Heading>
-  {subtext && <p class={`${statement ? "text-lg text-[var(--color-ink)]" : "text-[var(--color-slate)]"} max-w-2xl ${alignClass}`}>{subtext}</p>}
+  {subtext && <p class={`${statement ? "t-intro" : "text-[var(--color-slate)]"} max-w-2xl ${alignClass}`}>{subtext}</p>}
 </div>

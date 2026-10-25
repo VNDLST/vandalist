@@ -15,6 +15,6 @@ interface Props {
 }
 const { as: Tag = "h1", class: className } = Astro.props as Props;
 ---
-<Tag class:list={["text-4xl md:text-5xl font-semibold leading-[1.2] md:leading-[1.2] tracking-normal", className]}>
+<Tag class:list={["t-display", className]}>
   <slot />
 </Tag>

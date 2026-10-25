@@ -1120,6 +1120,28 @@ about it, don't just pick one.
 
 ## Known open items
 
+- **2026-10-26 — TYPE STYLE SET trialled on How We Work ONLY; awaiting Andrew's verdict on how it
+  looks live before a sitewide rollout.** An audit of the page (computed styles, 1440px) found 20
+  text formats (15 visibly different), many differing only in line-height or colour. Replaced by
+  8 roles / 9 styles defined once in `global.css` (`@layer components`): t-display 36/48px 600
+  1.2 ink; t-heading 30/36/40px 600 1.2 ink (+ pink emphasis phrase); t-intro 18px 400 1.6 ink;
+  t-title 18px 600 1.4 ink; t-body 16px 400 1.6 slate; t-small 14px 400 1.5 slate; t-small-strong
+  14px 600 1.5 ink; t-eyebrow 14px 500 1.4 +0.025em deeper pink; t-caption 12px 400 1.4 slate.
+  Each style fixes size+weight+line-height+colour together. Re-audit afterwards: exactly those 9
+  styles (plus the pink-emphasis colour variant) and nothing else on the page body; hero still 706px.
+  Wiring: `Eyebrow.astro` (SITEWIDE, visually identical, line-height 20px -> 19.6px), `PageHeading`
+  (SITEWIDE, now class t-display, identical output incl. tracking-normal) and `Heading`
+  size="statement" (How We Work only) all use the t-* classes; `SectionHeading` statement subtext
+  uses t-intro; `CadenceSteps` has an opt-in `unifiedType` prop (How We Work only) so the six
+  service pages are unchanged. Page decisions taken by default where Andrew didn't answer (easy to
+  flip): hero small text now near-black (t-intro) instead of grey; panel titles ("Together", "Your
+  team brings", "Vandalist brings") and decision-table titles shrank to 18px; step body stays 14px.
+  His calls: tagline lost its italic/light-grey style (now plain t-small); step numbers use the
+  eyebrow style. Also removed `lg:whitespace-nowrap` from the "Transparent by default." banner text
+  (it overflowed at 18px titles) — this ALSO fixes the old ~1024px horizontal overflow (open item
+  below can be considered closed). NEXT: if he likes it, roll the styles out page by page (hero
+  small text colour on the six service heroes is the big visible change), re-audit each page.
+
 - **2026-10-21 — scroll-activated cadence row is LIVE on How We Work only. REMIND ANDREW
   when we review the service pages** (he asked; also saved as a Claude memory). Built as an
   opt-in `activateOnScroll` prop on `CadenceSteps.astro`: icons start grey (pale circle,

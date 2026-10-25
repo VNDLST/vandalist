@@ -175,7 +175,7 @@ const megaphoneIcon = '<path d="M3 10v4h3l6 4V6l-6 4H3z" stroke-linejoin="round"
         <div class="grid lg:grid-cols-[minmax(0,360px)_minmax(0,1fr)] gap-10 items-center min-h-[339px] lg:min-h-[322px] lg:w-full">
           <div>
             <PageHeading as="h1" class="mb-6 text-balance">We simplify the agency relationship</PageHeading>
-            <p class="text-lg text-[var(--color-slate)]">
+            <p class="t-intro">
               We combine great humans &amp; systems to make sure we are easy to work with &amp; a genuine problem-solving solution.
             </p>
           </div>
@@ -198,7 +198,7 @@ const megaphoneIcon = '<path d="M3 10v4h3l6 4V6l-6 4H3z" stroke-linejoin="round"
         Sometimes we&rsquo;re boringly conventional.<br class="hidden lg:block" />
         Other times we are <span class="text-[var(--color-accent)]">eyebrow-raisingly unorthodox.</span>
       </Heading>
-      <p class="text-lg text-[var(--color-ink)] mb-10 md:mb-12">
+      <p class="t-intro mb-10 md:mb-12">
         But we are always well organised, responsive, and reliable.
       </p>
 
@@ -206,8 +206,8 @@ const megaphoneIcon = '<path d="M3 10v4h3l6 4V6l-6 4H3z" stroke-linejoin="round"
         {principleCards.map((card) => (
           <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6 [box-shadow:var(--shadow-card)]">
             <img src={`${base}/working-style-cards/${card.icon}.webp`} alt="" class="h-24 w-auto mb-4" loading="lazy" />
-            <p class="text-lg font-semibold text-[var(--color-ink)] mb-2">{card.title}</p>
-            <p class="text-[var(--color-slate)] leading-relaxed">{card.text}</p>
+            <p class="t-title mb-2">{card.title}</p>
+            <p class="t-body">{card.text}</p>
           </div>
         ))}
       </div>
@@ -229,13 +229,14 @@ const megaphoneIcon = '<path d="M3 10v4h3l6 4V6l-6 4H3z" stroke-linejoin="round"
         iconBase={`${base}/how-we-work-icons`}
         circleBg="dim"
         activateOnScroll
+        unifiedType
       />
 
       <div class="flex items-center justify-center gap-2 mt-14">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.75">
           <path d="M12 20s-7-4.5-9.5-9A5 5 0 0 1 12 6a5 5 0 0 1 9.5 5c-2.5 4.5-9.5 9-9.5 9z" stroke-linejoin="round" />
         </svg>
-        <p class="text-sm italic text-[var(--color-slate-light)]">
+        <p class="t-small">
           Genuine advice and support you can rely on.
         </p>
       </div>
@@ -257,8 +258,8 @@ const megaphoneIcon = '<path d="M3 10v4h3l6 4V6l-6 4H3z" stroke-linejoin="round"
           <div class="flex flex-col lg:flex-row gap-8 lg:gap-0">
             <!-- Your team brings -->
             <div class="flex-1 rounded-[var(--radius-card)] bg-white border border-[var(--color-line)] p-6 md:p-7 [box-shadow:var(--shadow-card)]">
-              <p class="text-xl font-semibold text-[var(--color-ink)] mb-1.5">Your team brings</p>
-              <p class="text-sm text-[var(--color-slate)] mb-2">The business context, internal knowledge and relationships that make it happen.</p>
+              <p class="t-title mb-1.5">Your team brings</p>
+              <p class="t-small mb-2">The business context, internal knowledge and relationships that make it happen.</p>
               <ul>
                 {yourTeamBrings.map((item, i) => (
                   <li class:list={["flex items-start gap-3 py-4", i > 0 && "border-t border-[var(--color-line)]"]}>
@@ -266,8 +267,8 @@ const megaphoneIcon = '<path d="M3 10v4h3l6 4V6l-6 4H3z" stroke-linejoin="round"
                       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={item.icon} />
                     </span>
                     <div>
-                      <p class="font-semibold text-[var(--color-ink)] text-sm mb-0.5">{item.title}</p>
-                      <p class="text-sm text-[var(--color-slate)] leading-snug">{item.text}</p>
+                      <p class="t-small-strong mb-0.5">{item.title}</p>
+                      <p class="t-small">{item.text}</p>
                     </div>
                   </li>
                 ))}
@@ -293,8 +294,8 @@ const megaphoneIcon = '<path d="M3 10v4h3l6 4V6l-6 4H3z" stroke-linejoin="round"
                    above the puzzle pieces — no separate icon row or
                    circular badge wrapper needed. -->
               <img src={`${base}/system-icons/puzzle-together.png`} alt="" class="w-[130px] h-auto mx-auto mb-2" />
-              <p class="text-2xl font-semibold text-[var(--color-ink)] mb-2">Together</p>
-              <p class="text-sm text-[var(--color-slate)] mb-5">One aligned team, with clear ownership and better delivery.</p>
+              <p class="t-title mb-2">Together</p>
+              <p class="t-small mb-5">One aligned team, with clear ownership and better delivery.</p>
               <div class="space-y-3">
                 {togetherItems.map((item) => (
                   <div class="flex items-center gap-3 rounded-xl bg-white p-3 text-left [box-shadow:var(--shadow-card)]">
@@ -302,8 +303,8 @@ const megaphoneIcon = '<path d="M3 10v4h3l6 4V6l-6 4H3z" stroke-linejoin="round"
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={item.icon} />
                     </span>
                     <div class="min-w-0">
-                      <p class="font-semibold text-[var(--color-ink)] text-sm leading-snug">{item.title}</p>
-                      <p class="text-xs text-[var(--color-slate)] leading-snug">{item.text}</p>
+                      <p class="t-small-strong">{item.title}</p>
+                      <p class="t-caption">{item.text}</p>
                     </div>
                   </div>
                 ))}
@@ -322,8 +323,8 @@ const megaphoneIcon = '<path d="M3 10v4h3l6 4V6l-6 4H3z" stroke-linejoin="round"
 
             <!-- Vandalist brings -->
             <div class="flex-1 rounded-[var(--radius-card)] bg-white border border-[var(--color-line)] p-6 md:p-7 [box-shadow:var(--shadow-card)]">
-              <p class="text-xl font-semibold text-[var(--color-ink)] mb-1.5">Vandalist brings</p>
-              <p class="text-sm text-[var(--color-slate)] mb-2">The specialist capability, structure and execution to move it forward.</p>
+              <p class="t-title mb-1.5">Vandalist brings</p>
+              <p class="t-small mb-2">The specialist capability, structure and execution to move it forward.</p>
               <ul>
                 {vandalistBrings.map((item, i) => (
                   <li class:list={["flex items-start gap-3 py-4", i > 0 && "border-t border-[var(--color-line)]"]}>
@@ -331,8 +332,8 @@ const megaphoneIcon = '<path d="M3 10v4h3l6 4V6l-6 4H3z" stroke-linejoin="round"
                       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={item.icon} />
                     </span>
                     <div>
-                      <p class="font-semibold text-[var(--color-ink)] text-sm mb-0.5">{item.title}</p>
-                      <p class="text-sm text-[var(--color-slate)] leading-snug">{item.text}</p>
+                      <p class="t-small-strong mb-0.5">{item.title}</p>
+                      <p class="t-small">{item.text}</p>
                     </div>
                   </li>
                 ))}
@@ -353,7 +354,7 @@ const megaphoneIcon = '<path d="M3 10v4h3l6 4V6l-6 4H3z" stroke-linejoin="round"
         <div>
           <Eyebrow class="mb-3">Decision-making & accountability</Eyebrow>
           <Heading size="statement" class="mb-4">Clear roles. Confident decisions.</Heading>
-          <p class="text-lg text-[var(--color-ink)] max-w-md">
+          <p class="t-intro max-w-md">
             We believe clarity on decisions and responsibility leads to faster progress and better outcomes.
           </p>
         </div>
@@ -403,8 +404,8 @@ const megaphoneIcon = '<path d="M3 10v4h3l6 4V6l-6 4H3z" stroke-linejoin="round"
                   <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={role.icon} />
                 </span>
                 <div class="min-w-0">
-                  <p class="font-semibold text-[var(--color-ink)] text-sm">{role.title}</p>
-                  <p class="text-xs text-[var(--color-slate)]">{role.subtitle}</p>
+                  <p class="t-small-strong">{role.title}</p>
+                  <p class="t-caption">{role.subtitle}</p>
                 </div>
               </div>
             ))}
@@ -412,22 +413,22 @@ const megaphoneIcon = '<path d="M3 10v4h3l6 4V6l-6 4H3z" stroke-linejoin="round"
             {matrix.map((row) => (
               <Fragment>
                 <div class="rounded-xl bg-[var(--color-paper-dim)] px-4 py-3.5 flex flex-col justify-center">
-                  <p class="font-semibold text-[var(--color-ink)] leading-snug">{row.rowLabel}</p>
-                  <p class="text-sm text-[var(--color-slate)]">{row.rowSub}</p>
+                  <p class="t-title">{row.rowLabel}</p>
+                  <p class="t-small">{row.rowSub}</p>
                 </div>
                 <div class="rounded-xl bg-white border border-[var(--color-line)] p-4 [box-shadow:0_4px_10px_-4px_rgba(28,27,26,0.12)]">
                   <span class="inline-flex items-center justify-center w-11 h-11 rounded-full bg-[var(--color-accent-soft)] text-[var(--color-accent)] mb-2">
                     <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={row.left.icon} />
                   </span>
-                  <p class="font-semibold text-[var(--color-ink)] mb-1">{row.left.title}</p>
-                  <p class="text-sm text-[var(--color-slate)] leading-snug">{row.left.text}</p>
+                  <p class="t-title mb-1">{row.left.title}</p>
+                  <p class="t-small">{row.left.text}</p>
                 </div>
                 <div class="rounded-xl bg-white border border-[var(--color-line)] p-4 [box-shadow:0_4px_10px_-4px_rgba(28,27,26,0.12)]">
                   <span class="inline-flex items-center justify-center w-11 h-11 rounded-full bg-[var(--color-accent-soft)] text-[var(--color-accent)] mb-2">
                     <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={row.right.icon} />
                   </span>
-                  <p class="font-semibold text-[var(--color-ink)] mb-1">{row.right.title}</p>
-                  <p class="text-sm text-[var(--color-slate)] leading-snug">{row.right.text}</p>
+                  <p class="t-title mb-1">{row.right.title}</p>
+                  <p class="t-small">{row.right.text}</p>
                 </div>
               </Fragment>
             ))}
@@ -445,8 +446,8 @@ const megaphoneIcon = '<path d="M3 10v4h3l6 4V6l-6 4H3z" stroke-linejoin="round"
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={role.icon} />
                   </span>
                   <div class="min-w-0">
-                    <p class="font-semibold text-[var(--color-ink)] text-sm leading-snug">{role.title}</p>
-                    <p class="text-xs text-[var(--color-slate)] leading-snug">{role.subtitle}</p>
+                    <p class="t-small-strong">{role.title}</p>
+                    <p class="t-caption">{role.subtitle}</p>
                   </div>
                 </div>
               ))}
@@ -454,8 +455,8 @@ const megaphoneIcon = '<path d="M3 10v4h3l6 4V6l-6 4H3z" stroke-linejoin="round"
 
             {matrix.map((row) => (
               <div>
-                <p class="font-semibold text-[var(--color-ink)] mb-3">
-                  {row.rowLabel} <span class="font-normal text-sm text-[var(--color-slate)]">{row.rowSub}</span>
+                <p class="t-title mb-3">
+                  {row.rowLabel} <span class="t-small">{row.rowSub}</span>
                 </p>
                 <div class="space-y-3">
                   {[row.left, row.right].map((cell) => (
@@ -464,8 +465,8 @@ const megaphoneIcon = '<path d="M3 10v4h3l6 4V6l-6 4H3z" stroke-linejoin="round"
                         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={cell.icon} />
                       </span>
                       <div class="min-w-0">
-                        <p class="font-semibold text-[var(--color-ink)] mb-0.5">{cell.title}</p>
-                        <p class="text-sm text-[var(--color-slate)] leading-snug">{cell.text}</p>
+                        <p class="t-title mb-0.5">{cell.title}</p>
+                        <p class="t-small">{cell.text}</p>
                       </div>
                     </div>
                   ))}
@@ -478,9 +479,9 @@ const megaphoneIcon = '<path d="M3 10v4h3l6 4V6l-6 4H3z" stroke-linejoin="round"
             <span class="inline-flex items-center justify-center w-11 h-11 rounded-full bg-white text-[var(--color-accent)] shrink-0">
               <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={megaphoneIcon} />
             </span>
-            <span class="font-semibold text-[var(--color-ink)] shrink-0">Transparent by default.</span>
+            <span class="t-title shrink-0">Transparent by default.</span>
             <span class="hidden sm:block w-px self-stretch bg-[rgba(255,61,107,0.3)]"></span>
-            <p class="text-sm text-[var(--color-slate)] lg:whitespace-nowrap">We communicate proactively, flag risks early, and keep everything visible.</p>
+            <p class="t-small">We communicate proactively, flag risks early, and keep everything visible.</p>
           </div>
         </div>
       </div>

@@ -1,5 +1,6 @@
 ---
 import HelpCardIllustration from "./HelpCardIllustration.astro";
+import Section from "./Section.astro";
 import SectionHeading from "./SectionHeading.astro";
 
 const items: { kind: Parameters<typeof HelpCardIllustration>[0]["kind"]; title: string; text: string }[] = [
@@ -11,7 +12,7 @@ const items: { kind: Parameters<typeof HelpCardIllustration>[0]["kind"]; title: 
   { kind: "6", title: "Analytics & Reporting", text: "Turn data and customer insights into clearer direction." },
 ];
 ---
-<section class="max-w-7xl mx-auto px-6 md:px-10 pt-16 md:pt-24 pb-16 md:pb-24">
+<Section class="pt-16 md:pt-24 pb-16 md:pb-24">
   <SectionHeading
     eyebrow="How we help in practice"
     heading="Marketing rarely arrives as a neat, isolated project"
@@ -29,4 +30,4 @@ const items: { kind: Parameters<typeof HelpCardIllustration>[0]["kind"]; title: 
       </div>
     ))}
   </div>
-</section>
+</Section>

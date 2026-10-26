@@ -1,4 +1,5 @@
 ---
+import IconChip from "./IconChip.astro";
 // The "Client / Industry / Engagement / Timeframe / Location" row on an
 // individual case study. Every field is optional per the content schema —
 // only the ones actually provided render, so an anonymised/lighter case
@@ -44,9 +45,7 @@ const items = [
   <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-5 md:p-6 [box-shadow:var(--shadow-card)] grid sm:grid-cols-3 lg:grid-cols-5 gap-5">
     {items.map((item) => (
       <div class="flex items-start gap-2.5">
-        <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-[var(--color-accent-soft)] text-[var(--color-accent)] shrink-0">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" set:html={item.icon} />
-        </span>
+        <IconChip icon={item.icon} size={8} iconSize={15} shape="lg" caps={false} class="shrink-0" />
         <div class="min-w-0">
           <p class="text-xs font-medium text-[var(--color-slate-light)] uppercase tracking-wide mb-0.5">{item.label}</p>
           <p class="text-sm font-medium text-[var(--color-ink)] leading-snug">{item.value}</p>

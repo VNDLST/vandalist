@@ -3,6 +3,8 @@
 // navigation. Delete once the "Add a little Vandalist" idea has been
 // decided on / integrated into how-we-work.astro (or discarded).
 import Layout from "../layouts/Layout.astro";
+import Band from "../components/Band.astro";
+import Section from "../components/Section.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import Eyebrow from "../components/Eyebrow.astro";
@@ -14,7 +16,7 @@ import CampfireToggle from "../components/CampfireToggle.astro";
   <div class="bg-[var(--color-paper)]">
     <Header currentPage="/campfire-demo" />
 
-    <section class="max-w-7xl mx-auto px-6 md:px-10 pt-12 md:pt-16 pb-20 md:pb-28">
+    <Section bottom="roomy" class="pt-12 md:pt-16">
       <div class="max-w-2xl mx-auto text-center mb-10">
         <Eyebrow class="mb-3">Internal concept — not a real page</Eyebrow>
         <Heading as="h1" class="mb-4">Campfire toggle, adapted for Vandalist</Heading>
@@ -54,14 +56,13 @@ import CampfireToggle from "../components/CampfireToggle.astro";
         Flip the switch a few times, try it at different widths, then let&rsquo;s talk about whether
         (and how) this fits on the real page.
       </p>
-    </section>
+    </Section>
 
     <!-- In-context mockup: roughly the real how-we-work.astro hero layout
          (text left ~2/5, graphic right ~3/5), with the campfire standing in
          for that section's placeholder graphic, so size/placement can be
          judged against actual page proportions instead of in isolation. -->
-    <section class="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-16 pb-20 md:pb-28">
-      <div class="rounded-[var(--radius-card)] bg-[var(--color-paper-dim)] p-6 md:p-10">
+    <Band as="section" bottom="roomy">
         <p class="text-sm font-medium text-[var(--color-slate-light)] mb-6">
           ↓ Mockup only — not a real section, just the how-we-work.astro hero grid for scale reference
         </p>
@@ -114,8 +115,7 @@ import CampfireToggle from "../components/CampfireToggle.astro";
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </Band>
   </div>
 
   <Footer />

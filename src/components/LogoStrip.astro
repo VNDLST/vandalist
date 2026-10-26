@@ -1,4 +1,5 @@
 ---
+import Section from "./Section.astro";
 // "Trusted by ambitious teams" — rebuilt 2026-10-12 per Andrew: replaced the
 // two scrolling marquees with a calm grid of white tiles (two rows of five)
 // where, every 3 seconds, ONE tile crossfades to a logo that isn't currently
@@ -36,7 +37,7 @@ const SLOTS = 10;
 const base = import.meta.env.BASE_URL;
 const initial = logos.slice(0, SLOTS);
 ---
-<section class="max-w-7xl mx-auto px-6 md:px-10 py-16 md:py-24">
+<Section class="py-16 md:py-24">
   <p class="text-sm tracking-wide text-[var(--color-accent)] font-medium mb-8">Trusted by ambitious teams</p>
 
   <div
@@ -59,7 +60,7 @@ const initial = logos.slice(0, SLOTS);
       </div>
     ))}
   </div>
-</section>
+</Section>
 
 <script>
   const grid = document.getElementById("logo-grid");

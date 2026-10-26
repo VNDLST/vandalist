@@ -3,6 +3,7 @@
 // shown in mockup6 (team photo, site screenshot, product shot, dashboard shot).
 // Swap the <svg> per `kind` for real photos once available.
 import ProofCardImage from "./ProofCardImage.astro";
+import Section from "./Section.astro";
 import SectionHeading from "./SectionHeading.astro";
 
 const items: { kind: Parameters<typeof ProofCardImage>[0]["kind"]; name: string; text: string }[] = [
@@ -12,7 +13,7 @@ const items: { kind: Parameters<typeof ProofCardImage>[0]["kind"]; name: string;
   { kind: "dashboard", name: "Motion Systems", text: "Implemented a reporting system that improved marketing ROI visibility by 60%." },
 ];
 ---
-<section class="max-w-7xl mx-auto px-6 md:px-10 pt-16 md:pt-24 pb-16 md:pb-24">
+<Section class="pt-16 md:pt-24 pb-16 md:pb-24">
   <SectionHeading
     eyebrow="Past and present projects"
     heading="Real-world work with different kinds of businesses"
@@ -33,4 +34,4 @@ const items: { kind: Parameters<typeof ProofCardImage>[0]["kind"]; name: string;
       </div>
     ))}
   </div>
-</section>
+</Section>

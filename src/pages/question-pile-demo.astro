@@ -4,6 +4,7 @@
 // / integrated into google-social-ads.astro (or discarded). Same pattern
 // as the earlier campfire-demo.astro.
 import Layout from "../layouts/Layout.astro";
+import Section from "../components/Section.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import Eyebrow from "../components/Eyebrow.astro";
@@ -14,7 +15,7 @@ import QuestionPile from "../components/QuestionPile.astro";
   <div class="bg-[var(--color-paper)]">
     <Header currentPage="/question-pile-demo" />
 
-    <section class="max-w-7xl mx-auto px-6 md:px-10 pt-12 md:pt-16 pb-20 md:pb-28">
+    <Section bottom="roomy" class="pt-12 md:pt-16">
       <div class="max-w-2xl mx-auto text-center mb-10">
         <Eyebrow class="mb-3">Internal concept — not a real page</Eyebrow>
         <Heading as="h1" class="mb-4">Question pile, for the Google Ads hero</Heading>
@@ -40,7 +41,7 @@ import QuestionPile from "../components/QuestionPile.astro";
         Runs automatically on load, or hit Replay. Try it a few times&mdash;each run
         shuffles a different mix of the question set.
       </p>
-    </section>
+    </Section>
   </div>
 
   <Footer />

@@ -1,5 +1,6 @@
 ---
 import Eyebrow from "./Eyebrow.astro";
+import Band from "./Band.astro";
 import Heading from "./Heading.astro";
 
 const rows = [
@@ -50,8 +51,7 @@ const icons: Record<string, string> = {
   value: `<circle cx="12" cy="12" r="8.5"/><path d="M12 6.8v10.4M9.3 9.5c0-1.2 1.2-2.1 2.7-2.1s2.7.8 2.7 2-1.1 1.9-2.7 2.1-2.7 1-2.7 2.1 1.2 2 2.7 2 2.7-.9 2.7-2" stroke-linecap="round" stroke-linejoin="round"/>`,
 };
 ---
-<section class="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-16 py-10">
-  <div class="rounded-[var(--radius-card)] bg-[var(--color-paper-dim)] p-6 md:py-10 md:px-16">
+<Band as="section" padding="wide" class="py-10">
     <div class="max-w-7xl mx-auto grid lg:grid-cols-[1fr_2fr] gap-8 items-start">
       <div>
         <Eyebrow class="mb-3">Coverage without hiring</Eyebrow>
@@ -128,5 +128,4 @@ const icons: Record<string, string> = {
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </Band>

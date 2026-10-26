@@ -29,6 +29,7 @@ const weArent = [
 const SLICE = 2.0;
 const CYCLE = SLICE * (steps.length - 1);
 ---
+{/* Deliberately NOT <Band>: the <style define:vars> below sets --cycle on this component's own root element, which only works when the root is a plain element. A wrapper component as root would drop it and the pulse would stop animating. */}
 <section class="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-16 py-10">
   <div class="rounded-[var(--radius-card)] bg-[var(--color-paper-dim)] p-6 md:py-10 md:px-16">
     <div class="max-w-7xl mx-auto">

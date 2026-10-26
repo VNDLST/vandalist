@@ -1139,8 +1139,37 @@ about it, don't just pick one.
   BrowserMockCard (other pink strengths 0.15/0.2/0.25/0.35 appear once each, left as literals);
   trimmed the history-style comments in how-we-work.astro. Still not done and out of scope here:
   three demo pages (campfire-demo, icon-texture-demo, question-pile-demo) are live public routes.
-  STEP 2 NEXT: shared hero, section wrapper and icon-badge components (pure refactor, must stay
-  IDENTICAL). STEP 3: roll the 8 text styles out to the other pages (visible change).
+  STEP 2 DONE (2026-10-27), all verified and deployed. New shared components in src/components/:
+    PageHero (+ HeroBand): locks h1 style, t-intro text, spacing and the 706px height; free per-page
+      column split via split="balanced|art-lead|text-lead" (+ from="md|lg", artClass, sectionClass,
+      gridClass, titleClass, introClass, slots title / intro / default / art / overlay). Used by all
+      8 heroes (home Hero.astro, 6 services, how-we-work). VISIBLE CHANGE: hero intro text on the other
+      7 heroes is now t-intro (near-black, line-height 1.6) instead of grey 1.75; desktop hero height
+      still 706px, phones grow 2-4px.
+    OrbButton: the pink-orb pill button as <a> (href) or <button> (no href); size lg (hero) / md (CTA band,
+      contact submit).
+    IconChip: the icon-in-a-circle/rounded-square, 40 hand-built copies converted EXACTLY (23 recipes:
+      sizes 7/8/9/10/11/14, icons 13-26px, strokes 1.5/1.75, shapes full/lg). The SIZE SCALE IS STILL AN
+      OPEN DESIGN DECISION (pick ~3 sizes and retire the rest = visible change). NOTE: an older, unused
+      src/components/IconBadge.astro (check/cross status badge) exists; I overwrote it by mistake once and
+      restored it from git; the new component is named IconChip to avoid the clash. Dead-code candidate.
+    Section: standard 7xl section with top="tight" and bottom="tight|roomy"; the 7 off-standard sections
+      (pt-12 md:pt-16 pb-20 md:pb-28 x3, py-16 md:py-24 x2, pt-16 md:pt-24 pb-16 md:pb-24 x2) are passed as
+      raw `class`, so they show up as exceptions. Spacing rhythm differs by page (service pages mostly
+      4rem/5rem, How We Work / About 5rem/7rem): NOT unified, Andrew's call.
+    Band: the wide tinted panel (bottom, padding default|roomy|wide, as div|section), 12 of 13 converted.
+      HowWeWork.astro (homepage teaser) deliberately keeps its own markup: its <style define:vars> sets
+      --cycle only on the component's own root element, and a wrapper component as root swallowed it.
+  NOT DONE from the audit (smaller): decision table + side panels still built twice / near-duplicated;
+  shared icon registry (icon SVG strings are still duplicated per page); demo pages still public.
+  LESSONS: (1) verify refactors with BOTH a layout snapshot AND a tag-level HTML diff of two builds (the
+  layout check could not see the define:vars regression); build the previous commit with a git worktree +
+  node_modules junction and diff dist/ tag by tag (ignoring attribute order and data-astro-cid). (2) In
+  Astro, an import inserted at the END of a long frontmatter data block broke the build in one file; put
+  new imports next to the existing ones. (3) Use iframes inside one javascript call to snapshot many
+  pages/widths at once; the top-level pane has a 15px scrollbar gutter, iframes don't, so always compare
+  iframe-to-iframe baselines.
+  STEP 3 NEXT: roll the 8 text styles out to the other pages (visible change).
 
 - **2026-10-26 — TYPE STYLE SET trialled on How We Work ONLY; awaiting Andrew's verdict on how it
   looks live before a sitewide rollout.** An audit of the page (computed styles, 1440px) found 20

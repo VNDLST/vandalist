@@ -8,6 +8,9 @@
 // hero column deliberately left EMPTY per Andrew, same as
 // marketing-support.astro — see that file for the full reasoning.
 import Layout from "../../layouts/Layout.astro";
+import Band from "../../components/Band.astro";
+import Section from "../../components/Section.astro";
+import IconChip from "../../components/IconChip.astro";
 import PageHero from "../../components/PageHero.astro";
 import OrbButton from "../../components/OrbButton.astro";
 import Footer from "../../components/Footer.astro";
@@ -115,24 +118,21 @@ const audiences = [
 
   <div class="bg-[var(--color-paper)]">
     <!-- Section 1: Service cards -->
-    <section class="max-w-7xl mx-auto px-6 md:px-10 pt-16 md:pt-20 pb-16 md:pb-20">
+    <Section top="tight" bottom="tight">
       <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {services.map((service) => (
           <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6">
-            <span class="inline-flex items-center justify-center w-11 h-11 rounded-lg bg-[var(--color-accent-soft)] text-[var(--color-accent)] mb-4">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={service.icon} />
-            </span>
+            <IconChip icon={service.icon} size={11} iconSize={22} shape="lg" class="mb-4" />
             <p class="font-semibold text-[var(--color-ink)] mb-1.5">{service.title}</p>
             <p class="text-sm text-[var(--color-slate)] leading-relaxed">{service.text}</p>
           </div>
         ))}
       </div>
-    </section>
+    </Section>
   </div>
 
   <!-- Section 2: Our approach — bleed-wider band -->
-  <div class="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-16 pb-16 md:pb-20">
-    <div class="rounded-[var(--radius-card)] bg-[var(--color-paper-dim)] p-6 md:p-10">
+  <Band bottom="tight">
       <div class="max-w-7xl mx-auto grid lg:grid-cols-[minmax(0,34%)_minmax(0,66%)] gap-10 items-start">
         <div>
           <Eyebrow class="mb-3">Our approach</Eyebrow>
@@ -143,9 +143,7 @@ const audiences = [
           <ul class="space-y-3">
             {approachPoints.map((point) => (
               <li class="flex items-center gap-3">
-                <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-white text-[var(--color-accent)] shrink-0 [box-shadow:var(--shadow-card)]">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={point.icon} />
-                </span>
+                <IconChip icon={point.icon} size={8} iconSize={16} shape="lg" tone="whiteCard" class="shrink-0" />
                 <span class="text-sm text-[var(--color-ink)]">{point.text}</span>
               </li>
             ))}
@@ -155,9 +153,7 @@ const audiences = [
         <div class="space-y-4">
           {approachItems.map((item) => (
             <div class="rounded-xl border border-[var(--color-line)] bg-white p-5 flex items-start gap-4">
-              <span class="inline-flex items-center justify-center w-11 h-11 rounded-lg bg-[var(--color-accent-soft)] text-[var(--color-accent)] shrink-0">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={item.icon} />
-              </span>
+              <IconChip icon={item.icon} size={11} iconSize={20} shape="lg" class="shrink-0" />
               <div>
                 <p class="font-semibold text-[var(--color-ink)] mb-1">{item.title}</p>
                 <p class="text-sm text-[var(--color-slate)] leading-relaxed">{item.text}</p>
@@ -166,18 +162,15 @@ const audiences = [
           ))}
         </div>
       </div>
-    </div>
-  </div>
+    </Band>
 
   <!-- Section 3: Situations we often help with -->
-  <section class="max-w-7xl mx-auto px-6 md:px-10 pb-16 md:pb-20">
+  <Section bottom="tight">
     <Eyebrow class="mb-8">Situations we often help with</Eyebrow>
     <div class="grid sm:grid-cols-2 border-t border-l border-[var(--color-line)] rounded-[var(--radius-card)] overflow-hidden">
       {situations.map((item) => (
         <div class="p-6 md:p-8 border-b border-r border-[var(--color-line)] flex items-start gap-4">
-          <span class="inline-flex items-center justify-center w-11 h-11 rounded-lg bg-[var(--color-accent-soft)] text-[var(--color-accent)] shrink-0">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={item.icon} />
-          </span>
+          <IconChip icon={item.icon} size={11} iconSize={20} shape="lg" class="shrink-0" />
           <div>
             <p class="font-semibold text-[var(--color-ink)] mb-1">{item.title}</p>
             <p class="text-sm text-[var(--color-slate)] leading-relaxed">{item.text}</p>
@@ -185,10 +178,10 @@ const audiences = [
         </div>
       ))}
     </div>
-  </section>
+  </Section>
 
   <!-- Section 4: How this usually works -->
-  <section class="max-w-7xl mx-auto px-6 md:px-10 pb-16 md:pb-20">
+  <Section bottom="tight">
     <SectionHeading
       eyebrow="How this usually works"
       heading="A simple process for getting unstuck"
@@ -198,17 +191,15 @@ const audiences = [
       gridClass="sm:grid-cols-2 lg:grid-cols-4"
       connectorBreakpoint="lg"
     />
-  </section>
+  </Section>
 
   <!-- Section 5: Relevant experience + Who it's for -->
-  <section class="max-w-7xl mx-auto px-6 md:px-10 pb-20 md:pb-28">
+  <Section bottom="roomy">
     <Eyebrow class="mb-6">Relevant experience</Eyebrow>
     <div class="grid sm:grid-cols-3 gap-5 mb-14">
       {experience.map((item) => (
         <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6">
-          <span class="inline-flex items-center justify-center w-11 h-11 rounded-lg bg-[var(--color-accent-soft)] text-[var(--color-accent)] mb-4">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={item.icon} />
-          </span>
+          <IconChip icon={item.icon} size={11} iconSize={22} shape="lg" class="mb-4" />
           <p class="font-semibold text-[var(--color-ink)] mb-1.5">{item.title}</p>
           <p class="text-sm text-[var(--color-slate)] leading-relaxed">{item.text}</p>
         </div>
@@ -219,15 +210,13 @@ const audiences = [
     <div class="grid sm:grid-cols-3 gap-5">
       {audiences.map((item) => (
         <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6">
-          <span class="inline-flex items-center justify-center w-11 h-11 rounded-lg bg-[var(--color-accent-soft)] text-[var(--color-accent)] mb-4">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={item.icon} />
-          </span>
+          <IconChip icon={item.icon} size={11} iconSize={22} shape="lg" class="mb-4" />
           <p class="font-semibold text-[var(--color-ink)] mb-1.5">{item.title}</p>
           <p class="text-sm text-[var(--color-slate)] leading-relaxed">{item.text}</p>
         </div>
       ))}
     </div>
-  </section>
+  </Section>
 
   <CtaBand />
   <Footer />

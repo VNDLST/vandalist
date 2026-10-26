@@ -55,6 +55,9 @@
 //   and row 2 is a straight vertical drop, not the mockup's diagonal
 //   jump between columns — flagged, not silently done.
 import Layout from "../../layouts/Layout.astro";
+import Band from "../../components/Band.astro";
+import Section from "../../components/Section.astro";
+import IconChip from "../../components/IconChip.astro";
 import PageHero from "../../components/PageHero.astro";
 import OrbButton from "../../components/OrbButton.astro";
 import Footer from "../../components/Footer.astro";
@@ -174,7 +177,7 @@ const audiences = [
 
   <div class="bg-[var(--color-paper)]">
     <!-- Section 1: Where AI actually helps -->
-    <section class="max-w-7xl mx-auto px-6 md:px-10 pt-16 md:pt-20 pb-16 md:pb-20">
+    <Section top="tight" bottom="tight">
       <div class="grid lg:grid-cols-[minmax(0,34%)_minmax(0,66%)] gap-10 items-start">
         <div>
           <Eyebrow class="mb-3">Where AI actually helps</Eyebrow>
@@ -190,11 +193,10 @@ const audiences = [
           rightColumn={helpRight.map(withIcon)}
         />
       </div>
-    </section>
+    </Section>
 
     <!-- Section 2: A practical enablement system your team can use every day -->
-    <div class="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-16 pb-16 md:pb-20">
-      <div class="rounded-[var(--radius-card)] bg-[var(--color-paper-dim)] p-6 md:p-10">
+    <Band bottom="tight">
         <div class="max-w-7xl mx-auto grid lg:grid-cols-[minmax(0,34%)_minmax(0,66%)] gap-10 items-start">
           <div>
             <Eyebrow class="mb-3">What we help you put in place</Eyebrow>
@@ -214,11 +216,10 @@ const audiences = [
             ))}
           </div>
         </div>
-      </div>
-    </div>
+      </Band>
 
     <!-- Section 3: How enablement typically works -->
-    <section class="max-w-7xl mx-auto px-6 md:px-10 pb-16 md:pb-20">
+    <Section bottom="tight">
       <SectionHeading
         eyebrow="How enablement typically works"
         heading="A clear path from potential to performance"
@@ -228,10 +229,10 @@ const audiences = [
         gridClass="sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6"
         connectorBreakpoint="xl"
       />
-    </section>
+    </Section>
 
     <!-- Section 4: From manual and messy to clear and assisted -->
-    <section class="max-w-7xl mx-auto px-6 md:px-10 pb-16 md:pb-20">
+    <Section bottom="tight">
       <SectionHeading
         eyebrow="From manual and messy to clear and assisted"
         heading="A simpler workflow that gets better results"
@@ -316,9 +317,7 @@ const audiences = [
           <div class="grid grid-cols-3 gap-2 mb-5">
             {afterSteps.map((step) => (
               <div class="rounded-lg border border-[rgba(47,143,78,0.25)] bg-white/70 p-2.5 flex flex-col items-start gap-1.5">
-                <span class="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-white text-[var(--color-good)] shrink-0">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={step.icon} />
-                </span>
+                <IconChip icon={step.icon} size={7} iconSize={13} shape="lg" tone="whiteGood" class="shrink-0" />
                 <span class="text-xs font-medium text-[var(--color-ink)] leading-snug">{step.title}</span>
                 <span class="text-[11px] text-[var(--color-slate)] leading-snug">{step.text}</span>
               </div>
@@ -342,10 +341,10 @@ const audiences = [
           </svg>
         </div>
       </div>
-    </section>
+    </Section>
 
     <!-- Section 5: Who this helps most -->
-    <section class="max-w-7xl mx-auto px-6 md:px-10 pb-20 md:pb-28">
+    <Section bottom="roomy">
       <SectionHeading
         eyebrow="Who this helps most"
         heading="Built for marketing teams under pressure to do more"
@@ -353,15 +352,13 @@ const audiences = [
       <div class="grid sm:grid-cols-3 gap-5">
         {audiences.map((item) => (
           <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6">
-            <span class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-[var(--color-accent-soft)] text-[var(--color-accent)] mb-4">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={item.icon} />
-            </span>
+            <IconChip icon={item.icon} size={14} iconSize={26} stroke="1.5" class="mb-4" />
             <p class="font-semibold text-[var(--color-ink)] mb-1.5">{item.title}</p>
             <p class="text-sm text-[var(--color-slate)] leading-relaxed">{item.text}</p>
           </div>
         ))}
       </div>
-    </section>
+    </Section>
   </div>
 
   <CtaBand />

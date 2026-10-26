@@ -1,4 +1,5 @@
 ---
+import IconChip from "./IconChip.astro";
 // Shared "icon badge + heading + body" wrapper for a case study's numbered
 // sections (The problem, What we found, What we did, Why we took that
 // approach, Outcome...). Reused instead of hand-rolling the same
@@ -16,9 +17,7 @@ const hasAside = Astro.slots.has("aside");
 <div class:list={["grid gap-8", hasAside && "lg:grid-cols-[1fr_280px] items-start"]}>
   <div>
     <div class="flex items-center gap-3 mb-4">
-      <span class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-[var(--color-accent-soft)] text-[var(--color-accent)] shrink-0">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" set:html={icon} />
-      </span>
+      <IconChip icon={icon} caps={false} class="shrink-0" />
       <h2 class="text-xl md:text-2xl font-semibold text-[var(--color-ink)]">{title}</h2>
     </div>
     <div class="text-[var(--color-slate)] leading-relaxed space-y-4">

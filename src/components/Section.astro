@@ -1,0 +1,27 @@
+---
+// The standard content section: centred 7xl column with the site's side
+// padding, plus a named top / bottom spacing. Created 2026-10-27; an audit
+// found 8 different section-spacing recipes across the site. The two that are
+// actually standard are named here; anything else is passed through `class`
+// and so stands out in the code as an exception (a decision for Andrew, not a
+// silent change, because evening them out moves things on the page).
+//
+//   top      "tight"   pt-16 md:pt-20 (4rem / 5rem). Omit for no top padding
+//                      (the previous section's bottom padding provides the gap).
+//   bottom   "tight"   pb-16 md:pb-20 (4rem / 5rem), the usual on service pages
+//            "roomy"   pb-20 md:pb-28 (5rem / 7rem), used on How We Work and About
+//
+// Bands (the wider tinted panels) are a separate pattern, not this component.
+interface Props {
+  top?: "tight";
+  bottom?: "tight" | "roomy";
+  class?: string;
+}
+const { top, bottom, class: className } = Astro.props as Props;
+// Literal strings so Tailwind's scanner sees every class.
+const tops = { tight: "pt-16 md:pt-20" };
+const bottoms = { tight: "pb-16 md:pb-20", roomy: "pb-20 md:pb-28" };
+---
+<section class:list={["max-w-7xl mx-auto px-6 md:px-10", top && tops[top], bottom && bottoms[bottom], className]}>
+  <slot />
+</section>

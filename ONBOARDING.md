@@ -1141,6 +1141,16 @@ about it, don't just pick one.
   (it overflowed at 18px titles) — this ALSO fixes the old ~1024px horizontal overflow (open item
   below can be considered closed). NEXT: if he likes it, roll the styles out page by page (hero
   small text colour on the six service heroes is the big visible change), re-audit each page.
+  FOLLOW-UP SAME DAY (2026-10-26): Andrew's calls — (1) the "Genuine advice and support you can rely
+  on." tagline + heart icon was REMOVED (felt generic/juvenile; nothing replaced it); (2) new copy:
+  "How we fit in" heading = "Your context and purpose. Our planning and capability."; section 4 =
+  "Clear roles and responsibilities." with intro "Clear responsibilities and specific tasks lead to
+  greater momentum and better outcomes." (he wrote "leads"; fixed the grammar to "lead" and told him);
+  (3) the decision table now uses ONE type treatment in every cell — header cells moved from
+  t-small-strong/t-caption to t-title + t-small like the row labels and cells. t-caption and
+  t-small-strong now appear only in the three "Together" mini-cards: candidates to merge into
+  t-small(-strong) if Andrew wants the set down to 7 styles. Note "Clear roles" is also a mini-card
+  title in the Together panel, near-duplicating the new section heading.
 
 - **2026-10-21 — scroll-activated cadence row is LIVE on How We Work only. REMIND ANDREW
   when we review the service pages** (he asked; also saved as a Claude memory). Built as an

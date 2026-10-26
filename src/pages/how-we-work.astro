@@ -232,14 +232,6 @@ const megaphoneIcon = '<path d="M3 10v4h3l6 4V6l-6 4H3z" stroke-linejoin="round"
         unifiedType
       />
 
-      <div class="flex items-center justify-center gap-2 mt-14">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.75">
-          <path d="M12 20s-7-4.5-9.5-9A5 5 0 0 1 12 6a5 5 0 0 1 9.5 5c-2.5 4.5-9.5 9-9.5 9z" stroke-linejoin="round" />
-        </svg>
-        <p class="t-small">
-          Genuine advice and support you can rely on.
-        </p>
-      </div>
     </section>
 
     <!-- Section 3: How we fit in — redesigned per Andrew's mockup (see
@@ -251,7 +243,7 @@ const megaphoneIcon = '<path d="M3 10v4h3l6 4V6l-6 4H3z" stroke-linejoin="round"
           <SectionHeading
             size="statement"
             eyebrow="How we fit in"
-            heading="You stay close to the work. We bring the specialist capability, structure and momentum to move it forward."
+            heading="Your context and purpose. Our planning and capability."
             align="center"
           />
 
@@ -353,9 +345,9 @@ const megaphoneIcon = '<path d="M3 10v4h3l6 4V6l-6 4H3z" stroke-linejoin="round"
       <div class="grid lg:grid-cols-[minmax(0,28%)_minmax(0,72%)] gap-x-10 gap-y-10">
         <div>
           <Eyebrow class="mb-3">Decision-making & accountability</Eyebrow>
-          <Heading size="statement" class="mb-4">Clear roles. Confident decisions.</Heading>
+          <Heading size="statement" class="mb-4">Clear roles and responsibilities.</Heading>
           <p class="t-intro max-w-md">
-            We believe clarity on decisions and responsibility leads to faster progress and better outcomes.
+            Clear responsibilities and specific tasks lead to greater momentum and better outcomes.
           </p>
         </div>
 
@@ -404,8 +396,8 @@ const megaphoneIcon = '<path d="M3 10v4h3l6 4V6l-6 4H3z" stroke-linejoin="round"
                   <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={role.icon} />
                 </span>
                 <div class="min-w-0">
-                  <p class="t-small-strong">{role.title}</p>
-                  <p class="t-caption">{role.subtitle}</p>
+                  <p class="t-title">{role.title}</p>
+                  <p class="t-small">{role.subtitle}</p>
                 </div>
               </div>
             ))}
@@ -446,8 +438,8 @@ const megaphoneIcon = '<path d="M3 10v4h3l6 4V6l-6 4H3z" stroke-linejoin="round"
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={role.icon} />
                   </span>
                   <div class="min-w-0">
-                    <p class="t-small-strong">{role.title}</p>
-                    <p class="t-caption">{role.subtitle}</p>
+                    <p class="t-title">{role.title}</p>
+                    <p class="t-small">{role.subtitle}</p>
                   </div>
                 </div>
               ))}

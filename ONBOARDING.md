@@ -1120,6 +1120,17 @@ about it, don't just pick one.
 
 ## Known open items
 
+- **SharePoint "heap of deletions" notification (2026-10-27) — explained, no data lost.** Cause: the repo folder
+  is inside the SharePoint-synced library, and every `npm run build` wipes and recreates the git-ignored
+  `dist/` (~207 files); a day of verification work meant dozens of builds. The only deliberate deletions were
+  5 tracked files (old hero bg + 4 working-style icons), recoverable from git. Andrew's Assets folder was
+  only read. `node_modules` (13k files) also lives in the synced folder. A stale `.git/worktrees/wt` metadata
+  folder from a temporary comparison build could not be deleted (permission denied, likely a sync lock): harmless,
+  `git worktree prune` removes it later. GOING FORWARD (Claude): run verification/test builds with
+  `astro build --outDir <folder outside the repo>` and only build into `dist/` for the real deploy.
+  OPEN QUESTION for Andrew: keep working inside SharePoint (noisy but fine) or move the working copy outside
+  it (git is the real sync; keep only Assets in SharePoint). Not changed.
+
 - **2026-10-27 — STRUCTURE / TEMPLATING WORK IN PROGRESS (Andrew approved the full plan, in order).**
   Audit of how-we-work.astro found: hero recipe copy-pasted in 8 files; 8 different section-spacing
   recipes site-wide; icon-in-circle rebuilt by hand (6 size variants on that page, 8 files); inline

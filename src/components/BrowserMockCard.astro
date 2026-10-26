@@ -80,7 +80,7 @@ const isLg = size === "lg";
     <span class:list={["rounded-full shrink-0", isLg ? "w-6 h-6" : "w-3.5 h-3.5", isAccent ? "bg-[var(--color-accent)]" : "bg-[var(--color-slate-light)]"]}></span>
     <span
       class:list={["rounded-full flex-1", isLg ? "h-2" : "h-1"]}
-      style={`background: ${isAccent ? "rgba(255,61,107,0.4)" : "var(--color-line)"};`}
+      style={`background: ${isAccent ? "var(--color-accent-line)" : "var(--color-line)"};`}
     ></span>
   </div>
 

@@ -41,16 +41,9 @@
 // "How engagements are structured" specifically wanting a darker circle —
 // opt-in per page rather than changed sitewide.
 //
-// `shimmerConnector` (default false) adds a slow sliding highlight sweep
-// along the connector line, on top of the existing static dotted line —
-// same visual language as HowWeWork.astro's homepage-teaser shimmer
-// (a soft accent-coloured gradient block translating across), reused here
-// per how-we-work.astro wanting "the same slow sliding pulse line" for its
-// own full cadence section. Opt-in per page since other CadenceSteps
-// callers (e.g. Google Ads' process section) haven't asked for it.
 //
-// `activateOnScroll` (default false; How We Work opts in, 2026-10-21) replaces
-// the endless shimmer with a ONE-TIME sequence that starts when the row scrolls
+// `activateOnScroll` (default false; How We Work opts in, 2026-10-21) runs a
+// ONE-TIME sequence that starts when the row scrolls
 // into view: every icon starts understated (pale circle, muted grey glyph; dotted
 // line and chevrons grey), a pulse travels left to right, each icon it reaches
 // goes bright pink with a white glyph ("active") and then settles to a soft pink
@@ -82,7 +75,6 @@ interface Props {
   iconExt?: string;
   iconContainer?: "circle" | "bare";
   circleBg?: "white" | "dim";
-  shimmerConnector?: boolean;
   activateOnScroll?: boolean;
   unifiedType?: boolean;
 }
@@ -95,7 +87,6 @@ const {
   iconExt = "svg",
   iconContainer = "circle",
   circleBg = "white",
-  shimmerConnector = false,
   activateOnScroll = false,
   unifiedType = false,
 } = Astro.props as Props;
@@ -117,14 +108,14 @@ const rightInsetPx = ((n - 1) / n) * 40 + 56;
        white circles occlude it, so it reads as "connecting" each icon
        without needing pixel-exact math against the column widths. -->
   <div
-    class:list={[connectorVisibility, "absolute border-t-2 border-dotted z-0", activateOnScroll ? "border-[rgba(154,150,142,0.45)]" : "border-[rgba(255,61,107,0.4)]"]}
+    class:list={[connectorVisibility, "absolute border-t-2 border-dotted z-0", activateOnScroll ? "border-[rgba(154,150,142,0.45)]" : "border-[var(--color-accent-line)]"]}
     style={`top: 56px; left: 56px; right: calc(${rightInsetPct}% - ${rightInsetPx}px);`}
     aria-hidden="true"
   ></div>
   {activateOnScroll && (
     <>
       <div
-        class:list={[connectorVisibility, "cadence-trail absolute border-t-2 border-dotted border-[rgba(255,61,107,0.4)] z-0"]}
+        class:list={[connectorVisibility, "cadence-trail absolute border-t-2 border-dotted border-[var(--color-accent-line)] z-0"]}
         style={`top: 56px; left: 56px; right: calc(${rightInsetPct}% - ${rightInsetPx}px);`}
         aria-hidden="true"
       ></div>
@@ -136,15 +127,6 @@ const rightInsetPx = ((n - 1) / n) * 40 + 56;
         <div class="cadence-pulse"></div>
       </div>
     </>
-  )}
-  {shimmerConnector && !activateOnScroll && (
-    <div
-      class:list={[connectorVisibility, "absolute z-0 overflow-hidden"]}
-      style={`top: 55px; left: 56px; right: calc(${rightInsetPct}% - ${rightInsetPx}px); height: 2px;`}
-      aria-hidden="true"
-    >
-      <div class="cadence-shimmer"></div>
-    </div>
   )}
   {Array.from({ length: n - 1 }, (_, i) => i).map((i) => {
     const coeff = (i + 0.5) / n;
@@ -218,28 +200,6 @@ const rightInsetPx = ((n - 1) / n) * 40 + 56;
 </script>
 
 <style>
-  /* Slow sliding highlight along the connector line — same visual idea as
-     HowWeWork.astro's homepage-teaser shimmer (soft accent gradient block
-     translating across), just one continuous sweep along this component's
-     single full-row line rather than per-gap segments, since "slow" was
-     the explicit ask here (vs. the homepage teaser's quicker per-segment
-     relay). Only rendered when shimmerConnector is true. */
-  .cadence-shimmer {
-    position: absolute;
-    inset: 0;
-    width: 22%;
-    background: linear-gradient(to right, transparent, var(--color-accent), transparent);
-    opacity: 0;
-    transform: translateX(-120%);
-    animation: cadence-shimmer-sweep 4s ease-in-out infinite;
-  }
-  @keyframes cadence-shimmer-sweep {
-    0% { transform: translateX(-120%); opacity: 0; }
-    8% { opacity: 1; }
-    50% { opacity: 1; transform: translateX(350%); }
-    58%, 100% { opacity: 0; transform: translateX(350%); }
-  }
-
   /* ---- activateOnScroll sequence (see header comment) ---- */
   .cadence-seq { --cs-start: 0.5s; --cs-gap: 1.3s; }
 

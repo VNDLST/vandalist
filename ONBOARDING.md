@@ -1120,6 +1120,28 @@ about it, don't just pick one.
 
 ## Known open items
 
+- **2026-10-27 — STRUCTURE / TEMPLATING WORK IN PROGRESS (Andrew approved the full plan, in order).**
+  Audit of how-we-work.astro found: hero recipe copy-pasted in 8 files; 8 different section-spacing
+  recipes site-wide; icon-in-circle rebuilt by hand (6 size variants on that page, 8 files); inline
+  SVG icon strings duplicated; decision table + side panels built twice; one-off literals; dead code;
+  orphan assets; comment bloat. Andrew's rule for heroes: LOCK heading style, intro text style, height
+  (706px at 1440) and structure; leave column split / grid / art side free per page (presets
+  text-lead 60/40, balanced 50/50, art-lead ~33/67 as shortcuts, plus a custom escape hatch; keep a
+  minimum readable text width ~384px).
+  METHOD: every refactor is verified by a before/after LAYOUT SNAPSHOT of 12 pages (home, about,
+  contact, how-we-work, previous-work, one case study, 6 service pages) at 1440/1024/390 using a
+  static `astro preview` of dist on :4322 and element rects stored in localStorage (animated areas
+  excluded: svg, rotating CTA word, logo grid, campfire, .qpile-stage question pile).
+  STEP 1 DONE (verified IDENTICAL on all pages, deployed): removed the unused CadenceSteps
+  `shimmerConnector` option (prop, markup, CSS); deleted orphaned public/how-we-work-hero-bg.svg and
+  public/working-style-icons/*.svg (recoverable from git); added tokens --color-accent-line (0.4),
+  --color-accent-line-soft (0.3), --shadow-soft and used them in how-we-work.astro, CadenceSteps,
+  BrowserMockCard (other pink strengths 0.15/0.2/0.25/0.35 appear once each, left as literals);
+  trimmed the history-style comments in how-we-work.astro. Still not done and out of scope here:
+  three demo pages (campfire-demo, icon-texture-demo, question-pile-demo) are live public routes.
+  STEP 2 NEXT: shared hero, section wrapper and icon-badge components (pure refactor, must stay
+  IDENTICAL). STEP 3: roll the 8 text styles out to the other pages (visible change).
+
 - **2026-10-26 — TYPE STYLE SET trialled on How We Work ONLY; awaiting Andrew's verdict on how it
   looks live before a sitewide rollout.** An audit of the page (computed styles, 1440px) found 20
   text formats (15 visibly different), many differing only in line-height or colour. Replaced by

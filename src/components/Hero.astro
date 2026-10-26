@@ -11,34 +11,17 @@
 // min-h so the hero stays at the site-wide 706px, campfire offsets copied
 // verbatim) so the campfire and text sit exactly where they did there. This
 // page keeps its own copy and its "How can we help?" CTA.
-import PageHeading from "./PageHeading.astro";
+import PageHero from "./PageHero.astro";
+import OrbButton from "./OrbButton.astro";
 import CampfireToggle from "./CampfireToggle.astro";
 ---
-<section class="max-w-7xl mx-auto px-6 md:px-10 py-20 md:py-28 lg:py-12 lg:min-h-[578px] lg:flex lg:items-center">
-  <div class="grid md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-10 items-center min-h-[339px] lg:min-h-[322px] lg:w-full">
-    <div>
-      <PageHeading class="mb-6">
-        Marketing strategy, execution, and support
-      </PageHeading>
-      <p class="text-lg text-[var(--color-slate)] max-w-md mb-10">
-        We partner with ambitious organisations to plan with clarity, execute with precision, and grow with confidence.
-      </p>
-      <a
-        href={`${import.meta.env.BASE_URL}/contact`}
-        class="inline-flex items-center gap-4 rounded-2xl bg-[var(--color-paper)] border border-[var(--color-line)] px-8 py-5 text-lg text-[var(--color-ink)] hover:border-[var(--color-slate)] transition-colors"
-      >
-        <span
-          class="w-9 h-9 rounded-full shrink-0 ring-2 ring-white orb-pulse"
-          style="background: var(--gradient-orb); box-shadow: var(--shadow-orb);"
-        ></span>
-        How can we help?
-      </a>
+<PageHero from="md" artClass="hidden md:block relative self-stretch" introClass="max-w-md">
+  <Fragment slot="title">Marketing strategy, execution, and support</Fragment>
+  <Fragment slot="intro">We partner with ambitious organisations to plan with clarity, execute with precision, and grow with confidence.</Fragment>
+  <OrbButton href={`${import.meta.env.BASE_URL}/contact`}>How can we help?</OrbButton>
+  <Fragment slot="art">
+    <div class="absolute left-1/2 md:top-[66%] lg:top-[68%] -translate-y-[110px] md:translate-x-[calc(-50%-70px)] lg:translate-x-[calc(-50%-130px)]">
+      <CampfireToggle />
     </div>
-
-    <div class="hidden md:block relative self-stretch">
-      <div class="absolute left-1/2 md:top-[66%] lg:top-[68%] -translate-y-[110px] md:translate-x-[calc(-50%-70px)] lg:translate-x-[calc(-50%-130px)]">
-        <CampfireToggle />
-      </div>
-    </div>
-  </div>
-</section>
+  </Fragment>
+</PageHero>

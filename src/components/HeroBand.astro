@@ -1,0 +1,20 @@
+---
+// The tinted band that sits behind the site header and a page hero (the
+// "standard hero area" colour, --color-paper-dim). Pass `currentPage` to get
+// the band + <Header />; omit it to render just the slot, for pages whose
+// band is custom (the homepage's full-bleed camp-site image, Marketing
+// Support's overflow-clipped still life). See PageHero.astro.
+import Header from "./Header.astro";
+interface Props {
+  currentPage?: string;
+}
+const { currentPage } = Astro.props as Props;
+---
+{currentPage ? (
+  <div class="bg-[var(--color-paper-dim)]">
+    <Header currentPage={currentPage} />
+    <slot />
+  </div>
+) : (
+  <slot />
+)}

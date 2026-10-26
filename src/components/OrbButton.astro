@@ -1,0 +1,34 @@
+---
+// The pill button with the pulsing pink orb ("Book a strategy call", "How can
+// we help?"). One definition for every page. `size="lg"` is the hero button;
+// `size="md"` is the smaller one used in the closing CTA band. Omit `href` and
+// it renders a <button> instead (the contact form submit).
+interface Props {
+  href?: string;
+  type?: "button" | "submit";
+  size?: "lg" | "md";
+  class?: string;
+}
+const { href, type = "button", size = "lg", class: className } = Astro.props as Props;
+const Tag = href ? "a" : "button";
+// Written as literal strings so Tailwind's static scanner finds every class.
+const sizes = {
+  lg: { link: "px-8 py-5 text-lg", orb: "w-9 h-9" },
+  md: { link: "px-7 py-4 text-base", orb: "w-8 h-8" },
+}[size];
+---
+<Tag
+  href={href}
+  type={href ? undefined : type}
+  class:list={[
+    "inline-flex items-center gap-4 rounded-2xl bg-[var(--color-paper)] border border-[var(--color-line)] text-[var(--color-ink)] hover:border-[var(--color-slate)] transition-colors",
+    sizes.link,
+    className,
+  ]}
+>
+  <span
+    class:list={[sizes.orb, "rounded-full shrink-0 ring-2 ring-white orb-pulse"]}
+    style="background: var(--gradient-orb); box-shadow: var(--shadow-orb);"
+  ></span>
+  <slot />
+</Tag>

@@ -55,11 +55,11 @@
 //   and row 2 is a straight vertical drop, not the mockup's diagonal
 //   jump between columns — flagged, not silently done.
 import Layout from "../../layouts/Layout.astro";
-import Header from "../../components/Header.astro";
+import PageHero from "../../components/PageHero.astro";
+import OrbButton from "../../components/OrbButton.astro";
 import Footer from "../../components/Footer.astro";
 import CtaBand from "../../components/CtaBand.astro";
 import SectionHeading from "../../components/SectionHeading.astro";
-import PageHeading from "../../components/PageHeading.astro";
 import Eyebrow from "../../components/Eyebrow.astro";
 import CadenceSteps from "../../components/CadenceSteps.astro";
 import SystemDiagram from "../../components/SystemDiagram.astro";
@@ -166,34 +166,11 @@ const audiences = [
 ];
 ---
 <Layout title="AI Enablement" description="AI enablement for marketing teams.">
-  <div class="bg-[var(--color-paper-dim)]">
-    <Header currentPage="/services/ai-enablement-for-marketing-teams" />
-
-    <!-- Section 0: Hero -->
-    <section class="max-w-7xl mx-auto px-6 md:px-10 py-20 md:py-28 lg:py-12 lg:min-h-[578px] lg:flex lg:items-center">
-      <div class="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-10 items-center min-h-[339px] lg:min-h-[322px] lg:w-full">
-        <div>
-          <PageHeading as="h1" class="mb-6">AI enablement for marketing teams</PageHeading>
-          <p class="text-lg text-[var(--color-slate)] mb-10">
-            We help marketing teams identify where AI creates real value, design practical workflows, and adopt tools without unnecessary complexity.
-          </p>
-          <a
-            href={`${base}/contact`}
-            class="inline-flex items-center gap-4 rounded-2xl bg-[var(--color-paper)] border border-[var(--color-line)] px-8 py-5 text-lg text-[var(--color-ink)] hover:border-[var(--color-slate)] transition-colors"
-          >
-            <span
-              class="w-9 h-9 rounded-full shrink-0 ring-2 ring-white orb-pulse"
-              style="background: var(--gradient-orb); box-shadow: var(--shadow-orb);"
-            ></span>
-            Book a strategy call
-          </a>
-        </div>
-
-        <!-- Deliberately empty — see frontmatter note. -->
-        <div class="hidden lg:block" aria-hidden="true"></div>
-      </div>
-    </section>
-  </div>
+  <PageHero currentPage="/services/ai-enablement-for-marketing-teams">
+    <Fragment slot="title">AI enablement for marketing teams</Fragment>
+    <Fragment slot="intro">We help marketing teams identify where AI creates real value, design practical workflows, and adopt tools without unnecessary complexity.</Fragment>
+    <OrbButton href={`${base}/contact`}>Book a strategy call</OrbButton>
+  </PageHero>
 
   <div class="bg-[var(--color-paper)]">
     <!-- Section 1: Where AI actually helps -->

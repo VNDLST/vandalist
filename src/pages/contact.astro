@@ -30,6 +30,7 @@
 //   exact wording (single-line address, promise@vandalist.com.au,
 //   "Typically within one business day").
 import Layout from "../layouts/Layout.astro";
+import OrbButton from "../components/OrbButton.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import PageHeading from "../components/PageHeading.astro";
@@ -111,16 +112,7 @@ const fieldClass = "w-full rounded-lg border border-[var(--color-line)] bg-[var(
             </div>
           </div>
 
-          <button
-            type="submit"
-            class="inline-flex items-center gap-4 rounded-2xl bg-[var(--color-paper)] border border-[var(--color-line)] px-7 py-4 text-base text-[var(--color-ink)] hover:border-[var(--color-slate)] transition-colors mb-4"
-          >
-            <span
-              class="w-8 h-8 rounded-full shrink-0 ring-2 ring-white orb-pulse"
-              style="background: var(--gradient-orb); box-shadow: var(--shadow-orb);"
-            ></span>
-            Submit enquiry
-          </button>
+          <OrbButton type="submit" size="md" class="mb-4">Submit enquiry</OrbButton>
 
           <p class="text-xs text-[var(--color-slate-light)]">
             We respect your privacy. Your information will only be used to respond to your enquiry.

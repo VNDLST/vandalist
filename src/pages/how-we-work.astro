@@ -1,6 +1,5 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import CtaBand from "../components/CtaBand.astro";
 import SectionHeading from "../components/SectionHeading.astro";
@@ -8,7 +7,7 @@ import Heading from "../components/Heading.astro";
 import Eyebrow from "../components/Eyebrow.astro";
 import CadenceSteps from "../components/CadenceSteps.astro";
 import HeroCharacter from "../components/HeroCharacter.astro";
-import PageHeading from "../components/PageHeading.astro";
+import PageHero from "../components/PageHero.astro";
 
 const base = import.meta.env.BASE_URL;
 
@@ -132,23 +131,11 @@ const megaphoneIcon = '<path d="M3 10v4h3l6 4V6l-6 4H3z" stroke-linejoin="round"
 <Layout title="How We Work">
   <div class="bg-[var(--color-paper)]">
     <!-- Hero: standard layout. Tinted band behind Header + hero; heading and intro on the left, HeroCharacter on the right (text column fixed at 384px, the art takes the rest). The lg:min-h-[578px] centring keeps header + hero at 706px at 1440. -->
-    <div class="bg-[var(--color-paper-dim)]">
-      <Header currentPage="/how-we-work" />
-
-      <section class="max-w-7xl mx-auto px-6 md:px-10 py-20 md:py-28 lg:py-12 lg:min-h-[578px] lg:flex lg:items-center">
-        <div class="grid lg:grid-cols-[minmax(0,384px)_minmax(0,1fr)] gap-10 lg:gap-x-4 items-center min-h-[339px] lg:min-h-[322px] lg:w-full">
-          <div>
-            <PageHeading as="h1" class="mb-6 text-balance">A simple agency relationship</PageHeading>
-            <p class="t-intro">
-              We combine great humans &amp; systems to make sure we are easy to work with &amp; a genuine problem-solving solution.
-            </p>
-          </div>
-          <div class="flex justify-center items-center">
-            <HeroCharacter />
-          </div>
-        </div>
-      </section>
-    </div>
+    <PageHero currentPage="/how-we-work" split="art-lead" titleClass="text-balance" artClass="flex justify-center items-center">
+      <Fragment slot="title">A simple agency relationship</Fragment>
+      <Fragment slot="intro">We combine great humans &amp; systems to make sure we are easy to work with &amp; a genuine problem-solving solution.</Fragment>
+      <HeroCharacter slot="art" />
+    </PageHero>
 
     <!-- Section 1: conventional vs unorthodox + four principle cards. The <br> in the heading only applies at lg+. -->
     <section class="max-w-7xl mx-auto px-6 md:px-10 pt-16 md:pt-20 pb-20 md:pb-28">

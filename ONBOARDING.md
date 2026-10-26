@@ -1123,7 +1123,7 @@ about it, don't just pick one.
 - **2026-10-26 — TYPE STYLE SET trialled on How We Work ONLY; awaiting Andrew's verdict on how it
   looks live before a sitewide rollout.** An audit of the page (computed styles, 1440px) found 20
   text formats (15 visibly different), many differing only in line-height or colour. Replaced by
-  8 roles / 9 styles defined once in `global.css` (`@layer components`): t-display 36/48px 600
+  8 styles (originally 9; t-caption retired) defined once in `global.css` (`@layer components`): t-display 36/48px 600
   1.2 ink; t-heading 30/36/40px 600 1.2 ink (+ pink emphasis phrase); t-intro 18px 400 1.6 ink;
   t-title 18px 600 1.4 ink; t-body 16px 400 1.6 slate; t-small 14px 400 1.5 slate; t-small-strong
   14px 600 1.5 ink; t-eyebrow 14px 500 1.4 +0.025em deeper pink; t-caption 12px 400 1.4 slate.
@@ -1149,8 +1149,14 @@ about it, don't just pick one.
   (3) the decision table now uses ONE type treatment in every cell — header cells moved from
   t-small-strong/t-caption to t-title + t-small like the row labels and cells. t-caption and
   t-small-strong now appear only in the three "Together" mini-cards: candidates to merge into
-  t-small(-strong) if Andrew wants the set down to 7 styles. Note "Clear roles" is also a mini-card
-  title in the Together panel, near-duplicating the new section heading.
+  t-small(-strong) if Andrew wants the set down further. LATER SAME DAY: Andrew OK'd retiring the
+  caption — the three "Together" mini-card descriptions now use t-small and t-caption was DELETED
+  from global.css. CORRECTION to the line above: t-small-strong is NOT mini-card-only (it is also
+  the list-item title style in both side panels), so it stays; the set is now EIGHT styles
+  (display, heading, intro, title, body, small, small-strong, eyebrow). Re-audit: 8 style classes,
+  9 computed looks (the 9th is the pink emphasis colour on the first heading's phrase), hero 706px.
+  Note "Clear roles" is also a mini-card title in the Together panel, near-duplicating the new
+  section heading (Andrew has not decided whether to rename it).
 
 - **2026-10-21 — scroll-activated cadence row is LIVE on How We Work only. REMIND ANDREW
   when we review the service pages** (he asked; also saved as a Claude memory). Built as an

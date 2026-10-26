@@ -90,7 +90,7 @@
    Each style fixes size + weight + line-height + colour TOGETHER, so a style
    is a single decision and line-height/colour can't drift per instance.
    An audit of How We Work found 20 text formats (15 visibly different), many
-   differing only by line-height or colour; this is the 8-role / 9-style set
+   differing only by line-height or colour; this is the 8-style set (a 9th, t-caption, was retired the same day)
    that replaces them. If it looks right the plan is to roll it out sitewide.
 
    Role           size            weight  lh    colour
@@ -102,7 +102,6 @@
    t-small        14px            400     1.5   slate
    t-small-strong 14px            600     1.5   ink
    t-eyebrow      14px            500     1.4   accent-text (deeper pink), 0.025em tracking
-   t-caption      12px            400     1.4   slate
 
    Plain classes in the components layer: any Tailwind utility put on the same
    element (text-lg, leading-*, text-[colour]) would override them, so converted
@@ -120,7 +119,6 @@
   .t-small { font-size: 0.875rem; font-weight: 400; line-height: 1.5; color: var(--color-slate); }
   .t-small-strong { font-size: 0.875rem; font-weight: 600; line-height: 1.5; color: var(--color-ink); }
   .t-eyebrow { font-size: 0.875rem; font-weight: 500; line-height: 1.4; letter-spacing: 0.025em; color: var(--color-accent-text); }
-  .t-caption { font-size: 0.75rem; font-weight: 400; line-height: 1.4; color: var(--color-slate); }
 }
 
 /* CTA orb pulse — per Andrew's supplied reference (Florin Pop's "CSS

@@ -118,11 +118,11 @@ const audiences = [
 
   <div class="bg-[var(--color-paper)]">
     <!-- Section 1: Service cards -->
-    <Section top="tight" bottom="tight">
+    <Section top>
       <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {services.map((service) => (
           <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6">
-            <IconChip icon={service.icon} size={11} iconSize={22} shape="lg" class="mb-4" />
+            <IconChip icon={service.icon} size="md" shape="lg" class="mb-4" />
             <p class="t-title mb-1.5">{service.title}</p>
             <p class="t-small">{service.text}</p>
           </div>
@@ -132,7 +132,7 @@ const audiences = [
   </div>
 
   <!-- Section 2: Our approach — bleed-wider band -->
-  <Band bottom="tight">
+  <Band>
       <div class="max-w-7xl mx-auto grid lg:grid-cols-[minmax(0,34%)_minmax(0,66%)] gap-10 items-start">
         <div>
           <Eyebrow class="mb-3">Our approach</Eyebrow>
@@ -143,8 +143,8 @@ const audiences = [
           <ul class="space-y-3">
             {approachPoints.map((point) => (
               <li class="flex items-center gap-3">
-                <IconChip icon={point.icon} size={8} iconSize={16} shape="lg" tone="whiteCard" class="shrink-0" />
-                <span class="text-sm text-[var(--color-ink)]">{point.text}</span>
+                <IconChip icon={point.icon} shape="lg" tone="whiteCard" class="shrink-0" />
+                <span class="t-small text-[var(--color-ink)]">{point.text}</span>
               </li>
             ))}
           </ul>
@@ -153,7 +153,7 @@ const audiences = [
         <div class="space-y-4">
           {approachItems.map((item) => (
             <div class="rounded-xl border border-[var(--color-line)] bg-white p-5 flex items-start gap-4">
-              <IconChip icon={item.icon} size={11} iconSize={20} shape="lg" class="shrink-0" />
+              <IconChip icon={item.icon} size="md" shape="lg" class="shrink-0" />
               <div>
                 <p class="t-title mb-1">{item.title}</p>
                 <p class="t-small">{item.text}</p>
@@ -165,12 +165,12 @@ const audiences = [
     </Band>
 
   <!-- Section 3: Situations we often help with -->
-  <Section bottom="tight">
+  <Section>
     <Eyebrow class="mb-8">Situations we often help with</Eyebrow>
     <div class="grid sm:grid-cols-2 border-t border-l border-[var(--color-line)] rounded-[var(--radius-card)] overflow-hidden">
       {situations.map((item) => (
         <div class="p-6 md:p-8 border-b border-r border-[var(--color-line)] flex items-start gap-4">
-          <IconChip icon={item.icon} size={11} iconSize={20} shape="lg" class="shrink-0" />
+          <IconChip icon={item.icon} size="md" shape="lg" class="shrink-0" />
           <div>
             <p class="t-title mb-1">{item.title}</p>
             <p class="t-small">{item.text}</p>
@@ -181,7 +181,7 @@ const audiences = [
   </Section>
 
   <!-- Section 4: How this usually works -->
-  <Section bottom="tight">
+  <Section>
     <SectionHeading
       eyebrow="How this usually works"
       heading="A simple process for getting unstuck"
@@ -194,12 +194,12 @@ const audiences = [
   </Section>
 
   <!-- Section 5: Relevant experience + Who it's for -->
-  <Section bottom="roomy">
+  <Section>
     <Eyebrow class="mb-6">Relevant experience</Eyebrow>
     <div class="grid sm:grid-cols-3 gap-5 mb-14">
       {experience.map((item) => (
         <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6">
-          <IconChip icon={item.icon} size={11} iconSize={22} shape="lg" class="mb-4" />
+          <IconChip icon={item.icon} size="md" shape="lg" class="mb-4" />
           <p class="t-title mb-1.5">{item.title}</p>
           <p class="t-small">{item.text}</p>
         </div>
@@ -210,7 +210,7 @@ const audiences = [
     <div class="grid sm:grid-cols-3 gap-5">
       {audiences.map((item) => (
         <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6">
-          <IconChip icon={item.icon} size={11} iconSize={22} shape="lg" class="mb-4" />
+          <IconChip icon={item.icon} size="md" shape="lg" class="mb-4" />
           <p class="t-title mb-1.5">{item.title}</p>
           <p class="t-small">{item.text}</p>
         </div>

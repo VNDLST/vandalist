@@ -161,7 +161,7 @@ const audiences = [
 
   <div class="bg-[var(--color-paper)]">
     <!-- Section 1: Three pillars of a high-performing website -->
-    <Section top="tight" bottom="tight">
+    <Section top>
       <SectionHeading
         eyebrow="What makes a website actually useful"
         heading="Three pillars of a high-performing website"
@@ -178,7 +178,7 @@ const audiences = [
             ))}
           </svg>
           <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full bg-white [box-shadow:var(--shadow-panel)] flex items-center justify-center z-10">
-            <IconChip icon={hubIcon} size={14} iconSize={26} />
+            <IconChip icon={hubIcon} size="lg" />
           </div>
           {satellites.map((s) => (
             <div
@@ -196,7 +196,7 @@ const audiences = [
         <div class="divide-y divide-[var(--color-line)]">
           {pillars.map((pillar) => (
             <div class="flex items-start gap-4 py-4 first:pt-0 last:pb-0">
-              <IconChip icon={pillar.icon} size={11} iconSize={22} shape="lg" class="shrink-0" />
+              <IconChip icon={pillar.icon} size="md" shape="lg" class="shrink-0" />
               <div>
                 <p class="t-title mb-1">{pillar.title}</p>
                 <p class="t-small">{pillar.text}</p>
@@ -208,7 +208,7 @@ const audiences = [
     </Section>
 
     <!-- Section 2: Everything your website needs to work better -->
-    <Band bottom="tight">
+    <Band>
         <div class="max-w-7xl mx-auto">
           <SectionHeading
             eyebrow="Where we help"
@@ -219,7 +219,7 @@ const audiences = [
               {helpItems.map((item) => (
                 <div class="rounded-xl border border-[var(--color-line)] bg-white p-4 flex items-center gap-3 min-w-0">
                   <IconChip icon={item.icon} shape="lg" class="shrink-0" />
-                  <span class="text-sm font-medium text-[var(--color-ink)] leading-snug min-w-0">{item.text}</span>
+                  <span class="t-small-strong min-w-0">{item.text}</span>
                 </div>
               ))}
             </div>
@@ -231,7 +231,7 @@ const audiences = [
       </Band>
 
     <!-- Section 3: How we work -->
-    <Section bottom="tight">
+    <Section>
       <SectionHeading
         eyebrow="How we work"
         heading="A clear process from insight to impact"
@@ -244,7 +244,7 @@ const audiences = [
     </Section>
 
     <!-- Section 4: Better structure. Clearer message. Stronger results. -->
-    <Section bottom="tight">
+    <Section>
       <SectionHeading
         eyebrow="From site that exists to site that performs"
         heading="Better structure. Clearer message. Stronger results."
@@ -283,7 +283,7 @@ const audiences = [
     </Section>
 
     <!-- Section 5: Best suited for -->
-    <Section bottom="roomy">
+    <Section>
       <SectionHeading
         eyebrow="When this is useful"
         heading="Best suited for"
@@ -291,7 +291,7 @@ const audiences = [
       <div class="grid sm:grid-cols-3 gap-5">
         {audiences.map((item) => (
           <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6">
-            <IconChip icon={item.icon} size={14} iconSize={26} stroke="1.5" class="mb-4" />
+            <IconChip icon={item.icon} size="lg" class="mb-4" />
             <p class="t-title mb-1.5">{item.title}</p>
             <p class="t-small">{item.text}</p>
           </div>

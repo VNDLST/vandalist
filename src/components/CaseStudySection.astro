@@ -17,10 +17,10 @@ const hasAside = Astro.slots.has("aside");
 <div class:list={["grid gap-8", hasAside && "lg:grid-cols-[1fr_280px] items-start"]}>
   <div>
     <div class="flex items-center gap-3 mb-4">
-      <IconChip icon={icon} caps={false} class="shrink-0" />
-      <h2 class="text-xl md:text-2xl font-semibold text-[var(--color-ink)]">{title}</h2>
+      <IconChip icon={icon} class="shrink-0" />
+      <h2 class="t-heading text-balance">{title}</h2>
     </div>
-    <div class="text-[var(--color-slate)] leading-relaxed space-y-4">
+    <div class="t-body space-y-4">
       <slot />
     </div>
   </div>

@@ -94,7 +94,7 @@ const partnerCells = [
     </div>
 
     <!-- Intro video -->
-    <Band bottom="roomy">
+    <Band>
         <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-8 items-center">
           <div>
             <Eyebrow class="mb-3">Intro video</Eyebrow>
@@ -115,7 +115,7 @@ const partnerCells = [
       </Band>
 
     <!-- Mission statement -->
-    <div class="max-w-2xl mx-auto px-6 md:px-10 pb-20 md:pb-28 text-center space-y-6">
+    <div class="max-w-2xl mx-auto px-6 md:px-10 pb-16 md:pb-20 text-center space-y-6">
       <p class="t-intro">
         We believe marketing should create momentum, not noise. That means strategic forethought, practical execution, and systems that make it easier to keep going.
       </p>
@@ -125,7 +125,7 @@ const partnerCells = [
     </div>
 
     <!-- Core values -->
-    <div class="max-w-7xl mx-auto px-6 md:px-10 pb-20 md:pb-28">
+    <div class="max-w-7xl mx-auto px-6 md:px-10 pb-16 md:pb-20">
       <Eyebrow class="text-center mb-10">Our values</Eyebrow>
 
       <div class="max-w-5xl mx-auto flex flex-wrap justify-center items-start gap-x-5 gap-y-7">
@@ -150,8 +150,8 @@ const partnerCells = [
                 style={`-webkit-mask-image:url(${base}/values-icons/${value.icon}.svg); mask-image:url(${base}/values-icons/${value.icon}.svg); -webkit-mask-size:contain; mask-size:contain; -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat; -webkit-mask-position:center; mask-position:center;`}
               ></span>
               <div class="grid min-w-0 flex-1" aria-hidden="true">
-                <p class="vc-label [grid-area:1/1] self-center capitalize text-[var(--color-ink)] leading-snug" style="font-size: 1.3rem; font-weight: 600;">{value.label}</p>
-                <p class="vc-meaning [grid-area:1/1] self-center text-white text-sm leading-snug font-medium">{value.meaning}</p>
+                <p class="t-body text-[var(--color-ink)] vc-label [grid-area:1/1] self-center capitalize" style="font-size: 1.3rem; font-weight: 600;">{value.label}</p>
+                <p class="t-small-strong text-white vc-meaning [grid-area:1/1] self-center">{value.meaning}</p>
               </div>
             </div>
           );
@@ -160,7 +160,7 @@ const partnerCells = [
     </div>
 
     <!-- How we work: system diagram -->
-    <Band bottom="roomy" padding="roomy">
+    <Band padding="roomy">
         <div class="max-w-7xl mx-auto grid md:grid-cols-[1fr_2fr] gap-10 items-center">
           <div>
             <Eyebrow class="mb-3">How we work</Eyebrow>
@@ -168,7 +168,7 @@ const partnerCells = [
             <p class="t-body mb-6">
               We bring the right capabilities around the table &mdash; and connect them in a way that creates clarity, alignment, and results.
             </p>
-            <a href={`${base}/how-we-work`} class="text-[var(--color-accent)] text-sm font-medium inline-flex items-center gap-1">
+            <a href={`${base}/how-we-work`} class="t-link inline-flex items-center gap-1">
               See how we work <span aria-hidden="true">&rarr;</span>
             </a>
           </div>
@@ -220,7 +220,7 @@ const partnerCells = [
                 <div class="relative rounded-full bg-white [box-shadow:var(--shadow-panel)] flex flex-col items-center justify-center text-center px-4"
                      style="width: 190px; height: 190px; border: 10px solid var(--color-paper);">
                   <img src={`${base}/system-icons/icon-hub.png`} alt="" class="w-16 h-16 rounded-lg" />
-                  <p class="text-xs font-semibold text-[var(--color-ink)] leading-snug">The right people working on the right projects</p>
+                  <p class="t-small-strong">The right people working on the right projects</p>
                 </div>
               </div>
 
@@ -250,7 +250,7 @@ const partnerCells = [
             <div class="rounded-full bg-white [box-shadow:var(--shadow-panel)] flex flex-col items-center justify-center text-center px-4"
                  style="width: 170px; height: 170px; border: 10px solid var(--color-paper);">
               <img src={`${base}/system-icons/icon-hub.png`} alt="" class="w-16 h-16 rounded-lg" />
-              <p class="text-xs font-semibold text-[var(--color-ink)] leading-snug">The right people working on the right projects</p>
+              <p class="t-small-strong">The right people working on the right projects</p>
             </div>
             <div class="grid grid-cols-2 gap-3 w-full">
               {[strategyCard, ...leftColumn, ...rightColumn, contentCard].map((card) => (
@@ -267,7 +267,7 @@ const partnerCells = [
       </Band>
 
     <!-- Partnerships & trust -->
-    <div class="max-w-7xl mx-auto px-6 md:px-10 pb-20 md:pb-28">
+    <div class="max-w-7xl mx-auto px-6 md:px-10 pb-16 md:pb-20">
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-12">
         <!-- Cell 1: heading + intro — dashed border (paper-dim, the site's
              standard "darker background" tone) + white fill, so this reads

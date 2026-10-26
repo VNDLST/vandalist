@@ -1120,6 +1120,40 @@ about it, don't just pick one.
 
 ## Known open items
 
+- **2026-10-27 (round 2) — Andrew's decisions applied; TYPE SET IS NOW LOCKED. Not yet seen by him live.**
+  His rule: a locked set of text formats; no text may operate outside it; if one module changes, update all.
+  1. TYPE LOCK: 9 styles in global.css (display, heading, intro, title, body, small, small-strong, eyebrow,
+     and NEW t-link 14px medium deep pink). A style may take only a COLOUR utility on top (ink, slate,
+     accent-text, good, bad, white, text-inherit). `npm run check:type` (scripts/check-type.mjs) fails if any
+     markup hand-writes a size / weight / line-height / tracking / font-size. RUN IT BEFORE EVERY DEPLOY.
+     Exempt, listed in the script: illustration/mock components (BrowserMockCard, QuestionPile,
+     TreadmillRunner, CampfireToggle, HeroCharacter, icons, demo pages), blocks wrapped in
+     <!-- type-exempt:start reason --> ... <!-- type-exempt:end --> (Google Ads and SEO dashboard mock-ups),
+     site chrome (Header, Footer, CtaBand: 20 lines, own typography, NOT converted: decision pending), and one
+     chosen exception (About value-card labels, 1.3rem). 75 more elements were converted this round
+     (links -> t-link; "medium" 14px ink -> t-small-strong; 12px chips -> 14px; uppercase tracked micro-labels
+     lost the uppercase and became t-small/t-eyebrow; case-study h1 -> t-display, h2 -> t-heading; form labels
+     -> t-small-strong). A rendered-text audit of 863 elements on the 12 pages found no unexplained outlier.
+  2. ICON CHIPS: three sizes only: sm 32px/16px icon, md 44px/20px, lg 56px/26px (1.5 stroke); old 7/8/9 -> sm,
+     10/11 -> md, 14 -> lg. Andrew delegated the choice and said he can review. Props are now size="sm|md|lg".
+  3. SPACING: ONE standard: every Section/Band has pb-16 md:pb-20 (4rem/5rem); `top` adds pt-16 md:pt-20 and is
+     used on the first section under a hero. The old roomy 5rem/7rem is gone everywhere (How We Work, About,
+     last service sections, raw wrappers on about/contact/previous-work). Homepage now has an even 5rem rhythm
+     (home bands HowWeWork/CoverageTable use pb instead of py-10; hero bg overhang adjusted to 2.5rem). If it
+     looks too tight: change the one value in Section.astro and Band.astro.
+  4. CADENCE SCROLL: now the ONLY behaviour of CadenceSteps (props activateOnScroll/circleBg/unifiedType are
+     gone) on How We Work and all six service pages. Three treatments: line icons in circles (inline or SVG
+     file) recolour grey -> pink -> soft pink; full-colour PNG art (Google Ads) goes greyed/faded -> full colour
+     with a slight lift. Verified by seeking the animation on every page. This closes the earlier reminder.
+  KNOWN EDGES / for Andrew: (a) the About partnerships intro heading is 5 lines in its narrow card at 40px;
+  homepage "Marketing capabilities without the headcount" is 4 lines; SEO step titles wrap at 7 across.
+  (b) At ~1000-1100px with a classic scrollbar the long Consulting hero wraps to 4 lines and the hero is 740px
+  not 706 (existing, not caused by this work). (c) Marketing Support (and maybe other service pages) still has
+  the heart + "Ongoing, collaborative, and built to adapt." tagline Andrew removed from How We Work as juvenile:
+  ask whether to remove them all. (d) Header/Footer/CtaBand typography is outside the lock.
+  PROCESS SLIP (Claude): I promised to run test builds with --outDir outside the SharePoint folder and then
+  built into dist/ a handful of times this round anyway. Do it properly next time.
+
 - **SharePoint "heap of deletions" notification (2026-10-27) — explained, no data lost.** Cause: the repo folder
   is inside the SharePoint-synced library, and every `npm run build` wipes and recreates the git-ignored
   `dist/` (~207 files); a day of verification work meant dozens of builds. The only deliberate deletions were

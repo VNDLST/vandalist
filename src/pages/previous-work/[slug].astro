@@ -47,19 +47,19 @@ const icons = {
     <Header currentPage="/previous-work" />
 
     <div class="max-w-7xl mx-auto px-6 md:px-10 pb-10 md:pb-14">
-      <a href={`${base}/previous-work`} class="inline-flex items-center gap-1.5 text-sm text-[var(--color-slate)] hover:text-[var(--color-ink)] transition-colors mb-8">
+      <a href={`${base}/previous-work`} class="t-small inline-flex items-center gap-1.5 hover:text-[var(--color-ink)] transition-colors mb-8">
         <span aria-hidden="true">&larr;</span> Back to all previous work
       </a>
 
       <div class="grid lg:grid-cols-[1fr_1.1fr] gap-10 items-start mb-8">
         <div>
           <p class="t-title mb-2">{data.title}</p>
-          <h1 class="text-3xl md:text-4xl font-semibold leading-[1.1] tracking-[-0.02em] text-[var(--color-ink)] mb-4">
+          <h1 class="t-display mb-4">
             {data.outcomeHeadline}
           </h1>
           {data.context && <p class="t-body mb-5 max-w-lg">{data.context}</p>}
           {data.confidential && (
-            <p class="text-sm text-[var(--color-slate-light)] italic mb-5">Client details withheld for confidentiality.</p>
+            <p class="t-small mb-5">Client details withheld for confidentiality.</p>
           )}
           <div class="flex flex-wrap gap-2">
             {data.services.map((s) => <ServiceTagPill label={serviceLabel(s)} />)}
@@ -79,7 +79,7 @@ const icons = {
       />
     </div>
 
-    <div class="max-w-7xl mx-auto px-6 md:px-10 pb-20 md:pb-28 space-y-14 md:space-y-16">
+    <div class="max-w-7xl mx-auto px-6 md:px-10 pb-16 md:pb-20 space-y-14 md:space-y-16">
       {data.situation && (
         <CaseStudySection title="The situation" icon={icons.situation}>
           <p>{data.situation}</p>
@@ -99,7 +99,7 @@ const icons = {
                 <div class="grid grid-cols-2 gap-4">
                   {data.results.map((r) => (
                     <div>
-                      <p class="text-xl font-semibold text-[var(--color-accent)]">{r.value}</p>
+                      <p class="t-title text-[var(--color-accent-text)]">{r.value}</p>
                       <p class="t-small">{r.label}</p>
                     </div>
                   ))}
@@ -146,7 +146,7 @@ const icons = {
           {data.quote && (
             <blockquote class="rounded-[var(--radius-card)] bg-[var(--color-accent-soft)] p-6 not-italic">
               <p class="text-[var(--color-ink)] mb-3">&ldquo;{data.quote.text}&rdquo;</p>
-              <cite class="text-sm text-[var(--color-slate)] not-italic">&mdash; {data.quote.attribution}</cite>
+              <cite class="t-small not-italic">&mdash; {data.quote.attribution}</cite>
             </blockquote>
           )}
         </CaseStudySection>
@@ -164,13 +164,13 @@ const icons = {
         </CaseStudySection>
       ) : null}
 
-      <div class="text-[var(--color-slate)] leading-relaxed [&>*+*]:mt-4">
+      <div class="t-body [&>*+*]:mt-4">
         <Content />
       </div>
 
       {related.length > 0 && (
         <div>
-          <h2 class="text-xl md:text-2xl font-semibold text-[var(--color-ink)] mb-6">Related work</h2>
+          <h2 class="t-heading text-balance mb-6">Related work</h2>
           <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {related.map((r) => <CaseStudyCard entry={r} />)}
           </div>

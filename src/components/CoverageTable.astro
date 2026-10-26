@@ -51,13 +51,13 @@ const icons: Record<string, string> = {
   value: `<circle cx="12" cy="12" r="8.5"/><path d="M12 6.8v10.4M9.3 9.5c0-1.2 1.2-2.1 2.7-2.1s2.7.8 2.7 2-1.1 1.9-2.7 2.1-2.7 1-2.7 2.1 1.2 2 2.7 2 2.7-.9 2.7-2" stroke-linecap="round" stroke-linejoin="round"/>`,
 };
 ---
-<Band as="section" padding="wide" class="py-10">
+<Band as="section" padding="wide">
     <div class="max-w-7xl mx-auto grid lg:grid-cols-[1fr_2fr] gap-8 items-start">
       <div>
         <Eyebrow class="mb-3">Coverage without hiring</Eyebrow>
         <Heading class="mb-4">Marketing capabilities without the headcount</Heading>
         <p class="t-body mb-4">Everything you need&mdash;without the overhead, hiring risk, or ramp time.</p>
-        <a href={`${import.meta.env.BASE_URL}/how-we-work`} class="text-[var(--color-accent)] text-sm font-medium inline-flex items-center gap-1">
+        <a href={`${import.meta.env.BASE_URL}/how-we-work`} class="t-link inline-flex items-center gap-1">
           Find out how we work <span aria-hidden="true">&rarr;</span>
         </a>
       </div>
@@ -70,7 +70,7 @@ const icons: Record<string, string> = {
               <p class="t-small-strong">What matters</p>
             </div>
             <div class="px-5 xl:px-6 py-2 border-l border-[rgba(228,225,220,0.7)] flex items-center bg-[var(--color-paper-dim)]">
-              <p class="font-semibold text-sm text-[var(--color-slate)]">Internal team</p>
+              <p class="t-small-strong text-[var(--color-slate)]">Internal team</p>
             </div>
             <div class="relative px-5 xl:px-6 py-2 border-l border-[rgba(228,225,220,0.7)] bg-[var(--color-accent-soft)] flex items-center">
               <span class="absolute top-0 left-0 right-0 h-[2px]" style="background:var(--color-accent)"></span>
@@ -93,7 +93,7 @@ const icons: Record<string, string> = {
                     <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" />
                   </svg>
                 </span>
-                <p class="font-medium text-sm text-[var(--color-ink)]">{row.vandalist}</p>
+                <p class="t-small-strong">{row.vandalist}</p>
               </div>
             </div>
           ))}
@@ -108,19 +108,19 @@ const icons: Record<string, string> = {
                 <p class="t-small-strong">{row.label}</p>
               </div>
               <div class="px-5 py-4 border-b border-[rgba(228,225,220,0.7)]">
-                <p class="text-xs font-medium text-[var(--color-slate)] uppercase tracking-wide mb-1">Internal team</p>
+                <p class="t-small-strong text-[var(--color-slate)] mb-1">Internal team</p>
                 <p class="t-small">{row.internal}</p>
               </div>
               <div class="relative px-5 py-4 bg-[var(--color-accent-soft)]">
                 <span class="absolute top-0 left-0 right-0 h-[2px]" style="background:var(--color-accent)"></span>
-                <p class="text-xs font-medium text-[var(--color-ink)] uppercase tracking-wide mb-1">Vandalist approach</p>
+                <p class="t-small-strong mb-1">Vandalist approach</p>
                 <div class="flex items-start gap-2">
                   <span class="w-4.5 h-4.5 rounded-full flex items-center justify-center shrink-0 mt-0.5" style="background:var(--color-accent)">
                     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
                       <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                   </span>
-                  <p class="font-medium text-sm text-[var(--color-ink)]">{row.vandalist}</p>
+                  <p class="t-small-strong">{row.vandalist}</p>
                 </div>
               </div>
             </div>

@@ -152,7 +152,7 @@ const topPages = [
   <div class="bg-[var(--color-paper)]">
     <!-- Section 1: The new search landscape (no special background — see
          frontmatter note re: the mockup's white strip). -->
-    <Section top="tight" bottom="tight">
+    <Section top>
       <SectionHeading
         eyebrow="The new search landscape"
         heading="Search visibility now happens in more places."
@@ -161,7 +161,7 @@ const topPages = [
       <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
         {landscapeItems.map((item) => (
           <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-5">
-            <IconChip icon={item.icon} size={11} iconSize={20} shape="lg" class="mb-3" />
+            <IconChip icon={item.icon} size="md" shape="lg" class="mb-3" />
             <p class="t-small-strong mb-1">{item.title}</p>
             <p class="t-small">{item.text}</p>
           </div>
@@ -172,7 +172,7 @@ const topPages = [
 
   <!-- Section 2: How SEO and content work together — darker bg-paper-dim
        band, per Andrew's explicit instruction. -->
-  <Band bottom="tight">
+  <Band>
       <div class="max-w-7xl mx-auto grid lg:grid-cols-[minmax(0,30%)_minmax(0,70%)] gap-10 items-center">
         <div>
           <Eyebrow class="mb-3">Our approach</Eyebrow>
@@ -192,7 +192,7 @@ const topPages = [
 
   <div class="bg-[var(--color-paper)]">
     <!-- Section 3: What we work on -->
-    <Section top="tight" bottom="tight">
+    <Section top>
       <SectionHeading
         eyebrow="What we work on"
         heading="A complete visibility system."
@@ -220,7 +220,7 @@ const topPages = [
     </Section>
 
     <!-- Section 4: Momentum builds over time -->
-    <Section bottom="tight">
+    <Section>
       <SectionHeading
         eyebrow="The journey"
         heading="Momentum builds over time."
@@ -234,7 +234,7 @@ const topPages = [
     </Section>
 
     <!-- Section 5: Where this works well -->
-    <Section bottom="tight">
+    <Section>
       <SectionHeading
         eyebrow="Best suited for"
         heading="Where this works well."
@@ -242,7 +242,7 @@ const topPages = [
       <div class="grid sm:grid-cols-3 gap-5">
         {audiences.map((item) => (
           <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6">
-            <IconChip icon={item.icon} size={14} iconSize={26} stroke="1.5" class="mb-4" />
+            <IconChip icon={item.icon} size="lg" class="mb-4" />
             <p class="t-title mb-1.5">{item.title}</p>
             <p class="t-small">{item.text}</p>
           </div>
@@ -253,7 +253,7 @@ const topPages = [
     <!-- Section 6: What better visibility looks like — same "static
          illustrative reporting card" pattern as google-social-ads.astro's
          "Results that matter" (confirmed non-functional there already). -->
-    <Section bottom="roomy">
+    <Section>
       <div class="grid lg:grid-cols-[1fr_1.6fr] gap-10 items-start">
         <div>
           <Eyebrow class="mb-3">The impact</Eyebrow>
@@ -281,6 +281,7 @@ const topPages = [
           <!-- Static illustrative card — numbers/labels are placeholder
                content matching the mockup, not a live/functional dashboard,
                same convention as google-social-ads.astro's equivalent. -->
+          <!-- type-exempt:start illustrative dashboard mock-up: its text only has to look like a UI -->
           <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-5 md:p-6 [box-shadow:var(--shadow-panel)]" aria-hidden="true">
             <div class="grid grid-cols-2 gap-3 mb-6">
               {stats.map((stat) => (
@@ -315,6 +316,7 @@ const topPages = [
               ))}
             </div>
           </div>
+          <!-- type-exempt:end -->
 
           <div class="rounded-[var(--radius-card)] bg-[var(--color-accent-soft)] p-5 flex flex-col gap-3">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -324,7 +326,7 @@ const topPages = [
             <p class="t-small">
               Visibility increasingly includes being featured in AI-generated answers and summaries&mdash;not just traditional blue links.
             </p>
-            <p class="text-xs font-semibold text-[var(--color-accent)]">We make sure you're seen in both.</p>
+            <p class="t-eyebrow">We make sure you're seen in both.</p>
           </div>
         </div>
       </div>

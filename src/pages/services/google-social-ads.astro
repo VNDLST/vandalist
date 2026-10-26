@@ -211,7 +211,7 @@ const stats = [
 
   <div class="bg-[var(--color-paper)]">
     <!-- Section 1: Service cards -->
-    <Section top="tight" bottom="tight">
+    <Section top>
       <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {services.map((service) => (
           <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6">
@@ -224,7 +224,7 @@ const stats = [
     </Section>
 
     <!-- Section 2: Our approach — bleed-wider band -->
-    <Band bottom="tight">
+    <Band>
         <div class="max-w-7xl mx-auto grid lg:grid-cols-[minmax(0,34%)_minmax(0,66%)] gap-10 items-start">
           <div>
             <Eyebrow class="mb-3">Our approach</Eyebrow>
@@ -235,8 +235,8 @@ const stats = [
             <ul class="space-y-3">
               {approachPoints.map((point) => (
                 <li class="flex items-center gap-3">
-                  <IconChip icon={point.icon} size={8} iconSize={16} shape="lg" tone="whiteCard" class="shrink-0" />
-                  <span class="text-sm text-[var(--color-ink)]">{point.text}</span>
+                  <IconChip icon={point.icon} shape="lg" tone="whiteCard" class="shrink-0" />
+                  <span class="t-small text-[var(--color-ink)]">{point.text}</span>
                 </li>
               ))}
             </ul>
@@ -249,14 +249,14 @@ const stats = [
               {approachPhases.map((phase) => (
                 <div class="grid sm:grid-cols-[minmax(0,170px)_minmax(0,1fr)] gap-4">
                   <div class="flex flex-col items-start gap-1.5">
-                    <IconChip icon={phase.icon} size={10} iconSize={18} class="shrink-0" />
+                    <IconChip icon={phase.icon} size="md" class="shrink-0" />
                     <p class="t-small"><span class="t-title">{phase.phase}:</span> {phase.text}</p>
                   </div>
                   <div class="grid sm:grid-cols-[repeat(3,minmax(0,1fr))] gap-3">
                     {phase.items.map((item) => (
                       <div class="rounded-xl border border-[var(--color-line)] bg-white p-2.5 flex items-center gap-2 min-w-0">
-                        <IconChip icon={item.icon} size={7} iconSize={13} shape="lg" class="shrink-0" />
-                        <span class="text-xs font-medium text-[var(--color-ink)] leading-snug min-w-0">{item.text}</span>
+                        <IconChip icon={item.icon} shape="lg" class="shrink-0" />
+                        <span class="t-small-strong min-w-0">{item.text}</span>
                       </div>
                     ))}
                   </div>
@@ -268,7 +268,7 @@ const stats = [
       </Band>
 
     <!-- Section 3: How this typically works -->
-    <Section bottom="tight">
+    <Section>
       <SectionHeading
         eyebrow="How this typically works"
         heading="A simple rhythm for running paid search well"
@@ -285,7 +285,7 @@ const stats = [
     </Section>
 
     <!-- Section 4: Who it's for -->
-    <Section bottom="tight">
+    <Section>
       <SectionHeading
         eyebrow="Who it's for"
         heading="Built for businesses that want more qualified enquiries and sales"
@@ -302,7 +302,7 @@ const stats = [
     </Section>
 
     <!-- Section 5: Results that matter -->
-    <Section bottom="roomy">
+    <Section>
       <div class="grid lg:grid-cols-[1fr_1.3fr] gap-10 items-center">
         <div>
           <Eyebrow class="mb-3">Results that matter</Eyebrow>
@@ -334,6 +334,7 @@ const stats = [
         <!-- Static illustrative card — numbers/labels are placeholder
              content matching the mockup, not a live/functional dashboard.
              Dropdowns are styled chrome only, not interactive. -->
+        <!-- type-exempt:start illustrative dashboard mock-up: its text only has to look like a UI -->
         <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-5 md:p-6 [box-shadow:var(--shadow-panel)]" aria-hidden="true">
           <div class="flex items-center gap-3 mb-5">
             <span class="t-small inline-flex items-center gap-1.5 rounded-[var(--radius-pill)] border border-[var(--color-line)] px-3 py-1.5">
@@ -370,6 +371,7 @@ const stats = [
             <span>May 6</span><span>May 13</span><span>May 20</span><span>May 27</span><span>Jun 3</span>
           </div>
         </div>
+        <!-- type-exempt:end -->
       </div>
     </Section>
   </div>

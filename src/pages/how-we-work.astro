@@ -141,7 +141,7 @@ const megaphoneIcon = '<path d="M3 10v4h3l6 4V6l-6 4H3z" stroke-linejoin="round"
     </PageHero>
 
     <!-- Section 1: conventional vs unorthodox + four principle cards. The <br> in the heading only applies at lg+. -->
-    <Section top="tight" bottom="roomy">
+    <Section top>
       <Eyebrow class="mb-3">How we work</Eyebrow>
       <Heading class="mb-4">
         Sometimes we&rsquo;re boringly conventional.<br class="hidden lg:block" />
@@ -163,7 +163,7 @@ const megaphoneIcon = '<path d="M3 10v4h3l6 4V6l-6 4H3z" stroke-linejoin="round"
     </Section>
 
     <!-- Section 2: How engagements are structured -->
-    <Section bottom="roomy">
+    <Section>
       <SectionHeading
        
         eyebrow="How engagements are structured"
@@ -176,14 +176,12 @@ const megaphoneIcon = '<path d="M3 10v4h3l6 4V6l-6 4H3z" stroke-linejoin="round"
         gridClass="sm:grid-cols-2 lg:grid-cols-5"
         iconMode="image"
         iconBase={`${base}/how-we-work-icons`}
-        circleBg="dim"
-        activateOnScroll
       />
 
     </Section>
 
     <!-- Section 3: How we fit in -->
-    <Band bottom="roomy">
+    <Band>
         <div class="max-w-7xl mx-auto">
           <SectionHeading
            
@@ -229,7 +227,7 @@ const megaphoneIcon = '<path d="M3 10v4h3l6 4V6l-6 4H3z" stroke-linejoin="round"
               <div class="space-y-3">
                 {togetherItems.map((item) => (
                   <div class="flex items-center gap-3 rounded-xl bg-white p-3 text-left [box-shadow:var(--shadow-card)]">
-                    <IconChip icon={item.icon} iconSize={16} class="shrink-0" />
+                    <IconChip icon={item.icon} class="shrink-0" />
                     <div class="min-w-0">
                       <p class="t-small-strong">{item.title}</p>
                       <p class="t-small">{item.text}</p>
@@ -270,7 +268,7 @@ const megaphoneIcon = '<path d="M3 10v4h3l6 4V6l-6 4H3z" stroke-linejoin="round"
       </Band>
 
     <!-- Section 4: Decision-making & accountability -->
-    <Section bottom="roomy">
+    <Section>
       <div class="grid lg:grid-cols-[minmax(0,28%)_minmax(0,72%)] gap-x-10 gap-y-10">
         <div>
           <Eyebrow class="mb-3">Decision-making & accountability</Eyebrow>
@@ -307,12 +305,12 @@ const megaphoneIcon = '<path d="M3 10v4h3l6 4V6l-6 4H3z" stroke-linejoin="round"
                   <p class="t-small">{row.rowSub}</p>
                 </div>
                 <div class="rounded-xl bg-white border border-[var(--color-line)] p-4 [box-shadow:var(--shadow-soft)]">
-                  <IconChip icon={row.left.icon} size={11} iconSize={19} class="mb-2" />
+                  <IconChip icon={row.left.icon} size="md" class="mb-2" />
                   <p class="t-title mb-1">{row.left.title}</p>
                   <p class="t-small">{row.left.text}</p>
                 </div>
                 <div class="rounded-xl bg-white border border-[var(--color-line)] p-4 [box-shadow:var(--shadow-soft)]">
-                  <IconChip icon={row.right.icon} size={11} iconSize={19} class="mb-2" />
+                  <IconChip icon={row.right.icon} size="md" class="mb-2" />
                   <p class="t-title mb-1">{row.right.title}</p>
                   <p class="t-small">{row.right.text}</p>
                 </div>
@@ -347,7 +345,7 @@ const megaphoneIcon = '<path d="M3 10v4h3l6 4V6l-6 4H3z" stroke-linejoin="round"
                 <div class="space-y-3">
                   {[row.left, row.right].map((cell) => (
                     <div class="rounded-xl border border-[var(--color-line)] p-4 flex items-start gap-3">
-                      <IconChip icon={cell.icon} size={10} class="shrink-0" />
+                      <IconChip icon={cell.icon} size="md" class="shrink-0" />
                       <div class="min-w-0">
                         <p class="t-title mb-0.5">{cell.title}</p>
                         <p class="t-small">{cell.text}</p>
@@ -360,7 +358,7 @@ const megaphoneIcon = '<path d="M3 10v4h3l6 4V6l-6 4H3z" stroke-linejoin="round"
           </div>
 
           <div class="mt-5 rounded-xl bg-[var(--color-accent-soft)] px-5 py-4 flex flex-wrap lg:flex-nowrap items-center gap-4">
-            <IconChip icon={megaphoneIcon} size={11} iconSize={19} tone="white" class="shrink-0" />
+            <IconChip icon={megaphoneIcon} size="md" tone="white" class="shrink-0" />
             <span class="t-title shrink-0">Transparent by default.</span>
             <span class="hidden sm:block w-px self-stretch bg-[var(--color-accent-line-soft)]"></span>
             <p class="t-small">We communicate proactively, flag risks early, and keep everything visible.</p>

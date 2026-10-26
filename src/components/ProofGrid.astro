@@ -13,7 +13,7 @@ const items: { kind: Parameters<typeof ProofCardImage>[0]["kind"]; name: string;
   { kind: "dashboard", name: "Motion Systems", text: "Implemented a reporting system that improved marketing ROI visibility by 60%." },
 ];
 ---
-<Section class="pt-16 md:pt-24 pb-16 md:pb-24">
+<Section>
   <SectionHeading
     eyebrow="Past and present projects"
     heading="Real-world work with different kinds of businesses"
@@ -27,7 +27,7 @@ const items: { kind: Parameters<typeof ProofCardImage>[0]["kind"]; name: string;
         <div class="p-5">
           <p class="t-small-strong mb-1">{item.name}</p>
           <p class="t-small mb-3">{item.text}</p>
-          <a href="#" class="text-[var(--color-accent)] text-sm font-medium inline-flex items-center gap-1">
+          <a href="#" class="t-link inline-flex items-center gap-1">
             View case study <span aria-hidden="true">→</span>
           </a>
         </div>

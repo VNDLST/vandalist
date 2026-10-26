@@ -177,7 +177,7 @@ const audiences = [
 
   <div class="bg-[var(--color-paper)]">
     <!-- Section 1: Where AI actually helps -->
-    <Section top="tight" bottom="tight">
+    <Section top>
       <div class="grid lg:grid-cols-[minmax(0,34%)_minmax(0,66%)] gap-10 items-start">
         <div>
           <Eyebrow class="mb-3">Where AI actually helps</Eyebrow>
@@ -196,7 +196,7 @@ const audiences = [
     </Section>
 
     <!-- Section 2: A practical enablement system your team can use every day -->
-    <Band bottom="tight">
+    <Band>
         <div class="max-w-7xl mx-auto grid lg:grid-cols-[minmax(0,34%)_minmax(0,66%)] gap-10 items-start">
           <div>
             <Eyebrow class="mb-3">What we help you put in place</Eyebrow>
@@ -209,7 +209,7 @@ const audiences = [
             {systemItems.map((item) => (
               <div>
                 <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="mb-3" set:html={item.icon} />
-                <p class="text-xs font-bold text-[var(--color-accent)] mb-0.5">{item.num}</p>
+                <p class="t-eyebrow mb-0.5">{item.num}</p>
                 <p class="t-title mb-1">{item.title}</p>
                 <p class="t-small">{item.text}</p>
               </div>
@@ -219,7 +219,7 @@ const audiences = [
       </Band>
 
     <!-- Section 3: How enablement typically works -->
-    <Section bottom="tight">
+    <Section>
       <SectionHeading
         eyebrow="How enablement typically works"
         heading="A clear path from potential to performance"
@@ -232,7 +232,7 @@ const audiences = [
     </Section>
 
     <!-- Section 4: From manual and messy to clear and assisted -->
-    <Section bottom="tight">
+    <Section>
       <SectionHeading
         eyebrow="From manual and messy to clear and assisted"
         heading="A simpler workflow that gets better results"
@@ -241,7 +241,7 @@ const audiences = [
         <!-- Before: connected flow of small cards, dashed arrows between
              them, red pain-point marks on the two worst offenders. -->
         <div class="min-w-0 rounded-[var(--radius-card)] border border-[rgba(138,90,82,0.2)] bg-[var(--color-bad-soft)] p-6 md:p-7">
-          <p class="text-sm font-semibold text-[var(--color-bad)] mb-5">Before: manual and disconnected</p>
+          <p class="t-small-strong text-[var(--color-bad)] mb-5">Before: manual and disconnected</p>
 
           <div class="flex items-stretch gap-1.5">
             {beforeSteps.slice(0, 3).map((step, i) => (
@@ -252,7 +252,7 @@ const audiences = [
                       <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 5l14 14M19 5L5 19" stroke-linecap="round" /></svg>
                     </span>
                   )}
-                  <p class="text-sm font-medium text-[var(--color-ink)] leading-snug">{step.title}</p>
+                  <p class="t-small-strong">{step.title}</p>
                   <p class="t-small mt-0.5">{step.text}</p>
                 </div>
                 {i < 2 && (
@@ -285,7 +285,7 @@ const audiences = [
                       <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 5l14 14M19 5L5 19" stroke-linecap="round" /></svg>
                     </span>
                   )}
-                  <p class="text-sm font-medium text-[var(--color-ink)] leading-snug">{step.title}</p>
+                  <p class="t-small-strong">{step.title}</p>
                   <p class="t-small mt-0.5">{step.text}</p>
                 </div>
                 {i < 2 && (
@@ -302,7 +302,7 @@ const audiences = [
 
           <div class="flex flex-wrap gap-2">
             {beforeTags.map((tag) => (
-              <span class="text-xs font-medium text-[var(--color-bad)] bg-white/60 rounded-full px-3 py-1">{tag}</span>
+              <span class="t-small-strong text-[var(--color-bad)] bg-white/60 rounded-full px-3 py-1">{tag}</span>
             ))}
           </div>
         </div>
@@ -310,22 +310,22 @@ const audiences = [
         <!-- After: clean grid of small cards, no connectors -- matches
              the mockup, which drops the flow-diagram treatment here. -->
         <div class="min-w-0 rounded-[var(--radius-card)] border border-[rgba(47,143,78,0.2)] bg-[var(--color-good-soft)] p-6 md:p-7">
-          <p class="text-sm font-semibold text-[var(--color-good)] mb-5 flex items-center gap-2">
+          <p class="t-small-strong text-[var(--color-good)] mb-5 flex items-center gap-2">
             <span class="w-1.5 h-1.5 rounded-full bg-[var(--color-good)] shrink-0"></span>
             After: AI-assisted and streamlined
           </p>
           <div class="grid grid-cols-3 gap-2 mb-5">
             {afterSteps.map((step) => (
               <div class="rounded-lg border border-[rgba(47,143,78,0.25)] bg-white/70 p-2.5 flex flex-col items-start gap-1.5">
-                <IconChip icon={step.icon} size={7} iconSize={13} shape="lg" tone="whiteGood" class="shrink-0" />
-                <span class="text-xs font-medium text-[var(--color-ink)] leading-snug">{step.title}</span>
-                <span class="text-[11px] text-[var(--color-slate)] leading-snug">{step.text}</span>
+                <IconChip icon={step.icon} shape="lg" tone="whiteGood" class="shrink-0" />
+                <span class="t-small-strong">{step.title}</span>
+                <span class="t-small">{step.text}</span>
               </div>
             ))}
           </div>
           <div class="flex flex-wrap gap-2">
             {afterTags.map((tag) => (
-              <span class="text-xs font-medium text-[var(--color-good)] bg-white/60 rounded-full px-3 py-1">{tag}</span>
+              <span class="t-small-strong text-[var(--color-good)] bg-white/60 rounded-full px-3 py-1">{tag}</span>
             ))}
           </div>
         </div>
@@ -344,7 +344,7 @@ const audiences = [
     </Section>
 
     <!-- Section 5: Who this helps most -->
-    <Section bottom="roomy">
+    <Section>
       <SectionHeading
         eyebrow="Who this helps most"
         heading="Built for marketing teams under pressure to do more"
@@ -352,7 +352,7 @@ const audiences = [
       <div class="grid sm:grid-cols-3 gap-5">
         {audiences.map((item) => (
           <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6">
-            <IconChip icon={item.icon} size={14} iconSize={26} stroke="1.5" class="mb-4" />
+            <IconChip icon={item.icon} size="lg" class="mb-4" />
             <p class="t-title mb-1.5">{item.title}</p>
             <p class="t-small">{item.text}</p>
           </div>

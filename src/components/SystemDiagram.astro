@@ -84,7 +84,7 @@ const allCards = [topCard, ...leftColumn, ...rightColumn, bottomCard].filter((c)
           {iconMode === "image" ? (
             <img src={`${iconBase}/${card.icon}.png`} alt="" class="w-10 h-10 shrink-0 rounded-lg" />
           ) : (
-            <IconChip icon={card.icon} size={10} iconSize={19} shape="lg" class="shrink-0" />
+            <IconChip icon={card.icon} size="md" shape="lg" class="shrink-0" />
           )}
           <span class="min-w-0 flex-1">
             {card.title ? (
@@ -106,7 +106,7 @@ const allCards = [topCard, ...leftColumn, ...rightColumn, bottomCard].filter((c)
           {iconMode === "image" ? (
             <img src={`${iconBase}/${topCard.icon}.png`} alt="" class="w-10 h-10 shrink-0 rounded-lg" />
           ) : (
-            <IconChip icon={topCard.icon} size={10} iconSize={19} shape="lg" class="shrink-0" />
+            <IconChip icon={topCard.icon} size="md" shape="lg" class="shrink-0" />
           )}
           <span class="min-w-0 flex-1">
             {topCard.title ? (
@@ -128,9 +128,9 @@ const allCards = [topCard, ...leftColumn, ...rightColumn, bottomCard].filter((c)
         {iconMode === "image" ? (
           <img src={`${iconBase}/${hubIcon}.png`} alt="" class="w-16 h-16 rounded-lg mb-1" />
         ) : (
-          <IconChip icon={hubIcon} size={11} iconSize={20} class="mb-2" />
+          <IconChip icon={hubIcon} size="md" class="mb-2" />
         )}
-        <p class="text-xs font-semibold text-[var(--color-ink)] leading-snug">{hubText}</p>
+        <p class="t-small-strong">{hubText}</p>
       </div>
 
       {bottomCard && (
@@ -138,7 +138,7 @@ const allCards = [topCard, ...leftColumn, ...rightColumn, bottomCard].filter((c)
           {iconMode === "image" ? (
             <img src={`${iconBase}/${bottomCard.icon}.png`} alt="" class="w-10 h-10 shrink-0 rounded-lg" />
           ) : (
-            <IconChip icon={bottomCard.icon} size={10} iconSize={19} shape="lg" class="shrink-0" />
+            <IconChip icon={bottomCard.icon} size="md" shape="lg" class="shrink-0" />
           )}
           <span class="min-w-0 flex-1">
             {bottomCard.title ? (
@@ -160,7 +160,7 @@ const allCards = [topCard, ...leftColumn, ...rightColumn, bottomCard].filter((c)
           {iconMode === "image" ? (
             <img src={`${iconBase}/${card.icon}.png`} alt="" class="w-10 h-10 shrink-0 rounded-lg" />
           ) : (
-            <IconChip icon={card.icon} size={10} iconSize={19} shape="lg" class="shrink-0" />
+            <IconChip icon={card.icon} size="md" shape="lg" class="shrink-0" />
           )}
           <span class="min-w-0 flex-1">
             {card.title ? (
@@ -186,9 +186,9 @@ const allCards = [topCard, ...leftColumn, ...rightColumn, bottomCard].filter((c)
       {iconMode === "image" ? (
         <img src={`${iconBase}/${hubIcon}.png`} alt="" class="w-16 h-16 rounded-lg mb-1" />
       ) : (
-        <IconChip icon={hubIcon} size={11} iconSize={20} class="mb-2" />
+        <IconChip icon={hubIcon} size="md" class="mb-2" />
       )}
-      <p class="text-xs font-semibold text-[var(--color-ink)] leading-snug">{hubText}</p>
+      <p class="t-small-strong">{hubText}</p>
     </div>
     <div class="grid grid-cols-2 gap-3 w-full">
       {allCards.map((card) => (

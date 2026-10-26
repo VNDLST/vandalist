@@ -178,6 +178,11 @@ URL.
 
 ### Before making changes
 
+0. **Type is locked.** All site text uses the shared `t-*` styles in
+   `src/styles/global.css` (plus a colour utility at most). Never hand-write a text size,
+   weight, line-height or letter-spacing in markup. Run `npm run check:type` before every
+   deploy; it must pass. See ONBOARDING.md for the exempt list.
+
 1. Read the relevant existing page/component first and match its exact
    shadow, spacing, and color-token usage — don't introduce a new value
    that looks similar. This has been the single most common source of

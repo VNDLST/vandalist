@@ -34,13 +34,13 @@ const primaryResult = data.results?.[0];
     </div>
 
     {primaryResult && (
-      <p class="text-sm mb-4">
-        <span class="font-semibold text-[var(--color-accent)]">{primaryResult.value}</span>{" "}
+      <p class="t-small text-inherit mb-4">
+        <span class="t-small-strong text-[var(--color-accent-text)]">{primaryResult.value}</span>{" "}
         <span class="text-[var(--color-slate)]">{primaryResult.label}</span>
       </p>
     )}
 
-    <span class="mt-auto text-[var(--color-accent)] text-sm font-medium inline-flex items-center gap-1">
+    <span class="t-link mt-auto inline-flex items-center gap-1">
       View case study <span class="transition-transform group-hover:translate-x-0.5" aria-hidden="true">&rarr;</span>
     </span>
   </div>

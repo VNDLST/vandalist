@@ -221,11 +221,11 @@ const otherSuppliers = [
 
   <div class="bg-[var(--color-paper)]">
     <!-- Section 1: Service cards -->
-    <Section top="tight" bottom="tight">
+    <Section top>
       <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {services.map((service) => (
           <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6">
-            <IconChip icon={service.icon} size={11} iconSize={22} shape="lg" class="mb-4" />
+            <IconChip icon={service.icon} size="md" shape="lg" class="mb-4" />
             <p class="t-title mb-1.5">{service.title}</p>
             <p class="t-small">{service.text}</p>
           </div>
@@ -235,7 +235,7 @@ const otherSuppliers = [
   </div>
 
   <!-- Section 2: How we work — bleed-wider band -->
-  <Band bottom="tight">
+  <Band>
       <div class="max-w-7xl mx-auto grid lg:grid-cols-[minmax(0,34%)_minmax(0,66%)] gap-10 items-start">
         <div>
           <Eyebrow class="mb-3">How we work</Eyebrow>
@@ -246,8 +246,8 @@ const otherSuppliers = [
           <ul class="space-y-3">
             {workPoints.map((point) => (
               <li class="flex items-start gap-3">
-                <IconChip icon={point.icon} size={8} iconSize={16} shape="lg" tone="whiteCard" class="shrink-0" />
-                <span class="text-sm text-[var(--color-ink)] pt-1 leading-snug">{point.text}</span>
+                <IconChip icon={point.icon} shape="lg" tone="whiteCard" class="shrink-0" />
+                <span class="t-small text-[var(--color-ink)] pt-1">{point.text}</span>
               </li>
             ))}
           </ul>
@@ -256,12 +256,12 @@ const otherSuppliers = [
         <div class="grid sm:grid-cols-2 gap-x-8 gap-y-8">
           {workGroups.map((group) => (
             <div>
-              <p class="text-xs font-semibold tracking-wide uppercase text-[var(--color-accent)] mb-3">{group.label}</p>
+              <p class="t-eyebrow mb-3">{group.label}</p>
               <div class="space-y-2.5">
                 {group.items.map((item) => (
                   <div class="rounded-xl border border-[var(--color-line)] bg-white p-2.5 flex items-center gap-2 min-w-0">
-                    <IconChip icon={item.icon} size={7} iconSize={13} shape="lg" class="shrink-0" />
-                    <span class="text-xs font-medium text-[var(--color-ink)] leading-snug min-w-0">{item.text}</span>
+                    <IconChip icon={item.icon} shape="lg" class="shrink-0" />
+                    <span class="t-small-strong min-w-0">{item.text}</span>
                   </div>
                 ))}
               </div>
@@ -272,7 +272,7 @@ const otherSuppliers = [
     </Band>
 
   <!-- Section 3: Our engagement rhythm -->
-  <Section bottom="tight">
+  <Section>
     <SectionHeading
       eyebrow="Our engagement rhythm"
       heading="A support rhythm that keeps work moving"
@@ -286,14 +286,14 @@ const otherSuppliers = [
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.75">
         <path d="M12 20s-7-4.5-9.5-9A5 5 0 0 1 12 6a5 5 0 0 1 9.5 5c-2.5 4.5-9.5 9-9.5 9z" stroke-linejoin="round" />
       </svg>
-      <p class="text-sm italic text-[var(--color-slate-light)]">
+      <p class="t-small">
         Ongoing, collaborative, and built to adapt.
       </p>
     </div>
   </Section>
 
   <!-- Section 4: Who it's for -->
-  <Section bottom="tight">
+  <Section>
     <SectionHeading
       eyebrow="Who it's for"
       heading="Useful for teams that need capability without unnecessary complexity"
@@ -301,7 +301,7 @@ const otherSuppliers = [
     <div class="grid sm:grid-cols-3 gap-5">
       {audiences.map((item) => (
         <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6">
-          <IconChip icon={item.icon} size={14} iconSize={26} stroke="1.5" class="mb-4" />
+          <IconChip icon={item.icon} size="lg" class="mb-4" />
           <p class="t-title mb-1.5">{item.title}</p>
           <p class="t-small">{item.text}</p>
         </div>
@@ -310,7 +310,7 @@ const otherSuppliers = [
   </Section>
 
   <!-- Section 5: How we fit in -->
-  <Band bottom="roomy">
+  <Band>
       <div class="max-w-7xl mx-auto">
         <SectionHeading
           eyebrow="How we fit in"
@@ -320,12 +320,12 @@ const otherSuppliers = [
 
         <div class="grid lg:grid-cols-[1fr_1.3fr_1fr] gap-6 lg:gap-8 items-center">
           <div class="rounded-[var(--radius-card)] bg-[var(--color-good-soft)] border border-[rgba(228,225,220,0.5)] p-6 md:p-7 [box-shadow:var(--shadow-card)]">
-            <p class="text-sm font-semibold text-[var(--color-good)] mb-5">Your team</p>
+            <p class="t-small-strong text-[var(--color-good)] mb-5">Your team</p>
             <ul class="space-y-5">
               {yourTeam.map((item) => (
                 <li class="flex items-start gap-3">
-                  <IconChip icon={item.icon} iconSize={18} shape="lg" tone="whiteGood70" class="shrink-0" />
-                  <span class="text-sm text-[var(--color-ink)] pt-2 leading-snug">{item.text}</span>
+                  <IconChip icon={item.icon} shape="lg" tone="whiteGood70" class="shrink-0" />
+                  <span class="t-small text-[var(--color-ink)] pt-2">{item.text}</span>
                 </li>
               ))}
             </ul>
@@ -367,12 +367,12 @@ const otherSuppliers = [
           </div>
 
           <div class="rounded-[var(--radius-card)] bg-white border border-[var(--color-line)] p-6 md:p-7 [box-shadow:var(--shadow-card)]">
-            <p class="text-sm font-semibold text-[var(--color-slate)] mb-5">Other suppliers</p>
+            <p class="t-small-strong text-[var(--color-slate)] mb-5">Other suppliers</p>
             <ul class="space-y-5">
               {otherSuppliers.map((item) => (
                 <li class="flex items-start gap-3">
-                  <IconChip icon={item.icon} iconSize={18} shape="lg" tone="dim" class="shrink-0" />
-                  <span class="text-sm text-[var(--color-ink)] pt-2 leading-snug">{item.text}</span>
+                  <IconChip icon={item.icon} shape="lg" tone="dim" class="shrink-0" />
+                  <span class="t-small text-[var(--color-ink)] pt-2">{item.text}</span>
                 </li>
               ))}
             </ul>
@@ -385,7 +385,7 @@ const otherSuppliers = [
               <path d="M5 13l4 4L19 7" />
             </svg>
           </span>
-          <p class="text-sm text-[var(--color-ink)]">
+          <p class="t-small text-[var(--color-ink)]">
             Clear communication, aligned goals, and practical support that helps everything work better together.
           </p>
         </div>

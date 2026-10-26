@@ -52,34 +52,34 @@ const fieldClass = "w-full rounded-lg border border-[var(--color-line)] bg-[var(
       </div>
     </div>
 
-    <div class="max-w-7xl mx-auto px-6 md:px-10 pb-20 md:pb-28">
+    <div class="max-w-7xl mx-auto px-6 md:px-10 pb-16 md:pb-20">
       <div class="grid lg:grid-cols-[1fr_380px] gap-6 items-start">
         <!-- Form -->
         <form class="rounded-[var(--radius-card)] bg-white p-6 md:p-8 [box-shadow:var(--shadow-panel)]">
           <div class="grid sm:grid-cols-2 gap-5 mb-5">
             <div>
-              <label for="name" class="block font-semibold text-[var(--color-ink)] mb-2">Name <span class="text-[var(--color-accent)]">*</span></label>
+              <label for="name" class="t-small-strong block mb-2">Name <span class="text-[var(--color-accent)]">*</span></label>
               <input id="name" type="text" placeholder="Your name" required class={fieldClass} />
             </div>
             <div>
-              <label for="email" class="block font-semibold text-[var(--color-ink)] mb-2">Email <span class="text-[var(--color-accent)]">*</span></label>
+              <label for="email" class="t-small-strong block mb-2">Email <span class="text-[var(--color-accent)]">*</span></label>
               <input id="email" type="email" placeholder="you@example.com" required class={fieldClass} />
             </div>
           </div>
 
           <div class="grid sm:grid-cols-2 gap-5 mb-5">
             <div>
-              <label for="phone" class="block font-semibold text-[var(--color-ink)] mb-2">Phone <span class="text-[var(--color-accent)]">*</span></label>
+              <label for="phone" class="t-small-strong block mb-2">Phone <span class="text-[var(--color-accent)]">*</span></label>
               <input id="phone" type="tel" placeholder="e.g. 0412 345 678" required class={fieldClass} />
             </div>
             <div>
-              <label for="business" class="block font-semibold text-[var(--color-ink)] mb-2">Business name <span class="text-[var(--color-accent)]">*</span></label>
+              <label for="business" class="t-small-strong block mb-2">Business name <span class="text-[var(--color-accent)]">*</span></label>
               <input id="business" type="text" placeholder="Your business name" required class={fieldClass} />
             </div>
           </div>
 
           <div class="mb-6">
-            <label for="details" class="block font-semibold text-[var(--color-ink)] mb-2">What do you need help with? <span class="text-[var(--color-accent)]">*</span></label>
+            <label for="details" class="t-small-strong block mb-2">What do you need help with? <span class="text-[var(--color-accent)]">*</span></label>
             <textarea id="details" rows="4" placeholder="Share a few details about your project, goals, challenges or any questions you have." required class={`${fieldClass} resize-y`}></textarea>
           </div>
 
@@ -90,23 +90,23 @@ const fieldClass = "w-full rounded-lg border border-[var(--color-line)] bg-[var(
                no toggle. -->
           <div class="rounded-lg border border-[var(--color-line)] mb-6">
             <p class="t-title px-4 py-4">
-              Additional information <span class="font-normal text-[var(--color-slate)]">(optional, but it all helps)</span>
+              Additional information <span class="t-body">(optional, but it all helps)</span>
             </p>
             <div class="grid sm:grid-cols-2 gap-5 px-4 pb-5 pt-1">
               <div>
-                <label for="website" class="block font-semibold text-[var(--color-ink)] mb-2">Website URL</label>
+                <label for="website" class="t-small-strong block mb-2">Website URL</label>
                 <input id="website" type="url" placeholder="https://yourbusiness.com" class={fieldClass} />
               </div>
               <div>
-                <label for="budget" class="block font-semibold text-[var(--color-ink)] mb-2">Approximate budget</label>
+                <label for="budget" class="t-small-strong block mb-2">Approximate budget</label>
                 <input id="budget" type="text" placeholder="e.g. $5,000–$10,000" class={fieldClass} />
               </div>
               <div>
-                <label for="deadline" class="block font-semibold text-[var(--color-ink)] mb-2">Do you have a deadline?</label>
+                <label for="deadline" class="t-small-strong block mb-2">Do you have a deadline?</label>
                 <input id="deadline" type="text" placeholder="e.g. end of next month, no rush" class={fieldClass} />
               </div>
               <div>
-                <label for="referral" class="block font-semibold text-[var(--color-ink)] mb-2">How did you find us?</label>
+                <label for="referral" class="t-small-strong block mb-2">How did you find us?</label>
                 <input id="referral" type="text" placeholder="e.g. Google, referral, LinkedIn" class={fieldClass} />
               </div>
             </div>
@@ -114,7 +114,7 @@ const fieldClass = "w-full rounded-lg border border-[var(--color-line)] bg-[var(
 
           <OrbButton type="submit" size="md" class="mb-4">Submit enquiry</OrbButton>
 
-          <p class="text-xs text-[var(--color-slate-light)]">
+          <p class="t-small">
             We respect your privacy. Your information will only be used to respond to your enquiry.
           </p>
         </form>
@@ -122,11 +122,11 @@ const fieldClass = "w-full rounded-lg border border-[var(--color-line)] bg-[var(
         <!-- Contact info -->
         <div class="rounded-[var(--radius-card)] bg-[var(--color-paper-dim)] p-3">
           <div class="rounded-[calc(var(--radius-card)-0.3rem)] bg-[var(--color-paper)] p-6 mb-6 [box-shadow:var(--shadow-panel)]">
-            <p class="font-semibold text-[var(--color-accent)] mb-2">Prefer to talk it through?</p>
+            <p class="t-small-strong text-[var(--color-accent-text)] mb-2">Prefer to talk it through?</p>
             <p class="t-small mb-5">Book a meeting and we can work out the right next step.</p>
             <a
               href="#"
-              class="flex items-center justify-center gap-2 rounded-2xl bg-[var(--color-paper-dim)] px-5 py-3.5 text-sm font-semibold text-[var(--color-accent)] hover:brightness-95 transition-all"
+              class="t-small-strong text-[var(--color-accent-text)] flex items-center justify-center gap-2 rounded-2xl bg-[var(--color-paper-dim)] px-5 py-3.5 hover:brightness-95 transition-all"
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <rect x="4" y="5" width="16" height="16" rx="2" />
@@ -146,7 +146,7 @@ const fieldClass = "w-full rounded-lg border border-[var(--color-line)] bg-[var(
               </span>
               <div>
                 <p class="t-title mb-0.5">Email</p>
-                <a href="mailto:promise@vandalist.com.au" class="text-sm text-[var(--color-slate)] hover:text-[var(--color-ink)] transition-colors">promise@vandalist.com.au</a>
+                <a href="mailto:promise@vandalist.com.au" class="t-small hover:text-[var(--color-ink)] transition-colors">promise@vandalist.com.au</a>
               </div>
             </div>
 

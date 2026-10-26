@@ -1,43 +1,30 @@
 ---
-// The small icon-in-a-shape chip used all over the site (pink tint with a
-// pink line icon is the default look). One definition of the structure: the
-// span, the svg, the stroke settings. Created 2026-10-27 from 41 hand-built
-// copies in 23 slightly different recipes; this version reproduces every one
-// of them EXACTLY (refactor only, nothing moved), so the sizes below are the
-// real inventory of what the site uses today. (Not to be confused with
-// IconBadge.astro, an older and currently unused check/cross status badge.)
-//
-// SCALE DECISION STILL OPEN: the site currently mixes badge sizes 7/8/9/10/11/14
-// (Tailwind units) with icon sizes 13 to 26px and two stroke weights. A tidier
-// system would pick maybe three (small / medium / large) and retire the rest;
-// that is a visible change, so it is Andrew's call. To do it, change the props at
-// the call sites (or delete unused entries below and let the compiler complain).
-//
-// `icon` is inline SVG path markup (the same strings the pages already keep),
-// drawn on a 24x24 viewBox with currentColor.
+// The small icon-in-a-shape chip (pink tint with a pink line icon is the default
+// look). Three sizes only, chosen 2026-10-27 (Andrew delegated the choice; he can
+// review). Before that the site used six circle sizes (28 to 56px), nine icon
+// sizes and two stroke weights across 40 hand-built copies:
+//   sm  32px chip, 16px icon  (was 28, 32 and 36px chips: list rows, small labels)
+//   md  44px chip, 20px icon  (was 40 and 44px chips: card icons)
+//   lg  56px chip, 26px icon  (was 56px chips: feature pillars; lighter 1.5 stroke)
+// Shapes: "full" (circle, default) or "lg" (rounded square). Tones as listed.
+// `icon` is inline SVG path markup on a 24x24 viewBox, drawn in currentColor.
+// (Not to be confused with IconBadge.astro, an older, currently unused
+// check/cross status badge.)
 interface Props {
   icon: string;
-  size?: 7 | 8 | 9 | 10 | 11 | 14;
-  iconSize?: number;
+  size?: "sm" | "md" | "lg";
   shape?: "full" | "lg";
   tone?: "accent" | "white" | "whiteCard" | "whiteGood" | "whiteGood70" | "dim";
-  stroke?: "1.5" | "1.75";
-  caps?: boolean;
   class?: string;
 }
-const {
-  icon,
-  size = 9,
-  iconSize = 17,
-  shape = "full",
-  tone = "accent",
-  stroke = "1.75",
-  caps = true,
-  class: className,
-} = Astro.props as Props;
+const { icon, size = "sm", shape = "full", tone = "accent", class: className } = Astro.props as Props;
 
 // Literal class strings so Tailwind's static scanner finds every one.
-const sizes = { 7: "w-7 h-7", 8: "w-8 h-8", 9: "w-9 h-9", 10: "w-10 h-10", 11: "w-11 h-11", 14: "w-14 h-14" }[size];
+const spec = {
+  sm: { box: "w-8 h-8", icon: 16, stroke: "1.75" },
+  md: { box: "w-11 h-11", icon: 20, stroke: "1.75" },
+  lg: { box: "w-14 h-14", icon: 26, stroke: "1.5" },
+}[size];
 const shapes = { full: "rounded-full", lg: "rounded-lg" }[shape];
 const tones = {
   accent: "bg-[var(--color-accent-soft)] text-[var(--color-accent)]",
@@ -48,16 +35,16 @@ const tones = {
   dim: "bg-[var(--color-paper-dim)] text-[var(--color-slate)]",
 }[tone];
 ---
-<span class:list={["inline-flex items-center justify-center", sizes, shapes, tones, className]}>
+<span class:list={["inline-flex items-center justify-center", spec.box, shapes, tones, className]}>
   <svg
-    width={iconSize}
-    height={iconSize}
+    width={spec.icon}
+    height={spec.icon}
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    stroke-width={stroke}
-    stroke-linecap={caps ? "round" : undefined}
-    stroke-linejoin={caps ? "round" : undefined}
+    stroke-width={spec.stroke}
+    stroke-linecap="round"
+    stroke-linejoin="round"
     set:html={icon}
   />
 </span>

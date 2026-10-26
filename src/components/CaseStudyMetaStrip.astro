@@ -45,10 +45,10 @@ const items = [
   <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-5 md:p-6 [box-shadow:var(--shadow-card)] grid sm:grid-cols-3 lg:grid-cols-5 gap-5">
     {items.map((item) => (
       <div class="flex items-start gap-2.5">
-        <IconChip icon={item.icon} size={8} iconSize={15} shape="lg" caps={false} class="shrink-0" />
+        <IconChip icon={item.icon} shape="lg" class="shrink-0" />
         <div class="min-w-0">
-          <p class="text-xs font-medium text-[var(--color-slate-light)] uppercase tracking-wide mb-0.5">{item.label}</p>
-          <p class="text-sm font-medium text-[var(--color-ink)] leading-snug">{item.value}</p>
+          <p class="t-small-strong mb-0.5">{item.label}</p>
+          <p class="t-small-strong">{item.value}</p>
         </div>
       </div>
     ))}

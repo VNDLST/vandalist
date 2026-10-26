@@ -16,7 +16,7 @@ import Footer from "../components/Footer.astro";
        pattern as how-we-work.astro). No overflow-hidden — the boosted
        campfire flame is meant to rise past its stage. The image is taller
        than the hero by half of HelpGrid's top padding (2rem of 4rem on
-       mobile, 3rem of 6rem at md+), so the background's curves finish
+       mobile, 2.5rem of 5rem at md+), so the background's curves finish
        lower, clear of the hero text, while still leaving the first row a
        clear 50% of its own padding. Pure backdrop: it only ever overlaps
        that empty padding, never row-one content. -->
@@ -24,7 +24,7 @@ import Footer from "../components/Footer.astro";
     <img
       src={`${import.meta.env.BASE_URL}/home-hero-bg.svg`}
       alt=""
-      class="absolute left-0 top-0 w-full h-[calc(100%+2rem)] md:h-[calc(100%+3rem)] object-cover object-bottom pointer-events-none"
+      class="absolute left-0 top-0 w-full h-[calc(100%+2rem)] md:h-[calc(100%+2.5rem)] object-cover object-bottom pointer-events-none"
       aria-hidden="true"
     />
     <div class="relative z-10">

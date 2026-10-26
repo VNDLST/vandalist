@@ -1,26 +1,22 @@
 ---
 // The wide tinted panel ("bleed-wider band"): a 1400px column holding a rounded
-// --color-paper-dim panel with the real content inside. Created 2026-10-27
-// from 13 hand-built copies; reproduces them exactly.
+// --color-paper-dim panel with the real content inside, followed by the same
+// standard bottom spacing as <Section> (pb-16 md:pb-20).
 //
-//   bottom    "tight" pb-16 md:pb-20 | "roomy" pb-20 md:pb-28 (same two as <Section>)
 //   padding   inside the panel: "default" p-6 md:p-10 (most) | "roomy" p-6 md:p-12 |
-//             "wide" p-6 md:py-10 md:px-16 (the homepage "how we work" teaser)
+//             "wide" p-6 md:py-10 md:px-16 (the homepage coverage table)
 //   as        "div" (default) or "section"
-//   class     extras on the outer wrapper, e.g. "py-10" for the two homepage bands
-//             that use their own vertical padding instead of a named bottom
+//   class     rare extras on the outer wrapper
 interface Props {
   as?: "div" | "section";
-  bottom?: "tight" | "roomy";
   padding?: "default" | "roomy" | "wide";
   class?: string;
 }
-const { as: Tag = "div", bottom, padding = "default", class: className } = Astro.props as Props;
+const { as: Tag = "div", padding = "default", class: className } = Astro.props as Props;
 // Literal strings so Tailwind's scanner sees every class.
-const bottoms = { tight: "pb-16 md:pb-20", roomy: "pb-20 md:pb-28" };
 const paddings = { default: "p-6 md:p-10", roomy: "p-6 md:p-12", wide: "p-6 md:py-10 md:px-16" };
 ---
-<Tag class:list={["max-w-[1400px] mx-auto px-6 md:px-12 lg:px-16", bottom && bottoms[bottom], className]}>
+<Tag class:list={["max-w-[1400px] mx-auto px-6 md:px-12 lg:px-16 pb-16 md:pb-20", className]}>
   <div class:list={["rounded-[var(--radius-card)] bg-[var(--color-paper-dim)]", paddings[padding]]}>
     <slot />
   </div>

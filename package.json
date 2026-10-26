@@ -9,6 +9,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "check:type": "node scripts/check-type.mjs",
     "astro": "astro"
   },
   "dependencies": {

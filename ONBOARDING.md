@@ -1157,6 +1157,11 @@ about it, don't just pick one.
   9 computed looks (the 9th is the pink emphasis colour on the first heading's phrase), hero 706px.
   Note "Clear roles" is also a mini-card title in the Together panel, near-duplicating the new
   section heading (Andrew has not decided whether to rename it).
+  HERO (2026-10-26, Andrew): h1 changed from "We simplify the agency relationship" (a claim) to
+  "A simple agency relationship" (less claimy, shorter). Text column widened 360 -> 384px (needed:
+  "A simple agency" is 377px at 48px) and the text/art gap cut 40 -> 16px, so text+gap is still 400px
+  and the illustration keeps its size/position (800px at 1440, starting x=513): only the space between
+  text and picture is tighter. Heading breaks "A simple agency / relationship". Hero still 706px.
 
 - **2026-10-21 — scroll-activated cadence row is LIVE on How We Work only. REMIND ANDREW
   when we review the service pages** (he asked; also saved as a Claude memory). Built as an

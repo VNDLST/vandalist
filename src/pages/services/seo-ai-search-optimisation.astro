@@ -162,8 +162,8 @@ const topPages = [
         {landscapeItems.map((item) => (
           <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-5">
             <IconChip icon={item.icon} size={11} iconSize={20} shape="lg" class="mb-3" />
-            <p class="font-semibold text-[var(--color-ink)] text-sm mb-1">{item.title}</p>
-            <p class="text-xs text-[var(--color-slate)] leading-relaxed">{item.text}</p>
+            <p class="t-small-strong mb-1">{item.title}</p>
+            <p class="t-small">{item.text}</p>
           </div>
         ))}
       </div>
@@ -176,8 +176,8 @@ const topPages = [
       <div class="max-w-7xl mx-auto grid lg:grid-cols-[minmax(0,30%)_minmax(0,70%)] gap-10 items-center">
         <div>
           <Eyebrow class="mb-3">Our approach</Eyebrow>
-          <h2 class="text-2xl md:text-3xl font-semibold text-[var(--color-ink)] mb-4">How SEO and content work together.</h2>
-          <p class="text-[var(--color-slate)] max-w-sm">
+          <h2 class="t-heading text-balance mb-4">How SEO and content work together.</h2>
+          <p class="t-body max-w-sm">
             We connect strategy, content and technical foundations into a cohesive system that builds topical depth, earns trust and improves visibility across search and AI experiences.
           </p>
         </div>
@@ -202,7 +202,7 @@ const topPages = [
           <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-5">
             <div class="flex items-center gap-2.5 mb-4">
               <IconChip icon={group.icon} shape="lg" class="shrink-0" />
-              <p class="font-semibold text-[var(--color-ink)] text-sm leading-snug">{group.title}</p>
+              <p class="t-small-strong">{group.title}</p>
             </div>
             <ul class="space-y-2">
               {group.items.map((item) => (
@@ -210,7 +210,7 @@ const topPages = [
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--color-good)" stroke-width="2.5" class="mt-0.5 shrink-0">
                     <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" />
                   </svg>
-                  <span class="text-xs text-[var(--color-slate)] leading-snug">{item}</span>
+                  <span class="t-small">{item}</span>
                 </li>
               ))}
             </ul>
@@ -243,8 +243,8 @@ const topPages = [
         {audiences.map((item) => (
           <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6">
             <IconChip icon={item.icon} size={14} iconSize={26} stroke="1.5" class="mb-4" />
-            <p class="font-semibold text-[var(--color-ink)] mb-1.5">{item.title}</p>
-            <p class="text-sm text-[var(--color-slate)] leading-relaxed">{item.text}</p>
+            <p class="t-title mb-1.5">{item.title}</p>
+            <p class="t-small">{item.text}</p>
           </div>
         ))}
       </div>
@@ -257,8 +257,8 @@ const topPages = [
       <div class="grid lg:grid-cols-[1fr_1.6fr] gap-10 items-start">
         <div>
           <Eyebrow class="mb-3">The impact</Eyebrow>
-          <h2 class="text-2xl md:text-3xl font-semibold text-[var(--color-ink)] mb-4">What better visibility looks like.</h2>
-          <p class="text-[var(--color-slate)] mb-6 max-w-sm">
+          <h2 class="t-heading text-balance mb-4">What better visibility looks like.</h2>
+          <p class="t-body mb-6 max-w-sm">
             We focus on outcomes that drive growth&mdash;more relevant traffic, stronger engagement and more enquiries from the right people.
           </p>
           <a
@@ -270,7 +270,7 @@ const topPages = [
                 <path d="M4 18V6M4 18h16" stroke-linecap="round"/><path d="M7 14l4-4 3 3 5-6" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </span>
-            <span class="text-sm font-semibold text-[var(--color-ink)]">See previous work</span>
+            <span class="t-small-strong">See previous work</span>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5" class="transition-transform group-hover:translate-x-1">
               <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
@@ -285,8 +285,8 @@ const topPages = [
             <div class="grid grid-cols-2 gap-3 mb-6">
               {stats.map((stat) => (
                 <div class="rounded-lg bg-[var(--color-paper-dim)] p-3">
-                  <p class="text-xs text-[var(--color-slate)] mb-1">{stat.label}</p>
-                  <p class="text-lg font-semibold text-[var(--color-ink)] mb-0.5">{stat.value}</p>
+                  <p class="t-small mb-1">{stat.label}</p>
+                  <p class="t-title mb-0.5">{stat.value}</p>
                   <p class="text-xs font-medium text-[var(--color-good)]">&uarr; {stat.change}</p>
                 </div>
               ))}
@@ -298,7 +298,7 @@ const topPages = [
                 <div class="flex items-center justify-between gap-3 py-1.5 border-b border-[var(--color-line)] last:border-b-0">
                   <span class="text-xs text-[var(--color-ink)] truncate">{row.query}</span>
                   <span class="flex items-center gap-3 shrink-0">
-                    <span class="text-xs text-[var(--color-slate)]">{row.position}</span>
+                    <span class="t-small">{row.position}</span>
                     <span class="text-xs font-medium text-[var(--color-ink)] w-10 text-right">{row.clicks}</span>
                   </span>
                 </div>
@@ -320,8 +320,8 @@ const topPages = [
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5L12 3z" stroke-linejoin="round"/>
             </svg>
-            <p class="font-semibold text-[var(--color-ink)] text-sm">Search is changing.</p>
-            <p class="text-xs text-[var(--color-slate)] leading-relaxed">
+            <p class="t-small-strong">Search is changing.</p>
+            <p class="t-small">
               Visibility increasingly includes being featured in AI-generated answers and summaries&mdash;not just traditional blue links.
             </p>
             <p class="text-xs font-semibold text-[var(--color-accent)]">We make sure you're seen in both.</p>

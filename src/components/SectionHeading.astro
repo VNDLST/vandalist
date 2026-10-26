@@ -13,14 +13,12 @@ interface Props {
   subtext?: string;
   align?: "left" | "center";
   headingNoWrap?: boolean;
-  size?: "section" | "statement";
 }
-const { eyebrow, heading, subtext, align = "left", headingNoWrap = false, size = "section" } = Astro.props as Props;
-const statement = size === "statement";
+const { eyebrow, heading, subtext, align = "left", headingNoWrap = false } = Astro.props as Props;
 const alignClass = align === "center" ? "text-center mx-auto" : "";
 ---
-<div class={`mb-12 ${statement ? "max-w-5xl" : "max-w-3xl"} ${alignClass}`}>
+<div class={`mb-12 max-w-5xl ${alignClass}`}>
   <Eyebrow class="mb-3">{eyebrow}</Eyebrow>
-  <Heading noWrap={headingNoWrap} size={size} class="mb-4">{heading}</Heading>
-  {subtext && <p class={`${statement ? "t-intro" : "text-[var(--color-slate)]"} max-w-2xl ${alignClass}`}>{subtext}</p>}
+  <Heading noWrap={headingNoWrap} class="mb-4">{heading}</Heading>
+  {subtext && <p class={`t-intro max-w-2xl ${alignClass}`}>{subtext}</p>}
 </div>

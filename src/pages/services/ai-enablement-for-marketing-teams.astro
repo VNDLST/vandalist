@@ -181,8 +181,8 @@ const audiences = [
       <div class="grid lg:grid-cols-[minmax(0,34%)_minmax(0,66%)] gap-10 items-start">
         <div>
           <Eyebrow class="mb-3">Where AI actually helps</Eyebrow>
-          <h2 class="text-2xl md:text-3xl font-semibold text-[var(--color-ink)] mb-4">Smarter work across your marketing workflow</h2>
-          <p class="text-[var(--color-slate)] max-w-sm">
+          <h2 class="t-heading text-balance mb-4">Smarter work across your marketing workflow</h2>
+          <p class="t-body max-w-sm">
             AI can support many parts of the marketing process. We focus on the areas that save time, lift quality, and free your team to focus on higher-impact work.
           </p>
         </div>
@@ -200,8 +200,8 @@ const audiences = [
         <div class="max-w-7xl mx-auto grid lg:grid-cols-[minmax(0,34%)_minmax(0,66%)] gap-10 items-start">
           <div>
             <Eyebrow class="mb-3">What we help you put in place</Eyebrow>
-            <h2 class="text-2xl md:text-3xl font-semibold text-[var(--color-ink)] mb-4">A practical enablement system your team can use every day</h2>
-            <p class="text-[var(--color-slate)] max-w-sm">
+            <h2 class="t-heading text-balance mb-4">A practical enablement system your team can use every day</h2>
+            <p class="t-body max-w-sm">
               We don't just recommend tools. We build the system around them&mdash;so your team can work confidently and consistently.
             </p>
           </div>
@@ -210,8 +210,8 @@ const audiences = [
               <div>
                 <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="mb-3" set:html={item.icon} />
                 <p class="text-xs font-bold text-[var(--color-accent)] mb-0.5">{item.num}</p>
-                <p class="font-semibold text-[var(--color-ink)] mb-1">{item.title}</p>
-                <p class="text-sm text-[var(--color-slate)] leading-relaxed">{item.text}</p>
+                <p class="t-title mb-1">{item.title}</p>
+                <p class="t-small">{item.text}</p>
               </div>
             ))}
           </div>
@@ -253,7 +253,7 @@ const audiences = [
                     </span>
                   )}
                   <p class="text-sm font-medium text-[var(--color-ink)] leading-snug">{step.title}</p>
-                  <p class="text-xs text-[var(--color-slate)] mt-0.5">{step.text}</p>
+                  <p class="t-small mt-0.5">{step.text}</p>
                 </div>
                 {i < 2 && (
                   <div class="flex items-center justify-center w-5 shrink-0" aria-hidden="true">
@@ -286,7 +286,7 @@ const audiences = [
                     </span>
                   )}
                   <p class="text-sm font-medium text-[var(--color-ink)] leading-snug">{step.title}</p>
-                  <p class="text-xs text-[var(--color-slate)] mt-0.5">{step.text}</p>
+                  <p class="t-small mt-0.5">{step.text}</p>
                 </div>
                 {i < 2 && (
                   <div class="flex items-center justify-center w-5 shrink-0" aria-hidden="true">
@@ -353,8 +353,8 @@ const audiences = [
         {audiences.map((item) => (
           <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6">
             <IconChip icon={item.icon} size={14} iconSize={26} stroke="1.5" class="mb-4" />
-            <p class="font-semibold text-[var(--color-ink)] mb-1.5">{item.title}</p>
-            <p class="text-sm text-[var(--color-slate)] leading-relaxed">{item.text}</p>
+            <p class="t-title mb-1.5">{item.title}</p>
+            <p class="t-small">{item.text}</p>
           </div>
         ))}
       </div>

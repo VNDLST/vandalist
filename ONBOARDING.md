@@ -1169,7 +1169,34 @@ about it, don't just pick one.
   new imports next to the existing ones. (3) Use iframes inside one javascript call to snapshot many
   pages/widths at once; the top-level pane has a 15px scrollbar gutter, iframes don't, so always compare
   iframe-to-iframe baselines.
-  STEP 3 NEXT: roll the 8 text styles out to the other pages (visible change).
+  STEP 3 DONE (2026-10-27), deployed, Andrew has NOT yet seen it on the other pages: the 8 text styles
+  now run sitewide.
+    Components: Heading (no more "section"/"statement" sizes: ONE size, t-heading 30/36/40px, balanced) and
+    SectionHeading (wrapper max-w-5xl, subtext t-intro) and CadenceSteps (t-eyebrow number / t-title /
+    t-small; the unifiedType option is gone) now use the styles by default, so ALL pages get them.
+    Pages/components: a script converted 129 hand-written text elements whose class set matched a style
+    exactly (t-title 27, t-small 59, t-body 14, t-small-strong 19, t-intro 4 incl. About mission/video text,
+    t-heading 8) across HelpGrid, HowWeWork, ProofGrid, SystemDiagram, WhoThisIsFor, CoverageTable,
+    CaseStudy*, about, contact, previous-work, the six services. Skipped on purpose: Header, Footer,
+    CtaBand, form labels, the mock-UI/animation components, demo pages.
+    VISIBLE EFFECTS: all non-hero section headings are now 40px (were 30px); intro/hero text near-black;
+    16px card titles are 18px; every 12px (text-xs) text became 14px (caption style retired), so dense
+    cards (SystemDiagram, compare tables) wrap more; heading in narrow columns wraps more (homepage
+    "Marketing capabilities without the headcount" is 4 lines; the SEO journey step titles wrap to 2
+    lines at 7 across). Desktop hero still 706px, no horizontal overflow at 1440/1024/390.
+    STILL OUTSIDE THE 8 STYLES (audit of computed styles per page; ~290 elements, ~40 formats; none are
+    accidentally unstyled): text links (14px medium accent/deep-pink, e.g. "Find out how we work ->",
+    "View case study"), comparison-table cells and checklist rows (14px medium ink, 16px ink, 14px ink),
+    chips and labels (12px medium ink, 12px medium green/red status, 14px semibold green/red), numbers
+    and stat figures, case study meta text, form labels, a few large display numbers. DECISION FOR ANDREW:
+    add a small second tier (e.g. link, label/chip, status) or leave these as component-specific.
+    BUG CAUGHT BY EYE (not by the automated checks): while removing CadenceSteps' option I left
+    class:list="..." as a bare string, so step numbers/titles/text lost their classes on every page that
+    uses it; fixed before deploy. Lesson: add a computed-typography audit (type-audit) next to the layout
+    snapshot and the HTML diff; positions alone cannot see lost styling.
+  NEXT: Andrew reviews the other pages live and decides on the second tier of styles, the icon-chip size
+  scale and the section-spacing differences; the cadence scroll-activation for the six service pages is
+  still pending (his earlier reminder).
 
 - **2026-10-26 — TYPE STYLE SET trialled on How We Work ONLY; awaiting Andrew's verdict on how it
   looks live before a sitewide rollout.** An audit of the page (computed styles, 1440px) found 20

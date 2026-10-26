@@ -53,11 +53,11 @@ const icons = {
 
       <div class="grid lg:grid-cols-[1fr_1.1fr] gap-10 items-start mb-8">
         <div>
-          <p class="font-semibold text-[var(--color-ink)] mb-2">{data.title}</p>
+          <p class="t-title mb-2">{data.title}</p>
           <h1 class="text-3xl md:text-4xl font-semibold leading-[1.1] tracking-[-0.02em] text-[var(--color-ink)] mb-4">
             {data.outcomeHeadline}
           </h1>
-          {data.context && <p class="text-[var(--color-slate)] mb-5 max-w-lg">{data.context}</p>}
+          {data.context && <p class="t-body mb-5 max-w-lg">{data.context}</p>}
           {data.confidential && (
             <p class="text-sm text-[var(--color-slate-light)] italic mb-5">Client details withheld for confidentiality.</p>
           )}
@@ -92,7 +92,7 @@ const icons = {
           {data.results?.length ? (
             <Fragment slot="aside">
               <div class="rounded-[var(--radius-card)] bg-[var(--color-accent-soft)] p-5">
-                <p class="flex items-center gap-2 font-semibold text-[var(--color-ink)] mb-4">
+                <p class="t-title flex items-center gap-2 mb-4">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.75"><path d="M4 19h16" stroke-linecap="round"/><path d="M7 19v-6M12 19V8M17 19v-9" stroke-linecap="round"/></svg>
                   Results
                 </p>
@@ -100,7 +100,7 @@ const icons = {
                   {data.results.map((r) => (
                     <div>
                       <p class="text-xl font-semibold text-[var(--color-accent)]">{r.value}</p>
-                      <p class="text-xs text-[var(--color-slate)] leading-snug">{r.label}</p>
+                      <p class="t-small">{r.label}</p>
                     </div>
                   ))}
                 </div>
@@ -125,8 +125,8 @@ const icons = {
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </span>
                 <div>
-                  <p class="font-semibold text-[var(--color-ink)] mb-0.5">{w.label}</p>
-                  <p class="text-sm text-[var(--color-slate)] leading-relaxed">{w.description}</p>
+                  <p class="t-title mb-0.5">{w.label}</p>
+                  <p class="t-small">{w.description}</p>
                 </div>
               </div>
             ))}

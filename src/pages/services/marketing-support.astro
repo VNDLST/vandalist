@@ -226,8 +226,8 @@ const otherSuppliers = [
         {services.map((service) => (
           <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6">
             <IconChip icon={service.icon} size={11} iconSize={22} shape="lg" class="mb-4" />
-            <p class="font-semibold text-[var(--color-ink)] mb-1.5">{service.title}</p>
-            <p class="text-sm text-[var(--color-slate)] leading-relaxed">{service.text}</p>
+            <p class="t-title mb-1.5">{service.title}</p>
+            <p class="t-small">{service.text}</p>
           </div>
         ))}
       </div>
@@ -239,8 +239,8 @@ const otherSuppliers = [
       <div class="max-w-7xl mx-auto grid lg:grid-cols-[minmax(0,34%)_minmax(0,66%)] gap-10 items-start">
         <div>
           <Eyebrow class="mb-3">How we work</Eyebrow>
-          <h2 class="text-2xl md:text-3xl font-semibold text-[var(--color-ink)] mb-4">Support shaped around your priorities</h2>
-          <p class="text-[var(--color-slate)] mb-6 max-w-md">
+          <h2 class="t-heading text-balance mb-4">Support shaped around your priorities</h2>
+          <p class="t-body mb-6 max-w-md">
             You choose the focus. We provide the right mix of thinking, doing, and support to move things forward.
           </p>
           <ul class="space-y-3">
@@ -302,8 +302,8 @@ const otherSuppliers = [
       {audiences.map((item) => (
         <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6">
           <IconChip icon={item.icon} size={14} iconSize={26} stroke="1.5" class="mb-4" />
-          <p class="font-semibold text-[var(--color-ink)] mb-1.5">{item.title}</p>
-          <p class="text-sm text-[var(--color-slate)] leading-relaxed">{item.text}</p>
+          <p class="t-title mb-1.5">{item.title}</p>
+          <p class="t-small">{item.text}</p>
         </div>
       ))}
     </div>
@@ -360,8 +360,8 @@ const otherSuppliers = [
                     <circle cx="9" cy="8" r="3"/><path d="M2.5 19c0-3 2.9-5.3 6.5-5.3s6.5 2.3 6.5 5.3"/><path d="M16 8.3a2.6 2.6 0 1 1 0-5.1"/><path d="M15 13.8c2.9.5 5 2.5 5 5.2"/>
                   </svg>
                 </span>
-                <p class="text-sm font-semibold text-[var(--color-ink)] mb-1">Vandalist</p>
-                <p class="text-xs text-[var(--color-slate)] leading-snug">Flexible marketing support that adapts to your priorities.</p>
+                <p class="t-small-strong mb-1">Vandalist</p>
+                <p class="t-small">Flexible marketing support that adapts to your priorities.</p>
               </div>
             </div>
           </div>

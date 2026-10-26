@@ -25,8 +25,8 @@ const items: { kind: Parameters<typeof ProofCardImage>[0]["kind"]; name: string;
       <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white overflow-hidden flex flex-col">
         <ProofCardImage kind={item.kind} />
         <div class="p-5">
-          <p class="font-semibold text-[var(--color-ink)] text-sm mb-1">{item.name}</p>
-          <p class="text-[var(--color-slate)] text-sm leading-relaxed mb-3">{item.text}</p>
+          <p class="t-small-strong mb-1">{item.name}</p>
+          <p class="t-small mb-3">{item.text}</p>
           <a href="#" class="text-[var(--color-accent)] text-sm font-medium inline-flex items-center gap-1">
             View case study <span aria-hidden="true">→</span>
           </a>

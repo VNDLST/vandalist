@@ -216,8 +216,8 @@ const stats = [
         {services.map((service) => (
           <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6">
             <img src={`${base}/google-ads-icons/${service.image}.svg`} alt="" class="h-9 w-auto object-contain mb-4" />
-            <p class="font-semibold text-[var(--color-ink)] mb-1.5">{service.title}</p>
-            <p class="text-sm text-[var(--color-slate)] leading-relaxed">{service.text}</p>
+            <p class="t-title mb-1.5">{service.title}</p>
+            <p class="t-small">{service.text}</p>
           </div>
         ))}
       </div>
@@ -228,8 +228,8 @@ const stats = [
         <div class="max-w-7xl mx-auto grid lg:grid-cols-[minmax(0,34%)_minmax(0,66%)] gap-10 items-start">
           <div>
             <Eyebrow class="mb-3">Our approach</Eyebrow>
-            <h2 class="text-2xl md:text-3xl font-semibold text-[var(--color-ink)] mb-4">How we help with Google Ads</h2>
-            <p class="text-[var(--color-slate)] mb-6 max-w-md">
+            <h2 class="t-heading text-balance mb-4">How we help with Google Ads</h2>
+            <p class="t-body mb-6 max-w-md">
               Great results come from the right strategy, clean execution, and constant optimisation. We handle everything so you can focus on running your business.
             </p>
             <ul class="space-y-3">
@@ -244,13 +244,13 @@ const stats = [
 
           <div>
             <Eyebrow class="mb-2">What's included</Eyebrow>
-            <p class="text-sm text-[var(--color-slate)] mb-6">The practical pieces we manage across the life of a campaign.</p>
+            <p class="t-small mb-6">The practical pieces we manage across the life of a campaign.</p>
             <div class="space-y-6">
               {approachPhases.map((phase) => (
                 <div class="grid sm:grid-cols-[minmax(0,170px)_minmax(0,1fr)] gap-4">
                   <div class="flex flex-col items-start gap-1.5">
                     <IconChip icon={phase.icon} size={10} iconSize={18} class="shrink-0" />
-                    <p class="text-xs text-[var(--color-slate)]"><span class="font-semibold text-[var(--color-ink)]">{phase.phase}:</span> {phase.text}</p>
+                    <p class="t-small"><span class="t-title">{phase.phase}:</span> {phase.text}</p>
                   </div>
                   <div class="grid sm:grid-cols-[repeat(3,minmax(0,1fr))] gap-3">
                     {phase.items.map((item) => (
@@ -294,8 +294,8 @@ const stats = [
         {audiences.map((item) => (
           <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6">
             <img src={`${base}/google-ads-icons/${item.image}.svg`} alt="" class="w-20 h-20 object-contain mb-4" />
-            <p class="font-semibold text-[var(--color-ink)] mb-1.5">{item.title}</p>
-            <p class="text-sm text-[var(--color-slate)] leading-relaxed">{item.text}</p>
+            <p class="t-title mb-1.5">{item.title}</p>
+            <p class="t-small">{item.text}</p>
           </div>
         ))}
       </div>
@@ -306,8 +306,8 @@ const stats = [
       <div class="grid lg:grid-cols-[1fr_1.3fr] gap-10 items-center">
         <div>
           <Eyebrow class="mb-3">Results that matter</Eyebrow>
-          <h2 class="text-2xl md:text-3xl font-semibold text-[var(--color-ink)] mb-4">Transparent reporting. Better decisions. Stronger results.</h2>
-          <p class="text-[var(--color-slate)] mb-6 max-w-md">
+          <h2 class="t-heading text-balance mb-4">Transparent reporting. Better decisions. Stronger results.</h2>
+          <p class="t-body mb-6 max-w-md">
             We give you clear visibility of what's working, what's improving, and where the opportunities are.
           </p>
           <!-- Upgraded from a plain text link per feedback — same tokens as
@@ -324,7 +324,7 @@ const stats = [
                 <path d="M4 18V6M4 18h16" stroke-linecap="round"/><path d="M7 14l4-4 3 3 5-6" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </span>
-            <span class="text-sm font-semibold text-[var(--color-ink)]">See reporting example</span>
+            <span class="t-small-strong">See reporting example</span>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5" class="transition-transform group-hover:translate-x-1">
               <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
@@ -336,11 +336,11 @@ const stats = [
              Dropdowns are styled chrome only, not interactive. -->
         <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-5 md:p-6 [box-shadow:var(--shadow-panel)]" aria-hidden="true">
           <div class="flex items-center gap-3 mb-5">
-            <span class="inline-flex items-center gap-1.5 rounded-[var(--radius-pill)] border border-[var(--color-line)] px-3 py-1.5 text-xs text-[var(--color-slate)]">
+            <span class="t-small inline-flex items-center gap-1.5 rounded-[var(--radius-pill)] border border-[var(--color-line)] px-3 py-1.5">
               Last 30 days
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </span>
-            <span class="inline-flex items-center gap-1.5 rounded-[var(--radius-pill)] border border-[var(--color-line)] px-3 py-1.5 text-xs text-[var(--color-slate)]">
+            <span class="t-small inline-flex items-center gap-1.5 rounded-[var(--radius-pill)] border border-[var(--color-line)] px-3 py-1.5">
               All campaigns
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </span>
@@ -349,8 +349,8 @@ const stats = [
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
             {stats.map((stat) => (
               <div class="rounded-lg bg-[var(--color-paper-dim)] p-3">
-                <p class="text-xs text-[var(--color-slate)] mb-1">{stat.label}</p>
-                <p class="text-lg font-semibold text-[var(--color-ink)] mb-0.5">{stat.value}</p>
+                <p class="t-small mb-1">{stat.label}</p>
+                <p class="t-title mb-0.5">{stat.value}</p>
                 <p class:list={["text-xs font-medium", stat.up ? "text-[var(--color-good)]" : "text-[var(--color-accent)]"]}>
                   {stat.up ? "↑" : "↓"} {stat.change}
                 </p>

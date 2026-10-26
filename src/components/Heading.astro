@@ -1,29 +1,21 @@
 ---
-// The standard in-page section heading (below a page's hero, e.g. "A clear
-// rhythm that keeps things moving."). Defaults to <h2> — pass as="h1" on a
-// page that has no separate hero section and needs this to be its one
-// semantic H1 while keeping section-heading visual size (see how-we-work.astro
-// Section 1). For the big page-hero headline, use PageHeading instead.
+// The standard in-page section heading (below a page's hero): the t-heading
+// style (30 / 36 / 40px, line-height 1.2; see global.css) with balanced line
+// breaks. Defaults to <h2>. For the big page-hero headline use PageHeading.
+// (Until 2026-10-27 there was also a smaller "section" size; Andrew chose the
+// larger one as the single section-heading size.)
 interface Props {
   as?: "h1" | "h2" | "h3";
   class?: string;
   noWrap?: boolean;
-  size?: "section" | "statement";
 }
-const { as: Tag = "h2", class: className, noWrap = false, size = "section" } = Astro.props as Props;
-// "statement" is the larger, punchier heading Andrew chose for How We Work's first
-// row (2026-10-20): 30 / 36 / 40px at line-height 1.2. The leading is repeated at md
-// because md:text-4xl carries its own line-height (the same trap as PageHeading), which
-// otherwise silently wins and leaves the heading at ~1.0.
-const sizeClass = size === "statement"
-  ? "t-heading text-balance"
-  : "text-2xl md:text-3xl font-semibold";
+const { as: Tag = "h2", class: className, noWrap = false } = Astro.props as Props;
 ---
 {/* noWrap uses sm:whitespace-nowrap, not a bare whitespace-nowrap — it exists to
    stop an awkward mid-phrase break at desktop widths, not to force one long line
    at mobile widths where there isn't room for it (that forced a page-wide
    horizontal-scroll bug: the heading's un-wrappable text pushed scrollWidth past
    the viewport with nothing downstream to clip it). */}
-<Tag class:list={[sizeClass, noWrap && "sm:whitespace-nowrap", className]}>
+<Tag class:list={["t-heading text-balance", noWrap && "sm:whitespace-nowrap", className]}>
   <slot />
 </Tag>

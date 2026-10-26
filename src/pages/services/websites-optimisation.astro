@@ -198,8 +198,8 @@ const audiences = [
             <div class="flex items-start gap-4 py-4 first:pt-0 last:pb-0">
               <IconChip icon={pillar.icon} size={11} iconSize={22} shape="lg" class="shrink-0" />
               <div>
-                <p class="font-semibold text-[var(--color-ink)] mb-1">{pillar.title}</p>
-                <p class="text-sm text-[var(--color-slate)] leading-relaxed">{pillar.text}</p>
+                <p class="t-title mb-1">{pillar.title}</p>
+                <p class="t-small">{pillar.text}</p>
               </div>
             </div>
           ))}
@@ -292,8 +292,8 @@ const audiences = [
         {audiences.map((item) => (
           <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6">
             <IconChip icon={item.icon} size={14} iconSize={26} stroke="1.5" class="mb-4" />
-            <p class="font-semibold text-[var(--color-ink)] mb-1.5">{item.title}</p>
-            <p class="text-sm text-[var(--color-slate)] leading-relaxed">{item.text}</p>
+            <p class="t-title mb-1.5">{item.title}</p>
+            <p class="t-small">{item.text}</p>
           </div>
         ))}
       </div>

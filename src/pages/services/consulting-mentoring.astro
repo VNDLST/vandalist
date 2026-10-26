@@ -123,8 +123,8 @@ const audiences = [
         {services.map((service) => (
           <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6">
             <IconChip icon={service.icon} size={11} iconSize={22} shape="lg" class="mb-4" />
-            <p class="font-semibold text-[var(--color-ink)] mb-1.5">{service.title}</p>
-            <p class="text-sm text-[var(--color-slate)] leading-relaxed">{service.text}</p>
+            <p class="t-title mb-1.5">{service.title}</p>
+            <p class="t-small">{service.text}</p>
           </div>
         ))}
       </div>
@@ -136,8 +136,8 @@ const audiences = [
       <div class="max-w-7xl mx-auto grid lg:grid-cols-[minmax(0,34%)_minmax(0,66%)] gap-10 items-start">
         <div>
           <Eyebrow class="mb-3">Our approach</Eyebrow>
-          <h2 class="text-2xl md:text-3xl font-semibold text-[var(--color-ink)] mb-4">Advice that helps you think more clearly and act with confidence</h2>
-          <p class="text-[var(--color-slate)] mb-6 max-w-md">
+          <h2 class="t-heading text-balance mb-4">Advice that helps you think more clearly and act with confidence</h2>
+          <p class="t-body mb-6 max-w-md">
             Good marketing starts with good thinking. We bring experience, honesty, and practical ideas to help you make better decisions and move forward.
           </p>
           <ul class="space-y-3">
@@ -155,8 +155,8 @@ const audiences = [
             <div class="rounded-xl border border-[var(--color-line)] bg-white p-5 flex items-start gap-4">
               <IconChip icon={item.icon} size={11} iconSize={20} shape="lg" class="shrink-0" />
               <div>
-                <p class="font-semibold text-[var(--color-ink)] mb-1">{item.title}</p>
-                <p class="text-sm text-[var(--color-slate)] leading-relaxed">{item.text}</p>
+                <p class="t-title mb-1">{item.title}</p>
+                <p class="t-small">{item.text}</p>
               </div>
             </div>
           ))}
@@ -172,8 +172,8 @@ const audiences = [
         <div class="p-6 md:p-8 border-b border-r border-[var(--color-line)] flex items-start gap-4">
           <IconChip icon={item.icon} size={11} iconSize={20} shape="lg" class="shrink-0" />
           <div>
-            <p class="font-semibold text-[var(--color-ink)] mb-1">{item.title}</p>
-            <p class="text-sm text-[var(--color-slate)] leading-relaxed">{item.text}</p>
+            <p class="t-title mb-1">{item.title}</p>
+            <p class="t-small">{item.text}</p>
           </div>
         </div>
       ))}
@@ -200,8 +200,8 @@ const audiences = [
       {experience.map((item) => (
         <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6">
           <IconChip icon={item.icon} size={11} iconSize={22} shape="lg" class="mb-4" />
-          <p class="font-semibold text-[var(--color-ink)] mb-1.5">{item.title}</p>
-          <p class="text-sm text-[var(--color-slate)] leading-relaxed">{item.text}</p>
+          <p class="t-title mb-1.5">{item.title}</p>
+          <p class="t-small">{item.text}</p>
         </div>
       ))}
     </div>
@@ -211,8 +211,8 @@ const audiences = [
       {audiences.map((item) => (
         <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6">
           <IconChip icon={item.icon} size={11} iconSize={22} shape="lg" class="mb-4" />
-          <p class="font-semibold text-[var(--color-ink)] mb-1.5">{item.title}</p>
-          <p class="text-sm text-[var(--color-slate)] leading-relaxed">{item.text}</p>
+          <p class="t-title mb-1.5">{item.title}</p>
+          <p class="t-small">{item.text}</p>
         </div>
       ))}
     </div>

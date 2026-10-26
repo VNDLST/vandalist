@@ -26,8 +26,8 @@ const primaryResult = data.results?.[0];
     <CaseStudyImage src={data.featuredImage} alt={data.title} rounded="rounded-none" />
   </div>
   <div class="p-6 flex flex-col flex-1">
-    <p class="font-semibold text-[var(--color-ink)] mb-1.5">{data.title}</p>
-    <p class="text-sm text-[var(--color-slate)] leading-relaxed mb-4">{data.summary}</p>
+    <p class="t-title mb-1.5">{data.title}</p>
+    <p class="t-small mb-4">{data.summary}</p>
 
     <div class="flex flex-wrap gap-2 mb-4">
       {data.services.map((s) => <ServiceTagPill label={serviceLabel(s)} />)}

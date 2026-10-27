@@ -1120,6 +1120,13 @@ about it, don't just pick one.
 
 ## Known open items
 
+- **2026-10-27 — 10th type style: t-subheading (22px, 600, lh 1.3, ink), the "in-between size".** Andrew spotted the
+  gap between t-title (18px, same size as t-intro) and t-heading (40px). Used for: About value-card labels (the old
+  1.3rem exception is gone; ALLOWED_LINES in check-type.mjs is now empty), the three How We Work panel titles
+  ("Your team brings", "Together", "Vandalist brings"), and the featured case-study title. t-title stays 18px for
+  compact cards, rows and steps. He expects to need it more as content grows: when adding a larger card/feature
+  title use t-subheading, not a new size. Open for him to review live (22px vs 24px).
+
 - **2026-10-28 — About page text review (Andrew).** Audited element by element: the values-card flip text is
   t-small-strong in white; the How-we-work diagram uses t-small / t-small-strong / t-link; partnerships use
   t-eyebrow / t-small-strong / t-small / t-heading / t-body: all inside the set. Only exception: the five

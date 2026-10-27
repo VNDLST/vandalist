@@ -95,7 +95,7 @@
    An audit of How We Work found 20 text formats (15 visibly different), many
    differing only by line-height or colour; this is the 8-style set (a 9th, t-caption, was retired the same day)
    that replaces them. Rolled out sitewide 2026-10-27; t-link was added as the 9th
-   style. The set is CLOSED: nothing may set its own size / weight / line-height /
+   style and t-subheading (the in-between size, Andrew 2026-10-27) as the 10th. The set is CLOSED: nothing may set its own size / weight / line-height /
    tracking (npm run check:type enforces it). A style may take a colour utility
    (ink, slate, accent-text, good, bad, white) as a tone, nothing else.
 
@@ -103,6 +103,7 @@
    t-display      36 / 48px       600     1.2   ink        (PageHeading already matches)
    t-heading      30 / 36 / 40px  600     1.2   ink        (Heading size="statement" already matches)
    t-intro        18px            400     1.6   ink
+   t-subheading   22px            600     1.3   ink        (larger card / panel titles; t-title stays for compact cards, rows, steps)
    t-title        18px            600     1.4   ink
    t-body         16px            400     1.6   slate
    t-small        14px            400     1.5   slate
@@ -121,6 +122,7 @@
   @media (min-width: 768px) { .t-heading { font-size: 2.25rem; } }
   @media (min-width: 1024px) { .t-heading { font-size: 2.5rem; } }
   .t-intro { font-size: 1.125rem; font-weight: 400; line-height: 1.6; color: var(--color-ink); }
+  .t-subheading { font-size: 1.375rem; font-weight: 600; line-height: 1.3; color: var(--color-ink); }
   .t-title { font-size: 1.125rem; font-weight: 600; line-height: 1.4; color: var(--color-ink); }
   .t-body { font-size: 1rem; font-weight: 400; line-height: 1.6; color: var(--color-slate); }
   .t-small { font-size: 0.875rem; font-weight: 400; line-height: 1.5; color: var(--color-slate); }

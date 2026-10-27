@@ -35,8 +35,8 @@ const EXEMPT_FILES = [
 ];
 const CHROME_FILES = ["components/Header.astro", "components/Footer.astro", "components/CtaBand.astro"];
 const ALLOWED_LINES = [
-  // [file, substring that identifies the line, reason]
-  ["pages/about.astro", "font-size: 1.3rem", "About value-card label: Andrew chose 1.3rem on 2026-10-14"],
+  // [file, substring that identifies the line, reason]. Empty: the About value labels
+  // (formerly 1.3rem here) now use t-subheading.
 ];
 
 const FORMAT_TOKENS = [

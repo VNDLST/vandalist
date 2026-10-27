@@ -1,7 +1,7 @@
 ---
 title: "Gladstone Regional Council"
 confidential: false
-outcomeHeadline: "A digital experience that connects council and community."
+outcomeHeadline: "A digital experience that connects council and community"
 summary: "A new website and digital strategy that improved community engagement and streamlined service access."
 context: "We partnered with Gladstone Regional Council to redesign their website and improve how residents access information and services online."
 services: ["websites-optimisation", "seo-ai-search", "marketing-support"]

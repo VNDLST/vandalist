@@ -13,6 +13,9 @@
 //     in EXEMPT_FILES, or any block between the markers
 //         <!-- type-exempt:start reason -->  ...  <!-- type-exempt:end -->
 //   - ALLOWED_LINES: individual exceptions Andrew has chosen, each with a reason.
+//
+// Also enforced (Andrew, 2026-10-27): headings take NO full stops. No heading may end
+// in . ! or ?, and a heading may not hold two sentences (use a comma instead).
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -78,11 +81,28 @@ for (const file of walk(root).filter((f) => f.endsWith(".astro"))) {
   });
 }
 
+// ---- headings carry no full stops ----------------------------------------------
+const headingText = (html) => html.replace(/<!--[\s\S]*?-->/g, "").replace(/<span class="sr-only">[\s\S]*?<\/span>/g, "").replace(/<[^>]+>/g, " ").replace(/&rsquo;/g, "’").replace(/\s+/g, " ").trim();
+const badStop = (t) => t && (/[.!?]$/.test(t) || /[a-z][.!?]\s+[A-Z]/.test(t));
+function checkHeadings(rel, src) {
+  const found = [];
+  for (const m of src.matchAll(/<(Heading|PageHeading|h1|h2)\b[^>]*>([\s\S]*?)<\/\1>/g)) found.push(headingText(m[2]));
+  for (const m of src.matchAll(/\bheading="([^"]*)"/g)) found.push(headingText(m[1]));
+  for (const m of src.matchAll(/<Fragment slot="title">([\s\S]*?)<\/Fragment>/g)) found.push(headingText(m[1]));
+  for (const m of src.matchAll(/^outcomeHeadline:\s*"([^"]*)"/gm)) found.push(headingText(m[1]));
+  for (const t of found) if (badStop(t)) violations.push(rel + "  heading has a full stop: \"" + t.slice(0, 80) + "\"");
+}
+for (const file of walk(root)) {
+  const rel = path.relative(root, file).split(path.sep).join("/");
+  if (file.endsWith(".astro")) checkHeadings(rel, fs.readFileSync(file, "utf8").replace(/\r\n/g, "\n").replace(/^---[\s\S]*?\n---\n/, ""));
+  else if (/case-studies\/.*\.md$/.test(rel)) checkHeadings(rel, fs.readFileSync(file, "utf8").replace(/\r\n/g, "\n"));
+}
+
 if (allowed.length) { console.log("Allowed exceptions (chosen, with a reason):"); allowed.forEach((l) => console.log("  " + l)); console.log(""); }
 if (violations.length) {
   console.log(`TYPE LOCK FAILED: ${violations.length} line(s) use text formatting outside the shared styles:\n`);
   violations.forEach((l) => console.log("  " + l));
-  console.log("\nUse a t-* style from src/styles/global.css (plus a colour utility if needed).");
+  console.log("\nUse a t-* style from src/styles/global.css (plus a colour utility if needed); headings take no full stops.");
   process.exit(1);
 }
 console.log("Type lock OK: all site text uses the shared styles.");

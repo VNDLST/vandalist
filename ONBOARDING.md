@@ -1120,6 +1120,14 @@ about it, don't just pick one.
 
 ## Known open items
 
+- **2026-10-27 — Headings take NO full stops (Andrew's rule), hero included.** Swept every page + case-study outcomeHeadline.
+  Two-beat headings now use commas ("A small team, a complete ecosystem"; "Your context and purpose, our planning and
+  capability"; "Transparent reporting, better decisions, stronger results"; "Better structure, clearer message, stronger
+  results"; "Real work, real outcomes"; How We Work: "Sometimes we’re boringly conventional, other times..."). The CTA band
+  heading lost its final stop too. Body text and case-study `summary` lines keep theirs. `npm run check:type` now also fails
+  on any heading ending in . ! ? or holding two sentences. Home coverage heading is now "Efficient, flexible marketing
+  skills". Open: SEO step titles wrap at 7 across (Andrew: handle when we get to the SEO page).
+
 - **2026-10-27 — Chrome joins the type lock; About partnerships heading; service taglines removed.** (a) Header, Footer and
   CtaBand now use the t-* styles and the check script no longer has a "chrome" exemption (the only exempt bit left is
   the CTA band's rotating word, a type-exempt block: it scales 1.4em off the heading). An 11th style t-nav (16px/600/1.5

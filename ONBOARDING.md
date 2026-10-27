@@ -1120,6 +1120,16 @@ about it, don't just pick one.
 
 ## Known open items
 
+- **2026-10-28 — About page text review (Andrew).** Audited element by element: the values-card flip text is
+  t-small-strong in white; the How-we-work diagram uses t-small / t-small-strong / t-link; partnerships use
+  t-eyebrow / t-small-strong / t-small / t-heading / t-body: all inside the set. Only exception: the five
+  value-card FRONT labels (1.3rem, Andrew chose it); cleaned so they carry t-title with just an inline
+  font-size (they were disguised as t-body + font-weight override). OPEN: keep that single exception, or bring
+  it into the set (t-title at 18px, or raise t-title to ~20px sitewide so the exception disappears; Andrew to
+  choose). Also: the CTA band eyebrow ("Brain dump or specific requirements:") is now the standard t-eyebrow
+  (deep pink) instead of plain ink text; chrome exempt lines 20 -> 19. Optional: drop its trailing colon to
+  match other eyebrows (copy not changed).
+
 - **2026-10-27 (round 2) — Andrew's decisions applied; TYPE SET IS NOW LOCKED. Not yet seen by him live.**
   His rule: a locked set of text formats; no text may operate outside it; if one module changes, update all.
   1. TYPE LOCK: 9 styles in global.css (display, heading, intro, title, body, small, small-strong, eyebrow,

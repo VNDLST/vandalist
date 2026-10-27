@@ -95,7 +95,7 @@
    An audit of How We Work found 20 text formats (15 visibly different), many
    differing only by line-height or colour; this is the 8-style set (a 9th, t-caption, was retired the same day)
    that replaces them. Rolled out sitewide 2026-10-27; t-link was added as the 9th
-   style and t-subheading (the in-between size, Andrew 2026-10-27) as the 10th. The set is CLOSED: nothing may set its own size / weight / line-height /
+   style and t-subheading (the in-between size, Andrew 2026-10-27) as the 10th and t-nav (header navigation) as the 11th. The set is CLOSED: nothing may set its own size / weight / line-height /
    tracking (npm run check:type enforces it). A style may take a colour utility
    (ink, slate, accent-text, good, bad, white) as a tone, nothing else.
 
@@ -110,6 +110,7 @@
    t-small-strong 14px            600     1.5   ink
    t-eyebrow      14px            500     1.4   accent-text (deeper pink), 0.025em tracking
    t-link         14px            500     1.5   accent-text (text links, "View case study ->")
+   t-nav          16px            600     1.5   slate      (desktop header navigation)
 
    Plain classes in the components layer: any Tailwind utility put on the same
    element (text-lg, leading-*, text-[colour]) would override them, so converted
@@ -128,6 +129,7 @@
   .t-small { font-size: 0.875rem; font-weight: 400; line-height: 1.5; color: var(--color-slate); }
   .t-small-strong { font-size: 0.875rem; font-weight: 600; line-height: 1.5; color: var(--color-ink); }
   .t-link { font-size: 0.875rem; font-weight: 500; line-height: 1.5; color: var(--color-accent-text); }
+  .t-nav { font-size: 1rem; font-weight: 600; line-height: 1.5; color: var(--color-slate); }
   .t-eyebrow { font-size: 0.875rem; font-weight: 500; line-height: 1.4; letter-spacing: 0.025em; color: var(--color-accent-text); }
 }
 

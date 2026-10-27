@@ -46,16 +46,18 @@ const words = ["direction", "flexibility", "resources", "concepts", "guidance"];
 <section class="relative z-10 bg-[var(--color-paper-dim)] border-t-2 border-[var(--color-paper-deep)]">
   <div class="max-w-6xl mx-auto px-6 md:px-10 py-10 text-left">
     <p class="t-eyebrow mb-2">Brain dump or specific requirements</p>
-    <h2 class="text-2xl md:text-3xl lg:text-4xl xl:text-[40px] font-bold text-[var(--color-ink)] mb-3.5">
+    <h2 class="t-heading mb-3.5">
       <span class="sr-only">We’ll provide the {words.slice(0, -1).join(", ")} or {words[words.length - 1]} you’re looking for.</span>
       <span aria-hidden="true">
         We’ll provide the
-        <span class="inline-flex flex-col overflow-hidden align-[-0.08em] -mt-[0.4em] -mb-[0.09em] mx-1.5 h-[1.5em] text-[1.4em] leading-[1.5] font-semibold text-[var(--color-accent)]">
+        <!-- type-exempt:start the rotating word is scaled relative to the heading (1.4em), not a free-standing size -->
+        <span class="inline-flex flex-col overflow-hidden align-[-0.08em] -mt-[0.4em] -mb-[0.09em] mx-1.5 h-[1.5em] text-[1.4em] leading-[1.5] text-[var(--color-accent)]">
           <span class="block word-slide text-center [&>span]:block">
             {words.map((w) => <span>{w}</span>)}
             <span>{words[0]}</span>
           </span>
         </span>
+        <!-- type-exempt:end -->
         you’re looking for.
       </span>
     </h2>

@@ -12,7 +12,6 @@
 //   - illustrations / mock UI whose text only has to look like a UI: whole files
 //     in EXEMPT_FILES, or any block between the markers
 //         <!-- type-exempt:start reason -->  ...  <!-- type-exempt:end -->
-//   - site chrome with its own typography (CHROME_FILES): header, footer, CTA band
 //   - ALLOWED_LINES: individual exceptions Andrew has chosen, each with a reason.
 import fs from "node:fs";
 import path from "node:path";
@@ -33,7 +32,6 @@ const EXEMPT_FILES = [
   "pages/icon-texture-demo.astro",
   "pages/question-pile-demo.astro",
 ];
-const CHROME_FILES = ["components/Header.astro", "components/Footer.astro", "components/CtaBand.astro"];
 const ALLOWED_LINES = [
   // [file, substring that identifies the line, reason]. Empty: the About value labels
   // (formerly 1.3rem here) now use t-subheading.
@@ -53,7 +51,6 @@ function walk(d) {
 }
 
 const violations = [];
-const chrome = [];
 const allowed = [];
 for (const file of walk(root).filter((f) => f.endsWith(".astro"))) {
   const rel = path.relative(root, file).replace(/\\/g, "/");
@@ -77,12 +74,11 @@ for (const file of walk(root).filter((f) => f.endsWith(".astro"))) {
     const allow = ALLOWED_LINES.find(([f, sub]) => f === rel && line.includes(sub));
     if (allow) { allowed.push(`${rel}:${i + 1}  ${allow[2]}`); return; }
     const rec = `${rel}:${i + 1}  [${hit.join(" ")}]  ${t.slice(0, 110)}`;
-    if (CHROME_FILES.includes(rel)) chrome.push(rec); else violations.push(rec);
+    violations.push(rec);
   });
 }
 
 if (allowed.length) { console.log("Allowed exceptions (chosen, with a reason):"); allowed.forEach((l) => console.log("  " + l)); console.log(""); }
-if (chrome.length) { console.log(`Site chrome with its own typography (header / footer / CTA band): ${chrome.length} line(s), not enforced`); console.log(""); }
 if (violations.length) {
   console.log(`TYPE LOCK FAILED: ${violations.length} line(s) use text formatting outside the shared styles:\n`);
   violations.forEach((l) => console.log("  " + l));

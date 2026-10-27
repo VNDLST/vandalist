@@ -1120,6 +1120,16 @@ about it, don't just pick one.
 
 ## Known open items
 
+- **2026-10-27 — Chrome joins the type lock; About partnerships heading; service taglines removed.** (a) Header, Footer and
+  CtaBand now use the t-* styles and the check script no longer has a "chrome" exemption (the only exempt bit left is
+  the CTA band's rotating word, a type-exempt block: it scales 1.4em off the heading). An 11th style t-nav (16px/600/1.5
+  slate) was added for desktop header navigation. Visible changes: nav weight 700 -> 600 (matches every other bold);
+  flyout descriptions 12 -> 14px; mobile nav strip 12 -> 14px (it was already a horizontal scroll strip, no hamburger yet:
+  worth a proper mobile menu later); footer unchanged in size; CTA heading bold -> semibold at the shared heading size.
+  (b) About partnerships card heading is now "Our community" (one line at 1440; wraps to 2 near 1024 where the 3-column
+  card is ~235px). (c) The heart + "Ongoing, collaborative, and built to adapt." line was only on Marketing Support: removed.
+  Open: homepage coverage heading (4 lines) and SEO step titles still wrap in narrow spaces.
+
 - **2026-10-27 — 10th type style: t-subheading (22px, 600, lh 1.3, ink), the "in-between size".** Andrew spotted the
   gap between t-title (18px, same size as t-intro) and t-heading (40px). Used for: About value-card labels (the old
   1.3rem exception is gone; ALLOWED_LINES in check-type.mjs is now empty), the three How We Work panel titles

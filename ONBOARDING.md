@@ -1134,6 +1134,9 @@ about it, don't just pick one.
   choice: (1) "Momentum builds over time" 7 steps too cramped: merge to 6 (recommended) / 4+3 / leave; (2) "How SEO and content
   work together": stack heading above a full-width diagram (recommended) / rebalance split. Optional idea offered: end the
   countdown on "#1".
+  UPDATE same day: Andrew liked it but said the rocket looked understated, so it is now ~1.6x bigger (765px tall SVG from xl,
+  620px at lg; flame shortened and pad offset cut 70 -> 36 units so rocket + flame still fit the 578px hero; clouds 1.3x). The
+  root clips sideways (overflow-x: clip) because the drifting smoke caused a horizontal page scroll at 1024px.
 
 - **2026-10-30 — PAGE STATUS and WORKING RULE (Andrew).** Rule: park loose issues until we reach the page they belong to; don't
   chase random stuff as we go. COMPLETE (his words): Contact, About (except the intro video he still has to shoot), How We Work, and the

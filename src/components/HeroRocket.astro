@@ -12,10 +12,13 @@
 // that barely moves). No GSAP here, so this adds nothing to the GSAP licence
 // question. If any code from either pen is ever copied, keep its notice.
 //
+// Size: 620px tall from lg, 765px from xl; the root clips sideways (overflow-x: clip) so
+// drifting smoke can never create a horizontal page scroll.
+//
 // Timeline (seconds from page load), shared with HeroClouds.astro:
 //   0.3-2.1  countdown numerals pop in and out
 //   1.7      flame ignites and grows; 1.9-3.3 the rocket shakes and smoke blooms
-//   3.1-5.4  lift-off: the rocket rises 70 units from the "pad" to its cruise
+//   3.1-5.4  lift-off: the rocket rises 36 units from the "pad" to its cruise
 //            position (smoke stays behind), the flame flares then settles
 //   3.6      HeroClouds fades in and keeps streaming forever
 //   5.4+     cruise: a slow vertical pulse, flame flicker
@@ -26,10 +29,10 @@
 // the base styles are the complete, still rocket at cruise position (no
 // countdown, no smoke).
 ---
-<div class="hero-rocket relative z-10 h-[322px]" aria-hidden="true">
+<div class="hero-rocket relative z-10 h-[322px] [overflow-x:clip]" aria-hidden="true">
   <svg
-    class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[480px] w-auto overflow-visible"
-    viewBox="-60 -10 320 450"
+    class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[620px] xl:h-[765px] w-auto overflow-visible"
+    viewBox="-60 -53 320 450"
     xmlns="http://www.w3.org/2000/svg"
   >
     <defs>
@@ -47,14 +50,14 @@
 
     <!-- Smoke on the pad (stays put while the rocket rises) -->
     <g fill="#ffffff" stroke="#1c1b1a" stroke-opacity="0.06">
-      <circle class="hr-puff" style="--dx:-26px;--d:1.9s" cx="70" cy="326" r="20" />
-      <circle class="hr-puff" style="--dx:-58px;--d:2.05s" cx="38" cy="334" r="26" />
-      <circle class="hr-puff" style="--dx:-90px;--d:2.2s" cx="4" cy="338" r="20" />
-      <circle class="hr-puff" style="--dx:-118px;--d:2.35s" cx="-26" cy="342" r="14" />
-      <circle class="hr-puff" style="--dx:26px;--d:1.95s" cx="130" cy="326" r="20" />
-      <circle class="hr-puff" style="--dx:58px;--d:2.1s" cx="162" cy="334" r="26" />
-      <circle class="hr-puff" style="--dx:90px;--d:2.25s" cx="196" cy="338" r="20" />
-      <circle class="hr-puff" style="--dx:118px;--d:2.4s" cx="226" cy="342" r="14" />
+      <circle class="hr-puff" style="--dx:-26px;--d:1.9s" cx="70" cy="292" r="20" />
+      <circle class="hr-puff" style="--dx:-58px;--d:2.05s" cx="38" cy="300" r="26" />
+      <circle class="hr-puff" style="--dx:-90px;--d:2.2s" cx="4" cy="304" r="20" />
+      <circle class="hr-puff" style="--dx:-118px;--d:2.35s" cx="-26" cy="308" r="14" />
+      <circle class="hr-puff" style="--dx:26px;--d:1.95s" cx="130" cy="292" r="20" />
+      <circle class="hr-puff" style="--dx:58px;--d:2.1s" cx="162" cy="300" r="26" />
+      <circle class="hr-puff" style="--dx:90px;--d:2.25s" cx="196" cy="304" r="20" />
+      <circle class="hr-puff" style="--dx:118px;--d:2.4s" cx="226" cy="308" r="14" />
     </g>
 
     <g class="hr-lift">
@@ -63,8 +66,8 @@
           <!-- Flame -->
           <g class="hr-flame">
             <g class="hr-flick">
-              <path d="M100 254 C80 270 76 300 100 346 C124 300 120 270 100 254 Z" fill="#ff9f43" />
-              <path d="M100 258 C90 274 88 294 100 320 C112 294 110 274 100 258 Z" fill="#ffd76a" />
+              <path d="M100 254 C80 268 77 292 100 322 C123 292 120 268 100 254 Z" fill="#ff9f43" />
+              <path d="M100 258 C90 272 89 288 100 306 C111 288 110 272 100 258 Z" fill="#ffd76a" />
             </g>
           </g>
 
@@ -137,7 +140,7 @@
   }
   /* 0-3.1s on the pad, then accelerate up to the cruise position */
   @keyframes hr-lift {
-    0%, 57% { transform: translateY(70px); animation-timing-function: cubic-bezier(0.5, 0, 0.9, 0.6); }
+    0%, 57% { transform: translateY(36px); animation-timing-function: cubic-bezier(0.5, 0, 0.9, 0.6); }
     100% { transform: translateY(0); }
   }
   @keyframes hr-shake {
@@ -152,7 +155,7 @@
     0%, 31% { transform: scale(0); }
     57% { transform: scale(1); animation-timing-function: ease-out; }
     66% { transform: scale(1.7); }
-    100% { transform: scale(1.2); }
+    100% { transform: scale(1.1); }
   }
   @keyframes hr-flick {
     from { transform: scale(1.03, 0.9); }

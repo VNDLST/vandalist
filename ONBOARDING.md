@@ -1120,6 +1120,14 @@ about it, don't just pick one.
 
 ## Known open items
 
+- **2026-10-30 — PAGE STATUS and WORKING RULE (Andrew).** Rule: park loose issues until we reach the page they belong to; don't
+  chase random stuff as we go. COMPLETE (his words): Contact, About (except the intro video he still has to shoot), How We Work, and the
+  type-format work. NEXT PAGE: SEO & AI Search (fix the step-title wrapping + any layout issues), then the other service pages.
+  PARKED until their page: SEO step titles wrap at 7 across; GSAP licence (only used by TreadmillRunner on Marketing Support +
+  Websites; Standard no-charge licence, not MIT; options: read gsap.com/standard-license and close it, or replace the slider with
+  plain pointer events); Consulting hero ~740px at ~1009px wide; mobile nav has no hamburger; Resources page missing; six
+  case-study stubs; three public demo pages; SharePoint keep-or-move question.
+
 - **2026-10-27 — Headings take NO full stops (Andrew's rule), hero included.** Swept every page + case-study outcomeHeadline.
   Two-beat headings now use commas ("A small team, a complete ecosystem"; "Your context and purpose, our planning and
   capability"; "Transparent reporting, better decisions, stronger results"; "Better structure, clearer message, stronger

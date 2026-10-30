@@ -1120,6 +1120,21 @@ about it, don't just pick one.
 
 ## Known open items
 
+- **2026-10-30 — SEO page, step 1: hero rocket + new hero heading (live; Andrew to review).** New HeroRocket.astro (art slot) +
+  HeroClouds.astro (overlay slot, hero needs sectionClass="relative"). Original flat SVG rocket, pure CSS, no GSAP (so it adds
+  nothing to the GSAP licence item). Inspired by two CodePens, credited in the file headers: Jonathan Ching's "Rocket Launch"
+  (codepen.io/chingy/pen/OJMLodv: 3-2-1 countdown, shake, smoke, lift-off) and Elena's "Rocket Animation - pure CSS"
+  (codepen.io/Elena_in_code/pen/eEjbKr: clouds sliding past a near-still rocket). Andrew's choices: A) launch ONCE then cruise,
+  keep the 3-2-1 countdown, no frame; the rocket stays put with a slight forward/back pulse; clouds stream past and are the
+  colour of the section below (--color-paper) so they dissolve into it at the hero's bottom edge. Timeline: countdown 0.3-2.1s,
+  shake/smoke 1.9-3.3s, lift 3.1-5.4s, clouds fade in 3.6s, then cruise. Reduced motion = still rocket, no countdown/smoke,
+  static clouds. Hidden below lg (like other hero art). Both files are in EXEMPT_FILES (art). Hero heading now "Search results
+  and AI snippets that help the right people find you" (Andrew's own wording; alternative offered: "AI answers"); description
+  meta updated. At ~1024px the heading is 4 lines and the hero 712px (not 706). STILL OPEN on this page, awaiting Andrew's
+  choice: (1) "Momentum builds over time" 7 steps too cramped: merge to 6 (recommended) / 4+3 / leave; (2) "How SEO and content
+  work together": stack heading above a full-width diagram (recommended) / rebalance split. Optional idea offered: end the
+  countdown on "#1".
+
 - **2026-10-30 — PAGE STATUS and WORKING RULE (Andrew).** Rule: park loose issues until we reach the page they belong to; don't
   chase random stuff as we go. COMPLETE (his words): Contact, About (except the intro video he still has to shoot), How We Work, and the
   type-format work. NEXT PAGE: SEO & AI Search (fix the step-title wrapping + any layout issues), then the other service pages.

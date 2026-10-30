@@ -28,6 +28,8 @@ const EXEMPT_FILES = [
   "components/TreadmillRunner.astro",
   "components/CampfireToggle.astro",
   "components/HeroCharacter.astro",
+  "components/HeroRocket.astro",
+  "components/HeroClouds.astro",
   "components/GradientIcon.astro",
   "components/PlainIcon.astro",
   "components/IconBadge.astro",

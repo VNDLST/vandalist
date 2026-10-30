@@ -1,0 +1,64 @@
+---
+// The clouds that stream past the hero rocket (see HeroRocket.astro for the
+// shared timeline and credits). Pass it into PageHero's `overlay` slot, with
+// sectionClass="relative" on the hero, so it fills the right half of the hero's
+// full height (header excluded), behind the rocket.
+//
+// The clouds are the colour of the section BELOW the hero (--color-paper), so as
+// they sink past the bottom edge of the hero band they merge into the next
+// section and disappear smoothly, with no visible cut. A fade at the top makes
+// them appear gently instead of popping in. They fade in at 3.6s, as the rocket
+// lifts off, and then stream forever. Hidden below lg, like the rocket.
+//
+// Reduced motion: the clouds stand still (the base styles).
+const clouds = [
+  { left: "4%", w: 170, dur: 6.8, delay: -0.5, y0: 60 },
+  { left: "58%", w: 120, dur: 8.4, delay: -3.2, y0: 210 },
+  { left: "30%", w: 100, dur: 9.6, delay: -6, y0: 340 },
+  { left: "72%", w: 150, dur: 7.2, delay: -5.5, y0: 440 },
+  { left: "12%", w: 130, dur: 8, delay: -7.4, y0: 150 },
+  { left: "46%", w: 160, dur: 7, delay: -1.8, y0: 510 },
+  { left: "80%", w: 90, dur: 9.8, delay: -2.2, y0: 90 },
+  { left: "22%", w: 110, dur: 8.8, delay: -4.4, y0: 270 },
+  { left: "64%", w: 100, dur: 9.2, delay: -8.2, y0: 380 },
+  { left: "38%", w: 140, dur: 7.6, delay: -6.8, y0: 20 },
+];
+---
+<div class="hero-clouds hidden lg:block absolute top-0 bottom-0 left-1/2 right-0 overflow-hidden pointer-events-none" aria-hidden="true">
+  {clouds.map((c) => (
+    <svg
+      class="hc-cloud"
+      viewBox="0 0 140 80"
+      style={`left:min(${c.left}, calc(100% - ${c.w}px));width:${c.w}px;--dur:${c.dur}s;--delay:${c.delay}s;--y0:${c.y0}px`}
+    >
+      <g fill="var(--color-paper)">
+        <circle cx="38" cy="50" r="24" />
+        <circle cx="70" cy="36" r="30" />
+        <circle cx="104" cy="50" r="22" />
+        <rect x="20" y="48" width="104" height="26" rx="13" />
+      </g>
+    </svg>
+  ))}
+</div>
+
+<style>
+  .hero-clouds {
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 22%);
+    mask-image: linear-gradient(to bottom, transparent 0, #000 22%);
+  }
+  .hc-cloud {
+    position: absolute;
+    top: 0;
+    height: auto;
+    transform: translateY(var(--y0));
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-clouds { animation: hc-in 1.4s ease-out 3.6s both; }
+    .hc-cloud { animation: hc-fall var(--dur) linear var(--delay) infinite; }
+  }
+  @keyframes hc-in { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes hc-fall {
+    from { transform: translateY(-170px); }
+    to { transform: translateY(760px); }
+  }
+</style>

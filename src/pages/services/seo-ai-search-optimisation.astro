@@ -38,6 +38,8 @@ import SectionHeading from "../../components/SectionHeading.astro";
 import Eyebrow from "../../components/Eyebrow.astro";
 import CadenceSteps from "../../components/CadenceSteps.astro";
 import SystemDiagram from "../../components/SystemDiagram.astro";
+import HeroRocket from "../../components/HeroRocket.astro";
+import HeroClouds from "../../components/HeroClouds.astro";
 
 const base = import.meta.env.BASE_URL;
 
@@ -142,11 +144,13 @@ const topPages = [
   { page: "/previous-work/fit-tech-office", views: "1,203" },
 ];
 ---
-<Layout title="SEO & AI Search Optimisation" description="SEO &amp; content that helps the right people find you.">
-  <PageHero currentPage="/services/seo-ai-search-optimisation">
-    <Fragment slot="title">SEO &amp; content that helps the right people find you</Fragment>
+<Layout title="SEO & AI Search Optimisation" description="Search results and AI snippets that help the right people find you.">
+  <PageHero currentPage="/services/seo-ai-search-optimisation" sectionClass="relative">
+    <Fragment slot="title">Search results and AI snippets that help the right people find you</Fragment>
     <Fragment slot="intro">We improve your visibility through search intent, useful content, structure and steady optimisation&mdash;so your business is found in traditional search results and emerging AI-driven answer surfaces.</Fragment>
     <OrbButton href={`${base}/contact`}>Book a strategy call</OrbButton>
+    <HeroRocket slot="art" />
+    <HeroClouds slot="overlay" />
   </PageHero>
 
   <div class="bg-[var(--color-paper)]">

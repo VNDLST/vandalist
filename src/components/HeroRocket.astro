@@ -1,0 +1,161 @@
+---
+// SEO page hero illustration: an original flat rocket that counts down 3-2-1,
+// shakes, puffs smoke, lifts off ONCE, then hangs in the sky with a gentle
+// forward/back pulse while HeroClouds streams past to show the movement.
+// Pure inline SVG + CSS (no JS, no libraries).
+//
+// Inspiration (idea and sequence only, the drawing, palette and code are
+// original): "Rocket Launch (CSS & GSAP)" by Jonathan Ching,
+// https://codepen.io/chingy/pen/OJMLodv (3-2-1 countdown, engine shake, smoke,
+// lift-off) and "Rocket Animation - pure CSS" by Elena,
+// https://codepen.io/Elena_in_code/pen/eEjbKr (clouds sliding past a rocket
+// that barely moves). No GSAP here, so this adds nothing to the GSAP licence
+// question. If any code from either pen is ever copied, keep its notice.
+//
+// Timeline (seconds from page load), shared with HeroClouds.astro:
+//   0.3-2.1  countdown numerals pop in and out
+//   1.7      flame ignites and grows; 1.9-3.3 the rocket shakes and smoke blooms
+//   3.1-5.4  lift-off: the rocket rises 70 units from the "pad" to its cruise
+//            position (smoke stays behind), the flame flares then settles
+//   3.6      HeroClouds fades in and keeps streaming forever
+//   5.4+     cruise: a slow vertical pulse, flame flicker
+//
+// Colours are literals mirroring the site tokens (this is art, not UI):
+//   accent #ff3d6b, accent-dark #d92f5c, ink #1c1b1a, plus warm flame tones.
+// Everything animated lives in @media (prefers-reduced-motion: no-preference);
+// the base styles are the complete, still rocket at cruise position (no
+// countdown, no smoke).
+---
+<div class="hero-rocket relative z-10 h-[322px]" aria-hidden="true">
+  <svg
+    class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[480px] w-auto overflow-visible"
+    viewBox="-60 -10 320 450"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <defs>
+      <clipPath id="hr-body">
+        <path d="M100 18 C134 38 150 92 148 172 L148 228 Q148 246 130 246 L70 246 Q52 246 52 228 L52 172 C50 92 66 38 100 18 Z" />
+      </clipPath>
+    </defs>
+
+    <!-- Countdown, upper left of the rocket -->
+    <g transform="rotate(-14 -10 60)">
+      <text class="hr-count" style="--d:0.3s" x="-10" y="92" text-anchor="middle">3</text>
+      <text class="hr-count" style="--d:0.95s" x="-10" y="92" text-anchor="middle">2</text>
+      <text class="hr-count" style="--d:1.6s" x="-10" y="92" text-anchor="middle">1</text>
+    </g>
+
+    <!-- Smoke on the pad (stays put while the rocket rises) -->
+    <g fill="#ffffff" stroke="#1c1b1a" stroke-opacity="0.06">
+      <circle class="hr-puff" style="--dx:-26px;--d:1.9s" cx="70" cy="326" r="20" />
+      <circle class="hr-puff" style="--dx:-58px;--d:2.05s" cx="38" cy="334" r="26" />
+      <circle class="hr-puff" style="--dx:-90px;--d:2.2s" cx="4" cy="338" r="20" />
+      <circle class="hr-puff" style="--dx:-118px;--d:2.35s" cx="-26" cy="342" r="14" />
+      <circle class="hr-puff" style="--dx:26px;--d:1.95s" cx="130" cy="326" r="20" />
+      <circle class="hr-puff" style="--dx:58px;--d:2.1s" cx="162" cy="334" r="26" />
+      <circle class="hr-puff" style="--dx:90px;--d:2.25s" cx="196" cy="338" r="20" />
+      <circle class="hr-puff" style="--dx:118px;--d:2.4s" cx="226" cy="342" r="14" />
+    </g>
+
+    <g class="hr-lift">
+      <g class="hr-shake">
+        <g class="hr-pulse">
+          <!-- Flame -->
+          <g class="hr-flame">
+            <g class="hr-flick">
+              <path d="M100 254 C80 270 76 300 100 346 C124 300 120 270 100 254 Z" fill="#ff9f43" />
+              <path d="M100 258 C90 274 88 294 100 320 C112 294 110 274 100 258 Z" fill="#ffd76a" />
+            </g>
+          </g>
+
+          <!-- Fins -->
+          <path d="M64 186 C40 202 30 232 26 266 C46 262 60 254 70 244 Z" fill="#ff3d6b" />
+          <path d="M136 186 C160 202 170 232 174 266 C154 262 140 254 130 244 Z" fill="#d92f5c" />
+
+          <!-- Nozzle -->
+          <path d="M80 244 H120 L114 258 H86 Z" fill="#d92f5c" />
+
+          <!-- Body -->
+          <path d="M100 18 C134 38 150 92 148 172 L148 228 Q148 246 130 246 L70 246 Q52 246 52 228 L52 172 C50 92 66 38 100 18 Z" fill="#ffffff" />
+          <g clip-path="url(#hr-body)">
+            <ellipse cx="100" cy="34" rx="72" ry="46" fill="#ff3d6b" />
+            <rect x="40" y="212" width="120" height="14" fill="#ff3d6b" />
+            <rect x="100" y="0" width="60" height="260" fill="#1c1b1a" opacity="0.07" />
+          </g>
+
+          <!-- Window -->
+          <circle cx="100" cy="130" r="27" fill="#ff3d6b" />
+          <circle cx="100" cy="130" r="20" fill="#c9efe6" />
+          <path d="M88 124 A14 14 0 0 1 99 116" stroke="#ffffff" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.85" />
+        </g>
+      </g>
+    </g>
+  </svg>
+</div>
+
+<style>
+  .hero-rocket :global(text) {
+    font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+    font-size: 100px;
+    font-weight: 800;
+    fill: #ff3d6b;
+    paint-order: stroke;
+    stroke: #ffffff;
+    stroke-width: 7px;
+    stroke-linejoin: round;
+  }
+  .hero-rocket :global(.hr-count),
+  .hero-rocket :global(.hr-puff),
+  .hero-rocket :global(.hr-flame) { transform-box: fill-box; transform-origin: center; }
+  .hero-rocket :global(.hr-flame) { transform-origin: 50% 0; }
+  .hero-rocket :global(.hr-flick) { transform-box: fill-box; transform-origin: 50% 0; }
+
+  /* Still version (also what reduced-motion users see): rocket at cruise, no countdown or smoke. */
+  .hero-rocket :global(.hr-count),
+  .hero-rocket :global(.hr-puff) { opacity: 0; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-rocket :global(.hr-count) { animation: hr-count 0.85s ease-out var(--d) both; }
+    .hero-rocket :global(.hr-puff) { animation: hr-puff 2.6s ease-out var(--d) both; }
+    .hero-rocket :global(.hr-lift) { animation: hr-lift 5.4s both; }
+    .hero-rocket :global(.hr-shake) { animation: hr-shake 0.08s linear 1.9s 18 alternate; }
+    .hero-rocket :global(.hr-pulse) { animation: hr-pulse 1.5s ease-in-out 5.4s infinite; }
+    .hero-rocket :global(.hr-flame) { animation: hr-flame 5.4s both; }
+    .hero-rocket :global(.hr-flick) { animation: hr-flick 0.16s ease-in-out infinite alternate; }
+  }
+
+  @keyframes hr-count {
+    0% { opacity: 0; transform: scale(0.2); }
+    22% { opacity: 1; transform: scale(1.08); }
+    35%, 70% { opacity: 1; transform: scale(1); }
+    100% { opacity: 0; transform: scale(0.4) translate(14px, 14px); }
+  }
+  @keyframes hr-puff {
+    0% { opacity: 0; transform: translate(0, 0) scale(0.2); }
+    18% { opacity: 1; transform: translate(calc(var(--dx) * 0.3), -4px) scale(0.85); }
+    100% { opacity: 0; transform: translate(var(--dx), 12px) scale(1.7); }
+  }
+  /* 0-3.1s on the pad, then accelerate up to the cruise position */
+  @keyframes hr-lift {
+    0%, 57% { transform: translateY(70px); animation-timing-function: cubic-bezier(0.5, 0, 0.9, 0.6); }
+    100% { transform: translateY(0); }
+  }
+  @keyframes hr-shake {
+    from { transform: translate(-2.5px, 0.6px); }
+    to { transform: translate(2.5px, -0.6px); }
+  }
+  @keyframes hr-pulse {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+  @keyframes hr-flame {
+    0%, 31% { transform: scale(0); }
+    57% { transform: scale(1); animation-timing-function: ease-out; }
+    66% { transform: scale(1.7); }
+    100% { transform: scale(1.2); }
+  }
+  @keyframes hr-flick {
+    from { transform: scale(1.03, 0.9); }
+    to { transform: scale(0.96, 1.1); }
+  }
+</style>

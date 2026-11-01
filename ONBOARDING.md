@@ -1120,6 +1120,15 @@ about it, don't just pick one.
 
 ## Known open items
 
+- **2026-11-02 — SEO page, ROW BY ROW (Andrew's method): Row 1 "The new search landscape" DONE, live.** Now 4 cards (was 5) from
+  Andrew's mock-up + four new illustrations (transparent PNG/WebP supplied; cropped to one shared box and resized to 360px wide
+  WebP in public/search-landscape/: beyond-google, search-behaviour, content-works-harder, bigger-opportunities). Same card recipe as
+  the How We Work principle cards (h-24 image, t-title, t-body, sm:2 / lg:4). Used t-title (18px), not t-subheading, so all four titles
+  stay on one line and the body text lines up. Mock-up detail NOT matched: its intro text runs wider (~2 lines); the shared
+  SectionHeading subtext is max-w-2xl so it is 3 lines with a one-word last line ("time.") here. Asked Andrew whether to widen /
+  balance the shared subtext. NEXT ROWS (waiting on his mock-ups): "How SEO and content work together" diagram, "A complete
+  visibility system", "Momentum builds over time" (7 steps too cramped), "Where this works well", "What better visibility looks like".
+
 - **2026-10-30 — SEO page, step 1: hero rocket + new hero heading (live; Andrew to review).** New HeroRocket.astro (art slot) +
   HeroClouds.astro (overlay slot, hero needs sectionClass="relative"). Original flat SVG rocket, pure CSS, no GSAP (so it adds
   nothing to the GSAP licence item). Inspired by two CodePens, credited in the file headers: Jonathan Ching's "Rocket Launch"

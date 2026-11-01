@@ -44,12 +44,12 @@ import HeroClouds from "../../components/HeroClouds.astro";
 const base = import.meta.env.BASE_URL;
 
 // --- Section 1: The new search landscape ---
-const landscapeItems = [
-  { title: "Search results", text: "Traditional organic rankings remain incredibly important for discovery and consideration.", icon: '<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.5-4.5" stroke-linecap="round"/>' },
-  { title: "AI overviews & snippets", text: "AI-generated overviews and featured snippets pull answers from trusted, well-structured content.", icon: '<path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5L12 3z" stroke-linejoin="round"/><path d="M19 15l.7 2.1 2.1.7-2.1.7-.7 2.1-.7-2.1-2.1-.7 2.1-.7.7-2.1z" stroke-linejoin="round"/>' },
-  { title: "Helpful content", text: "In-depth, original content that solves real problems earns visibility and trust.", icon: '<path d="M6 3h9l3 3v15H6z" stroke-linejoin="round"/><path d="M9 10h6M9 13.5h6M9 17h4"/>' },
-  { title: "Structured pages", text: "Clear information architecture, metadata and schema help search engines understand you.", icon: '<circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v6M12 13l-7 6M12 13l7 6"/>' },
-  { title: "Authority signals", text: "Mentions, links, reviews and brand trust influence how—and where—you appear.", icon: '<path d="M12 3l8 4v5c0 5-3.4 8.4-8 9.5-4.6-1.1-8-4.5-8-9.5V7l8-4z" stroke-linejoin="round"/><path d="M9 12.5l2 2 4-4.5" stroke-linecap="round" stroke-linejoin="round"/>' },
+// Four cards (layout + copy + illustrations supplied by Andrew, 2026-11-02; images in public/search-landscape/).
+const landscapeCards = [
+  { title: "Beyond Google", text: "People are finding answers through AI tools, social platforms and video, not just traditional search results.", icon: "beyond-google" },
+  { title: "Different search behaviour", text: "Users ask longer, more conversational questions and expect quick, useful answers across multiple platforms.", icon: "search-behaviour" },
+  { title: "Content works harder", text: "Well-structured, helpful content can appear in Google results, AI overviews, video platforms and more.", icon: "content-works-harder" },
+  { title: "Opportunities are bigger", text: "When your content is optimised for search and AI, you can reach more of the right people across more channels.", icon: "bigger-opportunities" },
 ];
 
 // --- Section 2: How SEO and content work together ---
@@ -160,14 +160,14 @@ const topPages = [
       <SectionHeading
         eyebrow="The new search landscape"
         heading="Search visibility now happens in more places"
-        subtext="People search in more ways&mdash;and get answers in more places. Visibility depends on a combination of rankings, AI summaries, helpful content, clear structure and trusted authority signals."
+        subtext="Your audience is searching across Google, AI tools, YouTube and more. We help your business show up with the right content, in the right places, at the right time."
       />
-      <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
-        {landscapeItems.map((item) => (
-          <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-5">
-            <IconChip icon={item.icon} size="md" shape="lg" class="mb-3" />
-            <p class="t-small-strong mb-1">{item.title}</p>
-            <p class="t-small">{item.text}</p>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
+        {landscapeCards.map((card) => (
+          <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6 [box-shadow:var(--shadow-card)]">
+            <img src={`${base}/search-landscape/${card.icon}.webp`} alt="" class="h-24 w-auto mb-4" loading="lazy" />
+            <p class="t-title mb-2">{card.title}</p>
+            <p class="t-body">{card.text}</p>
           </div>
         ))}
       </div>

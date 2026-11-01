@@ -1127,7 +1127,7 @@ about it, don't just pick one.
   stay on one line and the body text lines up. Mock-up detail NOT matched: its intro text runs wider (~2 lines); the shared
   SectionHeading subtext is max-w-2xl so it is 3 lines with a one-word last line ("time.") here. Andrew first chose BALANCE (text-balance on the shared SectionHeading subtext) but then saw the
   balanced text ran only ~half the heading width and looked off, so BALANCE WAS REVERTED. Fix is copy instead: the row-1 subtext is
-  now "Audiences are searching across all manner of resources—Google, AI tools, social media and more. We help businesses get found in
+  now "Audiences are searching across all manner of resources - Google, AI tools, social media and more. We help businesses get found in
   the right places." (2 full lines at max-w-2xl). LESSON: for a stray last word, shorten the copy; don't add text-balance to the
   shared component. NEXT ROWS (waiting on his mock-ups): "How SEO and content work together" diagram, "A complete
   visibility system", "Momentum builds over time" (7 steps too cramped), "Where this works well", "What better visibility looks like".

@@ -1,0 +1,70 @@
+---
+// "Linked pairs": rows of two white cards joined by a pink link chip and thin pink
+// lines, with an illustration (soft pink blob + three pink sparkle lines drawn
+// behind a transparent icon) on each card. First used for the SEO page's "How SEO
+// and content work together" (Andrew's mock-up, 2026-11-02). The older
+// SystemDiagram (hub circle in the middle) stays for about / AI Enablement /
+// Websites.
+//
+// Layout: from lg each row is [card] [chip + lines] [card]; below lg each row
+// stacks (card, chip on a short vertical line, card). Icons are transparent WebP
+// files in public/<iconDir>/, named for what they show; the blob and sparkles are
+// drawn here in code (the supplied icons are plain): the blob is the accent at 16% on white
+// and peeks out below-left of the icon, the sparkles sit just off its top-right corner;
+// two blob shapes alternate.
+//
+//   rows      [{ left: Card, right: Card }]    Card = { title, text, icon }  (icon = file name, no extension)
+//   iconDir   folder under /public holding the icons, e.g. "seo-approach"
+import IconChip from "./IconChip.astro";
+
+interface Card { title: string; text: string; icon: string }
+interface Props { rows: { left: Card; right: Card }[]; iconDir: string }
+const { rows, iconDir } = Astro.props as Props;
+const base = import.meta.env.BASE_URL;
+const linkIcon = '<path d="M9 15l6-6"/><path d="M11 7l1-1a3.5 3.5 0 0 1 5 5l-1 1"/><path d="M13 17l-1 1a3.5 3.5 0 0 1-5-5l1-1"/>';
+const blobs = [
+  "M16 60 C6 40 22 14 50 12 C76 10 94 30 90 56 C86 80 58 94 36 88 C26 85 20 72 16 60 Z",
+  "M14 54 C10 30 34 12 58 14 C82 16 96 38 88 62 C80 86 50 92 30 84 C20 80 16 66 14 54 Z",
+];
+// Flattened so each card can alternate blob shapes: left cards 0, right cards 1.
+const cards = rows.flatMap((r, i) => [
+  { ...r.left, blob: blobs[0], key: `l${i}` },
+  { ...r.right, blob: blobs[1], key: `r${i}` },
+]);
+const find = (key: string) => cards.find((c) => c.key === key)!;
+---
+<div class="space-y-5 md:space-y-6">
+  {rows.map((_, i) => (
+    <div class="flex flex-col items-stretch lg:grid lg:grid-cols-[minmax(0,1fr)_88px_minmax(0,1fr)]">
+      {["l", "r"].map((side, s) => {
+        const c = find(`${side}${i}`);
+        const card = (
+          <div class="flex items-center gap-4 rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-5 [box-shadow:var(--shadow-card)]">
+            <div class="relative h-24 w-24 shrink-0">
+              <svg class="absolute inset-0 h-full w-full overflow-visible" viewBox="0 0 100 100" aria-hidden="true">
+                <path d={c.blob} style="fill: color-mix(in srgb, var(--color-accent) 16%, white)" />
+                <path d="M90 10 L96 2 M101 22 L109 19 M102 36 L110 39" stroke="var(--color-accent)" stroke-width="3" stroke-linecap="round" fill="none" />
+              </svg>
+              <img src={`${base}/${iconDir}/${c.icon}.webp`} alt="" class="absolute right-1 top-0 h-[84%] w-[84%] object-contain" loading="lazy" />
+            </div>
+            <div class="min-w-0">
+              <p class="t-title mb-1">{c.title}</p>
+              <p class="t-body">{c.text}</p>
+            </div>
+          </div>
+        );
+        return s === 0 ? (
+          <>
+            {card}
+            <div class="relative flex h-14 items-center justify-center lg:h-auto">
+              <span class="absolute inset-y-0 left-1/2 w-px bg-[var(--color-accent-line-soft)] lg:inset-y-auto lg:inset-x-0 lg:left-auto lg:top-1/2 lg:h-px lg:w-auto" aria-hidden="true"></span>
+              <IconChip icon={linkIcon} size="lg" class="relative" />
+            </div>
+          </>
+        ) : (
+          card
+        );
+      })}
+    </div>
+  ))}
+</div>

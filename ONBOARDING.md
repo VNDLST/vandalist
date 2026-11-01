@@ -1120,6 +1120,16 @@ about it, don't just pick one.
 
 ## Known open items
 
+- **2026-11-02 — SEO page, Row 2 "How SEO and content work together" DONE, live.** New LinkedPairs.astro (3 rows: card, pink link chip with
+  thin pink lines, card; stacks below lg; two-column heading+diagram only from xl, because at lg the right side was too narrow).
+  Andrew's six icons are transparent PNGs WITHOUT the pink blob/sparkles his mock-up shows, so the blob (accent 16% on white) and three
+  sparkle lines are drawn in code behind each icon. Enclosed see-through areas of calendar/people/browser/document icons were
+  filled off-white so the blob doesn't show through their windows (files in public/seo-approach/, named for what they show:
+  topic-planning, audience-questions, technical-structure, pages-and-articles, measurement-and-refinement, internal-linking).
+  ASSET NAMING: Andrew's downloads have ugly names; ALWAYS give repo assets descriptive names (done for all new files). Existing
+  lazy names left alone until their page: public/help-icons/icon-1..6.webp, system-icons/icon-*.png + placeholder.png.
+  SystemDiagram still used elsewhere. NEXT ROW: "A complete visibility system" (four cards).
+
 - **2026-11-02 — SEO page, ROW BY ROW (Andrew's method): Row 1 "The new search landscape" DONE, live.** Now 4 cards (was 5) from
   Andrew's mock-up + four new illustrations (transparent PNG/WebP supplied; cropped to one shared box and resized to 360px wide
   WebP in public/search-landscape/: beyond-google, search-behaviour, content-works-harder, bigger-opportunities). Same card recipe as

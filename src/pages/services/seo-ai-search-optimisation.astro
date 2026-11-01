@@ -11,18 +11,9 @@
 // Andrew's direct instruction — same treatment as every hero on the site,
 // just used mid-page here instead.
 //
-// "How SEO and content work together" originally used a hand-rolled
-// hub-and-spoke diagram with SVG connector lines (center circle + 6
-// flanking cards, via a shared HubDiagram component also used on the AI
-// Enablement page). Andrew then pointed to an already-live section doing
-// almost exactly this — about.astro's "A small team. A complete
-// ecosystem." — as his preferred model, since it says the same "central
-// thing + supporting facets" idea without connector lines, via a stable
-// 3-column grid. Reusing that ALREADY-EXISTING pattern (now extracted as
-// SystemDiagram.astro) rather than the connector-line version, which just
-// said the same thing with a fussier tool — HubDiagram.astro was removed.
-// See ai-enablement-for-marketing-teams.astro's frontmatter for the same
-// reasoning applied there.
+// "How SEO and content work together" is three linked pairs of cards (LinkedPairs.astro,
+// from Andrew's 2026-11-02 mock-up). It used to be a hub-and-spoke diagram, then a
+// SystemDiagram (still used by about / AI Enablement / Websites).
 //
 // Hero gets the darker bg-paper-dim band + empty second column, same as
 // every other service page.
@@ -37,7 +28,7 @@ import CtaBand from "../../components/CtaBand.astro";
 import SectionHeading from "../../components/SectionHeading.astro";
 import Eyebrow from "../../components/Eyebrow.astro";
 import CadenceSteps from "../../components/CadenceSteps.astro";
-import SystemDiagram from "../../components/SystemDiagram.astro";
+import LinkedPairs from "../../components/LinkedPairs.astro";
 import HeroRocket from "../../components/HeroRocket.astro";
 import HeroClouds from "../../components/HeroClouds.astro";
 
@@ -53,32 +44,21 @@ const landscapeCards = [
 ];
 
 // --- Section 2: How SEO and content work together ---
-// 3 left / 3 right, hub alone in the middle — same shape as AI
-// Enablement's "Where AI actually helps" (see that page's comment; both
-// were first wired up as a forced 2+2+top/bottom split before Andrew's
-// mockup feedback showed the plain 3+3 split was correct, and both first
-// dropped the bold title + description per card in favour of a single
-// muted-grey line before that too got corrected).
-const workHubIcon = '<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.5-4.5" stroke-linecap="round"/>';
-const workLeft = [
-  { title: "Topic planning", sub: "Build a focused plan around priority topics and intent." },
-  { title: "Technical structure", sub: "Ensure your site is fast, crawlable and easy to understand." },
-  { title: "Measurement & refinement", sub: "Track visibility, learn what works and refine over time." },
+// Three linked pairs (Andrew's mock-up, 2026-11-02). Icons: public/seo-approach/.
+const approachRows = [
+  {
+    left: { title: "Topic planning", text: "Build a focused plan around priority topics and intent.", icon: "topic-planning" },
+    right: { title: "Audience questions", text: "Understand what your audience is searching for and why.", icon: "audience-questions" },
+  },
+  {
+    left: { title: "Technical structure", text: "Ensure your site is fast, crawlable and easy to understand.", icon: "technical-structure" },
+    right: { title: "Pages & articles", text: "Create and optimise content that answers and converts.", icon: "pages-and-articles" },
+  },
+  {
+    left: { title: "Measurement & refinement", text: "Track visibility, learn what works and refine over time.", icon: "measurement-and-refinement" },
+    right: { title: "Internal linking", text: "Connect related content to share authority and context.", icon: "internal-linking" },
+  },
 ];
-const workRight = [
-  { title: "Audience questions", sub: "Understand what your audience is searching for and why." },
-  { title: "Pages & articles", sub: "Create and optimise content that answers and converts." },
-  { title: "Internal linking", sub: "Connect related content to share authority and context." },
-];
-const workIcons: Record<string, string> = {
-  "Topic planning": '<path d="M4 19h16" stroke-linecap="round"/><path d="M6 19V9l6-4 6 4v10" stroke-linejoin="round"/>',
-  "Technical structure": '<path d="M12 3l8 4v5c0 5-3.4 8.4-8 9.5-4.6-1.1-8-4.5-8-9.5V7l8-4z" stroke-linejoin="round"/>',
-  "Measurement & refinement": '<path d="M3 12a9 9 0 1 1 3 6.7"/><path d="M3 17v-4.5H7.5"/>',
-  "Audience questions": '<path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>',
-  "Pages & articles": '<path d="M17 3.5a2.1 2.1 0 0 1 3 3L8.5 18 4 19l1-4.5L17 3.5z" stroke-linejoin="round"/>',
-  "Internal linking": '<path d="M9 15l6-6"/><path d="M11 7l1-1a3.5 3.5 0 0 1 5 5l-1 1"/><path d="M13 17l-1 1a3.5 3.5 0 0 1-5-5l1-1"/>',
-};
-const withWorkIcon = (c: { title: string; sub: string }) => ({ ...c, icon: workIcons[c.title] });
 
 // --- Section 3: What we work on ---
 const workGroups = [
@@ -177,22 +157,17 @@ const topPages = [
   <!-- Section 2: How SEO and content work together — darker bg-paper-dim
        band, per Andrew's explicit instruction. -->
   <Band>
-      <div class="max-w-7xl mx-auto grid lg:grid-cols-[minmax(0,30%)_minmax(0,70%)] gap-10 items-center">
-        <div>
-          <Eyebrow class="mb-3">Our approach</Eyebrow>
-          <h2 class="t-heading text-balance mb-4">How SEO and content work together</h2>
-          <p class="t-body max-w-sm">
-            We connect strategy, content and technical foundations into a cohesive system that builds topical depth, earns trust and improves visibility across search and AI experiences.
-          </p>
-        </div>
-        <SystemDiagram
-          hubText="Search visibility for your business"
-          hubIcon={workHubIcon}
-          leftColumn={workLeft.map(withWorkIcon)}
-          rightColumn={workRight.map(withWorkIcon)}
-        />
+    <div class="max-w-7xl mx-auto grid xl:grid-cols-[minmax(0,30%)_minmax(0,70%)] gap-10 items-center">
+      <div>
+        <Eyebrow class="mb-3">Our approach</Eyebrow>
+        <h2 class="t-heading text-balance mb-4">How SEO and content work together</h2>
+        <p class="t-body max-w-xl xl:max-w-sm">
+          We connect strategy, content and technical foundations into a cohesive system that builds topical depth, earns trust and improves visibility across search and AI experiences.
+        </p>
       </div>
-    </Band>
+      <LinkedPairs rows={approachRows} iconDir="seo-approach" />
+    </div>
+  </Band>
 
   <div class="bg-[var(--color-paper)]">
     <!-- Section 3: What we work on -->

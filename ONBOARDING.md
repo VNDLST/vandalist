@@ -1120,6 +1120,14 @@ about it, don't just pick one.
 
 ## Known open items
 
+- **2026-11-02 — SEO page, Row 3 "A complete visibility system" DONE, live.** Four numbered areas (01-04) each with a summary and a pink-check
+  list, joined by a thin pink vertical divider and grey row separators; heading + intro on the left from xl, stacked above below xl; on
+  phones the list sits under each summary. Stays on the page's plain background (Andrew: ignore the mock-up's tinted panel, pink corner
+  glow and the pink strip under the heading). Type: number t-eyebrow, title t-subheading (22px), text t-body. COPY JUDGEMENT CALLS to
+  confirm with Andrew: (1) the mock-up's 4th item under Strategy read "examples aligned to business goals" (looks like an AI slip),
+  used "Roadmaps aligned to business goals" (the page's earlier wording); (2) the mock-up's list items were mostly lowercase, used
+  sentence case to match the rest of the site. NEXT ROW: "Momentum builds over time" (7 steps too cramped).
+
 - **2026-11-02 — SEO page, Row 2 "How SEO and content work together" DONE, live.** New LinkedPairs.astro (3 rows: card, pink link chip with
   thin pink lines, card; stacks below lg; two-column heading+diagram only from xl, because at lg the right side was too narrow).
   Andrew's six icons are transparent PNGs WITHOUT the pink blob/sparkles his mock-up shows, so the icons are shown PLAIN: Andrew had the pink blob removed and then the sparkle lines too, and the icons

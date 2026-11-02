@@ -61,26 +61,31 @@ const approachRows = [
 ];
 
 // --- Section 3: What we work on ---
-const workGroups = [
+// Four numbered areas, each with a summary and a checklist (Andrew's mock-up, 2026-11-02).
+const workAreas = [
   {
+    num: "01",
     title: "Strategy & opportunities",
-    icon: '<path d="M12 3l1.6 4.9H19l-4.2 3 1.6 5-4.4-3.2L7.6 16l1.6-5-4.2-3h5.4z" stroke-linejoin="round"/>',
-    items: ["SEO audits & opportunity mapping", "Keyword & intent research", "Content strategy & prioritisation", "Competitor & gap analysis", "Roadmaps aligned to your goals"],
+    text: "Research, priorities and a clear direction for growth.",
+    items: ["SEO audits & opportunity mapping", "Keyword & intent research", "Competitor analysis & prioritisation", "Roadmaps aligned to business goals"],
   },
   {
+    num: "02",
     title: "Content creation & optimisation",
-    icon: '<path d="M17 3.5a2.1 2.1 0 0 1 3 3L8.5 18 4 19l1-4.5L17 3.5z" stroke-linejoin="round"/>',
-    items: ["Topic clusters & content plans", "Landing pages & service pages", "Blog content & thought leadership", "On-page optimisation", "Content refresh & consolidation", "Optimised for AI summaries"],
+    text: "Useful content that answers questions and builds authority.",
+    items: ["Topic clusters & content plans", "Landing pages & service pages", "Blog content & thought leadership", "Optimisation for AI summaries"],
   },
   {
+    num: "03",
     title: "Technical & on-page clarity",
-    icon: '<path d="M8 9l-4 3 4 3M16 9l4 3-4 3M13 6l-2 12" stroke-linecap="round" stroke-linejoin="round"/>',
-    items: ["Technical SEO & crawlability", "Site structure & internal linking", "Page speed & Core Web Vitals", "Schema & structured data", "Metadata & title optimisation", "Mobile & UX improvements"],
+    text: "A stronger technical foundation for search engines and users.",
+    items: ["Technical SEO foundations", "Site structure & internal linking", "Page speed & Core Web Vitals", "Schema & implementation notes"],
   },
   {
+    num: "04",
     title: "Measurement & growth",
-    icon: '<path d="M4 19h16" stroke-linecap="round"/><path d="M7 19v-6M12 19V8M17 19v-9" stroke-linecap="round"/>',
-    items: ["Rank tracking & visibility reporting", "AI overview & snippet tracking", "Organic traffic & engagement", "Conversion tracking & leads", "Insights & ongoing optimisation"],
+    text: "Performance tracking, refinement and ongoing improvement.",
+    items: ["Rank tracking & visibility reporting", "AI overview & snippet tracking", "Conversion insights & reporting", "Ongoing refinement & iteration"],
   },
 ];
 
@@ -172,29 +177,33 @@ const topPages = [
   <div class="bg-[var(--color-paper)]">
     <!-- Section 3: What we work on -->
     <Section top>
-      <SectionHeading
-        eyebrow="What we work on"
-        heading="A complete visibility system"
-      />
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        {workGroups.map((group) => (
-          <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-5">
-            <div class="flex items-center gap-2.5 mb-4">
-              <IconChip icon={group.icon} shape="lg" class="shrink-0" />
-              <p class="t-small-strong">{group.title}</p>
+      <div class="grid xl:grid-cols-[minmax(0,30%)_minmax(0,70%)] gap-10 xl:gap-12">
+        <div>
+          <Eyebrow class="mb-3">What we work on</Eyebrow>
+          <h2 class="t-heading text-balance mb-6">A complete visibility system</h2>
+          <p class="t-intro max-w-md">Four connected areas. One coordinated approach to improving your visibility.</p>
+        </div>
+        <div class="divide-y divide-[var(--color-line)]">
+          {workAreas.map((area) => (
+            <div class="grid md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] gap-5 md:gap-0 py-8 first:pt-0 last:pb-0">
+              <div class="md:pr-8">
+                <p class="t-eyebrow mb-1">{area.num}</p>
+                <p class="t-subheading mb-2">{area.title}</p>
+                <p class="t-body">{area.text}</p>
+              </div>
+              <ul class="space-y-2 md:border-l md:border-[var(--color-accent-line-soft)] md:pl-8">
+                {area.items.map((item) => (
+                  <li class="flex items-start gap-3">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5" class="mt-1 shrink-0" aria-hidden="true">
+                      <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <span class="t-body">{item}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <ul class="space-y-2">
-              {group.items.map((item) => (
-                <li class="flex items-start gap-2">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--color-good)" stroke-width="2.5" class="mt-0.5 shrink-0">
-                    <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" />
-                  </svg>
-                  <span class="t-small">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </Section>
 

@@ -1,17 +1,15 @@
 ---
 // "Linked pairs": rows of two white cards joined by a pink link chip and thin pink
-// lines, with an illustration (soft pink blob + three pink sparkle lines drawn
-// behind a transparent icon) on each card. First used for the SEO page's "How SEO
+// lines, with a transparent icon on each card. First used for the SEO page's "How SEO
 // and content work together" (Andrew's mock-up, 2026-11-02). The older
 // SystemDiagram (hub circle in the middle) stays for about / AI Enablement /
 // Websites.
 //
 // Layout: from lg each row is [card] [chip + lines] [card]; below lg each row
 // stacks (card, chip on a short vertical line, card). Icons are transparent WebP
-// files in public/<iconDir>/, named for what they show. Three pink sparkle lines are
-// drawn here in code just off each icon's top-right corner (the supplied icons are
-// plain). Andrew's mock-up also had a soft pink blob behind each icon; he asked for
-// it to be removed on 2026-11-02 so these read differently from the row above.
+// files in public/<iconDir>/, named for what they show, shown plain at 77px (Andrew,
+// 2026-11-02: his mock-up's pink blob and sparkle lines were both removed, and the
+// icons reduced ~20% from 96px, so this row reads differently from the one above).
 //
 //   rows      [{ left: Card, right: Card }]    Card = { title, text, icon }  (icon = file name, no extension)
 //   iconDir   folder under /public holding the icons, e.g. "seo-approach"
@@ -35,12 +33,7 @@ const find = (key: string) => cards.find((c) => c.key === key)!;
         const c = find(`${side}${i}`);
         const card = (
           <div class="flex items-center gap-4 rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-5 [box-shadow:var(--shadow-card)]">
-            <div class="relative h-24 w-24 shrink-0">
-              <svg class="absolute inset-0 h-full w-full overflow-visible" viewBox="0 0 100 100" aria-hidden="true">
-                <path d="M90 10 L96 2 M101 22 L109 19 M102 36 L110 39" stroke="var(--color-accent)" stroke-width="3" stroke-linecap="round" fill="none" />
-              </svg>
-              <img src={`${base}/${iconDir}/${c.icon}.webp`} alt="" class="absolute left-0 top-1 h-[86%] w-[86%] object-contain" loading="lazy" />
-            </div>
+            <img src={`${base}/${iconDir}/${c.icon}.webp`} alt="" class="h-[77px] w-[77px] shrink-0 object-contain" loading="lazy" />
             <div class="min-w-0">
               <p class="t-title mb-1">{c.title}</p>
               <p class="t-body">{c.text}</p>

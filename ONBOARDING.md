@@ -1122,8 +1122,9 @@ about it, don't just pick one.
 
 - **2026-11-02 — SEO page, Row 2 "How SEO and content work together" DONE, live.** New LinkedPairs.astro (3 rows: card, pink link chip with
   thin pink lines, card; stacks below lg; two-column heading+diagram only from xl, because at lg the right side was too narrow).
-  Andrew's six icons are transparent PNGs WITHOUT the pink blob/sparkles his mock-up shows, so the blob (accent 16% on white) and three
-  sparkle lines are drawn in code behind each icon. Enclosed see-through areas of calendar/people/browser/document icons were
+  Andrew's six icons are transparent PNGs WITHOUT the pink blob/sparkles his mock-up shows, so three sparkle lines are drawn in code beside each icon.
+  (The pink blob behind each icon, shown in the mock-up and first built, was REMOVED at Andrew's request the same day so this row
+  looks different from Row 1; the sparkles stayed. Easy to drop or restore in LinkedPairs.astro.) Enclosed see-through areas of calendar/people/browser/document icons were
   filled off-white so the blob doesn't show through their windows (files in public/seo-approach/, named for what they show:
   topic-planning, audience-questions, technical-structure, pages-and-articles, measurement-and-refinement, internal-linking).
   ASSET NAMING: Andrew's downloads have ugly names; ALWAYS give repo assets descriptive names (done for all new files). Existing

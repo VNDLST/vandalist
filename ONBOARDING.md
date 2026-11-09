@@ -1120,6 +1120,19 @@ about it, don't just pick one.
 
 ## Known open items
 
+- **2026-11-09 — SEO page, Row 6 "The impact" DONE, live. This was the LAST row: the SEO page is now fully reworked.** Left column: heading,
+  intro, "See previous work" button and a new AskingPerson.astro scene (a person from the How We Work family, same glasses/hair/pink top, asks
+  "How will I know if this is actually working?" in a chat bubble: bigger typing-dots bubble, then it grows into the question; plays once when 40% on
+  screen; reduced motion/no-JS shows the finished picture; no lip-sync, no GSAP). Andrew chose this over a warrior pen (static, 160 divs, wrong message)
+  and a big-mouthed blob pen (too cartoony); bubble idea credited to Michael Lee's typing-bubble pen. Right: his new "Search visibility report" card
+  (Monthly pill, 4 KPI tiles, top queries with bars, top-performing pages, pink "What the results tell us" callout), on locked type styles (no exempt
+  block needed), labelled "Illustrative performance snapshot" (numbers are made up). Old pink "Search is changing" column removed.
+  CHANGES I MADE TO HIS MOCK-UP COPY (confirm): (1) heading "Know what's working. And what isn't." -> "Know what's working, and what isn't" (headings take no
+  full stops); (2) the em dash in the intro became a spaced hyphen (his stated preference); (3) the intro uses t-body. Tablet: KPIs 2x2 and the two panels
+  stack below xl; phone stacks everything.
+  SEO PAGE ROW LIST NOW ALL DONE: landscape cards, linked pairs, visibility system, journey (6 steps), audiences, impact.
+  NEXT PAGE: Andrew's call (remaining service pages: Marketing Support, Consulting, Google Ads, Websites, AI Enablement; plus the parked items).
+
 - **2026-11-09 — SEO page, Row 5 "Where this works well" DONE, live.** Card titles (Andrew's final wording, in his Title Case, which differs from the site's usual sentence case for card titles:
   keep as given unless he says otherwise): "Trade Services", "Professional Services", "Existing Websites" (cards 2 and 3 swapped vs the original order).
   Body text unchanged. Each card has a row of FOUR plain pink icons (no chip background; 48px) from Andrew's SVGs in

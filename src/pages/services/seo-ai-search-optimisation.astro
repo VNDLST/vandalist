@@ -31,6 +31,7 @@ import CadenceSteps from "../../components/CadenceSteps.astro";
 import LinkedPairs from "../../components/LinkedPairs.astro";
 import HeroRocket from "../../components/HeroRocket.astro";
 import HeroClouds from "../../components/HeroClouds.astro";
+import AskingPerson from "../../components/AskingPerson.astro";
 
 const base = import.meta.env.BASE_URL;
 
@@ -123,19 +124,19 @@ const audiences = [
   },
 ];
 
-// --- Section 6: What better visibility looks like ---
-const stats = [
-  { label: "Organic sessions", value: "12,842", change: "48%", up: true },
-  { label: "Qualified enquiries", value: "356", change: "62%", up: true },
-  { label: "AI visibility", value: "38%", change: "29%", up: true },
-  { label: "Top 3 rankings", value: "215", change: "41%", up: true },
+// --- Section 6: The impact (Andrew's mock-up, 2026-11-09) ---
+// Illustrative report card: every number below is made up for the picture and the card
+// says so ("Illustrative performance snapshot").
+const kpis = [
+  { label: "Organic sessions", value: "12,842", change: "+48%" },
+  { label: "Qualified enquiries", value: "356", change: "+62%" },
+  { label: "AI visibility", value: "38%", change: "+29%" },
+  { label: "Top 3 rankings", value: "215", change: "+41%" },
 ];
 const topQueries = [
-  { query: "commercial fitout sydney", position: 3, clicks: "1,245" },
-  { query: "office renovation cost", position: 2, clicks: "876" },
-  { query: "workplace design trends", position: 2, clicks: "642" },
-  { query: "office fitout company", position: 5, clicks: "521" },
-  { query: "sustainable office design", position: 4, clicks: "438" },
+  { query: "commercial fitout sydney", pct: 82 },
+  { query: "office renovation cost", pct: 66 },
+  { query: "workplace design trends", pct: 46 },
 ];
 const topPages = [
   { page: "/services/office-fitouts", views: "3,421" },
@@ -144,6 +145,7 @@ const topPages = [
   { page: "/about/our-approach", views: "1,654" },
   { page: "/previous-work/fit-tech-office", views: "1,203" },
 ];
+const calendarIcon = '<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18"/>';
 ---
 <Layout title="SEO & AI Search Optimisation" description="Search results and AI snippets that help the right people find you.">
   <PageHero currentPage="/services/seo-ai-search-optimisation" sectionClass="relative">
@@ -262,16 +264,15 @@ const topPages = [
       </div>
     </Section>
 
-    <!-- Section 6: What better visibility looks like — same "static
-         illustrative reporting card" pattern as google-social-ads.astro's
-         "Results that matter" (confirmed non-functional there already). -->
+    <!-- Section 6: The impact. Left: heading, intro, button and the "asking person" scene
+         (the question the report answers). Right: an illustrative report card. -->
     <Section>
-      <div class="grid lg:grid-cols-[1fr_1.6fr] gap-10 items-start">
+      <div class="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] gap-10 xl:gap-12 items-start">
         <div>
           <Eyebrow class="mb-3">The impact</Eyebrow>
-          <h2 class="t-heading text-balance mb-4">What better visibility looks like</h2>
-          <p class="t-body mb-6 max-w-sm">
-            We focus on outcomes that drive growth&mdash;more relevant traffic, stronger engagement and more enquiries from the right people.
+          <h2 class="t-heading text-balance mb-4">Know what's working, and what isn't</h2>
+          <p class="t-body mb-6 max-w-md">
+            Our reporting provides a clear, objective view of your visibility, the results being achieved and the opportunities ahead - so you can see what's working and where to focus next.
           </p>
           <a
             href={`${base}/previous-work`}
@@ -287,58 +288,73 @@ const topPages = [
               <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
           </a>
+          <div class="mt-10"><AskingPerson /></div>
         </div>
 
-        <div class="grid sm:grid-cols-[1.6fr_1fr] gap-5">
-          <!-- Static illustrative card — numbers/labels are placeholder
-               content matching the mockup, not a live/functional dashboard,
-               same convention as google-social-ads.astro's equivalent. -->
-          <!-- type-exempt:start illustrative dashboard mock-up: its text only has to look like a UI -->
-          <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-5 md:p-6 [box-shadow:var(--shadow-panel)]" aria-hidden="true">
-            <div class="grid grid-cols-2 gap-3 mb-6">
-              {stats.map((stat) => (
-                <div class="rounded-lg bg-[var(--color-paper-dim)] p-3">
-                  <p class="t-small mb-1">{stat.label}</p>
-                  <p class="t-title mb-0.5">{stat.value}</p>
-                  <p class="text-xs font-medium text-[var(--color-good)]">&uarr; {stat.change}</p>
-                </div>
-              ))}
-            </div>
-
-            <p class="text-xs font-semibold text-[var(--color-slate)] uppercase tracking-wide mb-2">Top queries driving visibility</p>
-            <div class="mb-5">
-              {topQueries.map((row) => (
-                <div class="flex items-center justify-between gap-3 py-1.5 border-b border-[var(--color-line)] last:border-b-0">
-                  <span class="text-xs text-[var(--color-ink)] truncate">{row.query}</span>
-                  <span class="flex items-center gap-3 shrink-0">
-                    <span class="t-small">{row.position}</span>
-                    <span class="text-xs font-medium text-[var(--color-ink)] w-10 text-right">{row.clicks}</span>
-                  </span>
-                </div>
-              ))}
-            </div>
-
-            <p class="text-xs font-semibold text-[var(--color-slate)] uppercase tracking-wide mb-2">Top performing pages</p>
+        <!-- Illustrative report card: made-up numbers, labelled as such, hidden from screen readers. -->
+        <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-5 md:p-8 [box-shadow:var(--shadow-panel)]" aria-hidden="true">
+          <div class="flex items-start justify-between gap-4 mb-6">
             <div>
-              {topPages.map((row) => (
-                <div class="flex items-center justify-between gap-3 py-1.5 border-b border-[var(--color-line)] last:border-b-0">
-                  <span class="text-xs text-[var(--color-ink)] truncate">{row.page}</span>
-                  <span class="text-xs font-medium text-[var(--color-ink)] shrink-0">{row.views}</span>
-                </div>
-              ))}
+              <p class="t-subheading mb-1">Search visibility report</p>
+              <p class="t-small">Illustrative performance snapshot</p>
+            </div>
+            <span class="inline-flex shrink-0 items-center gap-2 rounded-full bg-[var(--color-paper-dim)] px-4 py-2">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--color-slate)]" set:html={calendarIcon} />
+              <span class="t-small-strong">Monthly</span>
+            </span>
+          </div>
+
+          <div class="grid grid-cols-2 xl:grid-cols-4 gap-3 md:gap-4 mb-5">
+            {kpis.map((k) => (
+              <div class="rounded-lg bg-[var(--color-paper-dim)] p-4">
+                <p class="t-small mb-1">{k.label}</p>
+                <p class="t-subheading mb-1">{k.value}</p>
+                <p class="t-small-strong text-[var(--color-good)]">&uarr; {k.change}</p>
+              </div>
+            ))}
+          </div>
+
+          <div class="grid xl:grid-cols-2 gap-4 md:gap-5 mb-5">
+            <div class="rounded-xl border border-[var(--color-line)] p-5">
+              <p class="t-title mb-4">Top queries driving visibility</p>
+              <div class="space-y-4">
+                {topQueries.map((q) => (
+                  <div>
+                    <p class="t-small text-[var(--color-ink)] mb-1.5">{q.query}</p>
+                    <div class="flex items-center gap-4">
+                      <div class="h-2 flex-1 rounded-full bg-[var(--color-paper-dim)]">
+                        <div class="h-2 rounded-full bg-[var(--color-accent)]" style={`width: ${q.pct}%`}></div>
+                      </div>
+                      <span class="t-small-strong w-10 text-right">{q.pct}%</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div class="rounded-xl border border-[var(--color-line)] p-5">
+              <p class="t-title mb-3">Top-performing pages</p>
+              <div class="divide-y divide-[var(--color-line)]">
+                {topPages.map((row) => (
+                  <div class="flex items-center justify-between gap-3 py-2 first:pt-0 last:pb-0">
+                    <span class="t-small text-[var(--color-ink)] truncate">{row.page}</span>
+                    <span class="t-small-strong shrink-0">{row.views}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-          <!-- type-exempt:end -->
 
-          <div class="rounded-[var(--radius-card)] bg-[var(--color-accent-soft)] p-5 flex flex-col gap-3">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5L12 3z" stroke-linejoin="round"/>
+          <div class="flex items-center gap-5 rounded-xl bg-[var(--color-accent-soft)] p-5 md:p-6">
+            <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 hidden sm:block">
+              <path d="M12 0.8v1.4M5 3.8l1 1M19 3.8l-1 1" />
+              <path d="M12 4.5a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 4.5z" />
+              <path d="M9.5 20h5M10.5 22.5h3" />
             </svg>
-            <p class="t-small-strong">Search is changing.</p>
-            <p class="t-small">
-              Visibility increasingly includes being featured in AI-generated answers and summaries&mdash;not just traditional blue links.
-            </p>
-            <p class="t-eyebrow">We make sure you're seen in both.</p>
+            <span class="hidden sm:block self-stretch w-px bg-[var(--color-accent-line-soft)]"></span>
+            <div>
+              <p class="t-title mb-1">What the results tell us</p>
+              <p class="t-small">Visibility is improving across priority searches, and service pages are attracting stronger engagement. This helps guide where to focus next for continued growth.</p>
+            </div>
           </div>
         </div>
       </div>

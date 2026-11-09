@@ -1,0 +1,174 @@
+---
+// SEO page "impact" illustration: a person from the same family as the How We Work
+// character (same face, glasses, hair and pink top) asks the question every buyer of
+// SEO is really asking, in a chat bubble: three typing dots first (a slightly larger,
+// bolder bubble than a normal chat, to signal that something is coming), then the
+// bubble grows to hold the question. The report card beside it is the answer.
+// Original artwork, pure inline SVG + CSS (no GSAP; no lip-sync, on purpose).
+//
+// Typing-bubble idea: "iOS Messages Typing Bubble" by Michael Lee,
+// https://codepen.io/michaellee/pen/nypdPP (three dots pulsing in turn). Only the idea
+// is used; the drawing and code here are original. Andrew considered two other pens
+// (a "cute warrior", a big-mouthed blob) and chose this chat approach instead.
+//
+// The question is real text in the page the whole time, so screen readers get it.
+// Sequence (plays once, when ~40% on screen; an inline script arms the idle look before
+// first paint, only when motion is allowed, so without JS or with reduced motion you
+// get the finished picture):
+//   0.0s  bubble pops in showing the typing dots; the person starts a slow thinking sway
+//   2.2s  the bubble grows (a wipe from the dots' corner) into the full bubble
+//   2.6s  the question fades in
+// Type: the question uses the shared t-subheading style.
+const question = "How will I know if this is actually working?";
+---
+<div class="asking-person" data-asking-person>
+  <div class="qb">
+    <div class="qb-body">
+      <p class="qb-text t-subheading">{question}</p>
+      <span class="qb-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    </div>
+    <span class="qb-tail" aria-hidden="true"></span>
+  </div>
+
+  <svg class="qp-svg" viewBox="0 0 260 250" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="130" cy="244" rx="104" ry="8" fill="#1c1b1a" opacity="0.08" />
+    <!-- shoulders and top -->
+    <path d="M32 250 Q32 178 130 168 Q228 178 228 250 Z" fill="#ff3d6b" />
+    <path d="M130 172 L130 250" stroke="#d92f5c" stroke-width="3" fill="none" />
+    <path d="M106 170 Q130 194 154 170" stroke="#d92f5c" stroke-width="6" fill="none" stroke-linecap="round" />
+    <path d="M118 176 L116 202 M142 176 L144 202" stroke="#ffffff" stroke-width="3" fill="none" stroke-linecap="round" />
+    <!-- neck -->
+    <rect x="120" y="134" width="20" height="42" rx="8" fill="#e8ae84" />
+    <!-- head: same drawing as the How We Work character, shifted into this frame -->
+    <g class="qp-head">
+      <g transform="translate(-210 -4)">
+        <circle cx="296" cy="108" r="9" fill="#f2c19b" />
+        <circle cx="384" cy="108" r="9" fill="#f2c19b" />
+        <ellipse cx="340" cy="104" rx="44" ry="48" fill="#f2c19b" />
+        <path d="M293 104 Q286 48 340 46 Q394 48 387 104 Q380 78 356 74 Q336 86 312 76 Q298 82 293 104 Z" fill="#3b2a20" />
+        <circle cx="318" cy="52" r="14" fill="#3b2a20" />
+        <circle cx="344" cy="46" r="15" fill="#3b2a20" />
+        <circle cx="368" cy="54" r="13" fill="#3b2a20" />
+        <circle cx="322" cy="108" r="13" fill="#ffffff" fill-opacity="0.5" stroke="#1c1b1a" stroke-width="3" />
+        <circle cx="358" cy="108" r="13" fill="#ffffff" fill-opacity="0.5" stroke="#1c1b1a" stroke-width="3" />
+        <path d="M335 108 L345 108" stroke="#1c1b1a" stroke-width="3" fill="none" />
+        <circle class="qp-eye" cx="325" cy="106" r="4" fill="#1c1b1a" />
+        <circle class="qp-eye" cx="361" cy="106" r="4" fill="#1c1b1a" />
+        <path d="M311 88 Q322 82 333 88" stroke="#3b2a20" stroke-width="4" fill="none" stroke-linecap="round" />
+        <path d="M347 83 Q358 73 369 81" stroke="#3b2a20" stroke-width="4" fill="none" stroke-linecap="round" />
+        <circle cx="310" cy="128" r="7" fill="#ff8fab" opacity="0.5" />
+        <circle cx="370" cy="128" r="7" fill="#ff8fab" opacity="0.5" />
+        <path d="M328 136 Q338 131 352 136" stroke="#1c1b1a" stroke-width="3" fill="none" stroke-linecap="round" />
+      </g>
+    </g>
+  </svg>
+</div>
+<script is:inline>
+  (function () {
+    var s = document.currentScript;
+    var w = s && s.previousElementSibling;
+    if (w && w.hasAttribute("data-asking-person") && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      w.classList.add("is-armed");
+    }
+  })();
+</script>
+<script>
+  // One-time start when an armed scene is ~40% on screen.
+  const scenes = document.querySelectorAll<HTMLElement>("[data-asking-person].is-armed");
+  if (scenes.length && "IntersectionObserver" in window) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            (entry.target as HTMLElement).classList.add("is-playing");
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.4 },
+    );
+    scenes.forEach((el) => io.observe(el));
+  } else {
+    scenes.forEach((el) => el.classList.remove("is-armed"));
+  }
+</script>
+
+<style>
+  .asking-person { display: flex; flex-direction: column; align-items: flex-start; max-width: 24rem; }
+
+  /* The bubble: white card-style body plus a small tail aimed at the person's head. */
+  .qb { position: relative; margin: 0 0 20px 0; }
+  .qb-body {
+    position: relative;
+    background: #fff;
+    border: 1px solid var(--color-line);
+    border-radius: 24px;
+    padding: 20px 24px;
+    box-shadow: var(--shadow-card);
+  }
+  .qb-text { margin: 0; }
+  .qb-tail {
+    position: absolute;
+    left: 44px;
+    bottom: -9px;
+    width: 18px;
+    height: 18px;
+    background: #fff;
+    border-right: 1px solid var(--color-line);
+    border-bottom: 1px solid var(--color-line);
+    border-bottom-right-radius: 5px;
+    transform: rotate(45deg);
+    z-index: 2;
+  }
+  .qb-dots {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 112px;
+    height: 64px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+  }
+  .qb-dots i { width: 14px; height: 14px; border-radius: 9999px; background: var(--color-accent); opacity: 0.35; }
+
+  .qp-svg { width: 200px; height: auto; margin-left: 8px; overflow: visible; display: block; }
+  .qp-svg .qp-head { transform-box: fill-box; transform-origin: 50% 100%; }
+  .qp-svg .qp-eye { transform-box: fill-box; transform-origin: center; }
+
+  /* Armed (waiting to scroll into view): just the small dots-sized bubble, hidden. */
+  .asking-person.is-armed .qb { opacity: 0; }
+  .asking-person.is-armed .qb-body { clip-path: inset(calc(100% - 64px) calc(100% - 112px) 0 0 round 32px); }
+  .asking-person.is-armed .qb-text { opacity: 0; }
+  .asking-person.is-armed .qb-dots { display: flex; opacity: 0; }
+  .asking-person.is-armed .qb-tail { opacity: 0; }
+
+  .asking-person.is-playing .qb { animation: qb-pop 0.4s cubic-bezier(0.2, 1.3, 0.4, 1) forwards; transform-origin: 40px 100%; }
+  .asking-person.is-playing .qb-dots { animation: qb-dots-life 2.4s ease forwards; animation-delay: 0.1s; }
+  .asking-person.is-playing .qb-dots i { animation: qb-pulse 1s ease-in-out infinite; }
+  .asking-person.is-playing .qb-dots i:nth-child(2) { animation-delay: 0.16s; }
+  .asking-person.is-playing .qb-dots i:nth-child(3) { animation-delay: 0.32s; }
+  .asking-person.is-playing .qb-body { animation: qb-grow 0.7s cubic-bezier(0.3, 0.8, 0.3, 1) forwards; animation-delay: 2.2s; }
+  .asking-person.is-playing .qb-text { animation: qb-fade 0.5s ease forwards; animation-delay: 2.6s; }
+  .asking-person.is-playing .qb-tail { animation: qb-fade 0.3s ease forwards; animation-delay: 0.1s; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .asking-person.is-playing .qp-head { animation: qp-think 3.4s ease-in-out infinite alternate; }
+    .asking-person .qp-eye { animation: qp-blink 5s infinite; }
+  }
+
+  @keyframes qb-pop { from { opacity: 0; transform: scale(0.55); } to { opacity: 1; transform: scale(1); } }
+  @keyframes qb-fade { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes qb-dots-life { 0% { opacity: 0; } 12%, 82% { opacity: 1; } 100% { opacity: 0; } }
+  @keyframes qb-pulse { 0%, 100% { opacity: 0.3; transform: translateY(0); } 50% { opacity: 1; transform: translateY(-3px); } }
+  @keyframes qb-grow {
+    from { clip-path: inset(calc(100% - 64px) calc(100% - 112px) 0 0 round 32px); }
+    to { clip-path: inset(0 0 0 0 round 24px); }
+  }
+  @keyframes qp-think { from { transform: rotate(-3deg); } to { transform: rotate(3deg); } }
+  @keyframes qp-blink { 0%, 93%, 100% { transform: scaleY(1); } 96% { transform: scaleY(0.1); } }
+  @media (prefers-reduced-motion: reduce) {
+    .asking-person *, .asking-person *::before { animation: none !important; }
+  }
+</style>

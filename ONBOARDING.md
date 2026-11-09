@@ -1121,10 +1121,10 @@ about it, don't just pick one.
 ## Known open items
 
 - **2026-11-09 — SEO page, Row 4 "Momentum builds over time" DONE, live.** Dropped step 3 "Improve key pages" -> six steps, retitled one word each
-  (Audit, Prioritise, Content, Technical, Measure, Refine). Only new copy: Technical = "Review and refine site performance and functions from a
-  user's perspective." (replaces "Strengthen connections"; Andrew gave latitude to word it). Icons: Andrew's six single-colour SVGs copied from
+  (Audit, Prioritise, Content, Technical, Measure, Refine). Copy edits (Andrew, same day): Technical = "Review and refine site performance from a user's perspective."
+  (replaces "Strengthen connections"); Measure = "Track rankings, AI visibility, search trends, and traffic that matters." (Oxford comma his). Icons: Andrew's six single-colour SVGs copied from
   Assets/SEO into public/seo-journey-icons/ and used via CadenceSteps iconMode="image" (recoloured by CSS mask, scroll sequence verified: pink
-  glow passes along). Grid is sm:2 / lg:3 / xl:6 (connector line from xl). Technical's text runs 4 lines at 1440, others 2-3: acceptable.
+  glow passes along). Grid is sm:2 / lg:3 / xl:6 (connector line from xl). All six descriptions are 3 lines at 1440.
   REMAINING ROWS on this page: "Where this works well" and "What better visibility looks like".
 
 - **2026-11-02 — SEO page, Row 3 "A complete visibility system" DONE, live.** Four numbered areas (01-04) each with a summary and a pink-check

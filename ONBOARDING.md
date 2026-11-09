@@ -1120,6 +1120,16 @@ about it, don't just pick one.
 
 ## Known open items
 
+- **2026-11-09 — SESSION WRAP-UP / PAGE STATUS (Andrew).** COMPLETE (his sign-off): Contact, About (except the intro video he still has to shoot),
+  How We Work, the type-format work, and now the SEO & AI Search page (all six rows, hero rocket included). Working rule unchanged: park loose issues until
+  we reach their page; one row at a time with his mock-ups. NEXT: he'll pick the next service page tomorrow (remaining: Marketing Support, Consulting &
+  Mentoring, Google & Social Ads, Websites, AI Enablement). Likely reusable from the SEO work: LinkedPairs, the numbered "system" layout, the six-step
+  journey with SVG icons, the tinted icon strip, AskingPerson (chat-bubble scene), t-subheading.
+  STILL PARKED: GSAP licence (TreadmillRunner only; Standard no-charge licence, not MIT); About intro video; Consulting hero ~740px at ~1009px; mobile nav has
+  no hamburger; Resources page missing; six case-study stubs; three public demo pages; lazy asset names (public/help-icons/icon-1..6.webp,
+  system-icons/icon-*.png) to rename when their pages come up; SharePoint keep-or-move question; two copy judgement calls on the SEO page to confirm
+  ("Roadmaps aligned to business goals"; card titles in Title Case: Trade Services / Professional Services / Existing Websites).
+
 - **2026-11-09 — SEO page, Row 6 "The impact" DONE, live. This was the LAST row: the SEO page is now fully reworked.** Left column: heading,
   intro, "See previous work" button and a new AskingPerson.astro scene (a person from the How We Work family, same glasses/hair/pink top, asks
   "How will I know if this is actually working?" in a chat bubble: bigger typing-dots bubble, then it grows into the question; plays once when 40% on

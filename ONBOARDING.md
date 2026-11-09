@@ -1132,7 +1132,7 @@ about it, don't just pick one.
   stack below xl; phone stacks everything.
   FOLLOW-UP (same day): from lg the asking-person scene drops to the bottom of the left column and past the section's bottom padding (lg:-mb-20) so the
   person's flat-cut shoulders sit exactly on the top edge of the CTA band (rising from behind it); the old ground shadow was removed for this. Below lg
-  it is unchanged (the report card follows it). Measured gap person-to-CTA = 0 at 1440 and 1024.
+  it is unchanged (the report card follows it). Measured gap person-to-CTA = 0 at 1440 and 1024. The bubble was then narrowed to 80% (max-width 19.25rem, 308px) at Andrew's request so it reads as speech, not a button.
   SEO PAGE ROW LIST NOW ALL DONE: landscape cards, linked pairs, visibility system, journey (6 steps), audiences, impact.
   NEXT PAGE: Andrew's call (remaining service pages: Marketing Support, Consulting, Google Ads, Websites, AI Enablement; plus the parked items).
 

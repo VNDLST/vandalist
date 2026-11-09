@@ -1120,9 +1120,9 @@ about it, don't just pick one.
 
 ## Known open items
 
-- **2026-11-09 — SEO page, Row 5 "Where this works well" DONE, live.** Cards now: 1 "Trade & service businesses" (was "Service businesses"; Andrew dictated
-  "trade, service, businesses", read as "Trade & service businesses": CONFIRM wording), 2 "Expert-led organisations", 3 "Established websites"
-  (cards 2 and 3 swapped). Body text unchanged. Each card has a row of FOUR plain pink icons (no chip background; 48px) from Andrew's SVGs in
+- **2026-11-09 — SEO page, Row 5 "Where this works well" DONE, live.** Card titles (Andrew's final wording, in his Title Case, which differs from the site's usual sentence case for card titles:
+  keep as given unless he says otherwise): "Trade Services", "Professional Services", "Existing Websites" (cards 2 and 3 swapped vs the original order).
+  Body text unchanged. Each card has a row of FOUR plain pink icons (no chip background; 48px) from Andrew's SVGs in
   public/seo-audiences/. His rule: first icon per card = manufacturing / documentation / website; the rest grouped by theme by me: trade =
   powertools, electrical, plumber; expert-led = legal, accounting, infotech; websites = ecom, coding, analytics (order free, easy to change).
   Cards stack below lg because four icons don't fit three-across at tablet width. REMAINING ROW: "What better visibility looks like".

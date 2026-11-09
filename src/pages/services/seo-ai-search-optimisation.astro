@@ -248,10 +248,12 @@ const topPages = [
       <div class="grid lg:grid-cols-3 gap-5">
         {audiences.map((item) => (
           <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6">
-            <div class="flex flex-wrap gap-4 mb-5" aria-hidden="true">
-              {item.icons.map((name) => (
-                <img src={`${base}/seo-audiences/${name}.svg`} alt="" class="h-12 w-12 object-contain" loading="lazy" />
-              ))}
+            <div class="mb-5" aria-hidden="true">
+              <div class="inline-flex flex-wrap gap-3 xl:gap-4 rounded-xl bg-[var(--color-paper-dim)] px-4 xl:px-5 py-3.5">
+                {item.icons.map((name) => (
+                  <img src={`${base}/seo-audiences/${name}.svg`} alt="" class="h-10 w-10 xl:h-12 xl:w-12 object-contain" loading="lazy" />
+                ))}
+              </div>
             </div>
             <p class="t-title mb-1.5">{item.title}</p>
             <p class="t-small">{item.text}</p>

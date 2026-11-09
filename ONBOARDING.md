@@ -1125,7 +1125,10 @@ about it, don't just pick one.
   Body text unchanged. Each card has a row of FOUR plain pink icons (no chip background; 48px) from Andrew's SVGs in
   public/seo-audiences/. His rule: first icon per card = manufacturing / documentation / website; the rest grouped by theme by me: trade =
   powertools, electrical, plumber; expert-led = legal, accounting, infotech; websites = ecom, coding, analytics (order free, easy to change).
-  Cards stack below lg because four icons don't fit three-across at tablet width. REMAINING ROW: "What better visibility looks like".
+  Cards stack below lg because four icons don't fit three-across at tablet width.
+  UPDATE: the icon row now sits on a tinted strip (paper-dim, rounded) that hugs the four icons and stops short of the card's right edge
+  (Andrew chose this over pink circles / a dark 2x2 panel / ink-coloured icons, all tried on the real cards first; the dark panel is the bold
+  alternative if he ever wants this row louder). Icons 48px with 16px gaps from xl; 40px with 12px gaps below xl so the strip never wraps. REMAINING ROW: "What better visibility looks like".
 
 - **2026-11-09 — SEO page, Row 4 "Momentum builds over time" DONE, live.** Dropped step 3 "Improve key pages" -> six steps, retitled one word each
   (Audit, Prioritise, Content, Technical, Measure, Refine). Copy edits (Andrew, same day): Technical = "Review and refine site performance from a user's perspective."

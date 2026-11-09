@@ -90,14 +90,15 @@ const workAreas = [
 ];
 
 // --- Section 4: Momentum builds over time ---
+// Six steps (Andrew, 2026-11-09: dropped "Improve key pages", retitled to one word each).
+// Icons are his single-colour SVGs in public/seo-journey-icons/ (recoloured by CadenceSteps).
 const journeySteps = [
-  { num: "01", title: "Audit & discover", text: "Uncover opportunities and technical issues holding you back.", icon: '<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.5-4.5" stroke-linecap="round"/>' },
-  { num: "02", title: "Prioritise", text: "Focus on high-impact topics and pages that move the needle.", icon: '<path d="M4 7h16M4 12h10M4 17h6" stroke-linecap="round"/>' },
-  { num: "03", title: "Improve key pages", text: "Optimise existing pages for intent, clarity and conversions.", icon: '<path d="M17 3.5a2.1 2.1 0 0 1 3 3L8.5 18 4 19l1-4.5L17 3.5z" stroke-linejoin="round"/>' },
-  { num: "04", title: "Create helpful content", text: "Build in-depth content that answers real questions.", icon: '<path d="M6 3h9l3 3v15H6z" stroke-linejoin="round"/><path d="M9 10h6M9 13.5h6M9 17h4"/>' },
-  { num: "05", title: "Strengthen connections", text: "Build internal links and topic clusters to build authority.", icon: '<path d="M9 15l6-6"/><path d="M11 7l1-1a3.5 3.5 0 0 1 5 5l-1 1"/><path d="M13 17l-1 1a3.5 3.5 0 0 1-5-5l1-1"/>' },
-  { num: "06", title: "Measure visibility", text: "Track rankings, AI visibility and traffic that matters.", icon: '<path d="M4 19h16" stroke-linecap="round"/><path d="M7 19v-6M12 19V8M17 19v-9" stroke-linecap="round"/>' },
-  { num: "07", title: "Refine & scale", text: "Double down on what works and continuously improve.", icon: '<path d="M3 12a9 9 0 1 1 3 6.7"/><path d="M3 17v-4.5H7.5"/>' },
+  { num: "01", title: "Audit", text: "Uncover opportunities and technical issues holding you back.", icon: "audit" },
+  { num: "02", title: "Prioritise", text: "Focus on high-impact topics and pages that move the needle.", icon: "prioritise" },
+  { num: "03", title: "Content", text: "Build in-depth content that answers real questions.", icon: "content" },
+  { num: "04", title: "Technical", text: "Review and refine site performance and functions from a user's perspective.", icon: "technical" },
+  { num: "05", title: "Measure", text: "Track rankings, AI visibility and traffic that matters.", icon: "measure" },
+  { num: "06", title: "Refine", text: "Double down on what works and continuously improve.", icon: "refine" },
 ];
 
 // --- Section 5: Where this works well ---
@@ -216,8 +217,10 @@ const topPages = [
       />
       <CadenceSteps
         steps={journeySteps}
-        gridClass="sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7"
+        gridClass="sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6"
         connectorBreakpoint="xl"
+        iconMode="image"
+        iconBase={`${base}/seo-journey-icons`}
       />
     </Section>
 

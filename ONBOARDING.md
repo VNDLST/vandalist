@@ -1130,6 +1130,9 @@ about it, don't just pick one.
   CHANGES I MADE TO HIS MOCK-UP COPY (confirm): (1) heading "Know what's working. And what isn't." -> "Know what's working, and what isn't" (headings take no
   full stops); (2) the em dash in the intro became a spaced hyphen (his stated preference); (3) the intro uses t-body. Tablet: KPIs 2x2 and the two panels
   stack below xl; phone stacks everything.
+  FOLLOW-UP (same day): from lg the asking-person scene drops to the bottom of the left column and past the section's bottom padding (lg:-mb-20) so the
+  person's flat-cut shoulders sit exactly on the top edge of the CTA band (rising from behind it); the old ground shadow was removed for this. Below lg
+  it is unchanged (the report card follows it). Measured gap person-to-CTA = 0 at 1440 and 1024.
   SEO PAGE ROW LIST NOW ALL DONE: landscape cards, linked pairs, visibility system, journey (6 steps), audiences, impact.
   NEXT PAGE: Andrew's call (remaining service pages: Marketing Support, Consulting, Google Ads, Websites, AI Enablement; plus the parked items).
 

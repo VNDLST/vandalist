@@ -267,8 +267,8 @@ const calendarIcon = '<rect x="3" y="5" width="18" height="16" rx="3"/><path d="
     <!-- Section 6: The impact. Left: heading, intro, button and the "asking person" scene
          (the question the report answers). Right: an illustrative report card. -->
     <Section>
-      <div class="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] gap-10 xl:gap-12 items-start">
-        <div>
+      <div class="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] gap-10 xl:gap-12">
+        <div class="flex flex-col">
           <Eyebrow class="mb-3">The impact</Eyebrow>
           <h2 class="t-heading text-balance mb-4">Know what's working, and what isn't</h2>
           <p class="t-body mb-6 max-w-md">
@@ -288,11 +288,14 @@ const calendarIcon = '<rect x="3" y="5" width="18" height="16" rx="3"/><path d="
               <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
           </a>
-          <div class="mt-10"><AskingPerson /></div>
+          <!-- From lg the scene drops to the bottom of the column and past the section's bottom
+               padding (lg:-mb-20), so the person's cut-off shoulders sit exactly on the top edge of the
+               call-to-action band, as if rising from behind it. Below lg the card comes after it. -->
+          <div class="mt-10 lg:mt-auto lg:pt-10 lg:-mb-20"><AskingPerson /></div>
         </div>
 
         <!-- Illustrative report card: made-up numbers, labelled as such, hidden from screen readers. -->
-        <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-5 md:p-8 [box-shadow:var(--shadow-panel)]" aria-hidden="true">
+        <div class="lg:self-start rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-5 md:p-8 [box-shadow:var(--shadow-panel)]" aria-hidden="true">
           <div class="flex items-start justify-between gap-4 mb-6">
             <div>
               <p class="t-subheading mb-1">Search visibility report</p>

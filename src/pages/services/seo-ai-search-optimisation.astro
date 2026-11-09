@@ -102,10 +102,25 @@ const journeySteps = [
 ];
 
 // --- Section 5: Where this works well ---
+// Three cards, each with a row of four plain pink icons (Andrew, 2026-11-09; his SVGs in
+// public/seo-audiences/). The first icon of each card was specified by him; the rest are
+// grouped by theme and their order is free.
 const audiences = [
-  { title: "Service businesses", text: "Generate more qualified enquiries and be found by people ready to buy.", icon: '<path d="M9 3h6v4H9zM3 9h4v6H3zM17 9h4v6h-4zM9 17h6v4H9z"/><path d="M9 5H7a2 2 0 0 0-2 2v2M15 5h2a2 2 0 0 1 2 2v2M9 19H7a2 2 0 0 1-2-2v-2M15 19h2a2 2 0 0 0 2-2v-2"/>' },
-  { title: "Established websites", text: "Increase authority, improve rankings and win more visibility in competitive markets.", icon: '<path d="M12 3l8 4v5c0 5-3.4 8.4-8 9.5-4.6-1.1-8-4.5-8-9.5V7l8-4z" stroke-linejoin="round"/><path d="M9 12.5l2 2 4-4.5" stroke-linecap="round" stroke-linejoin="round"/>' },
-  { title: "Expert-led organisations", text: "Turn expertise into discoverable content and reach more of the right audience.", icon: '<circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.6 3.1-6.3 7-6.3s7 2.7 7 6.3"/>' },
+  {
+    title: "Trade & service businesses",
+    text: "Generate more qualified enquiries and be found by people ready to buy.",
+    icons: ["manufacturing", "powertools", "electrical", "plumber"],
+  },
+  {
+    title: "Expert-led organisations",
+    text: "Turn expertise into discoverable content and reach more of the right audience.",
+    icons: ["documentation", "legal", "accounting", "infotech"],
+  },
+  {
+    title: "Established websites",
+    text: "Increase authority, improve rankings and win more visibility in competitive markets.",
+    icons: ["website", "ecom", "coding", "analytics"],
+  },
 ];
 
 // --- Section 6: What better visibility looks like ---
@@ -230,10 +245,14 @@ const topPages = [
         eyebrow="Best suited for"
         heading="Where this works well"
       />
-      <div class="grid sm:grid-cols-3 gap-5">
+      <div class="grid lg:grid-cols-3 gap-5">
         {audiences.map((item) => (
           <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6">
-            <IconChip icon={item.icon} size="lg" class="mb-4" />
+            <div class="flex flex-wrap gap-4 mb-5" aria-hidden="true">
+              {item.icons.map((name) => (
+                <img src={`${base}/seo-audiences/${name}.svg`} alt="" class="h-12 w-12 object-contain" loading="lazy" />
+              ))}
+            </div>
             <p class="t-title mb-1.5">{item.title}</p>
             <p class="t-small">{item.text}</p>
           </div>

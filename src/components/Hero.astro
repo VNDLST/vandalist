@@ -13,9 +13,18 @@
 // still-life went the other way; the campfire move reversed that.)
 //
 // Layout: standard two-column PageHero (from lg; below that the art is hidden and the
-// text takes the full width, as before). The scene sits in the art column, capped at
-// 600px wide (~500px tall, 6:5) and pulled up/down 16px by lg:-my-4 so it stays inside
-// the locked hero height (706px with the header at 1440). The wrapper clips horizontally so the arrivals sliding in from the
+// text takes the full width, as before). TWO SIZES of the one scene (a single instance,
+// restyled by breakpoint, so the SVG clipPath id stays unique):
+//   lg (1024-1279): in the art column, capped at 600px wide (~500px tall, 6:5), pulled
+//     up/down 16px by lg:-my-4 so it stays inside the locked hero height.
+//   xl (1280+, where the 1200px content column is fixed): lifted out of the grid and
+//     positioned over the right of the section at 720px wide (~600px tall, 1.5x scale,
+//     Andrew's own mock-up). The drawing's real content is ~545px tall inside the 578px
+//     section, so the hero stays 706px; the box's empty top/bottom margin is clipped by
+//     the wrapper. The notepad's right edge ends ~18px past the content column; the
+//     leftmost head clears the end of the heading by ~60px. pointer-events-none so the
+//     (empty) left edge of the box never sits over the heading as a click target.
+// The wrapper clips horizontally so the arrivals sliding in from the
 // sides can never cause page scroll; the Header sits outside it so the services
 // flyout isn't clipped.
 import PageHero from "./PageHero.astro";
@@ -25,12 +34,12 @@ import TeamScene from "./TeamScene.astro";
 const base = import.meta.env.BASE_URL;
 ---
 <div class="relative overflow-hidden">
-  <PageHero introClass="max-w-md">
+  <PageHero sectionClass="relative" introClass="max-w-md">
     <Fragment slot="title">Marketing strategy, execution, and support</Fragment>
     <Fragment slot="intro">We partner with ambitious organisations to plan with clarity, execute with precision, and grow with confidence.</Fragment>
     <OrbButton href={`${base}/contact`}>How can we help?</OrbButton>
     <Fragment slot="art">
-      <div class="mx-auto w-full max-w-[600px] lg:-my-4">
+      <div class="mx-auto w-full max-w-[600px] lg:-my-4 xl:absolute xl:right-[-2px] xl:top-1/2 xl:my-0 xl:mx-0 xl:w-[720px] xl:max-w-none xl:-translate-y-1/2 xl:pointer-events-none">
         <TeamScene />
       </div>
     </Fragment>

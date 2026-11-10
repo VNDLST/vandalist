@@ -1140,6 +1140,13 @@ about it, don't just pick one.
   (Andrew: "get it onto the home page so we can adjust the size and position"): Hero.astro now uses PageHero's art slot with <TeamScene /> in a
   mx-auto w-full max-w-[520px] wrapper (473px tall, inside the locked 706px hero; verified 1440 / 1024 no overflow, art hidden below lg as before); the
   still-life overlay image is gone (public/vandalist-hero.png now unused, left in place). EXPECT size/position tweaks from Andrew on the live homepage.
+  SECOND TWEAK (2026-11-11, Andrew's mock-up: "team considerably larger and tighter against the text", pencil removed): PENCIL DELETED (notepad
+  stays). At xl (1280+) the scene is now lifted out of the art column and absolutely positioned over the right of the hero section (Hero.astro:
+  xl:absolute, 720px wide = 1.5x scale, ~600px tall box; the drawing's real content is ~545px so the hero stays 706px; right edge ~2px past the section
+  edge so the notepad ends ~18px past the content column; leftmost head clears the heading by ~60px; pointer-events-none). lg (1024-1279) keeps the
+  in-column 600px version. ONE svg instance restyled by breakpoint (two instances would duplicate the clipPath id). Slide-in offsets cut from 110px to
+  70px (they are multiplied by the scale and would otherwise sweep across the intro text). TeamScene's own CSS max-width removed: callers size it.
+  Can't go bigger than ~1.5x without the hero growing taller than 706px (cable bottom is ~12px from the section edge at 1.5x).
   FIRST TWEAK (Andrew, with a screenshot of his intended box ~600x520): "use the space better, more significant, spread the team out so it feels the
   width of the box, a slightly greater ratio than the height", and he chose DESK PROPS to fill the extra room ("if too hectic we can address that").
   Done: viewBox now 480x400 (6:5; was 440x400), scene cap 600px (~500px tall, wrapper lg:-my-4 keeps the hero at 706px), flanks moved out ~12px and the

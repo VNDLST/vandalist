@@ -269,10 +269,6 @@
   </g>
 
   <g class="ts-prop-pad">
-    <g transform="rotate(12 492 440)">
-      <rect x="489" y="402" width="7" height="38" rx="2" fill="#f2b632" stroke="#1c1b1a" stroke-width="2.5" />
-      <path d="M489 402 L492.5 392 L496 402 Z" fill="#3b2a20" />
-    </g>
     <rect x="446" y="394" width="36" height="46" rx="4" fill="#ffffff" stroke="#1c1b1a" stroke-width="4" />
     <g fill="#1c1b1a"><circle cx="455" cy="394" r="2.6" /><circle cx="464" cy="394" r="2.6" /><circle cx="473" cy="394" r="2.6" /></g>
     <g stroke-linecap="round" stroke-width="3" fill="none">
@@ -287,7 +283,7 @@
   .team-scene {
     display: block;
     width: 100%;
-    max-width: 600px;
+    max-width: none; /* the wrapper (Hero / demo page) sets the size */
     height: auto;
     overflow: visible;
   }
@@ -318,8 +314,8 @@
 
     /* the team arrives after the lead has had a couple of seconds on their own */
     .team-scene .ts-arrive { animation: ts-in 0.7s cubic-bezier(0.2, 1.35, 0.4, 1) backwards; animation-delay: calc(2.6s + var(--n) * 0.25s); }
-    .team-scene .ts-from-left { --x: -110px; --y: 60px; }
-    .team-scene .ts-from-right { --x: 110px; --y: 60px; }
+    .team-scene .ts-from-left { --x: -70px; --y: 60px; }
+    .team-scene .ts-from-right { --x: 70px; --y: 60px; }
     .team-scene .ts-from-below { --x: 0px; --y: 110px; }
 
     /* individual beats: ponytail swings, the dog pants and flaps its ears */

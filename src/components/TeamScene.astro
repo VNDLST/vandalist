@@ -8,12 +8,16 @@
 // How We Work character style, the animation is CSS only (the pen uses Snap.svg +
 // jQuery), and the laptop wears a bunch of grapes instead of a fruit logo, on purpose.
 //
-// DEMO STAGE: the lead plus ONE arrival (front left, headphones). The other three
-// (back left, back right, front right) get drawn once the style is approved.
+// Cast (all invented): lead (glasses, pink top) + four arrivals, each with a small
+// individual beat: front left = headphones, nodding to her own rhythm; back left =
+// ponytail + bow that swings, pencil behind the ear; back right = headset, chatting
+// (mouth moves); front right = pink beanie + beard, slow chuckler.
 //
 // Sequence (plays on load, hero is above the fold):
 //   0.0s  lead works alone: mouse + hand slide about, the cable follows, mug steams
 //   2.6s  arrivals pop in one after another (~0.25s apart), then they STAY
+//         (front left from the left, the back row rises from behind the desk, front
+//         right from the right)
 //   after idle: heads bob out of step (individuals); every 7s everyone bounces together
 //         (collective); blinking carries on
 // Everything animated sits inside @media (prefers-reduced-motion: no-preference), so the
@@ -23,11 +27,80 @@
 //   accent #ff3d6b, accent-dark #d92f5c, accent-soft #ffc2d2, ink #1c1b1a, slate #6b6862.
 ---
 <svg class="team-scene" viewBox="0 0 720 480" role="img" aria-label="Illustration of a person working at a laptop with a bunch of grapes on its lid, joined by their teammates" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- arrivals are cut at the desk line so nobody pokes out below it while popping in -->
+    <clipPath id="ts-above-desk"><rect x="-400" y="-400" width="1600" height="810" /></clipPath>
+  </defs>
+
   <!-- desk line (behind everyone) -->
   <g stroke="#1c1b1a" stroke-width="5" stroke-linecap="round" fill="none" aria-hidden="true">
     <path d="M62 410 H92" />
     <path d="M112 410 H610" />
     <path d="M630 410 H660" />
+  </g>
+
+  <!-- BACK ROW (behind the lead). Arrival 2: back left, ponytail + bow, pencil behind the ear -->
+  <g clip-path="url(#ts-above-desk)">
+    <g class="ts-arrive ts-from-below" style="--n:1">
+      <g transform="translate(250 222)">
+        <rect x="-10" y="40" width="20" height="40" rx="8" fill="#e6b896" />
+        <path d="M-92 188 Q-92 72 0 62 Q92 72 92 188 Z" fill="#ffc2d2" />
+        <path d="M-20 64 Q0 86 20 64" stroke="#ff3d6b" stroke-width="6" fill="none" stroke-linecap="round" />
+        <g class="ts-giggle">
+          <g class="ts-bob" style="--d:2.2s;--o:-1.1s">
+            <g class="ts-tail">
+              <path d="M36 -30 Q76 -40 72 -2 Q70 24 52 34 Q62 6 46 -12 Z" fill="#e8b04a" />
+              <path d="M36 -34 L20 -44 L20 -24 Z M36 -34 L52 -44 L52 -24 Z" fill="#ff3d6b" />
+              <circle cx="36" cy="-34" r="5" fill="#d92f5c" />
+            </g>
+            <ellipse cx="0" cy="-22" rx="47" ry="40" fill="#e8b04a" />
+            <circle cx="-44" cy="6" r="9" fill="#f6cfae" />
+            <circle cx="44" cy="6" r="9" fill="#f6cfae" />
+            <ellipse cx="0" cy="2" rx="42" ry="46" fill="#f6cfae" />
+            <path d="M-42 -6 Q-46 -48 0 -50 Q46 -48 42 -6 Q28 -24 8 -30 Q-18 -20 -42 -6 Z" fill="#e8b04a" />
+            <g transform="rotate(-14 -46 -2)">
+              <rect x="-52" y="-30" width="7" height="30" rx="2" fill="#f2b632" />
+              <path d="M-52 -30 L-48.5 -38 L-45 -30 Z" fill="#3b2a20" />
+            </g>
+            <circle class="ts-eye" cx="-16" cy="2" r="4.5" fill="#1c1b1a" />
+            <circle class="ts-eye" cx="16" cy="2" r="4.5" fill="#1c1b1a" />
+            <path d="M-26 -12 Q-16 -18 -7 -12 M7 -12 Q16 -18 26 -12" stroke="#b9822f" stroke-width="4" fill="none" stroke-linecap="round" />
+            <circle cx="-28" cy="18" r="7" fill="#ff8fab" opacity="0.5" />
+            <circle cx="28" cy="18" r="7" fill="#ff8fab" opacity="0.5" />
+            <path d="M-14 20 Q0 38 14 20 Z" fill="#ffffff" stroke="#1c1b1a" stroke-width="3" stroke-linejoin="round" />
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- Arrival 3: back right, headset, chatting away to a client -->
+  <g clip-path="url(#ts-above-desk)">
+    <g class="ts-arrive ts-from-below" style="--n:2">
+      <g transform="translate(470 222)">
+        <rect x="-10" y="40" width="20" height="40" rx="8" fill="#b57a50" />
+        <path d="M-92 188 Q-92 72 0 62 Q92 72 92 188 Z" fill="#6b6862" />
+        <path d="M-20 64 Q0 86 20 64" stroke="#ffffff" stroke-width="6" fill="none" stroke-linecap="round" />
+        <g class="ts-giggle">
+          <g class="ts-bob" style="--d:2.9s;--o:-0.2s">
+            <circle cx="-44" cy="6" r="9" fill="#c98f62" />
+            <circle cx="44" cy="6" r="9" fill="#c98f62" />
+            <ellipse cx="0" cy="2" rx="42" ry="46" fill="#c98f62" />
+            <path d="M-44 -8 Q-48 -54 0 -56 Q48 -54 44 -8 Q34 -30 0 -30 Q-34 -30 -44 -8 Z" fill="#2b1d16" />
+            <circle class="ts-eye" cx="-16" cy="2" r="4.5" fill="#1c1b1a" />
+            <circle class="ts-eye" cx="16" cy="2" r="4.5" fill="#1c1b1a" />
+            <path d="M-26 -12 Q-16 -18 -7 -12 M7 -12 Q16 -18 26 -12" stroke="#2b1d16" stroke-width="4" fill="none" stroke-linecap="round" />
+            <path class="ts-talk" d="M-12 22 Q0 40 12 22 Z" fill="#ffffff" stroke="#1c1b1a" stroke-width="3" stroke-linejoin="round" />
+            <!-- headset -->
+            <path d="M-48 -4 Q-50 -66 0 -68 Q50 -66 48 -4" stroke="#1c1b1a" stroke-width="5" fill="none" stroke-linecap="round" />
+            <rect x="-58" y="-14" width="14" height="30" rx="7" fill="#1c1b1a" />
+            <rect x="44" y="-14" width="14" height="30" rx="7" fill="#1c1b1a" />
+            <path d="M51 16 Q50 46 20 40" stroke="#1c1b1a" stroke-width="4" fill="none" stroke-linecap="round" />
+            <circle cx="18" cy="40" r="5" fill="#1c1b1a" />
+          </g>
+        </g>
+      </g>
+    </g>
   </g>
 
   <!-- LEAD ------------------------------------------------------------------>
@@ -68,23 +141,26 @@
     <rect x="285" y="308" width="150" height="94" rx="8" fill="#ffffff" stroke="#1c1b1a" stroke-width="5" />
     <rect x="268" y="400" width="184" height="10" rx="5" fill="#ffffff" stroke="#1c1b1a" stroke-width="4" />
     <!-- grapes: stem, leaf, then 3 / 2 / 1 berries -->
-    <path d="M360 334 L360 326" stroke="#1c1b1a" stroke-width="3" stroke-linecap="round" />
-    <path d="M361 328 Q374 316 386 324 Q376 336 361 328 Z" fill="#2f8f4e" stroke="#1c1b1a" stroke-width="2.5" stroke-linejoin="round" />
-    <g fill="#ff3d6b" stroke="#1c1b1a" stroke-width="2.5">
-      <circle cx="343" cy="345" r="9" />
-      <circle cx="360" cy="345" r="9" />
-      <circle cx="377" cy="345" r="9" />
-      <circle cx="351" cy="361" r="9" />
-      <circle cx="369" cy="361" r="9" />
-      <circle cx="360" cy="376" r="9" />
-    </g>
-    <g fill="#ffffff" opacity="0.55">
-      <circle cx="339" cy="341" r="2.2" />
-      <circle cx="356" cy="341" r="2.2" />
-      <circle cx="373" cy="341" r="2.2" />
-      <circle cx="347" cy="357" r="2.2" />
-      <circle cx="365" cy="357" r="2.2" />
-      <circle cx="356" cy="372" r="2.2" />
+    <!-- drawn at full size and scaled to half about the lid centre (strokes doubled to compensate) -->
+    <g transform="translate(360 355) scale(0.5) translate(-360 -355)">
+      <path d="M360 334 L360 326" stroke="#1c1b1a" stroke-width="5" stroke-linecap="round" />
+      <path d="M361 328 Q374 316 386 324 Q376 336 361 328 Z" fill="#2f8f4e" stroke="#1c1b1a" stroke-width="4" stroke-linejoin="round" />
+      <g fill="#ff3d6b" stroke="#1c1b1a" stroke-width="4">
+        <circle cx="343" cy="345" r="9" />
+        <circle cx="360" cy="345" r="9" />
+        <circle cx="377" cy="345" r="9" />
+        <circle cx="351" cy="361" r="9" />
+        <circle cx="369" cy="361" r="9" />
+        <circle cx="360" cy="376" r="9" />
+      </g>
+      <g fill="#ffffff" opacity="0.55">
+        <circle cx="339" cy="341" r="2.2" />
+        <circle cx="356" cy="341" r="2.2" />
+        <circle cx="373" cy="341" r="2.2" />
+        <circle cx="347" cy="357" r="2.2" />
+        <circle cx="365" cy="357" r="2.2" />
+        <circle cx="356" cy="372" r="2.2" />
+      </g>
     </g>
   </g>
 
@@ -100,16 +176,17 @@
 
   <!-- mug + steam -->
   <g class="ts-mug">
-    <path d="M516 384 h8 q8 0 8 8 v6 q0 8 -8 8 h-8" stroke="#1c1b1a" stroke-width="4" fill="none" />
-    <rect x="486" y="372" width="30" height="38" rx="4" fill="#ffffff" stroke="#1c1b1a" stroke-width="4" />
+    <path d="M496 384 h8 q8 0 8 8 v6 q0 8 -8 8 h-8" stroke="#1c1b1a" stroke-width="4" fill="none" />
+    <rect x="466" y="372" width="30" height="38" rx="4" fill="#ffffff" stroke="#1c1b1a" stroke-width="4" />
     <g class="ts-steam" fill="none" stroke="#c9c6bf" stroke-width="3" stroke-linecap="round">
-      <path style="--i:0" d="M495 364 q5 -7 0 -14 q-5 -7 0 -14" />
-      <path style="--i:1" d="M503 364 q5 -7 0 -14 q-5 -7 0 -14" />
-      <path style="--i:2" d="M511 364 q5 -7 0 -14 q-5 -7 0 -14" />
+      <path style="--i:0" d="M475 364 q5 -7 0 -14 q-5 -7 0 -14" />
+      <path style="--i:1" d="M483 364 q5 -7 0 -14 q-5 -7 0 -14" />
+      <path style="--i:2" d="M491 364 q5 -7 0 -14 q-5 -7 0 -14" />
     </g>
   </g>
 
   <!-- ARRIVAL 1: front left, headphones, nodding along (own rhythm) -->
+  <g clip-path="url(#ts-above-desk)">
   <g class="ts-arrive ts-from-left" style="--n:0">
     <g transform="translate(125 262) scale(1.08)">
       <rect x="-12" y="40" width="24" height="40" rx="9" fill="#8f5733" />
@@ -141,6 +218,34 @@
       </g>
     </g>
   </g>
+  </g>
+
+  <!-- Arrival 4: front right, pink beanie + beard, the slow, easy chuckler -->
+  <g clip-path="url(#ts-above-desk)">
+    <g class="ts-arrive ts-from-right" style="--n:3">
+      <g transform="translate(624 262) scale(1.08)">
+        <rect x="-12" y="40" width="24" height="40" rx="9" fill="#b98457" />
+        <path d="M-100 138 Q-100 74 0 64 Q100 74 100 138 Z" fill="#2f8f4e" />
+        <path d="M-22 66 Q0 90 22 66" stroke="#1e6b38" stroke-width="6" fill="none" stroke-linecap="round" />
+        <g class="ts-giggle">
+          <g class="ts-bob" style="--d:3.4s;--o:-0.9s">
+            <circle cx="-44" cy="6" r="9" fill="#d9a27a" />
+            <circle cx="44" cy="6" r="9" fill="#d9a27a" />
+            <ellipse cx="0" cy="2" rx="42" ry="46" fill="#d9a27a" />
+            <path d="M-42 12 Q-44 52 0 56 Q44 52 42 12 Q32 28 0 28 Q-32 28 -42 12 Z" fill="#3b2a20" />
+            <path d="M-15 30 Q0 46 15 30 Z" fill="#ffffff" stroke="#1c1b1a" stroke-width="3" stroke-linejoin="round" />
+            <circle class="ts-eye" cx="-17" cy="0" r="4.5" fill="#1c1b1a" />
+            <circle class="ts-eye" cx="17" cy="0" r="4.5" fill="#1c1b1a" />
+            <path d="M-28 -12 Q-17 -19 -7 -12 M7 -12 Q17 -19 28 -12" stroke="#3b2a20" stroke-width="5" fill="none" stroke-linecap="round" />
+            <!-- beanie -->
+            <path d="M-47 -14 Q-50 -64 0 -68 Q50 -64 47 -14 Z" fill="#ff3d6b" />
+            <rect x="-49" y="-24" width="98" height="15" rx="7.5" fill="#d92f5c" />
+            <circle cx="0" cy="-72" r="12" fill="#ffc2d2" />
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
 </svg>
 
 <style>
@@ -159,6 +264,8 @@
   .team-scene .ts-click,
   .team-scene .ts-steam path { transform-box: fill-box; transform-origin: center; }
   .team-scene .ts-nod { transform-origin: 50% 100%; }
+  .team-scene .ts-tail { transform-box: fill-box; transform-origin: 15% 10%; }
+  .team-scene .ts-talk { transform-box: fill-box; transform-origin: 50% 0%; }
   .team-scene .ts-arm { transform-origin: 300px 393px; }
 
   @media (prefers-reduced-motion: no-preference) {
@@ -172,6 +279,12 @@
     /* the team arrives after the lead has had a couple of seconds on their own */
     .team-scene .ts-arrive { animation: ts-in 0.7s cubic-bezier(0.2, 1.35, 0.4, 1) backwards; animation-delay: calc(2.6s + var(--n) * 0.25s); }
     .team-scene .ts-from-left { --x: -110px; --y: 60px; }
+    .team-scene .ts-from-right { --x: 110px; --y: 60px; }
+    .team-scene .ts-from-below { --x: 0px; --y: 110px; }
+
+    /* individual beats: ponytail swings, headset wearer talks */
+    .team-scene .ts-tail { animation: ts-tail 1.7s ease-in-out infinite; }
+    .team-scene .ts-talk { animation: ts-talk 2.2s ease-in-out infinite; }
 
     /* life after that: individual bob + blink, shared bounce */
     .team-scene .ts-bob { animation: ts-bob var(--d, 2.4s) ease-in-out var(--o, 0s) infinite; }
@@ -210,6 +323,16 @@
     0% { opacity: 0; transform: translateY(6px); }
     30%, 60% { opacity: 0.9; }
     100% { opacity: 0; transform: translateY(-8px); }
+  }
+  @keyframes ts-tail { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(7deg); } }
+  @keyframes ts-talk {
+    0%, 100% { transform: scaleY(1); }
+    12% { transform: scaleY(0.35); }
+    24% { transform: scaleY(1); }
+    36% { transform: scaleY(0.5); }
+    48% { transform: scaleY(1); }
+    60%, 80% { transform: scaleY(0.15); }
+    90% { transform: scaleY(0.8); }
   }
   @keyframes ts-bob { 0%, 100% { transform: translateY(1.5px); } 50% { transform: translateY(-1.5px); } }
   @keyframes ts-nod { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }

@@ -1125,10 +1125,12 @@ about it, don't just pick one.
   only, redraw in our How We Work character style, CSS only (the pen uses Snap.svg + jQuery), no click interaction, automatic. Lead works alone ~2.6s
   (mouse + hand slide, cable follows, mug steam), then the team pops in ONE AFTER ANOTHER and STAYS; then heads bob out of step (individuals) and every
   7s all bounce together (collective). Laptop wears a bunch of GRAPES (Andrew's joke on the fruit logo; also keeps us clear of looking like a certain
-  fruit brand). Cast = invented people, a mix of looks. Built so far: src/components/TeamScene.astro = the lead + ONE arrival (front left, headphones);
-  src/pages/team-demo.astro = internal preview with a Replay link (delete once decided, same as the other three demo pages). NEXT: Andrew checks the
-  style live; if approved, draw the other three (back left, back right, front right), each with its own prop/beat, then drop TeamScene into the
-  homepage hero (right of the heading, lg and up, hero stays 706px) when the homepage is redone LAST. Notes: the cable uses the CSS `d` property
+  fruit brand). Cast = invented people, a mix of looks. UPDATE same day: Andrew APPROVED the style ("works quite well") with one change, grapes HALF the size (done), so the other three
+  were drawn: src/components/TeamScene.astro now has the whole cast (lead + front left headphones/nodding + back left ponytail-and-bow, pencil behind ear
+  + back right headset, mouth chatting + front right pink beanie and beard, slow chuckler; pop-in order front left, back left, back right, front right,
+  all in by ~4s, first shared bounce ~4.1s). Back row rises from behind the desk (clip-path at the desk line), front pair slide in from the sides.
+  src/pages/team-demo.astro = internal preview with a Replay link (delete once decided, same as the other three demo pages). NEXT: Andrew reviews the
+  full team live; then drop TeamScene into the homepage hero (right of the heading, lg and up, hero stays 706px) when the homepage is redone LAST. Notes: the cable uses the CSS `d` property
   (Chrome/Firefox/Edge; if Safari lacks it the cable just stays still, graceful); reduced-motion = finished picture; the base markup is the finished state.
 
 - **2026-11-10 — CAMPFIRE HERO MOVED to Marketing Support (live).** Andrew's reasoning: "Add a little Vandalist" (a little capability, turned up or

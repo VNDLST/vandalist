@@ -1135,7 +1135,9 @@ about it, don't just pick one.
   faces and beats (afro+headphones laughing; blonde ponytail+bow, pencil, a wink, freckles; headset+moustache, talking; auburn man-bun+beard). Desk line is
   now one continuous ground line. REVISION 3 (Andrew): the front-right guy wears a SINGLET (bare shoulders, to break up the uniform); the back-right
   person became a DOG (the pen has a cat; golden, floppy ears flap, tongue pants, same pink tee, headset and moustache gone); headbands removed from
-  everyone EXCEPT the lead (my pick, mirrors the pen's lead; trivial to move to someone else).
+  everyone EXCEPT the lead (my pick, mirrors the pen's lead; trivial to move to someone else). **APPROVED by Andrew** ("really like that... quite
+  funny... layout, people, concept all great") with the note that it "may need a bit of massaging to fit the space on the homepage". Still only on
+  /team-demo/; going into the real hero is the open step (see below).
   src/pages/team-demo.astro = internal preview with a Replay link (delete once decided, same as the other three demo pages). NEXT: Andrew reviews the
   full team live; then drop TeamScene into the homepage hero (right of the heading, lg and up, hero stays 706px) when the homepage is redone LAST. Notes: the cable uses the CSS `d` property
   (Chrome/Firefox/Edge; if Safari lacks it the cable just stays still, graceful); reduced-motion = finished picture; the base markup is the finished state.

@@ -10,12 +10,13 @@
 //
 // Shape: a near-square pyramid (two at the back, two flanking, the lead front and
 // centre), like the pen's footprint, so it fills the hero's art column. UNIFORM:
-// everyone wears the same pink tee and white headband (as the pen's crew do); the
-// individuality is in hair, faces and one small beat each:
+// everyone wears the same pink tee (the lead alone keeps the white headband, as the
+// pen's lead does; the front-right guy's tee is a singlet, to break up the outfit);
+// the individuality is in hair, faces and one small beat each:
 //   front left  - headphones, afro, nodding to her own rhythm
 //   back left   - ponytail + bow that swings, pencil behind the ear, a wink
-//   back right  - headset + moustache, chatting (mouth moves)
-//   front right - man-bun + beard, slow chuckler
+//   back right  - the dog (the pen has a cat): floppy ears flap, tongue pants
+//   front right - man-bun + beard + singlet, slow chuckler
 //
 // Sequence (plays on load, hero is above the fold):
 //   0.0s  lead works alone: mouse + hand slide about, the cable follows, mug steams
@@ -31,7 +32,7 @@
 //   accent #ff3d6b, accent-dark #d92f5c, accent-soft #ffc2d2, ink #1c1b1a, slate #6b6862.
 // Local head coordinates for the arrivals: face centre (0,2), rx 42 / ry 46.
 ---
-<svg class="team-scene" viewBox="40 100 440 400" role="img" aria-label="Illustration of a team in matching pink tops and headbands crowding round a laptop with a bunch of grapes on its lid" xmlns="http://www.w3.org/2000/svg">
+<svg class="team-scene" viewBox="40 100 440 400" role="img" aria-label="Illustration of a team, and a dog, in matching pink tops crowding round a laptop with a bunch of grapes on its lid" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <!-- arrivals are cut at the desk line so nobody pokes out below it while popping in -->
     <clipPath id="ts-above-desk"><rect x="-400" y="-400" width="1600" height="840" /></clipPath>
@@ -61,7 +62,6 @@
               <rect x="-52" y="-34" width="7" height="30" rx="2" fill="#f2b632" />
               <path d="M-52 -34 L-48.5 -42 L-45 -34 Z" fill="#3b2a20" />
             </g>
-            <path d="M-42 -24 Q0 -38 42 -24 L42 -34 Q0 -48 -42 -34 Z" fill="#ffffff" />
             <!-- wink: left eye shut, right eye open; freckles -->
             <path d="M-23 4 Q-16 -3 -9 4" stroke="#1c1b1a" stroke-width="4" fill="none" stroke-linecap="round" />
             <circle class="ts-eye" cx="16" cy="2" r="4.5" fill="#1c1b1a" />
@@ -76,31 +76,27 @@
     </g>
   </g>
 
-  <!-- back right: headset + moustache, chatting away to a client -->
+  <!-- back right: the dog (golden, floppy ears, panting), in the same pink tee -->
   <g clip-path="url(#ts-above-desk)">
     <g class="ts-arrive ts-from-below" style="--n:2">
       <g transform="translate(330 184)">
-        <rect x="-10" y="40" width="20" height="40" rx="8" fill="#b57a50" />
+        <rect x="-12" y="38" width="24" height="42" rx="9" fill="#c58f50" />
         <path d="M-92 256 Q-92 70 0 62 Q92 70 92 256 Z" fill="#ff3d6b" />
         <path d="M-22 64 Q0 88 22 64" stroke="#d92f5c" stroke-width="6" fill="none" stroke-linecap="round" />
         <g class="ts-giggle">
           <g class="ts-bob" style="--d:2.9s;--o:-0.2s">
-            <circle cx="-44" cy="6" r="9" fill="#c98f62" />
-            <circle cx="44" cy="6" r="9" fill="#c98f62" />
-            <ellipse cx="0" cy="2" rx="42" ry="46" fill="#c98f62" />
-            <path d="M-44 -8 Q-48 -54 0 -56 Q48 -54 44 -8 Q34 -30 0 -30 Q-34 -30 -44 -8 Z" fill="#2b1d16" />
-            <path d="M-42 -24 Q0 -38 42 -24 L42 -34 Q0 -48 -42 -34 Z" fill="#ffffff" />
-            <circle class="ts-eye" cx="-16" cy="2" r="4.5" fill="#1c1b1a" />
-            <circle class="ts-eye" cx="16" cy="2" r="4.5" fill="#1c1b1a" />
-            <path d="M-26 -12 Q-16 -18 -7 -12 M7 -12 Q16 -18 26 -12" stroke="#2b1d16" stroke-width="4" fill="none" stroke-linecap="round" />
-            <path class="ts-talk" d="M-12 24 Q0 42 12 24 Z" fill="#ffffff" stroke="#1c1b1a" stroke-width="3" stroke-linejoin="round" />
-            <path d="M-16 20 Q-8 12 0 17 Q8 12 16 20 Q8 22 0 20 Q-8 22 -16 20 Z" fill="#2b1d16" />
-            <!-- headset -->
-            <path d="M-48 -4 Q-50 -66 0 -68 Q50 -66 48 -4" stroke="#1c1b1a" stroke-width="5" fill="none" stroke-linecap="round" />
-            <rect x="-58" y="-14" width="14" height="30" rx="7" fill="#1c1b1a" />
-            <rect x="44" y="-14" width="14" height="30" rx="7" fill="#1c1b1a" />
-            <path d="M51 16 Q50 46 20 42" stroke="#1c1b1a" stroke-width="4" fill="none" stroke-linecap="round" />
-            <circle cx="18" cy="42" r="5" fill="#1c1b1a" />
+            <!-- floppy ears flap, drawn behind the head -->
+            <g class="ts-ear ts-ear-l"><path d="M-30 -24 Q-68 -28 -63 14 Q-60 42 -42 33 Q-32 12 -30 -24 Z" fill="#a8703a" /></g>
+            <g class="ts-ear ts-ear-r"><path d="M30 -24 Q68 -28 63 14 Q60 42 42 33 Q32 12 30 -24 Z" fill="#a8703a" /></g>
+            <ellipse cx="0" cy="0" rx="45" ry="44" fill="#d9a566" />
+            <ellipse cx="23" cy="-9" rx="14" ry="13" fill="#a8703a" />
+            <ellipse cx="0" cy="19" rx="26" ry="20" fill="#f3dfc3" />
+            <circle class="ts-eye" cx="-17" cy="-8" r="5" fill="#1c1b1a" />
+            <circle class="ts-eye" cx="17" cy="-8" r="5" fill="#1c1b1a" />
+            <path d="M-27 -22 Q-17 -28 -8 -22 M8 -22 Q17 -28 27 -22" stroke="#7a4a22" stroke-width="4" fill="none" stroke-linecap="round" />
+            <path class="ts-tongue" d="M-7 28 Q-7 46 0 46 Q7 46 7 28 Z" fill="#ff6b8e" />
+            <ellipse cx="0" cy="9" rx="11" ry="7.5" fill="#1c1b1a" />
+            <path d="M0 15 V23 M-14 23 Q-7 33 0 23 Q7 33 14 23" stroke="#1c1b1a" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" />
           </g>
         </g>
       </g>
@@ -128,7 +124,6 @@
             <circle cx="44" cy="6" r="9" fill="#a86a43" />
             <ellipse cx="0" cy="2" rx="42" ry="46" fill="#a86a43" />
             <path d="M-42 -8 Q-40 -42 0 -44 Q40 -42 42 -8 Q30 -30 0 -28 Q-30 -30 -42 -8 Z" fill="#1f1612" />
-            <path d="M-42 -24 Q0 -38 42 -24 L42 -34 Q0 -48 -42 -34 Z" fill="#ffffff" />
             <!-- headphones -->
             <path d="M-52 -4 Q-54 -80 0 -82 Q54 -80 52 -4" stroke="#2b2a28" stroke-width="7" fill="none" stroke-linecap="round" />
             <rect x="-62" y="-14" width="17" height="34" rx="8" fill="#2b2a28" />
@@ -150,10 +145,11 @@
     <g class="ts-arrive ts-from-right" style="--n:3">
       <g transform="translate(370 292) scale(1.08)">
         <rect x="-12" y="40" width="24" height="40" rx="9" fill="#cf9a72" />
-        <path d="M-88 148 Q-88 74 0 64 Q88 74 88 148 Z" fill="#ff3d6b" />
-        <path d="M0 66 L0 148" stroke="#d92f5c" stroke-width="3" fill="none" />
-        <path d="M-22 66 Q0 90 22 66" stroke="#d92f5c" stroke-width="6" fill="none" stroke-linecap="round" />
-        <path d="M-12 74 L-14 98 M12 74 L14 98" stroke="#ffffff" stroke-width="3" fill="none" stroke-linecap="round" />
+        <!-- bare shoulders + a pink singlet (the one outfit that breaks the uniform) -->
+        <path d="M-88 148 Q-88 74 0 64 Q88 74 88 148 Z" fill="#e0ab88" />
+        <path d="M-20 78 Q-10 72 0 76 Q10 72 20 78" stroke="#c98a63" stroke-width="3" fill="none" stroke-linecap="round" />
+        <path d="M-58 70 Q-54 64 -42 66 L-28 66 Q0 102 28 66 L42 66 Q54 64 58 70 Q64 112 70 148 L-70 148 Q-64 112 -58 70 Z" fill="#ff3d6b" />
+        <path d="M-28 66 Q0 102 28 66" stroke="#d92f5c" stroke-width="4" fill="none" stroke-linecap="round" />
         <g class="ts-giggle">
           <g class="ts-bob" style="--d:3.4s;--o:-0.9s">
             <circle cx="0" cy="-64" r="17" fill="#8a4b27" />
@@ -161,7 +157,6 @@
             <circle cx="44" cy="6" r="9" fill="#e0ab88" />
             <ellipse cx="0" cy="2" rx="42" ry="46" fill="#e0ab88" />
             <path d="M-44 -8 Q-48 -54 0 -56 Q48 -54 44 -8 Q34 -30 0 -30 Q-34 -30 -44 -8 Z" fill="#8a4b27" />
-            <path d="M-42 -24 Q0 -38 42 -24 L42 -34 Q0 -48 -42 -34 Z" fill="#ffffff" />
             <path d="M-42 12 Q-44 52 0 56 Q44 52 42 12 Q32 28 0 28 Q-32 28 -42 12 Z" fill="#6b3a1f" />
             <path d="M-15 30 Q0 46 15 30 Z" fill="#ffffff" stroke="#1c1b1a" stroke-width="3" stroke-linejoin="round" />
             <circle class="ts-eye" cx="-17" cy="0" r="4.5" fill="#1c1b1a" />
@@ -279,7 +274,10 @@
   .team-scene .ts-steam path { transform-box: fill-box; transform-origin: center; }
   .team-scene .ts-nod { transform-origin: 50% 100%; }
   .team-scene .ts-tail { transform-box: fill-box; transform-origin: 15% 10%; }
-  .team-scene .ts-talk { transform-box: fill-box; transform-origin: 50% 0%; }
+  .team-scene .ts-tongue { transform-box: fill-box; transform-origin: 50% 0%; }
+  .team-scene .ts-ear { transform-box: fill-box; }
+  .team-scene .ts-ear-l { transform-origin: 85% 5%; }
+  .team-scene .ts-ear-r { transform-origin: 15% 5%; }
   .team-scene .ts-arm { transform-origin: 300px 393px; }
 
   @media (prefers-reduced-motion: no-preference) {
@@ -296,9 +294,11 @@
     .team-scene .ts-from-right { --x: 110px; --y: 60px; }
     .team-scene .ts-from-below { --x: 0px; --y: 110px; }
 
-    /* individual beats: ponytail swings, headset wearer talks */
+    /* individual beats: ponytail swings, the dog pants and flaps its ears */
     .team-scene .ts-tail { animation: ts-tail 1.7s ease-in-out infinite; }
-    .team-scene .ts-talk { animation: ts-talk 2.2s ease-in-out infinite; }
+    .team-scene .ts-tongue { animation: ts-pant 0.55s ease-in-out infinite; }
+    .team-scene .ts-ear-l { animation: ts-ear-l 1.3s ease-in-out infinite; }
+    .team-scene .ts-ear-r { animation: ts-ear-r 1.3s ease-in-out -0.4s infinite; }
 
     /* life after that: individual bob + blink, shared bounce */
     .team-scene .ts-bob { animation: ts-bob var(--d, 2.4s) ease-in-out var(--o, 0s) infinite; }
@@ -339,15 +339,9 @@
     100% { opacity: 0; transform: translateY(-8px); }
   }
   @keyframes ts-tail { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(7deg); } }
-  @keyframes ts-talk {
-    0%, 100% { transform: scaleY(1); }
-    12% { transform: scaleY(0.35); }
-    24% { transform: scaleY(1); }
-    36% { transform: scaleY(0.5); }
-    48% { transform: scaleY(1); }
-    60%, 80% { transform: scaleY(0.15); }
-    90% { transform: scaleY(0.8); }
-  }
+  @keyframes ts-pant { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.22); } }
+  @keyframes ts-ear-l { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(7deg); } }
+  @keyframes ts-ear-r { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(-7deg); } }
   @keyframes ts-bob { 0%, 100% { transform: translateY(1.5px); } 50% { transform: translateY(-1.5px); } }
   @keyframes ts-nod { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
   @keyframes ts-blink { 0%, 93%, 100% { transform: scaleY(1); } 96% { transform: scaleY(0.1); } }

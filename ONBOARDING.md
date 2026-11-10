@@ -1132,8 +1132,10 @@ about it, don't just pick one.
   REVISION 2 (same day, Andrew's feedback: the first layout was too widescreen vs the pen's near-square footprint; the crew looked like randoms vs the
   pen's uniform; wanted more interesting characters): re-laid out as a near-square PYRAMID (viewBox 440x400: two back row, two flanking, lead front and
   centre), and made UNIFORM (everyone in the same pink tee + white headband; the beanie and the odd tops went), with the individuality moved into hair,
-  faces and beats (afro+headphones laughing; blonde ponytail+bow, pencil, a wink, freckles; headset+moustache, talking; auburn man-bun+beard). A CAT
-  like the pen's was NOT added (offered as an option, not asked for). Desk line is now one continuous ground line.
+  faces and beats (afro+headphones laughing; blonde ponytail+bow, pencil, a wink, freckles; headset+moustache, talking; auburn man-bun+beard). Desk line is
+  now one continuous ground line. REVISION 3 (Andrew): the front-right guy wears a SINGLET (bare shoulders, to break up the uniform); the back-right
+  person became a DOG (the pen has a cat; golden, floppy ears flap, tongue pants, same pink tee, headset and moustache gone); headbands removed from
+  everyone EXCEPT the lead (my pick, mirrors the pen's lead; trivial to move to someone else).
   src/pages/team-demo.astro = internal preview with a Replay link (delete once decided, same as the other three demo pages). NEXT: Andrew reviews the
   full team live; then drop TeamScene into the homepage hero (right of the heading, lg and up, hero stays 706px) when the homepage is redone LAST. Notes: the cable uses the CSS `d` property
   (Chrome/Firefox/Edge; if Safari lacks it the cable just stays still, graceful); reduced-motion = finished picture; the base markup is the finished state.

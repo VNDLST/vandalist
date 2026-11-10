@@ -1,0 +1,50 @@
+---
+// Internal concept preview, not a real site page, not linked from navigation.
+// Delete once the homepage hero (TeamScene) has been decided on / integrated, or
+// discarded. See TeamScene.astro for the concept and credits.
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import Section from "../components/Section.astro";
+import Eyebrow from "../components/Eyebrow.astro";
+import Heading from "../components/Heading.astro";
+import TeamScene from "../components/TeamScene.astro";
+---
+<Layout title="Team Scene Concept (Internal)">
+  <div class="bg-[var(--color-paper)]">
+    <Header currentPage="/team-demo" />
+
+    <Section top>
+      <div class="max-w-2xl mx-auto text-center mb-10">
+        <Eyebrow class="mb-3">Internal concept, not a real page</Eyebrow>
+        <Heading as="h1" class="mb-4">Homepage hero: the team pops in</Heading>
+        <p class="t-body">
+          Demo stage: the lead plus one arrival. The lead works alone for about 2.6 seconds
+          (mouse, cable, steam), then the arrivals pop in and stay. Once everyone is in, heads
+          bob out of step and every few seconds the whole team bounces together.
+        </p>
+        <p class="mt-4"><button type="button" id="replay" class="t-link underline underline-offset-2">Replay</button></p>
+      </div>
+
+      <!-- sized roughly like the right half of the homepage hero -->
+      <div class="rounded-[var(--radius-card)] bg-[var(--color-paper-dim)] py-10 px-6">
+        <div id="scene-wrap" class="max-w-[640px] mx-auto">
+          <TeamScene />
+        </div>
+      </div>
+    </Section>
+  </div>
+
+  <Footer />
+
+  <script>
+    const wrap = document.getElementById("scene-wrap");
+    document.getElementById("replay")?.addEventListener("click", () => {
+      const svg = wrap?.firstElementChild;
+      if (wrap && svg) {
+        const clone = svg.cloneNode(true);
+        svg.replaceWith(clone);
+      }
+    });
+  </script>
+</Layout>

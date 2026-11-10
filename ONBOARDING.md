@@ -1120,6 +1120,17 @@ about it, don't just pick one.
 
 ## Known open items
 
+- **2026-11-10 — HOMEPAGE HERO CONCEPT "TeamScene" (DEMO STAGE, live at /team-demo/ only; homepage itself still on the still-life stand-in).**
+  Andrew found https://codepen.io/MaxStalker/pen/BypYwd ("Teams": a worker at a laptop, a wiggling mouse cable, a crew pops in). Agreed brief: idea
+  only, redraw in our How We Work character style, CSS only (the pen uses Snap.svg + jQuery), no click interaction, automatic. Lead works alone ~2.6s
+  (mouse + hand slide, cable follows, mug steam), then the team pops in ONE AFTER ANOTHER and STAYS; then heads bob out of step (individuals) and every
+  7s all bounce together (collective). Laptop wears a bunch of GRAPES (Andrew's joke on the fruit logo; also keeps us clear of looking like a certain
+  fruit brand). Cast = invented people, a mix of looks. Built so far: src/components/TeamScene.astro = the lead + ONE arrival (front left, headphones);
+  src/pages/team-demo.astro = internal preview with a Replay link (delete once decided, same as the other three demo pages). NEXT: Andrew checks the
+  style live; if approved, draw the other three (back left, back right, front right), each with its own prop/beat, then drop TeamScene into the
+  homepage hero (right of the heading, lg and up, hero stays 706px) when the homepage is redone LAST. Notes: the cable uses the CSS `d` property
+  (Chrome/Firefox/Edge; if Safari lacks it the cable just stays still, graceful); reduced-motion = finished picture; the base markup is the finished state.
+
 - **2026-11-10 — CAMPFIRE HERO MOVED to Marketing Support (live).** Andrew's reasoning: "Add a little Vandalist" (a little capability, turned up or
   down) IS the Marketing Support pitch, and each service page should have its own hero idea (How We Work = character, SEO = rocket). Done: Marketing
   Support now has the camp-site background (public/home-hero-bg.svg) + CampfireToggle, same recipe the homepage used (full-bleed image behind Header +

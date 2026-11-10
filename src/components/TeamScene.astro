@@ -1,0 +1,222 @@
+---
+// Homepage hero concept: one person at a laptop, then the rest of the team pops in
+// and stays. "Individuals on individual tasks, but a collective."
+//
+// Idea only from "Teams" by Maksim Daunarovich, https://codepen.io/MaxStalker/pen/BypYwd
+// (a worker at a laptop with a wiggling mouse cable; a crew pops in around them).
+// The drawing, characters, colours and code here are original: the people are in the
+// How We Work character style, the animation is CSS only (the pen uses Snap.svg +
+// jQuery), and the laptop wears a bunch of grapes instead of a fruit logo, on purpose.
+//
+// DEMO STAGE: the lead plus ONE arrival (front left, headphones). The other three
+// (back left, back right, front right) get drawn once the style is approved.
+//
+// Sequence (plays on load, hero is above the fold):
+//   0.0s  lead works alone: mouse + hand slide about, the cable follows, mug steams
+//   2.6s  arrivals pop in one after another (~0.25s apart), then they STAY
+//   after idle: heads bob out of step (individuals); every 7s everyone bounces together
+//         (collective); blinking carries on
+// Everything animated sits inside @media (prefers-reduced-motion: no-preference), so the
+// base markup is the finished picture: that is also the reduced-motion version.
+//
+// Colours are literals mirroring the site tokens (this is art, not UI):
+//   accent #ff3d6b, accent-dark #d92f5c, accent-soft #ffc2d2, ink #1c1b1a, slate #6b6862.
+---
+<svg class="team-scene" viewBox="0 0 720 480" role="img" aria-label="Illustration of a person working at a laptop with a bunch of grapes on its lid, joined by their teammates" xmlns="http://www.w3.org/2000/svg">
+  <!-- desk line (behind everyone) -->
+  <g stroke="#1c1b1a" stroke-width="5" stroke-linecap="round" fill="none" aria-hidden="true">
+    <path d="M62 410 H92" />
+    <path d="M112 410 H610" />
+    <path d="M630 410 H660" />
+  </g>
+
+  <!-- LEAD ------------------------------------------------------------------>
+  <g class="ts-lead">
+    <rect x="350" y="296" width="20" height="46" rx="8" fill="#e8ae84" />
+    <path d="M262 410 Q262 338 360 326 Q458 338 458 410 Z" fill="#ff3d6b" />
+    <path d="M334 330 Q360 354 386 330" stroke="#d92f5c" stroke-width="6" fill="none" stroke-linecap="round" />
+
+    <g class="ts-giggle">
+      <g class="ts-bob" style="--d:2.6s;--o:-0.4s">
+        <g transform="translate(20 158)">
+          <circle cx="296" cy="108" r="9" fill="#f2c19b" />
+          <circle cx="384" cy="108" r="9" fill="#f2c19b" />
+          <ellipse cx="340" cy="104" rx="44" ry="48" fill="#f2c19b" />
+          <path d="M293 104 Q286 48 340 46 Q394 48 387 104 Q380 78 356 74 Q336 86 312 76 Q298 82 293 104 Z" fill="#3b2a20" />
+          <circle cx="318" cy="52" r="14" fill="#3b2a20" />
+          <circle cx="344" cy="46" r="15" fill="#3b2a20" />
+          <circle cx="368" cy="54" r="13" fill="#3b2a20" />
+          <circle cx="322" cy="108" r="13" fill="#ffffff" fill-opacity="0.5" stroke="#1c1b1a" stroke-width="3" />
+          <circle cx="358" cy="108" r="13" fill="#ffffff" fill-opacity="0.5" stroke="#1c1b1a" stroke-width="3" />
+          <path d="M335 108 L345 108" stroke="#1c1b1a" stroke-width="3" fill="none" />
+          <circle class="ts-eye" cx="322" cy="110" r="4" fill="#1c1b1a" />
+          <circle class="ts-eye" cx="358" cy="110" r="4" fill="#1c1b1a" />
+          <path d="M311 88 Q322 82 333 88 M347 88 Q358 82 369 88" stroke="#3b2a20" stroke-width="4" fill="none" stroke-linecap="round" />
+          <circle cx="310" cy="128" r="7" fill="#ff8fab" opacity="0.5" />
+          <circle cx="370" cy="128" r="7" fill="#ff8fab" opacity="0.5" />
+          <path d="M322 128 Q340 146 358 128 Z" fill="#ffffff" stroke="#1c1b1a" stroke-width="3" stroke-linejoin="round" />
+        </g>
+      </g>
+    </g>
+
+    <!-- forearm: slides under the laptop, stretches as the mouse moves -->
+    <rect class="ts-arm" x="236" y="382" width="64" height="22" fill="#ff3d6b" />
+  </g>
+
+  <!-- laptop, lid facing us, grapes on the back -->
+  <g class="ts-laptop">
+    <rect x="285" y="308" width="150" height="94" rx="8" fill="#ffffff" stroke="#1c1b1a" stroke-width="5" />
+    <rect x="268" y="400" width="184" height="10" rx="5" fill="#ffffff" stroke="#1c1b1a" stroke-width="4" />
+    <!-- grapes: stem, leaf, then 3 / 2 / 1 berries -->
+    <path d="M360 334 L360 326" stroke="#1c1b1a" stroke-width="3" stroke-linecap="round" />
+    <path d="M361 328 Q374 316 386 324 Q376 336 361 328 Z" fill="#2f8f4e" stroke="#1c1b1a" stroke-width="2.5" stroke-linejoin="round" />
+    <g fill="#ff3d6b" stroke="#1c1b1a" stroke-width="2.5">
+      <circle cx="343" cy="345" r="9" />
+      <circle cx="360" cy="345" r="9" />
+      <circle cx="377" cy="345" r="9" />
+      <circle cx="351" cy="361" r="9" />
+      <circle cx="369" cy="361" r="9" />
+      <circle cx="360" cy="376" r="9" />
+    </g>
+    <g fill="#ffffff" opacity="0.55">
+      <circle cx="339" cy="341" r="2.2" />
+      <circle cx="356" cy="341" r="2.2" />
+      <circle cx="373" cy="341" r="2.2" />
+      <circle cx="347" cy="357" r="2.2" />
+      <circle cx="365" cy="357" r="2.2" />
+      <circle cx="356" cy="372" r="2.2" />
+    </g>
+  </g>
+
+  <!-- mouse + hand (follow the arm), cable back to the laptop -->
+  <g class="ts-mouse">
+    <rect x="230" y="398" width="40" height="12" rx="6" fill="#ffffff" stroke="#1c1b1a" stroke-width="3" />
+    <g class="ts-click">
+      <ellipse cx="250" cy="392" rx="15" ry="11" fill="#f2c19b" />
+      <path d="M241 386 Q250 381 259 386" stroke="#e8ae84" stroke-width="3" fill="none" stroke-linecap="round" />
+    </g>
+  </g>
+  <path class="ts-cable" d="M250 410 C250 452 300 452 300 412" stroke="#1c1b1a" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+
+  <!-- mug + steam -->
+  <g class="ts-mug">
+    <path d="M516 384 h8 q8 0 8 8 v6 q0 8 -8 8 h-8" stroke="#1c1b1a" stroke-width="4" fill="none" />
+    <rect x="486" y="372" width="30" height="38" rx="4" fill="#ffffff" stroke="#1c1b1a" stroke-width="4" />
+    <g class="ts-steam" fill="none" stroke="#c9c6bf" stroke-width="3" stroke-linecap="round">
+      <path style="--i:0" d="M495 364 q5 -7 0 -14 q-5 -7 0 -14" />
+      <path style="--i:1" d="M503 364 q5 -7 0 -14 q-5 -7 0 -14" />
+      <path style="--i:2" d="M511 364 q5 -7 0 -14 q-5 -7 0 -14" />
+    </g>
+  </g>
+
+  <!-- ARRIVAL 1: front left, headphones, nodding along (own rhythm) -->
+  <g class="ts-arrive ts-from-left" style="--n:0">
+    <g transform="translate(125 262) scale(1.08)">
+      <rect x="-12" y="40" width="24" height="40" rx="9" fill="#8f5733" />
+      <path d="M-100 138 Q-100 74 0 64 Q100 74 100 138 Z" fill="#2b2a28" />
+      <path d="M-22 66 Q0 90 22 66" stroke="#ff3d6b" stroke-width="6" fill="none" stroke-linecap="round" />
+      <g class="ts-giggle">
+        <g class="ts-nod">
+          <!-- afro behind the face -->
+          <g fill="#1f1612">
+            <ellipse cx="0" cy="-34" rx="58" ry="44" />
+            <circle cx="-46" cy="-6" r="20" />
+            <circle cx="46" cy="-6" r="20" />
+          </g>
+          <circle cx="-44" cy="6" r="9" fill="#a86a43" />
+          <circle cx="44" cy="6" r="9" fill="#a86a43" />
+          <ellipse cx="0" cy="2" rx="42" ry="46" fill="#a86a43" />
+          <path d="M-42 -8 Q-40 -42 0 -44 Q40 -42 42 -8 Q30 -30 0 -28 Q-30 -30 -42 -8 Z" fill="#1f1612" />
+          <!-- headphones -->
+          <path d="M-52 -4 Q-54 -80 0 -82 Q54 -80 52 -4" stroke="#ff3d6b" stroke-width="7" fill="none" stroke-linecap="round" />
+          <rect x="-62" y="-14" width="17" height="34" rx="8" fill="#ff3d6b" />
+          <rect x="45" y="-14" width="17" height="34" rx="8" fill="#ff3d6b" />
+          <!-- happy closed eyes, brows, cheeks, big smile -->
+          <path d="M-27 4 Q-18 -6 -9 4 M9 4 Q18 -6 27 4" stroke="#1c1b1a" stroke-width="4" fill="none" stroke-linecap="round" />
+          <path d="M-29 -14 Q-18 -20 -8 -14 M8 -14 Q18 -20 29 -14" stroke="#1f1612" stroke-width="4" fill="none" stroke-linecap="round" />
+          <circle cx="-30" cy="22" r="7" fill="#ff8fab" opacity="0.4" />
+          <circle cx="30" cy="22" r="7" fill="#ff8fab" opacity="0.4" />
+          <path d="M-16 22 Q0 44 16 22 Z" fill="#ffffff" stroke="#1c1b1a" stroke-width="3" stroke-linejoin="round" />
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
+
+<style>
+  .team-scene {
+    display: block;
+    width: 100%;
+    max-width: 720px;
+    height: auto;
+    overflow: visible;
+  }
+  /* Finished picture first (also what reduced-motion users see). */
+  .team-scene .ts-eye,
+  .team-scene .ts-bob,
+  .team-scene .ts-nod,
+  .team-scene .ts-giggle,
+  .team-scene .ts-click,
+  .team-scene .ts-steam path { transform-box: fill-box; transform-origin: center; }
+  .team-scene .ts-nod { transform-origin: 50% 100%; }
+  .team-scene .ts-arm { transform-origin: 300px 393px; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    /* the lead, alone */
+    .team-scene .ts-mouse { animation: ts-mouse 4s ease-in-out infinite; }
+    .team-scene .ts-arm { animation: ts-arm 4s ease-in-out infinite; }
+    .team-scene .ts-cable { animation: ts-cable 4s ease-in-out infinite; }
+    .team-scene .ts-click { animation: ts-click 4s ease-in-out infinite; }
+    .team-scene .ts-steam path { animation: ts-steam 3s ease-in-out infinite; animation-delay: calc(var(--i) * 0.9s); }
+
+    /* the team arrives after the lead has had a couple of seconds on their own */
+    .team-scene .ts-arrive { animation: ts-in 0.7s cubic-bezier(0.2, 1.35, 0.4, 1) backwards; animation-delay: calc(2.6s + var(--n) * 0.25s); }
+    .team-scene .ts-from-left { --x: -110px; --y: 60px; }
+
+    /* life after that: individual bob + blink, shared bounce */
+    .team-scene .ts-bob { animation: ts-bob var(--d, 2.4s) ease-in-out var(--o, 0s) infinite; }
+    .team-scene .ts-nod { animation: ts-nod 0.9s ease-in-out infinite; }
+    .team-scene .ts-eye { animation: ts-blink 4.8s infinite; }
+    .team-scene .ts-giggle { animation: ts-giggle 7s ease-in-out infinite; }
+  }
+
+  @keyframes ts-in {
+    from { opacity: 0; transform: translate(var(--x, 0), var(--y, 80px)) scale(0.7); }
+    55% { opacity: 1; }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes ts-mouse {
+    0% { transform: translateX(0); }
+    12.5%, 25% { transform: translateX(16px); }
+    50% { transform: translateX(-16px); }
+    62.5%, 100% { transform: translateX(0); }
+  }
+  @keyframes ts-arm {
+    0% { transform: scaleX(1); }
+    12.5%, 25% { transform: scaleX(0.75); }
+    50% { transform: scaleX(1.25); }
+    62.5%, 100% { transform: scaleX(1); }
+  }
+  @keyframes ts-cable {
+    0%, 62.5%, 100% { d: path("M250 410 C250 452 300 452 300 412"); }
+    12.5%, 25% { d: path("M266 410 C266 470 300 470 300 412"); }
+    50% { d: path("M234 410 C234 440 300 440 300 412"); }
+  }
+  @keyframes ts-click {
+    0%, 70%, 76%, 82%, 100% { transform: translateY(0); }
+    73%, 79% { transform: translateY(3px); }
+  }
+  @keyframes ts-steam {
+    0% { opacity: 0; transform: translateY(6px); }
+    30%, 60% { opacity: 0.9; }
+    100% { opacity: 0; transform: translateY(-8px); }
+  }
+  @keyframes ts-bob { 0%, 100% { transform: translateY(1.5px); } 50% { transform: translateY(-1.5px); } }
+  @keyframes ts-nod { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+  @keyframes ts-blink { 0%, 93%, 100% { transform: scaleY(1); } 96% { transform: scaleY(0.1); } }
+  @keyframes ts-giggle {
+    0%, 55%, 80%, 100% { transform: translateY(0); }
+    59%, 67%, 75% { transform: translateY(-7px); }
+    63%, 71% { transform: translateY(0); }
+  }
+</style>

@@ -1140,6 +1140,12 @@ about it, don't just pick one.
   (Andrew: "get it onto the home page so we can adjust the size and position"): Hero.astro now uses PageHero's art slot with <TeamScene /> in a
   mx-auto w-full max-w-[520px] wrapper (473px tall, inside the locked 706px hero; verified 1440 / 1024 no overflow, art hidden below lg as before); the
   still-life overlay image is gone (public/vandalist-hero.png now unused, left in place). EXPECT size/position tweaks from Andrew on the live homepage.
+  FIRST TWEAK (Andrew, with a screenshot of his intended box ~600x520): "use the space better, more significant, spread the team out so it feels the
+  width of the box, a slightly greater ratio than the height", and he chose DESK PROPS to fill the extra room ("if too hectic we can address that").
+  Done: viewBox now 480x400 (6:5; was 440x400), scene cap 600px (~500px tall, wrapper lg:-my-4 keeps the hero at 706px), flanks moved out ~12px and the
+  back row ~8px, desk line stretched, plus a PLANT (left end, sways) and a NOTEPAD with a pencil (right end), both in front of the flanking pair and
+  visible from the start so the lone-lead moment isn't bare. People are only ~6% bigger on screen than before (width-limited); to make them MUCH bigger
+  we'd have to crop tighter or let the hero grow past 706px. If it feels hectic: drop the pencil first, then the notepad.
   PARKED (found while checking, NOT caused by the hero): at ~768px the homepage scrolls sideways by ~140px; the culprit is the "How we help in
   practice" section (HelpGrid) lower down, to be fixed when the homepage is redone last.
   src/pages/team-demo.astro = internal preview with a Replay link (delete once decided, same as the other three demo pages). NEXT: Andrew reviews the

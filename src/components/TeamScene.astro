@@ -32,7 +32,7 @@
 //   accent #ff3d6b, accent-dark #d92f5c, accent-soft #ffc2d2, ink #1c1b1a, slate #6b6862.
 // Local head coordinates for the arrivals: face centre (0,2), rx 42 / ry 46.
 ---
-<svg class="team-scene" viewBox="40 100 440 400" role="img" aria-label="Illustration of a team, and a dog, in matching pink tops crowding round a laptop with a bunch of grapes on its lid" xmlns="http://www.w3.org/2000/svg">
+<svg class="team-scene" viewBox="20 100 480 400" role="img" aria-label="Illustration of a team, and a dog, in matching pink tops crowding round a laptop with a bunch of grapes on its lid" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <!-- arrivals are cut at the desk line so nobody pokes out below it while popping in -->
     <clipPath id="ts-above-desk"><rect x="-400" y="-400" width="1600" height="840" /></clipPath>
@@ -42,7 +42,7 @@
   <!-- back left: blonde ponytail + bow, pencil behind the ear, winking -->
   <g clip-path="url(#ts-above-desk)">
     <g class="ts-arrive ts-from-below" style="--n:1">
-      <g transform="translate(190 184)">
+      <g transform="translate(182 184)">
         <rect x="-10" y="40" width="20" height="40" rx="8" fill="#e6b896" />
         <path d="M-92 256 Q-92 70 0 62 Q92 70 92 256 Z" fill="#ff3d6b" />
         <path d="M-22 64 Q0 88 22 64" stroke="#d92f5c" stroke-width="6" fill="none" stroke-linecap="round" />
@@ -79,7 +79,7 @@
   <!-- back right: the dog (golden, floppy ears, panting), in the same pink tee -->
   <g clip-path="url(#ts-above-desk)">
     <g class="ts-arrive ts-from-below" style="--n:2">
-      <g transform="translate(330 184)">
+      <g transform="translate(338 184)">
         <rect x="-12" y="38" width="24" height="42" rx="9" fill="#c58f50" />
         <path d="M-92 256 Q-92 70 0 62 Q92 70 92 256 Z" fill="#ff3d6b" />
         <path d="M-22 64 Q0 88 22 64" stroke="#d92f5c" stroke-width="6" fill="none" stroke-linecap="round" />
@@ -107,7 +107,7 @@
   <!-- front left: afro + headphones, nodding to her own rhythm -->
   <g clip-path="url(#ts-above-desk)">
     <g class="ts-arrive ts-from-left" style="--n:0">
-      <g transform="translate(150 292) scale(1.08)">
+      <g transform="translate(138 292) scale(1.08)">
         <rect x="-12" y="40" width="24" height="40" rx="9" fill="#8f5733" />
         <path d="M-88 148 Q-88 74 0 64 Q88 74 88 148 Z" fill="#ff3d6b" />
         <path d="M0 66 L0 148" stroke="#d92f5c" stroke-width="3" fill="none" />
@@ -143,7 +143,7 @@
   <!-- front right: man-bun + beard, the slow, easy chuckler -->
   <g clip-path="url(#ts-above-desk)">
     <g class="ts-arrive ts-from-right" style="--n:3">
-      <g transform="translate(370 292) scale(1.08)">
+      <g transform="translate(382 292) scale(1.08)">
         <rect x="-12" y="40" width="24" height="40" rx="9" fill="#cf9a72" />
         <!-- bare shoulders + a pink singlet (the one outfit that breaks the uniform) -->
         <path d="M-88 148 Q-88 74 0 64 Q88 74 88 148 Z" fill="#e0ab88" />
@@ -170,7 +170,7 @@
   </g>
 
   <!-- desk line: the ground everyone sits on -->
-  <path d="M60 440 H468" stroke="#1c1b1a" stroke-width="5" stroke-linecap="round" fill="none" aria-hidden="true" />
+  <path d="M36 440 H484" stroke="#1c1b1a" stroke-width="5" stroke-linecap="round" fill="none" aria-hidden="true" />
 
   <!-- LEAD + laptop + mouse + cable + mug (drawn in their own space, shifted into place) -->
   <g transform="translate(-100 30)">
@@ -255,13 +255,39 @@
       </g>
     </g>
   </g>
+
+  <!-- DESK PROPS at the two ends, in front of the flanking pair (they are there from the
+       start, so the lead's desk never looks bare) -->
+  <g class="ts-prop-plant">
+    <g class="ts-plant">
+      <path d="M43 424 Q26 414 24 390 Q43 394 43 424 Z" fill="#2f8f4e" stroke="#1c1b1a" stroke-width="3" stroke-linejoin="round" />
+      <path d="M43 424 Q60 414 62 390 Q43 394 43 424 Z" fill="#2f8f4e" stroke="#1c1b1a" stroke-width="3" stroke-linejoin="round" />
+      <path d="M43 426 Q35 400 43 374 Q51 400 43 426 Z" fill="#2f8f4e" stroke="#1c1b1a" stroke-width="3" stroke-linejoin="round" />
+    </g>
+    <path d="M29 424 H57 L53 440 H33 Z" fill="#ffffff" stroke="#1c1b1a" stroke-width="4" stroke-linejoin="round" />
+    <path d="M31.5 431 H54.5" stroke="#ff3d6b" stroke-width="3" stroke-linecap="round" />
+  </g>
+
+  <g class="ts-prop-pad">
+    <g transform="rotate(12 492 440)">
+      <rect x="489" y="402" width="7" height="38" rx="2" fill="#f2b632" stroke="#1c1b1a" stroke-width="2.5" />
+      <path d="M489 402 L492.5 392 L496 402 Z" fill="#3b2a20" />
+    </g>
+    <rect x="446" y="394" width="36" height="46" rx="4" fill="#ffffff" stroke="#1c1b1a" stroke-width="4" />
+    <g fill="#1c1b1a"><circle cx="455" cy="394" r="2.6" /><circle cx="464" cy="394" r="2.6" /><circle cx="473" cy="394" r="2.6" /></g>
+    <g stroke-linecap="round" stroke-width="3" fill="none">
+      <path d="M453 410 H473" stroke="#ff3d6b" />
+      <path d="M453 418 H475" stroke="#c9c6bf" />
+      <path d="M453 426 H468" stroke="#c9c6bf" />
+    </g>
+  </g>
 </svg>
 
 <style>
   .team-scene {
     display: block;
     width: 100%;
-    max-width: 560px;
+    max-width: 600px;
     height: auto;
     overflow: visible;
   }
@@ -279,8 +305,10 @@
   .team-scene .ts-ear-l { transform-origin: 85% 5%; }
   .team-scene .ts-ear-r { transform-origin: 15% 5%; }
   .team-scene .ts-arm { transform-origin: 300px 393px; }
+  .team-scene .ts-plant { transform-box: fill-box; transform-origin: 50% 100%; }
 
   @media (prefers-reduced-motion: no-preference) {
+    .team-scene .ts-plant { animation: ts-sway 3.6s ease-in-out infinite alternate; }
     /* the lead, alone */
     .team-scene .ts-mouse { animation: ts-mouse 4s ease-in-out infinite; }
     .team-scene .ts-arm { animation: ts-arm 4s ease-in-out infinite; }
@@ -339,6 +367,7 @@
     100% { opacity: 0; transform: translateY(-8px); }
   }
   @keyframes ts-tail { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(7deg); } }
+  @keyframes ts-sway { from { transform: rotate(-3deg); } to { transform: rotate(3deg); } }
   @keyframes ts-pant { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.22); } }
   @keyframes ts-ear-l { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(7deg); } }
   @keyframes ts-ear-r { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(-7deg); } }

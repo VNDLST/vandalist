@@ -1120,6 +1120,16 @@ about it, don't just pick one.
 
 ## Known open items
 
+- **2026-11-10 — CAMPFIRE HERO MOVED to Marketing Support (live).** Andrew's reasoning: "Add a little Vandalist" (a little capability, turned up or
+  down) IS the Marketing Support pitch, and each service page should have its own hero idea (How We Work = character, SEO = rocket). Done: Marketing
+  Support now has the camp-site background (public/home-hero-bg.svg) + CampfireToggle, same recipe the homepage used (full-bleed image behind Header +
+  hero, no overflow-hidden so the boosted flame can rise, offsets copied verbatim, hero 706px), and KEEPS its own heading, intro and "Book a strategy
+  call" button. Campfire shows from md up, hidden on phones. The still-life image (public/vandalist-hero.png) went back to the HOMEPAGE hero as a
+  STAND-IN (exact reverse of the 2026-10-12 swap; tinted band, image from lg up). PLAN (Andrew): the HOMEPAGE IS REDONE LAST, as the executive summary
+  of the site; my suggestion for it, not yet agreed: an automatic hero showing the whole agency, e.g. a small cast of the characters drawn so far.
+  Marketing Support's remaining page work still to do row by row (it has not been reviewed yet); TreadmillRunner now lives on Websites + Marketing Support
+  per the history in the file header.
+
 - **2026-11-09 — SESSION WRAP-UP / PAGE STATUS (Andrew).** COMPLETE (his sign-off): Contact, About (except the intro video he still has to shoot),
   How We Work, the type-format work, and now the SEO & AI Search page (all six rows, hero rocket included). Working rule unchanged: park loose issues until
   we reach their page; one row at a time with his mock-ups. NEXT: he'll pick the next service page tomorrow (remaining: Marketing Support, Consulting &

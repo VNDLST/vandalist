@@ -22,6 +22,13 @@
 // something that needed rebuilding, and the fix travels with the component
 // wherever it's used.
 //
+// **2026-11-10 (Andrew): the camp-site background + CampfireToggle came back to
+// this page** ("it's more relevant to this specific service": add a little
+// capability, turned up or down, is this page's pitch). The still-life image
+// (public/vandalist-hero.png) went back to the homepage as a stand-in until he
+// redoes the homepage, which is planned as the LAST page. The paragraph below is
+// history.
+//
 // **2026-10-12 hero swap (Andrew):** the homepage took this page's camp-site
 // background + CampfireToggle hero ("make the homepage more dynamic"), and
 // this page took the homepage's old hero image (public/vandalist-hero.png)
@@ -55,6 +62,7 @@ import CtaBand from "../../components/CtaBand.astro";
 import SectionHeading from "../../components/SectionHeading.astro";
 import Eyebrow from "../../components/Eyebrow.astro";
 import CadenceSteps from "../../components/CadenceSteps.astro";
+import CampfireToggle from "../../components/CampfireToggle.astro";
 
 const base = import.meta.env.BASE_URL;
 
@@ -193,28 +201,32 @@ const otherSuppliers = [
 ];
 ---
 <Layout title="Marketing Support" description="Flexible marketing support that fits the way your business works.">
-  <div class="bg-[var(--color-paper-dim)]">
-    <Header currentPage="/services/marketing-support" />
-
-    <!-- Section 0: Hero — the old homepage hero's look: tinted band with the
-         still-life image bleeding off the bottom-right (classes copied
-         verbatim from the homepage's former hero, so it sits exactly as it
-         did there; overflow-hidden clips the bleed but is NOT around the
-         Header, so the services flyout isn't clipped). Text keeps this page's
-         own copy; the "Book a strategy call" button is back, matching the
-         other service pages. The image only shows from lg (1024px) up: below
-         that the text column spans the full width and ran over the artwork
-         (measured at 768px: heading and subtext overlapped it by 40-160px). -->
-    <div class="relative overflow-hidden">
-      <PageHero sectionClass="relative" gridClass="relative z-10" introClass="max-w-md">
+  <!-- Section 0: Hero — the camp-site background with the "Add a little Vandalist"
+       CampfireToggle, back on this page (2026-11-10, Andrew: "bring the hero design
+       across, which is the background and the campfire animation"; the heading,
+       intro and button stay this page's own). Same recipe the homepage used while it
+       had the campfire: full-bleed image behind Header + hero, no overflow-hidden
+       (the boosted flame rises past its stage), the image runs 2rem/2.5rem into the
+       next section's top padding so its curves clear the hero text, and the campfire
+       offsets are copied verbatim. -->
+  <div class="relative">
+    <img
+      src={`${base}/home-hero-bg.svg`}
+      alt=""
+      class="absolute left-0 top-0 w-full h-[calc(100%+2rem)] md:h-[calc(100%+2.5rem)] object-cover object-bottom pointer-events-none"
+      aria-hidden="true"
+    />
+    <div class="relative z-10">
+      <Header currentPage="/services/marketing-support" />
+      <PageHero from="md" artClass="hidden md:block relative self-stretch" introClass="max-w-md">
         <Fragment slot="title">Marketing support that fits the way your business works</Fragment>
         <Fragment slot="intro">We combine clear priorities, specialist capability and practical collaboration&mdash;without adding unnecessary process or complexity.</Fragment>
         <OrbButton href={`${base}/contact`}>Book a strategy call</OrbButton>
-        <img slot="overlay"
-          src={`${base}/vandalist-hero.png`}
-          alt="Abstract still life of strategy pieces: a pink X, an engraved play-diagram panel, an arch, a sphere, and a bowl with a pink sphere"
-          class="hidden lg:block absolute z-0 right-[-20px] bottom-8 w-[66%] max-w-[900px] h-auto object-contain object-right-bottom pointer-events-none"
-          />
+        <Fragment slot="art">
+          <div class="absolute left-1/2 md:top-[66%] lg:top-[68%] -translate-y-[110px] md:translate-x-[calc(-50%-70px)] lg:translate-x-[calc(-50%-130px)]">
+            <CampfireToggle />
+          </div>
+        </Fragment>
       </PageHero>
     </div>
   </div>

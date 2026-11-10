@@ -1,27 +1,32 @@
 ---
-// Homepage hero section (heading, subtext, CTA, campfire toggle). The
-// full-bleed camp-site background and the Header live in index.astro so the
-// background can sit behind both and spill below the hero.
+// Homepage hero section (heading, subtext, CTA, still-life image). The tinted band
+// and the Header live in index.astro.
 //
-// 2026-10-12 (Andrew): the homepage took over Marketing Support's hero —
-// camp-site background + the "Add a little Vandalist" CampfireToggle in the
-// second column — to feel more dynamic. The old still-life image
-// (vandalist-hero.png) moved to Marketing Support. Layout/recipe is the same
-// one Marketing Support's camp hero used (py-20 md:py-28 lg:py-32, grid with
-// min-h so the hero stays at the site-wide 706px, campfire offsets copied
-// verbatim) so the campfire and text sit exactly where they did there. This
-// page keeps its own copy and its "How can we help?" CTA.
+// 2026-11-10 (Andrew): the camp-site background + "Add a little Vandalist"
+// CampfireToggle moved to the Marketing Support page ("more relevant to that
+// service"), and the homepage got its old still-life image back as a STAND-IN: he
+// will redo the homepage as the LAST page, since it is the executive summary of the
+// site. (History: Marketing Support's hero came to the homepage on 2026-10-12 and the
+// still-life went the other way; this reverses that.)
+//
+// Layout: tinted band with the still-life image bleeding off the bottom-right
+// (overflow-hidden clips the bleed; the Header sits outside it so the services
+// flyout isn't clipped). The image only shows from lg (1024px) up: below that the
+// text column spans the full width and ran over the artwork.
 import PageHero from "./PageHero.astro";
 import OrbButton from "./OrbButton.astro";
-import CampfireToggle from "./CampfireToggle.astro";
+
+const base = import.meta.env.BASE_URL;
 ---
-<PageHero from="md" artClass="hidden md:block relative self-stretch" introClass="max-w-md">
-  <Fragment slot="title">Marketing strategy, execution, and support</Fragment>
-  <Fragment slot="intro">We partner with ambitious organisations to plan with clarity, execute with precision, and grow with confidence.</Fragment>
-  <OrbButton href={`${import.meta.env.BASE_URL}/contact`}>How can we help?</OrbButton>
-  <Fragment slot="art">
-    <div class="absolute left-1/2 md:top-[66%] lg:top-[68%] -translate-y-[110px] md:translate-x-[calc(-50%-70px)] lg:translate-x-[calc(-50%-130px)]">
-      <CampfireToggle />
-    </div>
-  </Fragment>
-</PageHero>
+<div class="relative overflow-hidden">
+  <PageHero sectionClass="relative" gridClass="relative z-10" introClass="max-w-md">
+    <Fragment slot="title">Marketing strategy, execution, and support</Fragment>
+    <Fragment slot="intro">We partner with ambitious organisations to plan with clarity, execute with precision, and grow with confidence.</Fragment>
+    <OrbButton href={`${base}/contact`}>How can we help?</OrbButton>
+    <img slot="overlay"
+      src={`${base}/vandalist-hero.png`}
+      alt="Abstract still life of strategy pieces: a pink X, an engraved play-diagram panel, an arch, a sphere, and a bowl with a pink sphere"
+      class="hidden lg:block absolute z-0 right-[-20px] bottom-8 w-[66%] max-w-[900px] h-auto object-contain object-right-bottom pointer-events-none"
+    />
+  </PageHero>
+</div>

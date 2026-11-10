@@ -1136,8 +1136,12 @@ about it, don't just pick one.
   now one continuous ground line. REVISION 3 (Andrew): the front-right guy wears a SINGLET (bare shoulders, to break up the uniform); the back-right
   person became a DOG (the pen has a cat; golden, floppy ears flap, tongue pants, same pink tee, headset and moustache gone); headbands removed from
   everyone EXCEPT the lead (my pick, mirrors the pen's lead; trivial to move to someone else). **APPROVED by Andrew** ("really like that... quite
-  funny... layout, people, concept all great") with the note that it "may need a bit of massaging to fit the space on the homepage". Still only on
-  /team-demo/; going into the real hero is the open step (see below).
+  funny... layout, people, concept all great") with the note that it "may need a bit of massaging to fit the space on the homepage". THEN PUT ON THE HOMEPAGE
+  (Andrew: "get it onto the home page so we can adjust the size and position"): Hero.astro now uses PageHero's art slot with <TeamScene /> in a
+  mx-auto w-full max-w-[520px] wrapper (473px tall, inside the locked 706px hero; verified 1440 / 1024 no overflow, art hidden below lg as before); the
+  still-life overlay image is gone (public/vandalist-hero.png now unused, left in place). EXPECT size/position tweaks from Andrew on the live homepage.
+  PARKED (found while checking, NOT caused by the hero): at ~768px the homepage scrolls sideways by ~140px; the culprit is the "How we help in
+  practice" section (HelpGrid) lower down, to be fixed when the homepage is redone last.
   src/pages/team-demo.astro = internal preview with a Replay link (delete once decided, same as the other three demo pages). NEXT: Andrew reviews the
   full team live; then drop TeamScene into the homepage hero (right of the heading, lg and up, hero stays 706px) when the homepage is redone LAST. Notes: the cable uses the CSS `d` property
   (Chrome/Firefox/Edge; if Safari lacks it the cable just stays still, graceful); reduced-motion = finished picture; the base markup is the finished state.

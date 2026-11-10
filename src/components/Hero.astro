@@ -1,32 +1,38 @@
 ---
-// Homepage hero section (heading, subtext, CTA, still-life image). The tinted band
+// Homepage hero section (heading, subtext, CTA, animated team scene). The tinted band
 // and the Header live in index.astro.
 //
 // 2026-11-10 (Andrew): the camp-site background + "Add a little Vandalist"
 // CampfireToggle moved to the Marketing Support page ("more relevant to that
-// service"), and the homepage got its old still-life image back as a STAND-IN: he
-// will redo the homepage as the LAST page, since it is the executive summary of the
-// site. (History: Marketing Support's hero came to the homepage on 2026-10-12 and the
-// still-life went the other way; this reverses that.)
+// service"). The art side is now TeamScene: a person at a laptop (grapes on the lid)
+// joined by the team and a dog, all in matching pink, approved by Andrew as the
+// homepage hero concept (see TeamScene.astro for credits and the sequence). It
+// replaced the stand-in still-life image (public/vandalist-hero.png, now unused).
+// The rest of the homepage is still to be redone LAST, as the site's executive summary.
+// (History: Marketing Support's hero came to the homepage on 2026-10-12 and the
+// still-life went the other way; the campfire move reversed that.)
 //
-// Layout: tinted band with the still-life image bleeding off the bottom-right
-// (overflow-hidden clips the bleed; the Header sits outside it so the services
-// flyout isn't clipped). The image only shows from lg (1024px) up: below that the
-// text column spans the full width and ran over the artwork.
+// Layout: standard two-column PageHero (from lg; below that the art is hidden and the
+// text takes the full width, as before). The scene sits in the art column, capped at
+// 520px wide (~473px tall) so it stays inside the locked hero height (706px with the
+// header at 1440). The wrapper clips horizontally so the arrivals sliding in from the
+// sides can never cause page scroll; the Header sits outside it so the services
+// flyout isn't clipped.
 import PageHero from "./PageHero.astro";
 import OrbButton from "./OrbButton.astro";
+import TeamScene from "./TeamScene.astro";
 
 const base = import.meta.env.BASE_URL;
 ---
 <div class="relative overflow-hidden">
-  <PageHero sectionClass="relative" gridClass="relative z-10" introClass="max-w-md">
+  <PageHero introClass="max-w-md">
     <Fragment slot="title">Marketing strategy, execution, and support</Fragment>
     <Fragment slot="intro">We partner with ambitious organisations to plan with clarity, execute with precision, and grow with confidence.</Fragment>
     <OrbButton href={`${base}/contact`}>How can we help?</OrbButton>
-    <img slot="overlay"
-      src={`${base}/vandalist-hero.png`}
-      alt="Abstract still life of strategy pieces: a pink X, an engraved play-diagram panel, an arch, a sphere, and a bowl with a pink sphere"
-      class="hidden lg:block absolute z-0 right-[-20px] bottom-8 w-[66%] max-w-[900px] h-auto object-contain object-right-bottom pointer-events-none"
-    />
+    <Fragment slot="art">
+      <div class="mx-auto w-full max-w-[520px]">
+        <TeamScene />
+      </div>
+    </Fragment>
   </PageHero>
 </div>

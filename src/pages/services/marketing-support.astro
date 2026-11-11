@@ -99,67 +99,77 @@ const services = [
   },
 ];
 
-// --- Section 2: "How we work" — left: eyebrow/heading/paragraph + 4-point
-// checklist (same pattern as google-social-ads.astro's approachPoints).
-// Right: 4 labelled groups (Plan/Make/Improve/Support), each a vertical
-// stack of small pill items — same pill markup as google-social-ads.astro's
-// phase-items (rounded-xl border bg-white icon+label row), just stacked
-// instead of arranged 3-per-row, since that's what this mockup shows. ---
+// --- Section 2: "How we work" (rebuilt 2026-11-11 from Andrew's mock-up) ---
+// Left: eyebrow, heading, paragraph, three ticks. Right: four white cards (Plan / Make
+// / Improve / Support) in a 2x2 around a circle, "Built around your priorities", that
+// overlaps their inner corners. Copy is Andrew's mock-up copy (new paragraph, three
+// ticks instead of four, "Design assets", "Reporting insights"). The items are plain
+// grey rows with no icons (his mock-up; he said it makes them look less like a slide).
+//
+// HOW THE CIRCLE STAYS SUSTAINABLE: it is absolutely centred on the 2x2 grid and sized
+// as a share of the grid's width (26%), so it can never drift from the corners whatever
+// the card heights or widths are; the column gap is a matching share (17%) so the
+// overlap is always about the same slice of each card's inner corner, which is kept
+// free of text (top cards get extra bottom padding, bottom cards a taller header zone).
+// Breakpoints: below lg the cards go 2-up/1-up and the circle becomes a normal badge
+// above them; lg+ the circle overlaps; xl+ (1280) adds the thin pink connector lines,
+// drawn as an SVG in the grid's own percentage space (so they follow the grid) with
+// their dots as HTML so they stay round. The lines run behind the cards and circle and
+// end INSIDE the circle, so a few px of circle-size drift never leaves a gap.
 const workPoints = [
-  {
-    text: "Flexible scope—support that adapts to your goals, resourcing, and pace.",
-    icon: '<path d="M4 7h16M4 12h10M4 17h6" stroke-linecap="round"/>',
-  },
-  {
-    text: "Strategic and hands-on—big-picture input and practical delivery under one roof.",
-    icon: '<path d="M12 3l8 4v5c0 5-3.4 8.4-8 9.5-4.6-1.1-8-4.5-8-9.5V7l8-4z" stroke-linejoin="round"/>',
-  },
-  {
-    text: "Transparent communication—clear updates, proactive suggestions, and honest advice.",
-    icon: '<path d="M4 5h16v10H9l-4 4v-4H4z" stroke-linejoin="round"/>',
-  },
-  {
-    text: "Focused on useful work—we avoid overhead and red tape, so you get value, not admin.",
-    icon: '<circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9" stroke-linecap="round" stroke-linejoin="round"/>',
-  },
+  "Flexible, goal-led support that fits your business and priorities.",
+  "A mix of planning, making, improving and day-to-day support.",
+  "Scales with you, from one-off needs to ongoing partnership.",
 ];
 
 const workGroups = [
   {
     label: "Plan",
-    items: [
-      { text: "Strategy input", icon: '<path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3 11.2c.6.4 1 1.1 1 1.8h4c0-.7.4-1.4 1-1.8A6 6 0 0 0 12 3z"/>' },
-      { text: "Planning & roadmaps", icon: '<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M8 3v4M16 3v4"/>' },
-      { text: "Campaign guidance", icon: '<path d="M3 11l17-7-6 17-3-7-8-3z" stroke-linejoin="round"/>' },
-    ],
+    icon: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/>',
+    cardClass: "lg:pb-9",
+    items: ["Strategy input", "Planning & roadmaps", "Campaign guidance"],
   },
   {
     label: "Make",
-    items: [
-      { text: "Copy & content", icon: '<path d="M17 3.5a2.1 2.1 0 0 1 3 3L8.5 18 4 19l1-4.5L17 3.5z" stroke-linejoin="round"/>' },
-      { text: "Design & assets", icon: '<circle cx="12" cy="12" r="9"/><path d="M12 3a6 6 0 0 0 0 18c1.4 0 2-.8 2-1.8 0-.5-.2-.9-.5-1.2-.3-.3-.5-.7-.5-1.2 0-1 .8-1.8 1.8-1.8H16a5 5 0 0 0 5-5 8 8 0 0 0-9-7z"/><circle cx="8.5" cy="10.5" r=".9" fill="currentColor" stroke="none"/><circle cx="12" cy="7.5" r=".9" fill="currentColor" stroke="none"/><circle cx="15.5" cy="10.5" r=".9" fill="currentColor" stroke="none"/>' },
-      { text: "Website updates", icon: '<rect x="3" y="4" width="18" height="13" rx="2"/><path d="M3 8h18M8 21h8M12 17v4"/>' },
-      { text: "Email support", icon: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5L12 13l8.5-6.5" stroke-linejoin="round"/>' },
-    ],
+    icon: '<path d="M17 3.5a2.1 2.1 0 0 1 3 3L8.5 18 4 19l1-4.5L17 3.5z" stroke-linejoin="round"/>',
+    cardClass: "lg:pb-9",
+    items: ["Copy & content", "Design assets", "Website updates", "Email support"],
   },
   {
     label: "Improve",
-    items: [
-      { text: "Reporting & insights", icon: '<path d="M4 19h16" stroke-linecap="round"/><path d="M7 19v-6M12 19V8M17 19v-9" stroke-linecap="round"/>' },
-      { text: "Optimisation", icon: '<path d="M4 17l5-6 4 4 7-9" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 6h5v5"/>' },
-      { text: "Performance reviews", icon: '<path d="M3 12a9 9 0 1 1 3 6.7"/><path d="M3 17v-4.5H7.5"/>' },
-    ],
+    icon: '<path d="M4 19h16" stroke-linecap="round"/><path d="M7 19v-6M12 19V8M17 19v-9" stroke-linecap="round"/>',
+    cardClass: "lg:pt-9",
+    items: ["Reporting insights", "Optimisation", "Performance reviews"],
   },
   {
     label: "Support",
-    items: [
-      { text: "Ad-hoc requests & fixes", icon: '<path d="M4 5h16v10H9l-4 4v-4H4z" stroke-linejoin="round"/>' },
-      { text: "Coordination & projects", icon: '<circle cx="12" cy="12" r="3"/><path d="M12 3v2.2M12 18.8V21M21 12h-2.2M5.2 12H3M18 6l-1.5 1.5M7.5 16.5L6 18M18 18l-1.5-1.5M7.5 7.5L6 6"/>' },
-      { text: "Automation support", icon: '<circle cx="12" cy="12" r="3"/><path d="M12 3v2.2M12 18.8V21M21 12h-2.2M5.2 12H3M18 6l-1.5 1.5M7.5 16.5L6 18M18 18l-1.5-1.5M7.5 7.5L6 6"/>' },
-      { text: "Feedback & ideas", icon: '<path d="M4 5h16v10H9l-4 4v-4H4z" stroke-linejoin="round"/>' },
-    ],
+    icon: '<path d="M12 3l9 5-9 5-9-5 9-5z" stroke-linejoin="round"/><path d="M3 12.5l9 5 9-5" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 17l9 5 9-5" stroke-linecap="round" stroke-linejoin="round"/>',
+    cardClass: "lg:pt-9",
+    items: ["Ad-hoc requests & fixes", "Coordination & projects", "Automation support", "Feedback & ideas"],
   },
 ];
+
+// xl connector lines + dots, in % of the 2x2 grid (x across, y down). Card edges sit at
+// x 41.3 / 58.7 and y 44.1 / 55.9 (17% column gap; 80px row gap on ~676px of height, measured at 1440).
+// Every line ends well inside the circle (centre 50,50), which hides the join.
+const connectors = {
+  paths: [
+    "M41.3 22 C46 22 46.5 24 46.5 30 L46.5 44", // Plan -> circle top
+    "M58.7 22 C54 22 53.5 24 53.5 30 L53.5 44", // Make -> circle top
+    "M21 55.9 V53 C21 50.5 22.5 50 25 50 H44", // Improve (top edge) -> circle left
+    "M74.5 55.9 V53 C74.5 50.5 73 50 70.5 50 H56", // Support (top edge) -> circle right
+    "M41.3 78 C46 78 46.5 76 46.5 70 L46.5 56", // Improve (right edge) -> circle bottom
+    "M58.7 78 C54 78 53.5 76 53.5 70 L53.5 56", // Support (left edge) -> circle bottom
+  ],
+  dots: [
+    [41.3, 22],
+    [58.7, 22],
+    [21, 55.9],
+    [74.5, 55.9],
+    [41.3, 78],
+    [58.7, 78],
+  ],
+};
 
 // --- Section 3: Our engagement rhythm ---
 const rhythmSteps = [
@@ -263,39 +273,66 @@ const otherSuppliers = [
     </Section>
   </div>
 
-  <!-- Section 2: How we work — bleed-wider band -->
+  <!-- Section 2: How we work — bleed-wider band (rebuilt from Andrew's mock-up, see the
+       data comment above for how the overlapping circle is kept sustainable) -->
   <Band>
-      <div class="max-w-7xl mx-auto grid lg:grid-cols-[minmax(0,34%)_minmax(0,66%)] gap-10 items-start">
+      <div class="max-w-7xl mx-auto grid xl:grid-cols-[minmax(0,34%)_minmax(0,66%)] gap-10 xl:gap-12 items-center">
         <div>
           <Eyebrow class="mb-3">How we work</Eyebrow>
           <h2 class="t-heading text-balance mb-4">Support shaped around your priorities</h2>
-          <p class="t-body mb-6 max-w-md">
-            You choose the focus. We provide the right mix of thinking, doing, and support to move things forward.
+          <p class="t-body mb-8 max-w-lg">
+            You choose the focus, and the support mix adapts to your goals &mdash; whether that&rsquo;s planning ahead, creating campaigns, improving results or keeping things running smoothly.
           </p>
-          <ul class="space-y-3">
+          <ul class="space-y-4">
             {workPoints.map((point) => (
               <li class="flex items-start gap-3">
-                <IconChip icon={point.icon} shape="lg" tone="whiteCard" class="shrink-0" />
-                <span class="t-small text-[var(--color-ink)] pt-1">{point.text}</span>
+                <IconChip icon={'<path d="M5 13l4 4L19 7"/>'} shape="lg" class="shrink-0" />
+                <span class="t-body text-[var(--color-ink)] pt-1">{point}</span>
               </li>
             ))}
           </ul>
         </div>
 
-        <div class="grid sm:grid-cols-2 gap-x-8 gap-y-8">
-          {workGroups.map((group) => (
-            <div>
-              <p class="t-eyebrow mb-3">{group.label}</p>
-              <div class="space-y-2.5">
-                {group.items.map((item) => (
-                  <div class="rounded-xl border border-[var(--color-line)] bg-white p-2.5 flex items-center gap-2 min-w-0">
-                    <IconChip icon={item.icon} shape="lg" class="shrink-0" />
-                    <span class="t-small-strong min-w-0">{item.text}</span>
-                  </div>
-                ))}
+        <div class="relative">
+          <!-- xl: connector lines, behind everything (below the cards) -->
+          <svg class="hidden xl:block absolute inset-0 w-full h-full z-0 pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none" fill="none" aria-hidden="true">
+            {connectors.paths.map((d) => (
+              <path d={d} stroke="var(--color-accent-line-soft)" stroke-width="1.5" vector-effect="non-scaling-stroke" stroke-linecap="round" />
+            ))}
+          </svg>
+
+          <!-- below lg: the circle becomes a plain badge above the cards -->
+          <div class="lg:hidden flex justify-center mb-6">
+            <span class="t-title rounded-full bg-white border-4 border-[var(--color-accent-soft)] [box-shadow:var(--shadow-card)] px-6 py-3 text-center">Built around your priorities</span>
+          </div>
+
+          <div class="relative z-10 grid sm:grid-cols-2 gap-5 lg:gap-x-[17%] lg:gap-y-20">
+            {workGroups.map((group) => (
+              <div class:list={["rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-5 [box-shadow:var(--shadow-card)]", group.cardClass]}>
+                <div class="flex items-center gap-3 mb-4">
+                  <IconChip icon={group.icon} size="md" shape="lg" class="shrink-0" />
+                  <p class="t-subheading">{group.label}</p>
+                </div>
+                <ul class="space-y-2">
+                  {group.items.map((item) => (
+                    <li class="rounded-xl border border-[var(--color-line)] bg-[var(--color-paper-dim)] px-3.5 py-2 t-small text-[var(--color-ink)]">{item}</li>
+                  ))}
+                </ul>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+
+          <!-- lg+: the circle, centred on the grid, over the cards' inner corners -->
+          <div class="hidden lg:flex absolute z-20 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[26%] aspect-square items-center justify-center rounded-full bg-white border-8 border-[var(--color-accent-soft)] [box-shadow:var(--shadow-card)] p-3 pointer-events-none">
+            <p class="t-subheading text-center text-balance">Built around your priorities</p>
+          </div>
+
+          <!-- xl: the dots where each line meets a card edge (HTML so they stay round) -->
+          <div class="hidden xl:block absolute inset-0 z-20 pointer-events-none" aria-hidden="true">
+            {connectors.dots.map(([x, y]) => (
+              <span class="absolute block w-2 h-2 rounded-full bg-[var(--color-accent)] -translate-x-1/2 -translate-y-1/2" style={`left:${x}%;top:${y}%`}></span>
+            ))}
+          </div>
         </div>
       </div>
     </Band>

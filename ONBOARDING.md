@@ -1144,12 +1144,15 @@ about it, don't just pick one.
   marketing-support-services/ strategic-support, content-and-campaigns, reporting-and-optimisation, team-support (.webp, ONE shared crop frame so the
   relative sizes match his mock-up; sources are the pasted images, cropped by a scratch script; 132px tall in the cards). His mock-up's pink "spark"
   lines were LEFT OUT (he asked for sparks off the SEO icons; say if wanted). Copy follows his mock-up (cards 2 and 3 reworded; card 4 keeps
-  "expertise" where the mock read "expert brain", spaced hyphen). ROW 2 (How we work band) is NEXT: his mock-up = left text + 2x2 white cards (Plan /
-  Make / Improve / Support, each with a pink icon chip and grey pills) around a central circle "Built around your priorities" that overlaps the cards'
-  inner corners, with thin pink curved connectors. Plan (agreed in principle, awaiting his yes): circle absolutely centred on the grid at lg+, sized as
-  a share of the grid, cards padded away from it; connector lines only at xl (1280+, where the content column is fixed) as an SVG overlay; below xl a
-  smaller circle with no lines; below lg stack with the circle as a normal badge. Mock-up copy differs from the page (new paragraph, 3 ticks instead of
-  4, "Design assets", "Reporting insights"): to confirm before swapping.
+  "expertise" where the mock read "expert brain", spaced hyphen). ROW 2 (How we work band) BUILT + LIVE (his OK on copy, lines at xl only, grey item rows): left text
+  (new paragraph, 3 ticks) + 2x2 white cards (Plan / Make / Improve / Support, pink icon chip + plain grey item rows, NO row icons) around a circle
+  "Built around your priorities" overlapping the inner corners. How it stays sustainable (also in the data comment in marketing-support.astro): the
+  circle is absolutely centred on the grid and sized 26% of the grid width, column gap is a matching 17% so the overlap is always the same slice, top
+  cards get lg:pb-9 and bottom cards lg:pt-9 so the corner it covers is empty (checked by measurement: no label is touched at 1440 or 1100); the thin
+  pink connector lines are an SVG in the grid's % space + HTML dots, xl (1280+) only, lines end INSIDE the circle so size drift never leaves a gap
+  (their y coordinates were tuned to the measured 676px grid height at 1440: if card content or padding changes, re-measure). Below xl the left text
+  stacks above the cards (lg: circle, no lines); below lg the circle is a plain badge above the cards (1-up on phones, 2-up from sm). Rows 3-5
+  (rhythm, who it's for, how we fit in) NOT yet reviewed.
   SETTLED 2026-11-11: Andrew signed the homepage hero off for now ("looks really good... leave it there"); revisit only when the homepage is redone
   LAST as the executive summary. NEXT PAGE: Marketing Support, row by row from his mock-ups (hero already done).
   SECOND TWEAK (2026-11-11, Andrew's mock-up: "team considerably larger and tighter against the text", pencil removed): PENCIL DELETED (notepad

@@ -255,7 +255,7 @@ const otherSuppliers = [
     <Section top>
       <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {services.map((service) => (
-          <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6">
+          <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6 [box-shadow:var(--shadow-card)]">
             <img
               src={`${base}/marketing-support-services/${service.image}.webp`}
               alt=""
@@ -358,7 +358,7 @@ const otherSuppliers = [
     />
     <div class="grid sm:grid-cols-3 gap-5">
       {audiences.map((item) => (
-        <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6">
+        <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6 [box-shadow:var(--shadow-card)]">
           <IconChip icon={item.icon} size="lg" class="mb-4" />
           <p class="t-title mb-1.5">{item.title}</p>
           <p class="t-small">{item.text}</p>

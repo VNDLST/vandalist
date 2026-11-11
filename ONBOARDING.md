@@ -1140,6 +1140,16 @@ about it, don't just pick one.
   (Andrew: "get it onto the home page so we can adjust the size and position"): Hero.astro now uses PageHero's art slot with <TeamScene /> in a
   mx-auto w-full max-w-[520px] wrapper (473px tall, inside the locked 706px hero; verified 1440 / 1024 no overflow, art hidden below lg as before); the
   still-life overlay image is gone (public/vandalist-hero.png now unused, left in place). EXPECT size/position tweaks from Andrew on the live homepage.
+  MARKETING SUPPORT ROW 1 (2026-11-11, live): the four service cards now carry Andrew's four illustrations (blob + black-outline icons): public/
+  marketing-support-services/ strategic-support, content-and-campaigns, reporting-and-optimisation, team-support (.webp, ONE shared crop frame so the
+  relative sizes match his mock-up; sources are the pasted images, cropped by a scratch script; 132px tall in the cards). His mock-up's pink "spark"
+  lines were LEFT OUT (he asked for sparks off the SEO icons; say if wanted). Copy follows his mock-up (cards 2 and 3 reworded; card 4 keeps
+  "expertise" where the mock read "expert brain", spaced hyphen). ROW 2 (How we work band) is NEXT: his mock-up = left text + 2x2 white cards (Plan /
+  Make / Improve / Support, each with a pink icon chip and grey pills) around a central circle "Built around your priorities" that overlaps the cards'
+  inner corners, with thin pink curved connectors. Plan (agreed in principle, awaiting his yes): circle absolutely centred on the grid at lg+, sized as
+  a share of the grid, cards padded away from it; connector lines only at xl (1280+, where the content column is fixed) as an SVG overlay; below xl a
+  smaller circle with no lines; below lg stack with the circle as a normal badge. Mock-up copy differs from the page (new paragraph, 3 ticks instead of
+  4, "Design assets", "Reporting insights"): to confirm before swapping.
   SETTLED 2026-11-11: Andrew signed the homepage hero off for now ("looks really good... leave it there"); revisit only when the homepage is redone
   LAST as the executive summary. NEXT PAGE: Marketing Support, row by row from his mock-ups (hero already done).
   SECOND TWEAK (2026-11-11, Andrew's mock-up: "team considerably larger and tighter against the text", pencil removed): PENCIL DELETED (notepad

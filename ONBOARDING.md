@@ -1140,6 +1140,8 @@ about it, don't just pick one.
   (Andrew: "get it onto the home page so we can adjust the size and position"): Hero.astro now uses PageHero's art slot with <TeamScene /> in a
   mx-auto w-full max-w-[520px] wrapper (473px tall, inside the locked 706px hero; verified 1440 / 1024 no overflow, art hidden below lg as before); the
   still-life overlay image is gone (public/vandalist-hero.png now unused, left in place). EXPECT size/position tweaks from Andrew on the live homepage.
+  SETTLED 2026-11-11: Andrew signed the homepage hero off for now ("looks really good... leave it there"); revisit only when the homepage is redone
+  LAST as the executive summary. NEXT PAGE: Marketing Support, row by row from his mock-ups (hero already done).
   SECOND TWEAK (2026-11-11, Andrew's mock-up: "team considerably larger and tighter against the text", pencil removed): PENCIL DELETED (notepad
   stays). At xl (1280+) the scene is now lifted out of the art column and absolutely positioned over the right of the hero section (Hero.astro:
   xl:absolute, 720px wide = 1.5x scale, ~600px tall box; the drawing's real content is ~545px so the hero stays 706px; right edge ~2px past the section

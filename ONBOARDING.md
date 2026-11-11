@@ -1120,6 +1120,23 @@ about it, don't just pick one.
 
 ## Known open items
 
+- **2026-11-11 — MARKETING SUPPORT PAGE: ALL FIVE ROWS NOW BUILT AND LIVE (next page to review: Consulting & Mentoring).**
+  Rows 1-2 are noted below. Row 3 (engagement rhythm): the pulse was already universal via CadenceSteps; what changed is the icons, now four ORIGINAL chunky
+  single-colour glyphs drawn by Claude (target+arrow, gear, magnifier-over-bars, three sliders) in public/marketing-support-rhythm-icons/, wired with
+  iconMode="image" exactly like SEO. Andrew first tried Noun Project icons but the free tier needs on-page credit and a modified copy still needs it
+  (CC BY), so we drew our own; nothing from Noun Project is in the repo. Review step copy now "We share progress, results, and make sure we remain on
+  the same page." Row 4 (Who it's for): Andrew's three illustrations (public/marketing-support-audiences/), recoloured to the site pink (mauve bars and a
+  crimson badge were off-brand), haze cleared, a pink blob added behind each to match row 1, all cropped to one 547x355 frame. His third image (layers
+  + plus) replaces the mock-up's calendar. Row 5 (How we fit in): rebuilt from his second mock-up (pink "Your team" card, white "Other suppliers"
+  card with an original puzzle-piece icon because layers would now repeat, ticks, dashed pink ring that tucks under the cards at lg+, double-headed
+  arrows, real Vandalist mark in the white disc via public/vandalist-mark-grey-pink.svg lifted from his landscape logo). SEO page: removed the pink
+  "spark" marks from the four search-landscape icons and swapped in Andrew's cleaner versions. Card shadow fixed on Marketing Support cards (they were
+  missing --shadow-card that the SEO cards have). GENERAL LESSONS for the framework: (1) when you build a "card", copy the whole recipe from an existing
+  one, shadow included; (2) strip the pink spark/burst lines off AI icon art (Andrew sees them as an AI giveaway); (3) free-tier stock icons carry an
+  attribution duty that survives modification, so draw originals or use MIT/ISC sets. OPEN: at 1024-1279px the three "How we fit in" panels are tight
+  (card text wraps to 3 lines), acceptable but could move the 3-column layout to xl; the "Who it's for" art shows smaller at 640-767px (three narrow
+  cards); the spark marks may still be on other pages' icon art (not swept yet, offered to Andrew); Andrew may also want the SEO card text size matched
+  to Marketing Support's cards (SEO uses t-body, Marketing Support uses t-small) or vice versa.
 - **2026-11-10 — HOMEPAGE HERO CONCEPT "TeamScene" (DEMO STAGE, live at /team-demo/ only; homepage itself still on the still-life stand-in).**
   Andrew found https://codepen.io/MaxStalker/pen/BypYwd ("Teams": a worker at a laptop, a wiggling mouse cable, a crew pops in). Agreed brief: idea
   only, redraw in our How We Work character style, CSS only (the pen uses Snap.svg + jQuery), no click interaction, automatic. Lead works alone ~2.6s

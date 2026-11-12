@@ -1120,6 +1120,20 @@ about it, don't just pick one.
 
 ## Known open items
 
+- **2026-11-12 — END OF SESSION STATE (read this first).** MARKETING SUPPORT IS SIGNED OFF by Andrew ("this page is now done", "looks really good"): all five rows
+  plus the rhythm icons, the "How we fit in" diagram and the "How we work" circle are live. He stopped for the day (no energy for another page). NEXT PAGES, in
+  order, each from his mock-ups row by row: Consulting & Mentoring, Google & Social Ads, Websites & Optimisation, AI Enablement; then Resources and the six
+  case-study stubs; the HOMEPAGE LAST (executive summary; the TeamScene hero is already placed; the HelpGrid 768px sideways overflow is parked for then).
+  OPEN decisions for Andrew: (1) the sixth word in the ring ("Roadmaps" is my guess for his dictated "random"); (2) team scene vs logo in the "How we fit in"
+  circle (trial is live, he said it works, keep unless he says otherwise; logo file kept for reverting); (3) a sweep of other pages for the pink "spark"
+  marks on AI icon art (offered, not run); (4) SEO cards use t-body but Marketing Support cards t-small; (5) 1024-1279px is tighter than ideal in places.
+  PARKED: demo pages to delete when finalised (team-demo, campfire-demo, icon-texture-demo, question-pile-demo); GSAP licence (TreadmillRunner); About intro
+  video; Consulting hero height; mobile nav hamburger; Resources page; lazy asset names (public/help-icons/icon-1..6.webp, system-icons/icon-*.png);
+  SharePoint keep-or-move; SEO copy confirmations. DEV TIP: start the dev server with preview_start each new day; the first navigate usually fails, retry.
+  PROCESS LESSON FOR THE FRAMEWORK: today ran ad hoc (about ten rounds on one diagram) because several sections had no mock-up or clear vision. Next time, for
+  a section with no mock-up, propose 2-3 concrete options up front (quick previews) and have Andrew pick BEFORE building; batch his notes into one round;
+  keep a list of what he has already approved so later tweaks do not regress it. Also remember: licence-check free icons (CC BY needs credit even if edited;
+  Lucide/ISC does not need on-page credit), and strip AI "spark" marks.
 - **2026-11-12 (last) — Ring of words now rotates.** Andrew asked for a slow clockwise turn: the <text> is wrapped in <g class="fit-ring"> with a CSS
   animation (40s linear infinite, transform-origin 88px 88px in the 176 viewBox; inside prefers-reduced-motion: no-preference so it is still for those visitors).
   The initial rotate(60) on the <text> is kept (the animation rotates the wrapper, not the text). Verified by seeking: 90 degrees per 10s, centre fixed. Andrew

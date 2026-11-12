@@ -150,16 +150,34 @@ const workGroups = [
   },
 ];
 
-// xl connectors (reworked 2026-11-12, Andrew: every card should be touched the same number of
-// times and both sides the same length). ONE touch per card: on each side a horizontal line runs
-// from the circle to the middle of the two cards (x = a card's horizontal centre, so the sides are
-// exact mirror images: columns are (100% - 17% gap) / 2 = 41.5% wide, centres at 20.75% / 79.25%),
-// then a vertical line crosses the 80px row gap (lg:gap-y-20) joining the card above to the card
-// below, with a dot where it meets each card's edge. Rows are forced equal (lg:grid-rows-2) so the
-// gap is always centred on the grid, and the vertical runs are in px (the gap) not %, so nothing
-// depends on how tall the cards happen to be.
-const connectorXs = [20.75, 79.25];
-const rowGapHalf = 40; // px: half of lg:gap-y-20
+// xl connectors, third version (2026-11-12, Andrew's "clockwise fan"): exactly ONE touch per card,
+// each on a different kind of edge, going round clockwise: top-left card's BOTTOM edge -> circle
+// left; top-right card's SIDE -> circle top; bottom-right card's TOP edge -> circle right;
+// bottom-left card's SIDE -> circle bottom. Each is an L with a rounded corner (two borders and a
+// radius on one box) that runs behind the cards and ends INSIDE the circle. Sizes are in cqw
+// (the wrapper is a size container: 1cqw = 1% of its width, which the circle and column gap
+// are also a share of) plus the fixed 80px row gap, so they follow the layout. The four VISIBLE
+// lengths are equal (each is about 107px at 1440): bottom/top-edge lines go h2 down/up then
+// X - r across; side lines go g2 across then (Y - r) up/down, with Y chosen so the totals match.
+// Rows are forced equal (lg:grid-rows-2) so the row gap is always centred on the grid.
+const rowGapHalf = 40;  // px: half of lg:gap-y-20
+const colGapHalf = 8.5; // cqw: half of lg:gap-x-[17%]
+const circleR = 13;     // cqw: the circle is 26cqw wide
+const lenAcross = 9;    // cqw: how far an edge line runs out past the circle's edge
+const fanX = circleR + lenAcross;                                  // 22cqw from the centre
+const fanY = `${circleR + lenAcross - colGapHalf}cqw + ${rowGapHalf}px`; // 13.5cqw + 40px
+const fanLines = [
+  { cls: "border-l-[1.5px] border-b-[1.5px] rounded-bl-[14px]", style: `left:calc(50% - ${fanX}cqw);top:calc(50% - ${rowGapHalf}px);width:${fanX}cqw;height:${rowGapHalf}px` },
+  { cls: "border-t-[1.5px] border-l-[1.5px] rounded-tl-[14px]", style: `left:50%;top:calc(50% - (${fanY}));width:${colGapHalf}cqw;height:calc(${fanY})` },
+  { cls: "border-r-[1.5px] border-t-[1.5px] rounded-tr-[14px]", style: `left:50%;top:50%;width:${fanX}cqw;height:${rowGapHalf}px` },
+  { cls: "border-b-[1.5px] border-r-[1.5px] rounded-br-[14px]", style: `left:calc(50% - ${colGapHalf}cqw);top:50%;width:${colGapHalf}cqw;height:calc(${fanY})` },
+];
+const fanDots = [
+  [`calc(50% - ${fanX}cqw)`, `calc(50% - ${rowGapHalf}px)`],
+  [`calc(50% + ${colGapHalf}cqw)`, `calc(50% - (${fanY}))`],
+  [`calc(50% + ${fanX}cqw)`, `calc(50% + ${rowGapHalf}px)`],
+  [`calc(50% - ${colGapHalf}cqw)`, `calc(50% + (${fanY}))`],
+];
 
 // Lucide "list-ordered" (ISC licence), Andrew's pick for the circle's "Priorities".
 const priorityIcon = '<path d="M11 5h10"/><path d="M11 12h10"/><path d="M11 19h10"/><path d="M4 4h1v5"/><path d="M4 9h2"/><path d="M6.5 20H3.4c0-1 2.6-1.925 2.6-3.5a1.5 1.5 0 0 0-2.6-1.02"/>';
@@ -315,15 +333,11 @@ const fitSuppliers = {
           </ul>
         </div>
 
-        <div class="relative">
-          <!-- xl: connector lines, behind everything (below the cards): one horizontal run from the
-               circle to the middle of each side's two cards, then one vertical run across the row gap -->
+        <div class="relative [container-type:inline-size]">
+          <!-- xl: connector lines, behind everything (below the cards): the clockwise fan, see the fanLines comment -->
           <div class="hidden xl:block absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
-            {connectorXs.map((x) => (
-              <Fragment>
-                <span class="absolute h-[1.5px] -translate-y-1/2 bg-[var(--color-accent-line-soft)]" style={`top:50%;left:${Math.min(x, 50)}%;width:${Math.abs(50 - x)}%`}></span>
-                <span class="absolute w-[1.5px] -translate-x-1/2 bg-[var(--color-accent-line-soft)]" style={`left:${x}%;top:calc(50% - ${rowGapHalf}px);height:${rowGapHalf * 2}px`}></span>
-              </Fragment>
+            {fanLines.map((l) => (
+              <span class:list={["absolute border-[var(--color-accent-line-soft)]", l.cls]} style={l.style}></span>
             ))}
           </div>
 
@@ -353,17 +367,22 @@ const fitSuppliers = {
 
           <!-- lg+: the circle, centred on the grid, over the cards' inner corners -->
           <div class="hidden lg:flex absolute z-20 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[26%] aspect-square items-center justify-center rounded-full bg-white border-8 border-[var(--color-accent-soft)] [box-shadow:var(--shadow-card)] p-3 pointer-events-none">
-            <div class="flex flex-col items-center gap-2 text-center">
-              <svg class="w-11 h-11 text-[var(--color-accent)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={priorityIcon} />
-              <p class="t-subheading">Priorities</p>
-            </div>
+            <!-- the words run round the inside of the circle (text on a path, in the shared t-small-strong
+                 style; it scales with the circle like a logo ring would), the list icon sits in the middle -->
+            <svg class="absolute inset-0 w-full h-full" viewBox="0 0 176 176" role="img" aria-label="Priorities, goals, objectives">
+              <defs><path id="fit-priorities-ring" d="M88 88 m-64 0 a64 64 0 1 1 128 0 a64 64 0 1 1 -128 0" /></defs>
+              <text class="t-small-strong" fill="currentColor" transform="rotate(24 88 88)">
+                <textPath href="#fit-priorities-ring" textLength="398" lengthAdjust="spacing">Priorities <tspan style="fill:var(--color-accent)">&bull;</tspan> Goals <tspan style="fill:var(--color-accent)">&bull;</tspan> Objectives <tspan style="fill:var(--color-accent)">&bull;</tspan></textPath>
+              </text>
+            </svg>
+            <svg class="relative w-12 h-12 text-[var(--color-accent)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={priorityIcon} />
           </div>
 
           <!-- xl: one dot where each line meets a card edge (HTML so they stay round): 4 in all, one per card -->
           <div class="hidden xl:block absolute inset-0 z-20 pointer-events-none" aria-hidden="true">
-            {connectorXs.flatMap((x) => [-rowGapHalf, rowGapHalf].map((dy) => (
-              <span class="absolute block w-2 h-2 rounded-full bg-[var(--color-accent)] -translate-x-1/2 -translate-y-1/2" style={`left:${x}%;top:calc(50% + ${dy}px)`}></span>
-            )))}
+            {fanDots.map(([x, y]) => (
+              <span class="absolute block w-2 h-2 rounded-full bg-[var(--color-accent)] -translate-x-1/2 -translate-y-1/2" style={`left:${x};top:${y}`}></span>
+            ))}
           </div>
         </div>
       </div>

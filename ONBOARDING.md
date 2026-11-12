@@ -1120,6 +1120,14 @@ about it, don't just pick one.
 
 ## Known open items
 
+- **2026-11-12 (late night) — Row 2 connectors redone AGAIN as a "clockwise fan"; circle text now runs round the circle.** Andrew didn't like the shared
+  bracket lines (previous entry, now superseded). New: exactly one touch per card, going clockwise: top-left card's BOTTOM edge -> circle left; top-right's
+  SIDE -> circle top; bottom-right's TOP edge -> circle right; bottom-left's SIDE -> circle bottom. Each is an L with a rounded corner (two borders + a radius
+  on one absolutely positioned box), sized in cqw (the wrapper is `[container-type:inline-size]`) plus the fixed 80px row gap; the four visible lengths match
+  (~107px at 1440). Dots on the four card edges. Circle: the words "Priorities • Goals • Objectives •" run round the INSIDE of the circle (SVG textPath, shared
+  t-small-strong style, textLength stretches it to the full circumference so letters are airy; it scales with the circle like a logo ring, so at 1280 it is
+  ~11-12px rendered), the Lucide list-ordered icon sits in the middle; below lg the badge still just says "Priorities" with the icon. Rotate the ring with the
+  transform on the <text> (currently 24deg) if "Priorities" should sit differently.
 - **2026-11-12 (night) — Marketing Support Row 2 ("How we work") connectors fixed; "How we fit in" last points shortened.** Andrew spotted that the lines from the
   circle touched the bottom two cards twice but the top two once, and the left and right runs differed in length. Now ONE touch per card, sides are exact
   mirrors: a horizontal line from the circle to each side's card-centre x (20.75% / 79.25%), then a vertical run across the 80px row gap (px, not %) with a

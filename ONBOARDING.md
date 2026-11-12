@@ -1123,7 +1123,7 @@ about it, don't just pick one.
 - **2026-11-12 (latest) — "How we fit in" small follow-ups.** Headings are "Your team…" and "Your other suppliers…" (Andrew intended the ellipsis so the
   points finish the sentence; single "…" character because check:type rejects headings ending in a full stop). Bottom tick is now the SOFT green
   (--color-good-soft circle, --color-good tick) like the pink ticks. Suppliers' last point is now "Can work directly with us to simplify your life" (the
-  version that completes the sentence). OPEN QUESTION put to Andrew: swap the logo in the circle for the homepage TeamScene? My view and risks: it would be
+  version that completes the sentence). ICONS DONE: panel icons are now Lucide "user-round-group" (Your team) and "building-complex" (Your other suppliers), Andrew's picks (ISC licence, noted in a code comment; no on-page credit needed). TRIAL BUILT AND LIVE: the hub circle now holds the homepage TeamScene (cropped by the circle, 122% wide; the pop-in is held until the section scrolls into view via .fit-scene is-armed/is-in + a small script at the foot of the page); the square logo (public/vandalist-square-logo-grey-pink.webp) is kept so it can be swapped back. Andrew had asked "what do you think?" and wanted the trial; risks I raised: it would be
   small inside a 296px circle, its pop-in plays on load not on scroll (needs a scroll trigger), it competes with the chevron flows, it could be confused with
   the "Your team" card, and the homepage is redone last. Suggested a reversible trial; awaiting his call.
 - **2026-11-12 (later) — "How we fit in" round 3, Andrew's notes.** Logo circle doubled (296px at 1400px+, 240px at 1280-1399, 200px below). Each

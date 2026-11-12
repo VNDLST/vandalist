@@ -371,9 +371,9 @@ const fitSuppliers = {
                  style; it scales with the circle like a logo ring would), the list icon sits in the middle -->
             <svg class="absolute inset-0 w-full h-full" viewBox="0 0 176 176" role="img" aria-label="Priorities, goals, objectives, tasks, projects, roadmaps">
               <defs><path id="fit-priorities-ring" d="M88 88 m-68 0 a68 68 0 1 1 136 0 a68 68 0 1 1 -136 0" /></defs>
-              <text class="t-small-strong" fill="currentColor" transform="rotate(60 88 88)">
+              <g class="fit-ring"><text class="t-small-strong" fill="currentColor" transform="rotate(60 88 88)">
                 <textPath href="#fit-priorities-ring" textLength="424" lengthAdjust="spacing">Priorities <tspan style="fill:var(--color-accent)">&bull;</tspan> Goals <tspan style="fill:var(--color-accent)">&bull;</tspan> Objectives <tspan style="fill:var(--color-accent)">&bull;</tspan> Tasks <tspan style="fill:var(--color-accent)">&bull;</tspan> Projects <tspan style="fill:var(--color-accent)">&bull;</tspan> Roadmaps <tspan style="fill:var(--color-accent)">&bull;</tspan></textPath>
-              </text>
+              </text></g>
             </svg>
             <svg class="relative w-16 h-16 text-[var(--color-accent)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={priorityIcon} />
           </div>
@@ -545,8 +545,13 @@ const fitSuppliers = {
   .fit-chev { opacity: 0.55; }
   .fit-ripple { box-shadow: 0 0 0 0 rgba(255, 61, 107, 0); }
   @media (prefers-reduced-motion: no-preference) {
+    /* "How we work": the ring of words drifts clockwise, one turn per 40s (the icon in the middle stays put) */
+    .fit-ring { transform-origin: 88px 88px; animation: fit-ring-spin 40s linear infinite; }
     .fit-chev { opacity: 0.25; animation: fit-chev 6s ease-in-out infinite; animation-delay: var(--d); }
     .fit-ripple { animation: fit-ripple 6s ease-out infinite; }
+  }
+  @keyframes fit-ring-spin {
+    to { transform: rotate(360deg); }
   }
   @keyframes fit-chev {
     0% { opacity: 0.25; transform: scale(1); }

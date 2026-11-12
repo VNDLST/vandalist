@@ -1120,6 +1120,10 @@ about it, don't just pick one.
 
 ## Known open items
 
+- **2026-11-12 (last) — Ring of words now rotates.** Andrew asked for a slow clockwise turn: the <text> is wrapped in <g class="fit-ring"> with a CSS
+  animation (40s linear infinite, transform-origin 88px 88px in the 176 viewBox; inside prefers-reduced-motion: no-preference so it is still for those visitors).
+  The initial rotate(60) on the <text> is kept (the animation rotates the wrapper, not the text). Verified by seeking: 90 degrees per 10s, centre fixed. Andrew
+  is happy it is "three sections away" from the TeamScene and chevrons so it will not compete.
 - **2026-11-12 (later still) — Circle ring now six words.** Andrew said the three words only filled about half the circle (his browser evidently ignores SVG
   textLength, which stretched them in Chrome). Now "Priorities • Goals • Objectives • Tasks • Projects • Roadmaps •" at the path's NATURAL length (ring radius
   68 in the 176 viewBox; natural text length measured at ~424, circumference 427), textLength is only a 0.1% nudge so it fills the ring in any browser. The sixth

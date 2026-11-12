@@ -1120,6 +1120,14 @@ about it, don't just pick one.
 
 ## Known open items
 
+- **2026-11-12 (later) — "How we fit in" round 3, Andrew's notes.** Logo circle doubled (296px at 1400px+, 240px at 1280-1399, 200px below). Each
+  side now has TWO rows of chevrons: a 6s "conversation" (0s team to Vandalist, 1.5s Vandalist back to the team, 3s suppliers to Vandalist, 4.5s Vandalist
+  back to the suppliers; verified by seeking the animations). Pink box behind the bottom message removed; tick is now green (--color-good) and the line
+  is centred. Copy: team's last point "Has complete access to our team whenever they need it"; suppliers' last point "We can work directly with your
+  existing suppliers to simplify your life" (his wording verbatim, first person unlike the other items). Headings unchanged (read his "Your team..." as
+  "keep the heading"). Side-by-side layout is now xl (1280+) only; from md to 1279px the logo circle sits centred above two cards, below md everything
+  stacks, and the flows are hidden below xl. OPEN: Andrew is sourcing new icons for the Your team and Your other suppliers panels (current ones are my
+  placeholders: people group and puzzle piece). When they arrive: strip any spark marks, wire in like the other panel/IconChip icons.
 - **2026-11-12 — MARKETING SUPPORT "How we fit in" REWORKED on Andrew's notes (supersedes the Row 5 description in the entry below).**
   Type is now ONLY the three styles the original How We Work "How we fit in" uses (t-subheading panel titles, t-small items, t-small-strong for the one
   bold line); my first build had added a t-title note, a t-subheading "Vandalist" and a t-small pill, which Andrew spotted as extra sizes/weights.

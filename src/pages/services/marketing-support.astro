@@ -210,6 +210,20 @@ const audiences = [
 // holding the real square logo, with the exchange of information shown as chevrons that
 // flow in from the left, then in from the right, every few seconds (CSS only; static when
 // the visitor prefers reduced motion). Icons are original inline paths on the 24-box.
+// Flows (2026-11-12): two rows of chevrons each side, a 6s "conversation" (delays in
+// seconds, listed left to right so the sweep starts at the right chevron): 0s team to
+// Vandalist, 1.5s Vandalist back to the team, 3s suppliers to Vandalist, 4.5s Vandalist
+// back to the suppliers.
+const fitFlows = {
+  left: [
+    { dir: "right", delays: [0, 0.25, 0.5] },
+    { dir: "left", delays: [2, 1.75, 1.5] },
+  ],
+  right: [
+    { dir: "left", delays: [3.5, 3.25, 3] },
+    { dir: "right", delays: [4.5, 4.75, 5] },
+  ],
+};
 const fitTeam = {
   title: "Your team",
   icon: '<circle cx="12" cy="6.5" r="2.6"/><circle cx="5" cy="9.5" r="2.1"/><circle cx="19" cy="9.5" r="2.1"/><path d="M7.6 19.5v-1.4a4.4 4.4 0 0 1 8.8 0v1.4z"/><path d="M1.6 18v-1a3.5 3.5 0 0 1 5-3.2"/><path d="M22.4 18v-1a3.5 3.5 0 0 0-5-3.2"/>',
@@ -217,7 +231,7 @@ const fitTeam = {
     "Knows your business and customers",
     "Sets goals and direction",
     "Owns key relationships",
-    "Has full access to our team whenever they need it",
+    "Has complete access to our team whenever they need it",
   ],
 };
 const fitSuppliers = {
@@ -227,7 +241,7 @@ const fitSuppliers = {
     "Specialist delivery",
     "Technical expertise",
     "Platform or channel management",
-    "Can work directly with us to simplify your role",
+    "We can work directly with your existing suppliers to simplify your life",
   ],
 };
 
@@ -400,7 +414,7 @@ const fitSuppliers = {
         />
 
         <div>
-          <div class="grid lg:grid-cols-[minmax(0,1.1fr)_minmax(64px,0.5fr)_auto_minmax(64px,0.5fr)_minmax(0,1.1fr)] gap-6 lg:gap-0 items-center">
+          <div class="grid md:grid-cols-2 xl:grid-cols-[minmax(0,1.2fr)_minmax(64px,0.3fr)_auto_minmax(64px,0.3fr)_minmax(0,1.2fr)] min-[1400px]:grid-cols-[minmax(0,1.2fr)_minmax(64px,0.4fr)_auto_minmax(64px,0.4fr)_minmax(0,1.2fr)] gap-6 xl:gap-0 xl:items-center">
             <!-- Your team -->
             <div class="rounded-[var(--radius-card)] bg-[var(--color-accent-soft)] border border-[rgba(255,61,107,0.15)] p-6 [box-shadow:var(--shadow-card)]">
               <div class="flex items-center gap-3 mb-4">
@@ -420,31 +434,39 @@ const fitSuppliers = {
             </div>
 
             <!-- flows in from the left (lg+) -->
-            <div class="hidden lg:flex relative items-center justify-center text-[var(--color-accent)]" aria-hidden="true">
-              <span class="absolute inset-x-0 top-1/2 border-t-2 border-dotted border-[rgba(255,61,107,0.3)]"></span>
-              <span class="relative flex items-center gap-1.5 bg-[var(--color-paper-dim)] px-2">
-                {[0, 0.25, 0.5].map((d) => (
-                  <svg class="fit-chev" style={`--d:${d}s`} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
-                ))}
-              </span>
+            <div class="hidden xl:flex flex-col justify-center gap-3 text-[var(--color-accent)]" aria-hidden="true">
+              {fitFlows.left.map((row) => (
+                <div class="relative flex items-center justify-center">
+                  <span class="absolute inset-x-0 top-1/2 border-t-2 border-dotted border-[rgba(255,61,107,0.3)]"></span>
+                  <span class="relative flex items-center gap-1.5 bg-[var(--color-paper-dim)] px-2">
+                    {row.delays.map((d) => (
+                      <svg class="fit-chev" style={`--d:${d}s`} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d={row.dir === "right" ? "M9 5l7 7-7 7" : "M15 5l-7 7 7 7"}/></svg>
+                    ))}
+                  </span>
+                </div>
+              ))}
             </div>
 
             <!-- Vandalist: the square logo in a small circle that "receives" each flow -->
-            <div class="relative mx-auto w-[148px] h-[148px]">
+            <div class="relative mx-auto w-[200px] h-[200px] md:col-span-2 md:order-first xl:col-span-1 xl:order-none xl:w-[240px] xl:h-[240px] min-[1400px]:w-[296px] min-[1400px]:h-[296px]">
               <span class="fit-ripple absolute inset-0 rounded-full pointer-events-none" aria-hidden="true"></span>
               <div class="w-full h-full rounded-full bg-white border-8 border-[var(--color-accent-soft)] flex items-center justify-center [box-shadow:var(--shadow-card)]">
-                <img src={`${base}/vandalist-square-logo-grey-pink.webp`} alt="Vandalist" width="360" height="360" class="w-[88px] h-auto" />
+                <img src={`${base}/vandalist-square-logo-grey-pink.webp`} alt="Vandalist" width="360" height="360" class="w-[60%] h-auto" />
               </div>
             </div>
 
             <!-- flows in from the right (lg+) -->
-            <div class="hidden lg:flex relative items-center justify-center text-[var(--color-accent)]" aria-hidden="true">
-              <span class="absolute inset-x-0 top-1/2 border-t-2 border-dotted border-[rgba(255,61,107,0.3)]"></span>
-              <span class="relative flex items-center gap-1.5 bg-[var(--color-paper-dim)] px-2">
-                {[3.5, 3.25, 3].map((d) => (
-                  <svg class="fit-chev" style={`--d:${d}s`} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
-                ))}
-              </span>
+            <div class="hidden xl:flex flex-col justify-center gap-3 text-[var(--color-accent)]" aria-hidden="true">
+              {fitFlows.right.map((row) => (
+                <div class="relative flex items-center justify-center">
+                  <span class="absolute inset-x-0 top-1/2 border-t-2 border-dotted border-[rgba(255,61,107,0.3)]"></span>
+                  <span class="relative flex items-center gap-1.5 bg-[var(--color-paper-dim)] px-2">
+                    {row.delays.map((d) => (
+                      <svg class="fit-chev" style={`--d:${d}s`} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d={row.dir === "right" ? "M9 5l7 7-7 7" : "M15 5l-7 7 7 7"}/></svg>
+                    ))}
+                  </span>
+                </div>
+              ))}
             </div>
 
             <!-- Your other suppliers -->
@@ -466,8 +488,8 @@ const fitSuppliers = {
             </div>
           </div>
 
-          <div class="mt-8 rounded-xl bg-[var(--color-accent-soft)] px-5 py-4 flex items-center gap-3">
-            <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[var(--color-accent)] text-white shrink-0">
+          <div class="mt-10 flex items-center justify-center gap-3">
+            <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[var(--color-good)] text-white shrink-0">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M5 13l4 4L19 7" />
               </svg>
@@ -503,10 +525,10 @@ const fitSuppliers = {
   @keyframes fit-ripple {
     0%, 12% { box-shadow: 0 0 0 0 rgba(255, 61, 107, 0); }
     13% { box-shadow: 0 0 0 0 rgba(255, 61, 107, 0.35); }
-    27% { box-shadow: 0 0 0 16px rgba(255, 61, 107, 0); }
+    27% { box-shadow: 0 0 0 22px rgba(255, 61, 107, 0); }
     62% { box-shadow: 0 0 0 0 rgba(255, 61, 107, 0); }
     63% { box-shadow: 0 0 0 0 rgba(255, 61, 107, 0.35); }
-    77% { box-shadow: 0 0 0 16px rgba(255, 61, 107, 0); }
+    77% { box-shadow: 0 0 0 22px rgba(255, 61, 107, 0); }
     100% { box-shadow: 0 0 0 0 rgba(255, 61, 107, 0); }
   }
 </style>

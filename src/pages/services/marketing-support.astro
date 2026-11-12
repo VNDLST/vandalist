@@ -173,6 +173,8 @@ const connectors = {
 };
 
 // --- Section 3: Our engagement rhythm ---
+// Icons: Lucide (ISC licence), Andrew's picks 2026-11-12: arrow-up-wide-narrow, pencil-sparkles,
+// text-search, sliders-horizontal; files in public/marketing-support-rhythm-icons/.
 const rhythmSteps = [
   { num: "01", title: "Prioritise", text: "We align on goals, focus areas, and the next most valuable things to tackle.", icon: "prioritise" },
   { num: "02", title: "Produce", text: "We get to work—creating, writing, running campaigns, or solving what's on the list.", icon: "produce" },
@@ -415,11 +417,11 @@ const fitSuppliers = {
         />
 
         <div>
-          <div class="grid md:grid-cols-2 xl:grid-cols-[minmax(0,1.2fr)_minmax(64px,0.3fr)_auto_minmax(64px,0.3fr)_minmax(0,1.2fr)] min-[1400px]:grid-cols-[minmax(0,1.2fr)_minmax(64px,0.4fr)_auto_minmax(64px,0.4fr)_minmax(0,1.2fr)] gap-6 xl:gap-0 xl:items-center">
+          <div class="grid md:grid-cols-2 xl:grid-cols-[minmax(0,1fr)_72px_auto_72px_minmax(0,1fr)] min-[1400px]:grid-cols-[minmax(0,1fr)_84px_auto_84px_minmax(0,1fr)] gap-6 xl:gap-0 xl:items-center">
             <!-- Your team -->
             <div class="rounded-[var(--radius-card)] bg-[var(--color-accent-soft)] border border-[rgba(255,61,107,0.15)] p-6 [box-shadow:var(--shadow-card)]">
               <div class="flex items-center gap-3 mb-4">
-                <IconChip icon={fitTeam.icon} size="md" shape="lg" tone="white" class="shrink-0" />
+                <svg class="w-11 h-11 shrink-0 text-[var(--color-accent)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={fitTeam.icon} />
                 <p class="t-subheading">{fitTeam.title}</p>
               </div>
               <ul class="space-y-3">
@@ -439,7 +441,7 @@ const fitSuppliers = {
               {fitFlows.left.map((row) => (
                 <div class="relative flex items-center justify-center">
                   <span class="absolute inset-x-0 top-1/2 border-t-2 border-dotted border-[rgba(255,61,107,0.3)]"></span>
-                  <span class="relative flex items-center gap-1.5 bg-[var(--color-paper-dim)] px-2">
+                  <span class="relative flex items-center gap-1 bg-[var(--color-paper-dim)] px-1">
                     {row.delays.map((d) => (
                       <svg class="fit-chev" style={`--d:${d}s`} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d={row.dir === "right" ? "M9 5l7 7-7 7" : "M15 5l-7 7 7 7"}/></svg>
                     ))}
@@ -449,7 +451,7 @@ const fitSuppliers = {
             </div>
 
             <!-- Vandalist: the square logo in a small circle that "receives" each flow -->
-            <div class="relative mx-auto w-[200px] h-[200px] md:col-span-2 md:order-first xl:col-span-1 xl:order-none xl:w-[240px] xl:h-[240px] min-[1400px]:w-[296px] min-[1400px]:h-[296px]">
+            <div class="relative mx-auto w-[200px] h-[200px] md:col-span-2 md:order-first xl:col-span-1 xl:order-none xl:w-[240px] xl:h-[240px] min-[1400px]:w-[330px] min-[1400px]:h-[330px] min-[1400px]:-my-[17px]">
               <span class="fit-ripple absolute inset-0 rounded-full pointer-events-none" aria-hidden="true"></span>
               <div class="w-full h-full rounded-full bg-white border-8 border-[var(--color-accent-soft)] flex items-center justify-center [box-shadow:var(--shadow-card)]">
                 <!-- TRIAL (2026-11-12): the homepage TeamScene instead of the square logo (public/vandalist-square-logo-grey-pink.webp, kept for reverting).
@@ -467,7 +469,7 @@ const fitSuppliers = {
               {fitFlows.right.map((row) => (
                 <div class="relative flex items-center justify-center">
                   <span class="absolute inset-x-0 top-1/2 border-t-2 border-dotted border-[rgba(255,61,107,0.3)]"></span>
-                  <span class="relative flex items-center gap-1.5 bg-[var(--color-paper-dim)] px-2">
+                  <span class="relative flex items-center gap-1 bg-[var(--color-paper-dim)] px-1">
                     {row.delays.map((d) => (
                       <svg class="fit-chev" style={`--d:${d}s`} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d={row.dir === "right" ? "M9 5l7 7-7 7" : "M15 5l-7 7 7 7"}/></svg>
                     ))}
@@ -479,7 +481,7 @@ const fitSuppliers = {
             <!-- Your other suppliers -->
             <div class="rounded-[var(--radius-card)] bg-white border border-[var(--color-line)] p-6 [box-shadow:var(--shadow-card)]">
               <div class="flex items-center gap-3 mb-4">
-                <IconChip icon={fitSuppliers.icon} size="md" shape="lg" class="shrink-0" />
+                <svg class="w-11 h-11 shrink-0 text-[var(--color-accent)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={fitSuppliers.icon} />
                 <p class="t-subheading">{fitSuppliers.title}</p>
               </div>
               <ul class="space-y-3">

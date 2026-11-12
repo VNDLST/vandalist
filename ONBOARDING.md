@@ -1120,6 +1120,13 @@ about it, don't just pick one.
 
 ## Known open items
 
+- **2026-11-12 (evening) — Rhythm icons swapped; "How we fit in" fine-tuning.** Engagement rhythm icons are now Andrew's Lucide picks (arrow-up-wide-narrow,
+  pencil-sparkles, text-search, sliders-horizontal; ISC licence, noted in a code comment), saved over the same four file names in
+  public/marketing-support-rhythm-icons/ with an explicit black stroke (they're CSS masks), so my hand-drawn ones are gone. "How we fit in": Andrew said the
+  trial is "pretty good". Circle is bigger at 1400px+ (330px) but grows up AND down by 17px using negative margins so the grid row stays 296px tall and the
+  cards do not move; flow tracks are now fixed width (84px at 1400+, 72px at 1280-1399) so the cards are wider (347px at 1440); at 1280-1399 the circle stays 240px
+  because the "Your other suppliers…" title wraps if the cards get narrower. Panel icons lost their chip background and are 44px, pink, stroke 1.75.
+  The TeamScene-in-circle trial stays (no verdict on logo vs team beyond "pretty good").
 - **2026-11-12 (latest) — "How we fit in" small follow-ups.** Headings are "Your team…" and "Your other suppliers…" (Andrew intended the ellipsis so the
   points finish the sentence; single "…" character because check:type rejects headings ending in a full stop). Bottom tick is now the SOFT green
   (--color-good-soft circle, --color-good tick) like the pink ticks. Suppliers' last point is now "Can work directly with us to simplify your life" (the

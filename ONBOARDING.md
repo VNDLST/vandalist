@@ -1120,6 +1120,17 @@ about it, don't just pick one.
 
 ## Known open items
 
+- **2026-11-12 — MARKETING SUPPORT "How we fit in" REWORKED on Andrew's notes (supersedes the Row 5 description in the entry below).**
+  Type is now ONLY the three styles the original How We Work "How we fit in" uses (t-subheading panel titles, t-small items, t-small-strong for the one
+  bold line); my first build had added a t-title note, a t-subheading "Vandalist" and a t-small pill, which Andrew spotted as extra sizes/weights.
+  Middle is now just a small (148px) white circle holding the real SQUARE logo (public/vandalist-square-logo-grey-pink.webp, trimmed from
+  Logo/PNG/Square/1000 vandalist-square-logo-gray-pink.png); the word "Vandalist", the pill, the dashed ring and the extracted V-mark are gone (the
+  mark SVG was deleted). Exchange flows: three chevrons on a dotted line each side; left group lights in turn flowing toward the logo, then the right
+  group flows in from the right, a 6s loop, with a soft ripple on the circle as each arrives (CSS only in a page <style>, static under reduced motion).
+  Cards are compact (icon beside title, chip from IconChip), diagram aligned to the heading's left edge. Copy changes: "Other suppliers" is now "Your
+  other suppliers", with new items "Can work directly with us to simplify your role" (suppliers) and "Has full access to our team whenever they need
+  it" (team). Below lg the three pieces stack and the flows are hidden. OPEN: at 1024-1279px the cards are narrow; Andrew's "be more creative with the
+  layout" was met with the compact hub-and-flows treatment, he may want a bolder rethink.
 - **2026-11-11 — MARKETING SUPPORT PAGE: ALL FIVE ROWS NOW BUILT AND LIVE (next page to review: Consulting & Mentoring).**
   Rows 1-2 are noted below. Row 3 (engagement rhythm): the pulse was already universal via CadenceSteps; what changed is the icons, now four ORIGINAL chunky
   single-colour glyphs drawn by Claude (target+arrow, gear, magnifier-over-bars, three sliders) in public/marketing-support-rhythm-icons/, wired with

@@ -1120,6 +1120,16 @@ about it, don't just pick one.
 
 ## Known open items
 
+- **2026-11-12 (after wrap-up) — CONSISTENCY PASS on the four remaining service pages, done while Andrew was away (he invited it; none of these pages has had its
+  own review yet).** (1) Card shadow: the seven plain title-and-text cards (Consulting x3, Google Ads x2, Websites x1, AI Enablement x1) got the same
+  `[box-shadow:var(--shadow-card)]` recipe as the SEO and Marketing Support cards (they had none). (2) Flow icons: Consulting & Mentoring, Websites &
+  Optimisation and AI Enablement flows now use CadenceSteps iconMode="image" with Lucide icons (ISC licence) that I CHOSE (Andrew can veto any): Consulting:
+  message-circle-question, signpost, handshake, trending-up (public/consulting-process-icons/); Websites: search, list-checks, wand-sparkles, flask-conical,
+  refresh-cw (public/websites-process-icons/); AI Enablement: gauge, arrow-up-wide-narrow, rocket, graduation-cap, puzzle, chart-column-increasing
+  (public/ai-enablement-process-icons/). Swap by replacing the single SVG in that folder (explicit black stroke, used as a CSS mask). Google Ads already used its own
+  artwork. NOT CHANGED, flagged for Andrew: Consulting/Websites/AI card icons are still small IconChips (Marketing Support, SEO and Ads use illustrations, he would
+  need to supply them); Consulting's "Situations" bordered grid; the AI before/after tinted panels have no shadow (his call); the audience cards elsewhere.
+  Lucide was pulled with `npm pack lucide-static` into a scratch folder (not a project dependency).
 - **2026-11-12 — END OF SESSION STATE (read this first).** MARKETING SUPPORT IS SIGNED OFF by Andrew ("this page is now done", "looks really good"): all five rows
   plus the rhythm icons, the "How we fit in" diagram and the "How we work" circle are live. He stopped for the day (no energy for another page). NEXT PAGES, in
   order, each from his mock-ups row by row: Consulting & Mentoring, Google & Social Ads, Websites & Optimisation, AI Enablement; then Resources and the six

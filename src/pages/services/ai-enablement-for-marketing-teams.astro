@@ -109,13 +109,14 @@ const systemItems = [
 ];
 
 // --- Section 3: How enablement typically works ---
+// Flow icons: Lucide (ISC licence), chosen 2026-11-12 while Andrew was away (swap any file in public/ai-enablement-process-icons/).
 const processSteps = [
-  { num: "01", title: "Assess", text: "Understand your current state, goals, tools, and team readiness.", icon: '<circle cx="12" cy="12" r="9"/><path d="M12 3a6 6 0 0 0 0 18c1.4 0 2-.8 2-1.8 0-.5-.2-.9-.5-1.2-.3-.3-.5-.7-.5-1.2 0-1 .8-1.8 1.8-1.8H16a5 5 0 0 0 5-5 8 8 0 0 0-9-7z"/>' },
-  { num: "02", title: "Prioritise", text: "Identify the best use cases and quick wins to start with confidence.", icon: '<path d="M4 7h16M4 12h10M4 17h6" stroke-linecap="round"/>' },
-  { num: "03", title: "Pilot", text: "Build and test real workflows with your team in short cycles.", icon: '<path d="M3 11l17-7-6 17-3-7-8-3z" stroke-linejoin="round"/>' },
-  { num: "04", title: "Train", text: "Equip your team with practical skills, resources, and playbooks.", icon: '<circle cx="9" cy="8" r="3"/><path d="M2.5 19c0-3 2.9-5.3 6.5-5.3s6.5 2.3 6.5 5.3"/><path d="M16 8.3a2.6 2.6 0 1 1 0-5.1"/><path d="M15 13.8c2.9.5 5 2.5 5 5.2"/>' },
-  { num: "05", title: "Embed", text: "Roll out across the team with support, feedback loops, and champions.", icon: '<circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9" stroke-linecap="round" stroke-linejoin="round"/>' },
-  { num: "06", title: "Review", text: "Track impact, refine processes, and scale what works.", icon: '<path d="M4 19h16" stroke-linecap="round"/><path d="M7 19v-6M12 19V8M17 19v-9" stroke-linecap="round"/>' },
+  { num: "01", title: "Assess", text: "Understand your current state, goals, tools, and team readiness.", icon: "assess" },
+  { num: "02", title: "Prioritise", text: "Identify the best use cases and quick wins to start with confidence.", icon: "prioritise" },
+  { num: "03", title: "Pilot", text: "Build and test real workflows with your team in short cycles.", icon: "pilot" },
+  { num: "04", title: "Train", text: "Equip your team with practical skills, resources, and playbooks.", icon: "train" },
+  { num: "05", title: "Embed", text: "Roll out across the team with support, feedback loops, and champions.", icon: "embed" },
+  { num: "06", title: "Review", text: "Track impact, refine processes, and scale what works.", icon: "review" },
 ];
 
 // --- Section 4: From manual and messy to clear and assisted ---
@@ -226,6 +227,8 @@ const audiences = [
       />
       <CadenceSteps
         steps={processSteps}
+      iconMode="image"
+      iconBase={`${base}/ai-enablement-process-icons`}
         gridClass="sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6"
         connectorBreakpoint="xl"
       />
@@ -351,7 +354,7 @@ const audiences = [
       />
       <div class="grid sm:grid-cols-3 gap-5">
         {audiences.map((item) => (
-          <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6">
+          <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6 [box-shadow:var(--shadow-card)]">
             <IconChip icon={item.icon} size="lg" class="mb-4" />
             <p class="t-title mb-1.5">{item.title}</p>
             <p class="t-small">{item.text}</p>

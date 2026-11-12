@@ -113,12 +113,13 @@ const helpItems = [
 ];
 
 // --- Section 3: How we work ---
+// Flow icons: Lucide (ISC licence), chosen 2026-11-12 while Andrew was away (swap any file in public/websites-process-icons/).
 const processSteps = [
-  { num: "01", title: "Discover", text: "We audit your site, user journey, analytics and feedback to find what's holding it back.", icon: '<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.5-4.5" stroke-linecap="round"/>' },
-  { num: "02", title: "Plan", text: "We define priorities, structure, messaging and conversion goals that matter.", icon: '<path d="M4 7h16M4 12h10M4 17h6" stroke-linecap="round"/>' },
-  { num: "03", title: "Improve", text: "We design and build improvements with focus on clarity, speed and usability.", icon: '<path d="M17 3.5a2.1 2.1 0 0 1 3 3L8.5 18 4 19l1-4.5L17 3.5z" stroke-linejoin="round"/>' },
-  { num: "04", title: "Test", text: "We test with data and real users to validate what works and what needs adjusting.", icon: '<path d="M4 19h16" stroke-linecap="round"/><path d="M7 19v-6M12 19V8M17 19v-9" stroke-linecap="round"/>' },
-  { num: "05", title: "Refine", text: "We iterate and optimise continuously to keep performance improving over time.", icon: '<path d="M3 12a9 9 0 1 1 3 6.7"/><path d="M3 17v-4.5H7.5"/>' },
+  { num: "01", title: "Discover", text: "We audit your site, user journey, analytics and feedback to find what's holding it back.", icon: "discover" },
+  { num: "02", title: "Plan", text: "We define priorities, structure, messaging and conversion goals that matter.", icon: "plan" },
+  { num: "03", title: "Improve", text: "We design and build improvements with focus on clarity, speed and usability.", icon: "improve" },
+  { num: "04", title: "Test", text: "We test with data and real users to validate what works and what needs adjusting.", icon: "test" },
+  { num: "05", title: "Refine", text: "We iterate and optimise continuously to keep performance improving over time.", icon: "refine" },
 ];
 
 // --- Section 4: Better structure. Clearer message. Stronger results. ---
@@ -238,6 +239,8 @@ const audiences = [
       />
       <CadenceSteps
         steps={processSteps}
+      iconMode="image"
+      iconBase={`${base}/websites-process-icons`}
         gridClass="sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5"
         connectorBreakpoint="xl"
       />
@@ -290,7 +293,7 @@ const audiences = [
       />
       <div class="grid sm:grid-cols-3 gap-5">
         {audiences.map((item) => (
-          <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6">
+          <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6 [box-shadow:var(--shadow-card)]">
             <IconChip icon={item.icon} size="lg" class="mb-4" />
             <p class="t-title mb-1.5">{item.title}</p>
             <p class="t-small">{item.text}</p>

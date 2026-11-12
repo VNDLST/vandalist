@@ -102,7 +102,7 @@ const services = [
 
 // --- Section 2: "How we work" (rebuilt 2026-11-11 from Andrew's mock-up) ---
 // Left: eyebrow, heading, paragraph, three ticks. Right: four white cards (Plan / Make
-// / Improve / Support) in a 2x2 around a circle, "Built around your priorities", that
+// / Improve / Support) in a 2x2 around a circle, "Priorities" (with an icon), that
 // overlaps their inner corners. Copy is Andrew's mock-up copy (new paragraph, three
 // ticks instead of four, "Design assets", "Reporting insights"). The items are plain
 // grey rows with no icons (his mock-up; he said it makes them look less like a slide).
@@ -113,10 +113,10 @@ const services = [
 // overlap is always about the same slice of each card's inner corner, which is kept
 // free of text (top cards get extra bottom padding, bottom cards a taller header zone).
 // Breakpoints: below lg the cards go 2-up/1-up and the circle becomes a normal badge
-// above them; lg+ the circle overlaps; xl+ (1280) adds the thin pink connector lines,
-// drawn as an SVG in the grid's own percentage space (so they follow the grid) with
-// their dots as HTML so they stay round. The lines run behind the cards and circle and
-// end INSIDE the circle, so a few px of circle-size drift never leaves a gap.
+// above them; lg+ the circle overlaps; xl+ (1280) adds the thin pink connector lines
+// (see the connectorXs comment below), plain positioned elements with HTML dots so they
+// stay round. The lines run behind the cards and circle and end INSIDE the circle, so a
+// few px of circle-size drift never leaves a gap.
 const workPoints = [
   "Flexible, goal-led support that fits your business and priorities.",
   "A mix of planning, making, improving and day-to-day support.",
@@ -128,7 +128,7 @@ const workGroups = [
     label: "Plan",
     icon: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/>',
     cardClass: "lg:pb-9",
-    items: ["Strategy input", "Planning & roadmaps", "Campaign guidance"],
+    items: ["Strategy input", "Planning & roadmaps", "Campaign guidance", "Audience & channel planning"],
   },
   {
     label: "Make",
@@ -140,7 +140,7 @@ const workGroups = [
     label: "Improve",
     icon: '<path d="M4 19h16" stroke-linecap="round"/><path d="M7 19v-6M12 19V8M17 19v-9" stroke-linecap="round"/>',
     cardClass: "lg:pt-9",
-    items: ["Reporting insights", "Optimisation", "Performance reviews"],
+    items: ["Reporting insights", "Optimisation", "Performance reviews", "Testing & experiments"],
   },
   {
     label: "Support",
@@ -150,27 +150,19 @@ const workGroups = [
   },
 ];
 
-// xl connector lines + dots, in % of the 2x2 grid (x across, y down). Card edges sit at
-// x 41.3 / 58.7 and y 44.1 / 55.9 (17% column gap; 80px row gap on ~676px of height, measured at 1440).
-// Every line ends well inside the circle (centre 50,50), which hides the join.
-const connectors = {
-  paths: [
-    "M41.3 22 C46 22 46.5 24 46.5 30 L46.5 44", // Plan -> circle top
-    "M58.7 22 C54 22 53.5 24 53.5 30 L53.5 44", // Make -> circle top
-    "M21 55.9 V53 C21 50.5 22.5 50 25 50 H44", // Improve (top edge) -> circle left
-    "M74.5 55.9 V53 C74.5 50.5 73 50 70.5 50 H56", // Support (top edge) -> circle right
-    "M41.3 78 C46 78 46.5 76 46.5 70 L46.5 56", // Improve (right edge) -> circle bottom
-    "M58.7 78 C54 78 53.5 76 53.5 70 L53.5 56", // Support (left edge) -> circle bottom
-  ],
-  dots: [
-    [41.3, 22],
-    [58.7, 22],
-    [21, 55.9],
-    [74.5, 55.9],
-    [41.3, 78],
-    [58.7, 78],
-  ],
-};
+// xl connectors (reworked 2026-11-12, Andrew: every card should be touched the same number of
+// times and both sides the same length). ONE touch per card: on each side a horizontal line runs
+// from the circle to the middle of the two cards (x = a card's horizontal centre, so the sides are
+// exact mirror images: columns are (100% - 17% gap) / 2 = 41.5% wide, centres at 20.75% / 79.25%),
+// then a vertical line crosses the 80px row gap (lg:gap-y-20) joining the card above to the card
+// below, with a dot where it meets each card's edge. Rows are forced equal (lg:grid-rows-2) so the
+// gap is always centred on the grid, and the vertical runs are in px (the gap) not %, so nothing
+// depends on how tall the cards happen to be.
+const connectorXs = [20.75, 79.25];
+const rowGapHalf = 40; // px: half of lg:gap-y-20
+
+// Lucide "list-ordered" (ISC licence), Andrew's pick for the circle's "Priorities".
+const priorityIcon = '<path d="M11 5h10"/><path d="M11 12h10"/><path d="M11 19h10"/><path d="M4 4h1v5"/><path d="M4 9h2"/><path d="M6.5 20H3.4c0-1 2.6-1.925 2.6-3.5a1.5 1.5 0 0 0-2.6-1.02"/>';
 
 // --- Section 3: Our engagement rhythm ---
 // Icons: Lucide (ISC licence), Andrew's picks 2026-11-12: arrow-up-wide-narrow, pencil-sparkles,
@@ -324,19 +316,26 @@ const fitSuppliers = {
         </div>
 
         <div class="relative">
-          <!-- xl: connector lines, behind everything (below the cards) -->
-          <svg class="hidden xl:block absolute inset-0 w-full h-full z-0 pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none" fill="none" aria-hidden="true">
-            {connectors.paths.map((d) => (
-              <path d={d} stroke="var(--color-accent-line-soft)" stroke-width="1.5" vector-effect="non-scaling-stroke" stroke-linecap="round" />
+          <!-- xl: connector lines, behind everything (below the cards): one horizontal run from the
+               circle to the middle of each side's two cards, then one vertical run across the row gap -->
+          <div class="hidden xl:block absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
+            {connectorXs.map((x) => (
+              <Fragment>
+                <span class="absolute h-[1.5px] -translate-y-1/2 bg-[var(--color-accent-line-soft)]" style={`top:50%;left:${Math.min(x, 50)}%;width:${Math.abs(50 - x)}%`}></span>
+                <span class="absolute w-[1.5px] -translate-x-1/2 bg-[var(--color-accent-line-soft)]" style={`left:${x}%;top:calc(50% - ${rowGapHalf}px);height:${rowGapHalf * 2}px`}></span>
+              </Fragment>
             ))}
-          </svg>
+          </div>
 
           <!-- below lg: the circle becomes a plain badge above the cards -->
           <div class="lg:hidden flex justify-center mb-6">
-            <span class="t-title rounded-full bg-white border-4 border-[var(--color-accent-soft)] [box-shadow:var(--shadow-card)] px-6 py-3 text-center">Built around your priorities</span>
+            <span class="inline-flex items-center gap-2.5 rounded-full bg-white border-4 border-[var(--color-accent-soft)] [box-shadow:var(--shadow-card)] px-6 py-3">
+              <svg class="w-6 h-6 text-[var(--color-accent)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={priorityIcon} />
+              <span class="t-title">Priorities</span>
+            </span>
           </div>
 
-          <div class="relative z-10 grid sm:grid-cols-2 gap-5 lg:gap-x-[17%] lg:gap-y-20">
+          <div class="relative z-10 grid sm:grid-cols-2 gap-5 lg:grid-rows-2 lg:gap-x-[17%] lg:gap-y-20">
             {workGroups.map((group) => (
               <div class:list={["rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-5 [box-shadow:var(--shadow-card)]", group.cardClass]}>
                 <div class="flex items-center gap-3 mb-4">
@@ -354,14 +353,17 @@ const fitSuppliers = {
 
           <!-- lg+: the circle, centred on the grid, over the cards' inner corners -->
           <div class="hidden lg:flex absolute z-20 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[26%] aspect-square items-center justify-center rounded-full bg-white border-8 border-[var(--color-accent-soft)] [box-shadow:var(--shadow-card)] p-3 pointer-events-none">
-            <p class="t-subheading text-center text-balance">Built around your priorities</p>
+            <div class="flex flex-col items-center gap-2 text-center">
+              <svg class="w-11 h-11 text-[var(--color-accent)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={priorityIcon} />
+              <p class="t-subheading">Priorities</p>
+            </div>
           </div>
 
-          <!-- xl: the dots where each line meets a card edge (HTML so they stay round) -->
+          <!-- xl: one dot where each line meets a card edge (HTML so they stay round): 4 in all, one per card -->
           <div class="hidden xl:block absolute inset-0 z-20 pointer-events-none" aria-hidden="true">
-            {connectors.dots.map(([x, y]) => (
-              <span class="absolute block w-2 h-2 rounded-full bg-[var(--color-accent)] -translate-x-1/2 -translate-y-1/2" style={`left:${x}%;top:${y}%`}></span>
-            ))}
+            {connectorXs.flatMap((x) => [-rowGapHalf, rowGapHalf].map((dy) => (
+              <span class="absolute block w-2 h-2 rounded-full bg-[var(--color-accent)] -translate-x-1/2 -translate-y-1/2" style={`left:${x}%;top:calc(50% + ${dy}px)`}></span>
+            )))}
           </div>
         </div>
       </div>

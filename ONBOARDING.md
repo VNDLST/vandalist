@@ -1120,6 +1120,13 @@ about it, don't just pick one.
 
 ## Known open items
 
+- **2026-11-12 (night) — Marketing Support Row 2 ("How we work") connectors fixed; "How we fit in" last points shortened.** Andrew spotted that the lines from the
+  circle touched the bottom two cards twice but the top two once, and the left and right runs differed in length. Now ONE touch per card, sides are exact
+  mirrors: a horizontal line from the circle to each side's card-centre x (20.75% / 79.25%), then a vertical run across the 80px row gap (px, not %) with a
+  dot where it meets each card, so nothing depends on card height; rows are forced equal (lg:grid-rows-2). The old SVG percentage paths are gone. Plan now has
+  "Audience & channel planning" and Improve "Testing & experiments" (four items each). Circle text is just "Priorities" with Lucide "list-ordered" (Andrew's
+  pick, ISC) above it; below lg the badge reads the same. How we fit in: last point of each card shortened to one line ("Has complete access to our team",
+  "Can work with us to simplify your life"); cards are now 242px tall, so their top edges sit ~10px lower than before (centres unchanged).
 - **2026-11-12 (evening) — Rhythm icons swapped; "How we fit in" fine-tuning.** Engagement rhythm icons are now Andrew's Lucide picks (arrow-up-wide-narrow,
   pencil-sparkles, text-search, sliders-horizontal; ISC licence, noted in a code comment), saved over the same four file names in
   public/marketing-support-rhythm-icons/ with an explicit black stroke (they're CSS masks), so my hand-drawn ones are gone. "How we fit in": Andrew said the

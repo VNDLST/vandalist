@@ -1120,6 +1120,11 @@ about it, don't just pick one.
 
 ## Known open items
 
+- **2026-11-12 (later still) — Circle ring now six words.** Andrew said the three words only filled about half the circle (his browser evidently ignores SVG
+  textLength, which stretched them in Chrome). Now "Priorities • Goals • Objectives • Tasks • Projects • Roadmaps •" at the path's NATURAL length (ring radius
+  68 in the 176 viewBox; natural text length measured at ~424, circumference 427), textLength is only a 0.1% nudge so it fills the ring in any browser. The sixth
+  word is MY GUESS: Andrew dictated "random" (almost certainly a mis-hearing); asked him to confirm. Icon in the middle is bigger (64px). If words change, the
+  natural length changes: re-measure (getComputedTextLength on the textPath without textLength) and re-fit the radius/rotation (rotate on the <text>).
 - **2026-11-12 (late night) — Row 2 connectors redone AGAIN as a "clockwise fan"; circle text now runs round the circle.** Andrew didn't like the shared
   bracket lines (previous entry, now superseded). New: exactly one touch per card, going clockwise: top-left card's BOTTOM edge -> circle left; top-right's
   SIDE -> circle top; bottom-right's TOP edge -> circle right; bottom-left's SIDE -> circle bottom. Each is an L with a rounded corner (two borders + a radius

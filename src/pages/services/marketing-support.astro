@@ -369,13 +369,13 @@ const fitSuppliers = {
           <div class="hidden lg:flex absolute z-20 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[26%] aspect-square items-center justify-center rounded-full bg-white border-8 border-[var(--color-accent-soft)] [box-shadow:var(--shadow-card)] p-3 pointer-events-none">
             <!-- the words run round the inside of the circle (text on a path, in the shared t-small-strong
                  style; it scales with the circle like a logo ring would), the list icon sits in the middle -->
-            <svg class="absolute inset-0 w-full h-full" viewBox="0 0 176 176" role="img" aria-label="Priorities, goals, objectives">
-              <defs><path id="fit-priorities-ring" d="M88 88 m-64 0 a64 64 0 1 1 128 0 a64 64 0 1 1 -128 0" /></defs>
-              <text class="t-small-strong" fill="currentColor" transform="rotate(24 88 88)">
-                <textPath href="#fit-priorities-ring" textLength="398" lengthAdjust="spacing">Priorities <tspan style="fill:var(--color-accent)">&bull;</tspan> Goals <tspan style="fill:var(--color-accent)">&bull;</tspan> Objectives <tspan style="fill:var(--color-accent)">&bull;</tspan></textPath>
+            <svg class="absolute inset-0 w-full h-full" viewBox="0 0 176 176" role="img" aria-label="Priorities, goals, objectives, tasks, projects, roadmaps">
+              <defs><path id="fit-priorities-ring" d="M88 88 m-68 0 a68 68 0 1 1 136 0 a68 68 0 1 1 -136 0" /></defs>
+              <text class="t-small-strong" fill="currentColor" transform="rotate(60 88 88)">
+                <textPath href="#fit-priorities-ring" textLength="424" lengthAdjust="spacing">Priorities <tspan style="fill:var(--color-accent)">&bull;</tspan> Goals <tspan style="fill:var(--color-accent)">&bull;</tspan> Objectives <tspan style="fill:var(--color-accent)">&bull;</tspan> Tasks <tspan style="fill:var(--color-accent)">&bull;</tspan> Projects <tspan style="fill:var(--color-accent)">&bull;</tspan> Roadmaps <tspan style="fill:var(--color-accent)">&bull;</tspan></textPath>
               </text>
             </svg>
-            <svg class="relative w-12 h-12 text-[var(--color-accent)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={priorityIcon} />
+            <svg class="relative w-16 h-16 text-[var(--color-accent)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={priorityIcon} />
           </div>
 
           <!-- xl: one dot where each line meets a card edge (HTML so they stay round): 4 in all, one per card -->

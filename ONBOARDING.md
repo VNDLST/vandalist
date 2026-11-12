@@ -1120,6 +1120,12 @@ about it, don't just pick one.
 
 ## Known open items
 
+- **2026-11-12 (latest) — "How we fit in" small follow-ups.** Headings are "Your team…" and "Your other suppliers…" (Andrew intended the ellipsis so the
+  points finish the sentence; single "…" character because check:type rejects headings ending in a full stop). Bottom tick is now the SOFT green
+  (--color-good-soft circle, --color-good tick) like the pink ticks. Suppliers' last point is now "Can work directly with us to simplify your life" (the
+  version that completes the sentence). OPEN QUESTION put to Andrew: swap the logo in the circle for the homepage TeamScene? My view and risks: it would be
+  small inside a 296px circle, its pop-in plays on load not on scroll (needs a scroll trigger), it competes with the chevron flows, it could be confused with
+  the "Your team" card, and the homepage is redone last. Suggested a reversible trial; awaiting his call.
 - **2026-11-12 (later) — "How we fit in" round 3, Andrew's notes.** Logo circle doubled (296px at 1400px+, 240px at 1280-1399, 200px below). Each
   side now has TWO rows of chevrons: a 6s "conversation" (0s team to Vandalist, 1.5s Vandalist back to the team, 3s suppliers to Vandalist, 4.5s Vandalist
   back to the suppliers; verified by seeking the animations). Pink box behind the bottom message removed; tick is now green (--color-good) and the line

@@ -1120,6 +1120,30 @@ about it, don't just pick one.
 
 ## Known open items
 
+- **2026-11-13 — SWITCHING COMPUTERS: START HERE ON THE OTHER MACHINE.** Everything is committed and pushed (last commit b11a1ba, deployed, nothing exists only on the old
+  machine). Claude's auto-memory does NOT sync between machines, so the useful parts are copied below.
+  FIRST (new machine): (1) `git pull`; (2) `npm install` (node_modules is not in the repo; Node must be 20.x); (3) set the git identity repo-locally: `git config user.name "Andrew
+  Knight"` and `git config user.email andrew@vandalist.com.au`; (4) read this file's top entries; (5) dev server: start it (preview_start "vandalist-dev" / `astro dev --background`)
+  and expect the first navigate in the browser pane to fail, just retry; (6) DEPLOY needs the SSH allowlist: if `ssh -p 2683 vandalis@43.250.142.30 "bash deploy.sh"` times out,
+  run `curl https://api.ipify.org` and ask Andrew to add that IP to the cPanel allowlist (do NOT change the port; never put passwords or tokens in the repo).
+  WHERE WE ARE: Marketing Support page is SIGNED OFF. Consulting & Mentoring is IN PROGRESS: hero copy and the first two sections are rebuilt and live; the hero's right side is
+  empty pending the testimonial bubble, which Andrew is judging on the demo page https://vandalist.io/vandalist-2.0/consulting-hero-demo/ (placeholder content). NEXT STEPS, in order:
+  (a) get Andrew's verdict on the demo (pace, crossfade, placement); (b) if approved, he sends 3-4 real quotes + first names + workplaces + a line describing each person; draw the
+  avatars (placeholders a-d live inside TestimonialBubble.astro), show them on one sheet, then put the bubble in the hero art slot and add the lg:hidden copy under the hero;
+  delete the demo page; (c) lift the About page "Partnerships & trust" module into a shared component and reuse it on Consulting after "Relevant experience"; (d) go through the
+  remaining Consulting sections with Andrew (Situations, process flow, Relevant experience, Who it's for); (e) then Google & Social Ads, Websites & Optimisation, AI Enablement (each
+  from his mock-ups, row by row; they already had the card-shadow and flow-icon consistency pass), Resources, case-study stubs, and the homepage LAST.
+  ANDREW'S WORKING PREFERENCES (from Claude's memory, which does not travel): He reviews on the LIVE site, so verify locally then deploy (commit, push, deploy.sh) without waiting;
+  when he asks a question ("what do you think?"), answer it and ask before acting; for anything without a mock-up, offer 2-3 concrete options first (the ad hoc sections wore him
+  out); keep a list of what he has approved so later tweaks do not regress it; typography is LOCKED to the t-* styles (npm run check:type must pass before every deploy; never
+  hand-write a size/weight); strip the pink "spark" lines from AI-generated icon art (he sees them as an AI giveaway); name repo assets descriptively, never like his downloads; a
+  coloured hero band must not sit flush against the next section; he would rather Claude chose icons than hunt for them himself (Lucide, ISC licence, is fine and needs no on-page credit;
+  Noun Project free-tier icons need credit even when modified, so avoid); copy his mock-up copy exactly and flag any difference; verify with measurements/screenshots, not by
+  eyeballing. HOW CLAUDE CHECKED ANIMATIONS: the embedded browser pane does not fire IntersectionObserver or scroll animations reliably, so seek them instead
+  (`document.getAnimations()`, pause, set `currentTime`, read computed styles); to view a wide layout in the small pane use `document.documentElement.style.zoom`; screenshots
+  sometimes time out, retry. IMAGE PIPELINE USED FOR HIS ILLUSTRATIONS (scripts lived in a temp folder, not the repo): `sharp` (in node_modules) to clear faint alpha (<40) haze,
+  set the hot pinks to #ff3d6b (--color-accent), crop every icon in a set to ONE shared frame so relative sizes are kept, resize and save as webp (quality 92); images are on disk
+  inside each session transcript (see CLAUDE.md "Recovering an image"). HARMLESS NOISE: `failed to delete '.git/worktrees/wt'` after commits and LF/CRLF warnings.
 - **2026-11-13 — CONSULTING & MENTORING: first two sections rebuilt + hero copy + testimonial-bubble DEMO.** Andrew started this page. (1) Hero copy applied (he agreed):
   "Real-world advice, mentoring and support as needed" / "From a one-off sounding board to ongoing mentoring, we help business owners, internal marketers and growing
   teams make clearer decisions, build confidence and keep moving." (2) Rows 1-2 rebuilt from his remodelled mock-up with his eight illustrations

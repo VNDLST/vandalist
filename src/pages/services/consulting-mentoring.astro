@@ -5,8 +5,10 @@
 //
 // This mockup's hero already had its 4 cards correctly below the hero (the
 // marketing-support.astro mockup didn't — see that file's note). Second
-// hero column deliberately left EMPTY per Andrew, same as
-// marketing-support.astro — see that file for the full reasoning.
+// hero column is still EMPTY: 2026-11-13 Andrew chose to put a chat-style
+// testimonial bubble with a drawn avatar there (TestimonialBubble.astro); it is being
+// judged on the unlinked demo page src/pages/consulting-hero-demo.astro first, then
+// goes here with his real quotes. Hero copy and Sections 1-2 rebuilt 2026-11-13.
 import Layout from "../../layouts/Layout.astro";
 import Band from "../../components/Band.astro";
 import Section from "../../components/Section.astro";
@@ -22,60 +24,46 @@ import CadenceSteps from "../../components/CadenceSteps.astro";
 const base = import.meta.env.BASE_URL;
 
 // --- Section 1: Service cards ---
+// Rebuilt 2026-11-13 from Andrew's remodelled mock-up: his four illustrations
+// (public/consulting-services/), recoloured to the site pink and cropped to one shared square
+// frame so their relative sizes are as he drew them.
 const services = [
-  {
-    title: "Strategic advice",
-    text: "Clarity on priorities, direction, and next steps.",
-    icon: '<path d="M12 3a9 9 0 1 0 9 9M21 3l-9 9M15 3h6v6" stroke-linecap="round" stroke-linejoin="round"/>',
-  },
-  {
-    title: "Mentoring support",
-    text: "Guidance for internal marketers and growing teams.",
-    icon: '<circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.6 3.1-6.3 7-6.3s7 2.7 7 6.3"/>',
-  },
-  {
-    title: "Workshops & reviews",
-    text: "Structured sessions to solve specific problems.",
-    icon: '<path d="M4 5h16v10H9l-4 4v-4H4z" stroke-linejoin="round"/>',
-  },
-  {
-    title: "Independent perspective",
-    text: "Outside input without agency theatre.",
-    icon: '<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z" stroke-linejoin="round"/><circle cx="12" cy="12" r="3"/>',
-  },
+  { title: "Strategic advice", text: "Clarity on priorities, direction, and next steps.", image: "strategic-advice" },
+  { title: "Mentoring support", text: "Guidance for internal marketers and growing teams.", image: "mentoring-support" },
+  { title: "Workshops & reviews", text: "Structured sessions to solve specific problems.", image: "workshops-and-reviews" },
+  { title: "Independent perspective", text: "Outside input without agency theatre.", image: "independent-perspective" },
 ];
 
-// --- Section 2: Our approach — left: eyebrow/heading/paragraph + 4-point
-// checklist (same pattern used across the other service pages). Right: a
-// flat list of 4 icon+title+description rows — a simpler variant of
-// google-social-ads.astro's grouped-phases layout, since this mockup
-// doesn't group its 4 items under any higher-level phase headings. ---
+// --- Section 2: Our approach ---
+// Rebuilt 2026-11-13 from the same mock-up: left, eyebrow/heading/paragraph + four ticks (the
+// same tick treatment as the Marketing Support page); right, a 2x2 of white cards with his
+// illustrations (public/consulting-approach/), same card recipe as Section 1.
 const approachPoints = [
-  { text: "Practical, not theoretical", icon: '<path d="M4 19h16" stroke-linecap="round"/><path d="M6 19V9l6-4 6 4v10" stroke-linejoin="round"/>' },
-  { text: "Honest outside perspective", icon: '<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z" stroke-linejoin="round"/><circle cx="12" cy="12" r="3"/>' },
-  { text: "Built around your context", icon: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3" stroke-linecap="round" stroke-linejoin="round"/>' },
-  { text: "Designed to leave your team stronger", icon: '<circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9" stroke-linecap="round" stroke-linejoin="round"/>' },
+  "Practical, not theoretical",
+  "Honest outside perspective",
+  "Built around your context",
+  "Designed to leave your team stronger",
 ];
 const approachItems = [
   {
     title: "Strategic sounding board",
     text: "Talk through ideas, challenges, and decisions with an experienced marketing partner.",
-    icon: '<path d="M4 5h16v10H9l-4 4v-4H4z" stroke-linejoin="round"/><path d="M9.5 8.5a2.5 2.5 0 1 1 3 2.4c-.6.2-1 .7-1 1.3" /><circle cx="11.5" cy="14.2" r=".4" fill="currentColor" stroke="none"/>',
+    image: "sounding-board",
   },
   {
     title: "One-to-one mentoring",
     text: "Regular mentoring for internal marketers and growing teams who want support.",
-    icon: '<circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.6 3.1-6.3 7-6.3s7 2.7 7 6.3"/>',
+    image: "one-to-one-mentoring",
   },
   {
     title: "Team workshops",
     text: "Focused, collaborative sessions to solve problems and build shared understanding.",
-    icon: '<circle cx="9" cy="8" r="3"/><path d="M2.5 19c0-3 2.9-5.3 6.5-5.3s6.5 2.3 6.5 5.3"/><path d="M16 8.3a2.6 2.6 0 1 1 0-5.1"/><path d="M15 13.8c2.9.5 5 2.5 5 5.2"/>',
+    image: "team-workshops",
   },
   {
     title: "Review & recommendations",
     text: "Objective review of plans, campaigns, or strategy with clear, practical recommendations.",
-    icon: '<rect x="6" y="4" width="12" height="16" rx="2"/><path d="M9 4h6v2a1 1 0 0 1-1 1H10a1 1 0 0 1-1-1V4z"/><path d="M9 13l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/>',
+    image: "review-and-recommendations",
   },
 ];
 
@@ -112,8 +100,8 @@ const audiences = [
 ---
 <Layout title="Consulting & Mentoring" description="Practical marketing advice, mentoring, and outside perspective.">
   <PageHero currentPage="/services/consulting-mentoring">
-    <Fragment slot="title">Practical marketing advice, mentoring, and outside perspective</Fragment>
-    <Fragment slot="intro">We help business owners, internal marketers, and growing teams make clearer decisions, build confidence, and move forward with practical support.</Fragment>
+    <Fragment slot="title">Real-world advice, mentoring and support as needed</Fragment>
+    <Fragment slot="intro">From a one-off sounding board to ongoing mentoring, we help business owners, internal marketers and growing teams make clearer decisions, build confidence and keep moving.</Fragment>
     <OrbButton href={`${base}/contact`}>Book a mentoring call</OrbButton>
   </PageHero>
 
@@ -123,7 +111,15 @@ const audiences = [
       <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {services.map((service) => (
           <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6 [box-shadow:var(--shadow-card)]">
-            <IconChip icon={service.icon} size="md" shape="lg" class="mb-4" />
+            <img
+              src={`${base}/consulting-services/${service.image}.webp`}
+              alt=""
+              width="300"
+              height="300"
+              loading="lazy"
+              class="w-14 h-14 mb-3 -ml-1"
+              aria-hidden="true"
+            />
             <p class="t-title mb-1.5">{service.title}</p>
             <p class="t-small">{service.text}</p>
           </div>
@@ -134,31 +130,37 @@ const audiences = [
 
   <!-- Section 2: Our approach — bleed-wider band -->
   <Band>
-      <div class="max-w-7xl mx-auto grid lg:grid-cols-[minmax(0,34%)_minmax(0,66%)] gap-10 items-start">
+      <div class="max-w-7xl mx-auto grid lg:grid-cols-[minmax(0,34%)_minmax(0,66%)] gap-10 items-center">
         <div>
           <Eyebrow class="mb-3">Our approach</Eyebrow>
           <h2 class="t-heading text-balance mb-4">Advice that helps you think more clearly and act with confidence</h2>
           <p class="t-body mb-6 max-w-md">
-            Good marketing starts with good thinking. We bring experience, honesty, and practical ideas to help you make better decisions and move forward.
+            Good marketing starts with good thinking. We bring experience, honesty, and practical ideas to help you make better decisions and move forward with confidence.
           </p>
           <ul class="space-y-3">
             {approachPoints.map((point) => (
               <li class="flex items-center gap-3">
-                <IconChip icon={point.icon} shape="lg" tone="whiteCard" class="shrink-0" />
-                <span class="t-small text-[var(--color-ink)]">{point.text}</span>
+                <IconChip icon={'<path d="M5 13l4 4L19 7"/>'} class="shrink-0" />
+                <span class="t-small-strong">{point}</span>
               </li>
             ))}
           </ul>
         </div>
 
-        <div class="space-y-4">
+        <div class="grid sm:grid-cols-2 gap-5">
           {approachItems.map((item) => (
-            <div class="rounded-xl border border-[var(--color-line)] bg-white p-5 flex items-start gap-4">
-              <IconChip icon={item.icon} size="md" shape="lg" class="shrink-0" />
-              <div>
-                <p class="t-title mb-1">{item.title}</p>
-                <p class="t-small">{item.text}</p>
-              </div>
+            <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6 [box-shadow:var(--shadow-card)]">
+              <img
+                src={`${base}/consulting-approach/${item.image}.webp`}
+                alt=""
+                width="300"
+                height="300"
+                loading="lazy"
+                class="w-14 h-14 mb-3 -ml-1"
+                aria-hidden="true"
+              />
+              <p class="t-title mb-1.5">{item.title}</p>
+              <p class="t-small">{item.text}</p>
             </div>
           ))}
         </div>

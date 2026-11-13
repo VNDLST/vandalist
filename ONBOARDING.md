@@ -1120,6 +1120,21 @@ about it, don't just pick one.
 
 ## Known open items
 
+- **2026-11-13 — CONSULTING & MENTORING: first two sections rebuilt + hero copy + testimonial-bubble DEMO.** Andrew started this page. (1) Hero copy applied (he agreed):
+  "Real-world advice, mentoring and support as needed" / "From a one-off sounding board to ongoing mentoring, we help business owners, internal marketers and growing
+  teams make clearer decisions, build confidence and keep moving." (2) Rows 1-2 rebuilt from his remodelled mock-up with his eight illustrations
+  (public/consulting-services/ x4 and public/consulting-approach/ x4; transparent, pink set to --color-accent, one shared square frame; row 1 cards: icon above title;
+  row 2: left text with four ticks (IconChip check + t-small-strong) and a 2x2 of white cards, same recipe incl. shadow). Row 2 paragraph now ends "...move forward with
+  confidence." per the mock-up. (3) HERO ART IDEA, agreed concept: a chat-style testimonial speech bubble bottom right with a DRAWN avatar (not photos), first name + workplace
+  under each quote. The bubble and avatar frame STAY PUT; every 10s the next avatar crossfades in over the old one while the old quote fades out, three typing dots
+  pulse, then the new quote arrives; loops; pauses on hover/focus; reduced-motion shows the first quote still; all quotes stay in the DOM for screen readers. Built as
+  src/components/TestimonialBubble.astro (CSS only; keyframes are generated from the number of items and the period) and shown on the UNLINKED demo page
+  /consulting-hero-demo/ (src/pages/consulting-hero-demo.astro, uses the real PageHero) with PLACEHOLDER quotes and four rough avatars. Verified by seeking: dots 0.5-1.9s of each
+  slot, quote 1.8-9.9s, avatar crossfade centred on each slot boundary, seamless loop wrap. NEXT: Andrew judges the demo; then he supplies real quotes (short, ~20-25 words),
+  first names, workplaces (OK to use first name only) and a line describing each person for the avatars; I draw them (placeholders a-d in the component) and move the bubble into
+  the Consulting hero art slot (artClass "hidden lg:flex items-center justify-end", plus an lg:hidden copy under the hero for small screens). Delete the demo page after.
+  ALSO PLANNED: lift the About page "Partnerships & trust" module (inline in about.astro, logos in public/partner-logos) into a shared component and reuse it on Consulting after
+  "Relevant experience". Remaining Consulting rows (Situations, process flow, Relevant experience, Who it's for) have not been reviewed yet.
 - **2026-11-12 (after wrap-up) — CONSISTENCY PASS on the four remaining service pages, done while Andrew was away (he invited it; none of these pages has had its
   own review yet).** (1) Card shadow: the seven plain title-and-text cards (Consulting x3, Google Ads x2, Websites x1, AI Enablement x1) got the same
   `[box-shadow:var(--shadow-card)]` recipe as the SEO and Marketing Support cards (they had none). (2) Flow icons: Consulting & Mentoring, Websites &

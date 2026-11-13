@@ -1,0 +1,47 @@
+---
+// Internal concept preview, NOT a real page, not linked from navigation. Demo of the testimonial
+// bubble for the Consulting & Mentoring hero (see TestimonialBubble.astro). All names, workplaces,
+// quotes and avatars here are PLACEHOLDERS to judge the pacing and feel. Delete once the real
+// hero has been built into src/pages/services/consulting-mentoring.astro (or discarded).
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import OrbButton from "../components/OrbButton.astro";
+import Footer from "../components/Footer.astro";
+import Section from "../components/Section.astro";
+import Eyebrow from "../components/Eyebrow.astro";
+import TestimonialBubble from "../components/TestimonialBubble.astro";
+
+const base = import.meta.env.BASE_URL;
+const items = [
+  { avatar: "a", name: "Sam", workplace: "Placeholder Co", quote: "Placeholder quote one. About twenty words long, so you can judge the reading time and how the bubble copes with the longest one." },
+  { avatar: "b", name: "Alex", workplace: "Example Group", quote: "Placeholder quote two, a little shorter, to show that the bubble holds its size." },
+  { avatar: "c", name: "Jo", workplace: "Sample Business", quote: "Placeholder quote three. Talking things through with an outsider changed how we planned our whole year, and the team felt more confident straight away." },
+  { avatar: "d", name: "Chris", workplace: "Demo Council", quote: "Placeholder quote four. Practical, honest and never theoretical." },
+] as const;
+---
+<Layout title="Consulting hero demo (internal)">
+  <PageHero currentPage="/services/consulting-mentoring" artClass="hidden lg:flex items-center justify-end">
+    <Fragment slot="title">Real-world advice, mentoring and support as needed</Fragment>
+    <Fragment slot="intro">From a one-off sounding board to ongoing mentoring, we help business owners, internal marketers and growing teams make clearer decisions, build confidence and keep moving.</Fragment>
+    <OrbButton href={`${base}/contact`}>Book a mentoring call</OrbButton>
+    <Fragment slot="art"><TestimonialBubble items={[...items]} /></Fragment>
+  </PageHero>
+
+  <div class="bg-[var(--color-paper)]">
+    <Section top>
+      <!-- below lg the hero's art side is hidden, so the same thing shows here instead -->
+      <div class="lg:hidden mb-10 flex justify-center">
+        <TestimonialBubble items={[...items]} />
+      </div>
+      <Eyebrow class="mb-3">Internal demo, not a real page</Eyebrow>
+      <p class="t-body max-w-2xl">
+        The names, workplaces, quotes and drawn people here are placeholders so you can judge the pacing.
+        Each person gets 10 seconds: the next avatar fades in over the old one while the bubble goes back to
+        the typing dots, then the new quote arrives. Hover over it (or tab to it) to pause. On small screens
+        it shows here, under the hero, instead of beside it.
+      </p>
+    </Section>
+  </div>
+
+  <Footer />
+</Layout>

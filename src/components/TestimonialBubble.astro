@@ -1,0 +1,153 @@
+---
+// TestimonialBubble: a chat-style speech bubble with a drawn avatar, cycling through short
+// quotes. Concept agreed with Andrew 2026-11-13 for the Consulting & Mentoring hero:
+//   - the bubble and the avatar frame STAY PUT the whole time (less jarring than things
+//     vanishing and re-appearing); only what is inside them changes;
+//   - every `period` seconds the next avatar fades in over the old one while the old quote
+//     fades out, three "typing" dots pulse in the bubble (a message is coming), then the new
+//     quote and its name / workplace fade in;
+//   - drawn avatars (loose likenesses, NOT photos), first names and workplaces only.
+// CSS only, no script. Hovering or focusing (tab) pauses it so a slow reader can finish. With
+// "reduce motion" it shows the first quote, still. All quotes stay in the page as real text, so
+// screen readers read all of them; the avatars are decorative.
+// The timing is generated here from the number of items, so any number of quotes (2 to ~6) works.
+// Placeholders: the demo page (src/pages/consulting-hero-demo.astro) uses placeholder text and
+// four rough avatars ("a" to "d" below); real ones need Andrew's quotes and a line describing
+// each person.
+interface Item {
+  quote: string;
+  name: string;
+  workplace: string;
+  avatar: "a" | "b" | "c" | "d";
+}
+interface Props {
+  items: Item[];
+  period?: number; // seconds per person (reading time + the swap)
+  class?: string;
+}
+const { items, period = 10, class: className } = Astro.props as Props;
+const N = items.length;
+const P = period;
+const T = N * P;
+
+// Four rough placeholder avatars on a 100x100 canvas, flat colours in the TeamScene style.
+const avatars: Record<string, string> = {
+  a: `<rect width="100" height="100" fill="#ffe8ed"/><path d="M28 50c-3-24 9-36 22-36s25 12 22 36c-1 12 1 24 6 34H22c5-10 7-22 6-34z" fill="#1c1b1a"/><path d="M16 100c0-20 14-30 34-30s34 10 34 30z" fill="#ff3d6b"/><rect x="43" y="56" width="14" height="16" rx="6" fill="#f6c3a5"/><ellipse cx="50" cy="45" rx="16" ry="18" fill="#f6c3a5"/><path d="M33 40c3-13 31-14 35 1-9-5-23-6-35-1z" fill="#1c1b1a"/><circle cx="43" cy="46" r="1.8" fill="#1c1b1a"/><circle cx="57" cy="46" r="1.8" fill="#1c1b1a"/><path d="M44 54q6 5 12 0" stroke="#1c1b1a" stroke-width="2" fill="none" stroke-linecap="round"/>`,
+  b: `<rect width="100" height="100" fill="#e9f4ec"/><path d="M16 100c0-20 14-30 34-30s34 10 34 30z" fill="#444444"/><rect x="43" y="56" width="14" height="16" rx="6" fill="#d8a07a"/><ellipse cx="50" cy="45" rx="16" ry="18" fill="#d8a07a"/><path d="M33 44c0 13 7 22 17 22s17-9 17-22c-4 5-9 7-17 7s-13-2-17-7z" fill="#3a2a22"/><path d="M33 40c-1-14 8-21 17-21s18 7 17 21c-4-7-10-9-17-9s-13 2-17 9z" fill="#3a2a22"/><g fill="none" stroke="#1c1b1a" stroke-width="2"><rect x="37" y="42" width="11" height="8" rx="3"/><rect x="52" y="42" width="11" height="8" rx="3"/><path d="M48 46h4"/></g><path d="M45 57q5 3 10 0" stroke="#f6e0d0" stroke-width="2" fill="none" stroke-linecap="round"/>`,
+  c: `<rect width="100" height="100" fill="#f0eeea"/><path d="M27 56c-4-26 8-40 23-40s27 14 23 40c0 6 2 10 4 12H23c2-2 4-6 4-12z" fill="#e8b84a"/><path d="M16 100c0-20 14-30 34-30s34 10 34 30z" fill="#fbd0dc"/><rect x="43" y="56" width="14" height="16" rx="6" fill="#fbd3bb"/><ellipse cx="50" cy="45" rx="16" ry="18" fill="#fbd3bb"/><path d="M32 38c4-14 32-15 37 0-10-5-26-6-37 0z" fill="#e8b84a"/><circle cx="43" cy="46" r="1.8" fill="#1c1b1a"/><circle cx="57" cy="46" r="1.8" fill="#1c1b1a"/><g fill="#e0a98a"><circle cx="41" cy="51" r="1"/><circle cx="45" cy="52" r="1"/><circle cx="55" cy="52" r="1"/><circle cx="59" cy="51" r="1"/></g><path d="M44 54q6 5 12 0" stroke="#1c1b1a" stroke-width="2" fill="none" stroke-linecap="round"/>`,
+  d: `<rect width="100" height="100" fill="#ffe8ed"/><path d="M16 100c0-20 14-30 34-30s34 10 34 30z" fill="#2f8f4e"/><rect x="43" y="56" width="14" height="16" rx="6" fill="#c98f68"/><ellipse cx="50" cy="45" rx="17" ry="18" fill="#c98f68"/><path d="M33 38c0-12 8-18 17-18s17 6 17 18c-3-6-7-9-17-9s-14 3-17 9z" fill="#b9b6b0"/><circle cx="43" cy="46" r="1.8" fill="#1c1b1a"/><circle cx="57" cy="46" r="1.8" fill="#1c1b1a"/><path d="M42 53q8 8 16 0" stroke="#1c1b1a" stroke-width="2" fill="none" stroke-linecap="round"/>`,
+};
+
+// ---- timing (generated keyframes) --------------------------------------------------------
+// Each item owns a slot of P seconds inside a loop of T = N * P seconds. Everything is a
+// trapezoid (fade in, hold, fade out) placed in loop time and wrapped round the end of the loop.
+const pct = (t: number) => `${((((t % T) + T) % T) / T * 100).toFixed(3)}%`;
+function trapezoid(start: number, rise: number, hold: number, fall: number) {
+  const pts = [start, start + rise, start + rise + hold, start + rise + hold + fall];
+  const f = (t: number) => {
+    const u = (((t - start) % T) + T) % T;
+    if (u < rise) return u / rise;
+    if (u < rise + hold) return 1;
+    if (u < rise + hold + fall) return 1 - (u - rise - hold) / fall;
+    return 0;
+  };
+  const times = [...new Set([0, T, ...pts.map((p) => ((p % T) + T) % T)])].sort((a, b) => a - b);
+  return times.map((t) => `${pct(t === T ? T - 1e-6 : t)}{opacity:${f(t === T ? 0 : t).toFixed(3)}}`).join("");
+}
+// per item: the quote (dots first, quote from 1.9s to 9.5s of its slot) and the avatar (a 0.6s
+// crossfade centred on each slot boundary)
+let css = "";
+items.forEach((_, i) => {
+  const s = i * P;
+  css += `@keyframes tbq${N}-${i}{${trapezoid(s + 1.8, 0.3, 7.4, 0.4)}}`;
+  css += `@keyframes tba${N}-${i}{${trapezoid(s - 0.3, 0.6, P - 0.6, 0.6)}}`;
+  css += `.tb-n${N} .tb-item:nth-child(${i + 1}){animation-name:tbq${N}-${i}}`;
+  css += `.tb-n${N} .tb-avatar:nth-child(${i + 1}){animation-name:tba${N}-${i}}`;
+});
+// the typing dots repeat every P seconds: on between 0.5s and 1.9s of each slot
+const dp = (t: number) => `${((t / P) * 100).toFixed(2)}%`;
+css += `@keyframes tbd${P}{0%,${dp(0.5)}{opacity:0}${dp(0.8)},${dp(1.6)}{opacity:1}${dp(1.9)},100%{opacity:0}}`;
+const anim = `@media (prefers-reduced-motion:no-preference){.tb-n${N} .tb-item,.tb-n${N} .tb-avatar{animation-duration:${T}s;animation-timing-function:ease-in-out;animation-iteration-count:infinite;animation-delay:-0.3s;opacity:0}.tb-n${N} .tb-dots{animation:tbd${P} ${P}s ease-in-out infinite;animation-delay:-0.3s}${css}}`;
+---
+<div class:list={["tb", `tb-n${N}`, className]} tabindex="0" role="group" aria-label="What clients say. Pauses when you hover over it or tab into it.">
+  <div class="tb-bubble">
+    <svg class="tb-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z" /><path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z" />
+    </svg>
+    <div class="tb-stack">
+      {items.map((item) => (
+        <figure class="tb-item">
+          <blockquote class="t-intro">{item.quote}</blockquote>
+          <figcaption class="mt-3"><span class="t-small-strong">{item.name}</span><span class="t-small">, {item.workplace}</span></figcaption>
+        </figure>
+      ))}
+      <div class="tb-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+    </div>
+    <span class="tb-tail" aria-hidden="true"></span>
+  </div>
+  <div class="tb-avatars" aria-hidden="true">
+    {items.map((item) => (
+      <div class="tb-avatar"><svg viewBox="0 0 100 100" set:html={avatars[item.avatar]} /></div>
+    ))}
+  </div>
+</div>
+<Fragment set:html={`<style>${anim}</style>`} />
+
+<style>
+  .tb { position: relative; width: 100%; max-width: 540px; outline: none; }
+  .tb:focus-visible .tb-bubble { box-shadow: 0 0 0 3px var(--color-accent), var(--shadow-card); }
+
+  .tb-bubble {
+    position: relative;
+    background: #fff;
+    border: 1px solid var(--color-line);
+    border-radius: 28px;
+    padding: 26px 30px 24px;
+    box-shadow: var(--shadow-card);
+  }
+  .tb-mark { width: 26px; height: 26px; color: var(--color-accent); margin-bottom: 10px; }
+
+  /* every quote sits in the same grid cell, so the bubble is as tall as the longest one */
+  .tb-stack { display: grid; }
+  .tb-stack > * { grid-area: 1 / 1; }
+
+  /* base state (no animation / reduced motion): first quote and first avatar only */
+  .tb-item { opacity: 0; }
+  .tb-item:first-child { opacity: 1; }
+  .tb-dots {
+    align-self: start; justify-self: start; display: inline-flex; gap: 6px; align-items: center;
+    padding: 12px 16px; border-radius: 9999px; background: var(--color-paper-dim); opacity: 0;
+  }
+  .tb-dots span { width: 8px; height: 8px; border-radius: 9999px; background: var(--color-slate); opacity: 0.55; }
+
+  /* the speech-bubble tail, bottom right, pointing down to the avatar */
+  .tb-tail {
+    position: absolute; right: 83px; bottom: -11px; width: 22px; height: 22px; background: #fff;
+    border-right: 1px solid var(--color-line); border-bottom: 1px solid var(--color-line);
+    border-bottom-right-radius: 6px; transform: rotate(45deg);
+  }
+
+  .tb-avatars { position: relative; width: 92px; height: 92px; margin: 22px 48px 0 auto; }
+  .tb-avatar {
+    position: absolute; inset: 0; border-radius: 9999px; overflow: hidden; opacity: 0;
+    background: #fff; border: 4px solid var(--color-accent-soft); box-shadow: var(--shadow-card);
+  }
+  .tb-avatar:first-child { opacity: 1; }
+  .tb-avatar svg { display: block; width: 100%; height: 100%; }
+
+  /* pause while hovered or focused */
+  .tb:hover .tb-item, .tb:focus-within .tb-item,
+  .tb:hover .tb-avatar, .tb:focus-within .tb-avatar,
+  .tb:hover .tb-dots, .tb:focus-within .tb-dots,
+  .tb:hover .tb-dots span, .tb:focus-within .tb-dots span { animation-play-state: paused; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .tb-dots span { animation: tb-dot 1s ease-in-out infinite; }
+    .tb-dots span:nth-child(2) { animation-delay: 0.15s; }
+    .tb-dots span:nth-child(3) { animation-delay: 0.3s; }
+  }
+  @keyframes tb-dot {
+    0%, 100% { transform: translateY(0); opacity: 0.45; }
+    50% { transform: translateY(-3px); opacity: 1; }
+  }
+</style>

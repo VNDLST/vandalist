@@ -1120,6 +1120,22 @@ about it, don't just pick one.
 
 ## Known open items
 
+- **2026-11-13 (later, other computer) — CONSULTING & MENTORING: bubble now IN the hero, rows 1-2 restyled to match SEO, opening section added. READ THIS FIRST; it supersedes
+  the "demo page" steps in the two entries below.** Andrew approved the testimonial bubble ("quite good") with changes, all done: bubble larger (max 620px, bigger radius/padding,
+  116px avatar), period 12s, typing-dots pause about 3s (was about 1.4s; "the idea is possibly lost"), and in the hero (lg+) the bubble sits HIGH (top about halfway between the
+  nav bottom and the heading top) with the avatar near the hero's bottom. Implemented as `variant="hero"` on TestimonialBubble (fills an absolutely positioned overlay box in
+  PageHero's `overlay` slot: `hidden lg:block absolute top-8 bottom-8 left-1/2 right-10 ml-5`); below lg a normal `inline` copy sits at the top of Section 1 (`lg:hidden`). The demo
+  page /consulting-hero-demo/ is DELETED (the live copy of it will 404 once deployed). Quote text stays on the locked `t-intro`, so "larger" = bigger bubble/avatar, not bigger type.
+  Rows 1-2 now follow the SEO page's conventions: Section 1 has an opening SectionHeading (eyebrow/heading/subtext) above the four cards; cards are SEO-style (white, border,
+  shadow-card, illustration above t-title/t-body at h-24); Section 2 is the SEO-style band (30% text + four ticks / 70% 2x2 of LinkedPairs-style cards with the 77px illustration
+  beside the text). Verified at 1440, 1100, 820 and 375px (no horizontal overflow); check:type and build pass.
+  STILL PLACEHOLDER (all need Andrew): the four quotes, names, workplaces and the four rough avatars a-d (in consulting-mentoring.astro `testimonials` and inside
+  TestimonialBubble.astro); the opening-section eyebrow/heading/paragraph ("Placeholder heading for the opening section", he said "I'll think about what that should be").
+  NEXT: (1) Andrew's verdict on the live page + the opening copy; (2) real quotes (3-4, about 20-25 words) + first names + workplaces + a line describing each person, then I draw
+  the avatars (show them on one sheet first); with short placeholder quotes the stretched hero bubble has spare white space, real quotes should fill it (if not, cap its height);
+  (3) shared "Partnerships & trust" component after "Relevant experience"; (4) review Situations, process flow, Relevant experience, Who it's for with him; (5) then the other
+  service pages as listed below. DEPLOY: if SSH times out on this machine, outbound IP was 1.146.72.198 (re-check with `curl https://api.ipify.org`); Andrew must add it to the
+  cPanel SSH allowlist.
 - **2026-11-13 — SWITCHING COMPUTERS: START HERE ON THE OTHER MACHINE.** Everything is committed and pushed (last commit b11a1ba, deployed, nothing exists only on the old
   machine). Claude's auto-memory does NOT sync between machines, so the useful parts are copied below.
   FIRST (new machine): (1) `git pull`; (2) `npm install` (node_modules is not in the repo; Node must be 20.x); (3) set the git identity repo-locally: `git config user.name "Andrew

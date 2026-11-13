@@ -3,17 +3,22 @@
 // quotes. Concept agreed with Andrew 2026-11-13 for the Consulting & Mentoring hero:
 //   - the bubble and the avatar frame STAY PUT the whole time (less jarring than things
 //     vanishing and re-appearing); only what is inside them changes;
-//   - every `period` seconds the next avatar fades in over the old one while the old quote
-//     fades out, three "typing" dots pulse in the bubble (a message is coming), then the new
-//     quote and its name / workplace fade in;
+//   - every `period` seconds (12 by default) the next avatar fades in over the old one while the
+//     old quote fades out, three "typing" dots pulse in the bubble for about 3 seconds (a message
+//     is coming; Andrew, 2026-11-13: the first version, about 1.4s, was too quick for the idea to
+//     land), then the new quote and its name / workplace fade in;
 //   - drawn avatars (loose likenesses, NOT photos), first names and workplaces only.
 // CSS only, no script. Hovering or focusing (tab) pauses it so a slow reader can finish. With
 // "reduce motion" it shows the first quote, still. All quotes stay in the page as real text, so
 // screen readers read all of them; the avatars are decorative.
 // The timing is generated here from the number of items, so any number of quotes (2 to ~6) works.
-// Placeholders: the demo page (src/pages/consulting-hero-demo.astro) uses placeholder text and
-// four rough avatars ("a" to "d" below); real ones need Andrew's quotes and a line describing
-// each person.
+// Two layouts: "inline" (default: bubble with the avatar tucked just under it, natural height; used
+// under the hero on small screens) and "hero" (fills the height of its parent: the bubble stretches
+// to sit high, the avatar sits at the bottom; used in the Consulting hero from lg up, where the
+// parent is an absolutely-positioned box the height of the hero).
+// Placeholders: src/pages/services/consulting-mentoring.astro currently passes placeholder text
+// with four rough avatars ("a" to "d" below); real ones need Andrew's quotes and a line
+// describing each person.
 interface Item {
   quote: string;
   name: string;
@@ -22,10 +27,12 @@ interface Item {
 }
 interface Props {
   items: Item[];
-  period?: number; // seconds per person (reading time + the swap)
+  period?: number; // seconds per person (typing pause + reading time + the swap)
+  typing?: number; // seconds the three dots stay fully on before the quote arrives
+  variant?: "inline" | "hero";
   class?: string;
 }
-const { items, period = 10, class: className } = Astro.props as Props;
+const { items, period = 12, typing = 2.4, variant = "inline", class: className } = Astro.props as Props;
 const N = items.length;
 const P = period;
 const T = N * P;
@@ -54,22 +61,32 @@ function trapezoid(start: number, rise: number, hold: number, fall: number) {
   const times = [...new Set([0, T, ...pts.map((p) => ((p % T) + T) % T)])].sort((a, b) => a - b);
   return times.map((t) => `${pct(t === T ? T - 1e-6 : t)}{opacity:${f(t === T ? 0 : t).toFixed(3)}}`).join("");
 }
-// per item: the quote (dots first, quote from 1.9s to 9.5s of its slot) and the avatar (a 0.6s
-// crossfade centred on each slot boundary)
+// per item: the dots come on at 0.5s and hold for `typing` seconds, then the quote fades in as the
+// dots fade out and holds until just before the slot ends; the avatar crossfades over 0.6s centred
+// on each slot boundary
+const DOTS_IN = 0.5;
+const QUOTE_AT = DOTS_IN + 0.3 + typing; // dots start fading out here, quote starts fading in
+const QUOTE_HOLD = P - 0.1 - 0.4 - 0.3 - QUOTE_AT; // what is left of the slot is reading time
 let css = "";
 items.forEach((_, i) => {
   const s = i * P;
-  css += `@keyframes tbq${N}-${i}{${trapezoid(s + 1.8, 0.3, 7.4, 0.4)}}`;
+  css += `@keyframes tbq${N}-${i}{${trapezoid(s + QUOTE_AT, 0.3, QUOTE_HOLD, 0.4)}}`;
   css += `@keyframes tba${N}-${i}{${trapezoid(s - 0.3, 0.6, P - 0.6, 0.6)}}`;
   css += `.tb-n${N} .tb-item:nth-child(${i + 1}){animation-name:tbq${N}-${i}}`;
   css += `.tb-n${N} .tb-avatar:nth-child(${i + 1}){animation-name:tba${N}-${i}}`;
 });
-// the typing dots repeat every P seconds: on between 0.5s and 1.9s of each slot
+// the typing dots repeat every P seconds (the keyframe name carries P and typing, so two bubbles
+// with different timing on one page cannot clash)
 const dp = (t: number) => `${((t / P) * 100).toFixed(2)}%`;
-css += `@keyframes tbd${P}{0%,${dp(0.5)}{opacity:0}${dp(0.8)},${dp(1.6)}{opacity:1}${dp(1.9)},100%{opacity:0}}`;
-const anim = `@media (prefers-reduced-motion:no-preference){.tb-n${N} .tb-item,.tb-n${N} .tb-avatar{animation-duration:${T}s;animation-timing-function:ease-in-out;animation-iteration-count:infinite;animation-delay:-0.3s;opacity:0}.tb-n${N} .tb-dots{animation:tbd${P} ${P}s ease-in-out infinite;animation-delay:-0.3s}${css}}`;
+const dotsName = `tbd${String(P).replace(".", "_")}-${String(typing).replace(".", "_")}`;
+css += `@keyframes ${dotsName}{0%,${dp(DOTS_IN)}{opacity:0}${dp(DOTS_IN + 0.3)},${dp(QUOTE_AT)}{opacity:1}${dp(QUOTE_AT + 0.3)},100%{opacity:0}}`;
+// Every animation starts START seconds into the loop (a negative delay), so on page load the first
+// person's quote is already showing instead of the visitor waiting through the typing dots; the
+// dots then show on every change after that. All animations share the same offset so they stay in sync.
+const START = QUOTE_AT + 0.5;
+const anim = `@media (prefers-reduced-motion:no-preference){.tb-n${N} .tb-item,.tb-n${N} .tb-avatar{animation-duration:${T}s;animation-timing-function:ease-in-out;animation-iteration-count:infinite;animation-delay:-${START}s;opacity:0}.tb-n${N} .tb-dots{animation:${dotsName} ${P}s ease-in-out infinite;animation-delay:-${START}s}${css}}`;
 ---
-<div class:list={["tb", `tb-n${N}`, className]} tabindex="0" role="group" aria-label="What clients say. Pauses when you hover over it or tab into it.">
+<div class:list={["tb", `tb-n${N}`, variant === "hero" && "tb--hero", className]} tabindex="0" role="group" aria-label="What clients say. Pauses when you hover over it or tab into it.">
   <div class="tb-bubble">
     <svg class="tb-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
       <path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z" /><path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z" />
@@ -94,18 +111,20 @@ const anim = `@media (prefers-reduced-motion:no-preference){.tb-n${N} .tb-item,.
 <Fragment set:html={`<style>${anim}</style>`} />
 
 <style>
-  .tb { position: relative; width: 100%; max-width: 540px; outline: none; }
+  .tb { position: relative; width: 100%; max-width: 620px; outline: none; }
   .tb:focus-visible .tb-bubble { box-shadow: 0 0 0 3px var(--color-accent), var(--shadow-card); }
 
+  /* Andrew, 2026-11-13: "a little bit larger" - wider, roomier bubble and a bigger avatar than the
+     first version (540px / 92px). The quote text stays on the locked t-intro style. */
   .tb-bubble {
     position: relative;
     background: #fff;
     border: 1px solid var(--color-line);
-    border-radius: 28px;
-    padding: 26px 30px 24px;
+    border-radius: 32px;
+    padding: 34px 40px 30px;
     box-shadow: var(--shadow-card);
   }
-  .tb-mark { width: 26px; height: 26px; color: var(--color-accent); margin-bottom: 10px; }
+  .tb-mark { width: 32px; height: 32px; color: var(--color-accent); margin-bottom: 12px; }
 
   /* every quote sits in the same grid cell, so the bubble is as tall as the longest one */
   .tb-stack { display: grid; }
@@ -120,20 +139,29 @@ const anim = `@media (prefers-reduced-motion:no-preference){.tb-n${N} .tb-item,.
   }
   .tb-dots span { width: 8px; height: 8px; border-radius: 9999px; background: var(--color-slate); opacity: 0.55; }
 
-  /* the speech-bubble tail, bottom right, pointing down to the avatar */
+  /* the speech-bubble tail, bottom right, pointing down to the avatar (avatar 116px wide, 52px in
+     from the right, so its centre is 110px from the right edge; the tail is 24px wide) */
   .tb-tail {
-    position: absolute; right: 83px; bottom: -11px; width: 22px; height: 22px; background: #fff;
+    position: absolute; right: 98px; bottom: -12px; width: 24px; height: 24px; background: #fff;
     border-right: 1px solid var(--color-line); border-bottom: 1px solid var(--color-line);
     border-bottom-right-radius: 6px; transform: rotate(45deg);
   }
 
-  .tb-avatars { position: relative; width: 92px; height: 92px; margin: 22px 48px 0 auto; }
+  .tb-avatars { position: relative; width: 116px; height: 116px; margin: 24px 52px 0 auto; flex-shrink: 0; }
   .tb-avatar {
     position: absolute; inset: 0; border-radius: 9999px; overflow: hidden; opacity: 0;
     background: #fff; border: 4px solid var(--color-accent-soft); box-shadow: var(--shadow-card);
   }
   .tb-avatar:first-child { opacity: 1; }
   .tb-avatar svg { display: block; width: 100%; height: 100%; }
+
+  /* "hero" layout: the component fills the height of its parent. The bubble stretches (so it sits
+     high, just under the nav) with its quote centred inside it, and the avatar sits at the
+     bottom. Only the bubble and the avatar react to the pointer, so the empty space round them
+     does not pause it or block anything. */
+  .tb--hero { height: 100%; max-width: none; display: flex; flex-direction: column; pointer-events: none; }
+  .tb--hero .tb-bubble { flex: 1 1 auto; display: flex; flex-direction: column; justify-content: center; pointer-events: auto; }
+  .tb--hero .tb-avatars { pointer-events: auto; }
 
   /* pause while hovered or focused */
   .tb:hover .tb-item, .tb:focus-within .tb-item,

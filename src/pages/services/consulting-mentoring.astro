@@ -4,11 +4,21 @@
 // the site's shared chrome and untouched here per Andrew's instruction.
 //
 // This mockup's hero already had its 4 cards correctly below the hero (the
-// marketing-support.astro mockup didn't — see that file's note). Second
-// hero column is still EMPTY: 2026-11-13 Andrew chose to put a chat-style
-// testimonial bubble with a drawn avatar there (TestimonialBubble.astro); it is being
-// judged on the unlinked demo page src/pages/consulting-hero-demo.astro first, then
-// goes here with his real quotes. Hero copy and Sections 1-2 rebuilt 2026-11-13.
+// marketing-support.astro mockup didn't — see that file's note). Hero copy and Sections 1-2
+// rebuilt 2026-11-13.
+//
+// Hero art: a chat-style testimonial bubble with a drawn avatar (TestimonialBubble.astro, concept
+// approved by Andrew 2026-11-13 after judging it on a demo page, since deleted). From lg it fills
+// the right half of the hero: bubble high (just under the nav), avatar low (near the hero's
+// bottom). Below lg the art side is hidden, so the same bubble shows at the top of Section 1.
+// THE QUOTES BELOW ARE PLACEHOLDERS: real ones need Andrew's quotes, first names, workplaces and
+// a line describing each person for the drawn avatars.
+//
+// Sections 1-2 follow the SEO page's conventions (Andrew, 2026-11-13: the services pages must share
+// one style): Section 1 = opening text (eyebrow / heading / intro, PLACEHOLDER copy for now)
+// above four cards with 96px illustrations and body-size text; Section 2 = the same band split as
+// SEO's "Our approach" (30/70 from xl) with the card recipe from LinkedPairs (77px illustration
+// beside the text).
 import Layout from "../../layouts/Layout.astro";
 import Band from "../../components/Band.astro";
 import Section from "../../components/Section.astro";
@@ -20,8 +30,17 @@ import CtaBand from "../../components/CtaBand.astro";
 import SectionHeading from "../../components/SectionHeading.astro";
 import Eyebrow from "../../components/Eyebrow.astro";
 import CadenceSteps from "../../components/CadenceSteps.astro";
+import TestimonialBubble from "../../components/TestimonialBubble.astro";
 
 const base = import.meta.env.BASE_URL;
+
+// --- Hero: testimonial bubble (PLACEHOLDER quotes and rough placeholder avatars) ---
+const testimonials = [
+  { avatar: "a", name: "Sam", workplace: "Placeholder Co", quote: "Placeholder quote one. About twenty words long, so you can judge the reading time and how the bubble copes with the longest one." },
+  { avatar: "b", name: "Alex", workplace: "Example Group", quote: "Placeholder quote two, a little shorter, to show that the bubble holds its size." },
+  { avatar: "c", name: "Jo", workplace: "Sample Business", quote: "Placeholder quote three. Talking things through with an outsider changed how we planned our whole year, and the team felt more confident straight away." },
+  { avatar: "d", name: "Chris", workplace: "Demo Council", quote: "Placeholder quote four. Practical, honest and never theoretical." },
+] as const;
 
 // --- Section 1: Service cards ---
 // Rebuilt 2026-11-13 from Andrew's remodelled mock-up: his four illustrations
@@ -99,16 +118,32 @@ const audiences = [
 ];
 ---
 <Layout title="Consulting & Mentoring" description="Practical marketing advice, mentoring, and outside perspective.">
-  <PageHero currentPage="/services/consulting-mentoring">
+  <PageHero currentPage="/services/consulting-mentoring" sectionClass="relative">
     <Fragment slot="title">Real-world advice, mentoring and support as needed</Fragment>
     <Fragment slot="intro">From a one-off sounding board to ongoing mentoring, we help business owners, internal marketers and growing teams make clearer decisions, build confidence and keep moving.</Fragment>
     <OrbButton href={`${base}/contact`}>Book a mentoring call</OrbButton>
+    <!-- From lg the bubble fills the right half of the hero, top to bottom (32px in from the hero's
+         edges): bubble high, avatar low. left-1/2 + ml-5 starts it where the grid's right column
+         starts (half way plus half the 40px gap); right-10 matches the section's side padding. -->
+    <div slot="overlay" class="hidden lg:block absolute top-8 bottom-8 left-1/2 right-10 ml-5">
+      <TestimonialBubble variant="hero" items={[...testimonials]} />
+    </div>
   </PageHero>
 
   <div class="bg-[var(--color-paper)]">
-    <!-- Section 1: Service cards -->
+    <!-- Section 1: opening text + service cards (SEO page pattern) -->
     <Section top>
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <!-- below lg the hero's art side is hidden, so the bubble shows here instead -->
+      <div class="lg:hidden mb-12 flex justify-center">
+        <TestimonialBubble items={[...testimonials]} />
+      </div>
+      <!-- PLACEHOLDER opening text (Andrew will write it) -->
+      <SectionHeading
+        eyebrow="How we can help"
+        heading="Placeholder heading for the opening section"
+        subtext="Placeholder text for the opening paragraph. Andrew will write the real wording, a sentence or two that introduces the four ways we help."
+      />
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
         {services.map((service) => (
           <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6 [box-shadow:var(--shadow-card)]">
             <img
@@ -117,55 +152,58 @@ const audiences = [
               width="300"
               height="300"
               loading="lazy"
-              class="w-14 h-14 mb-3 -ml-1"
+              class="h-24 w-auto mb-4"
               aria-hidden="true"
             />
-            <p class="t-title mb-1.5">{service.title}</p>
-            <p class="t-small">{service.text}</p>
+            <p class="t-title mb-2">{service.title}</p>
+            <p class="t-body">{service.text}</p>
           </div>
         ))}
       </div>
     </Section>
   </div>
 
-  <!-- Section 2: Our approach — bleed-wider band -->
+  <!-- Section 2: Our approach — bleed-wider band, same split as the SEO page's "Our approach" -->
   <Band>
-      <div class="max-w-7xl mx-auto grid lg:grid-cols-[minmax(0,34%)_minmax(0,66%)] gap-10 items-center">
-        <div>
-          <Eyebrow class="mb-3">Our approach</Eyebrow>
-          <h2 class="t-heading text-balance mb-4">Advice that helps you think more clearly and act with confidence</h2>
-          <p class="t-body mb-6 max-w-md">
-            Good marketing starts with good thinking. We bring experience, honesty, and practical ideas to help you make better decisions and move forward with confidence.
-          </p>
-          <ul class="space-y-3">
-            {approachPoints.map((point) => (
-              <li class="flex items-center gap-3">
-                <IconChip icon={'<path d="M5 13l4 4L19 7"/>'} class="shrink-0" />
-                <span class="t-small-strong">{point}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div class="grid sm:grid-cols-2 gap-5">
-          {approachItems.map((item) => (
-            <div class="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-6 [box-shadow:var(--shadow-card)]">
-              <img
-                src={`${base}/consulting-approach/${item.image}.webp`}
-                alt=""
-                width="300"
-                height="300"
-                loading="lazy"
-                class="w-14 h-14 mb-3 -ml-1"
-                aria-hidden="true"
-              />
-              <p class="t-title mb-1.5">{item.title}</p>
-              <p class="t-small">{item.text}</p>
-            </div>
+    <div class="max-w-7xl mx-auto grid xl:grid-cols-[minmax(0,30%)_minmax(0,70%)] gap-10 items-center">
+      <div>
+        <Eyebrow class="mb-3">Our approach</Eyebrow>
+        <h2 class="t-heading text-balance mb-4">Advice that helps you think more clearly and act with confidence</h2>
+        <p class="t-body mb-6 max-w-xl xl:max-w-sm">
+          Good marketing starts with good thinking. We bring experience, honesty, and practical ideas to help you make better decisions and move forward with confidence.
+        </p>
+        <ul class="space-y-3">
+          {approachPoints.map((point) => (
+            <li class="flex items-center gap-3">
+              <IconChip icon={'<path d="M5 13l4 4L19 7"/>'} class="shrink-0" />
+              <span class="t-small-strong">{point}</span>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
-    </Band>
+
+      <!-- card recipe = LinkedPairs.astro's (illustration beside the text), just without the link chips -->
+      <div class="grid sm:grid-cols-2 gap-5 md:gap-6">
+        {approachItems.map((item) => (
+          <div class="flex items-center gap-4 rounded-[var(--radius-card)] border border-[var(--color-line)] bg-white p-5 [box-shadow:var(--shadow-card)]">
+            <img
+              src={`${base}/consulting-approach/${item.image}.webp`}
+              alt=""
+              width="300"
+              height="300"
+              loading="lazy"
+              class="h-[77px] w-[77px] shrink-0 object-contain"
+              aria-hidden="true"
+            />
+            <div class="min-w-0">
+              <p class="t-title mb-1">{item.title}</p>
+              <p class="t-body">{item.text}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </Band>
 
   <!-- Section 3: Situations we often help with -->
   <Section>

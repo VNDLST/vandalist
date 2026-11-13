@@ -1129,6 +1129,9 @@ about it, don't just pick one.
   Rows 1-2 now follow the SEO page's conventions: Section 1 has an opening SectionHeading (eyebrow/heading/subtext) above the four cards; cards are SEO-style (white, border,
   shadow-card, illustration above t-title/t-body at h-24); Section 2 is the SEO-style band (30% text + four ticks / 70% 2x2 of LinkedPairs-style cards with the 77px illustration
   beside the text). Verified at 1440, 1100, 820 and 375px (no horizontal overflow); check:type and build pass.
+  UPDATE (same day, deployed + verified live, Andrew: "looks good"): the "Our approach" band is now 36/64 at xl (1280) and 40/60 from 1440px up (text column wider, the 2x2 cards
+  narrower, gap-14), so the cards fit the band without as much space around them; paragraph max-w-xl. Andrew parked the page for the day and will come back later today or
+  tomorrow; the SSH allowlist now includes this machine's IP (1.146.72.198), but his IP is dynamic so it may need re-adding.
   STILL PLACEHOLDER (all need Andrew): the four quotes, names, workplaces and the four rough avatars a-d (in consulting-mentoring.astro `testimonials` and inside
   TestimonialBubble.astro); the opening-section eyebrow/heading/paragraph ("Placeholder heading for the opening section", he said "I'll think about what that should be").
   NEXT: (1) Andrew's verdict on the live page + the opening copy; (2) real quotes (3-4, about 20-25 words) + first names + workplaces + a line describing each person, then I draw
